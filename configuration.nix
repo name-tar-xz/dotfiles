@@ -85,7 +85,7 @@
 
   networking = {
     hostName = "nixos"; # Define your hostname.
-    hostFiles = [ ./.hosts ]; # generate with hblock -O ./.hosts -H none
+    hostFiles = [ inputs.hblock ];
 
     useNetworkd = true;
     wireless.iwd = {

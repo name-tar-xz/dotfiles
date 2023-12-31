@@ -41,6 +41,10 @@
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hblock = {
+      url = "file+https://hblock.molinero.dev/hosts";
+      flake = false;
+    };
     /* aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";

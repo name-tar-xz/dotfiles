@@ -242,7 +242,7 @@
       cat = "bat -Pp";
       nohup = "command rm nohup.out;nohup";
 
-      update = "nix flake update ~/.config/nixos; sudo nixos-rebuild switch";
+      update = "nix flake update ~/.config/nixos --commit-lock-file; sudo nixos-rebuild switch";
       switch = "sudo nixos-rebuild switch";
     };
 
