@@ -240,6 +240,18 @@
         "type": "github"
       }
     },
+    "hblock": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-lJRob0RpdDgaUTlapBYW86z9wB7mfW+EXrF6lJYinQU=",
+        "type": "file",
+        "url": "https://hblock.molinero.dev/hosts"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://hblock.molinero.dev/hosts"
+      }
+    },
     "hercules-ci-effects": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -539,6 +551,7 @@
       "inputs": {
         "ags": "ags",
         "chaotic": "chaotic",
+        "hblock": "hblock",
         "home-manager": "home-manager",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-alien": "nix-alien",
