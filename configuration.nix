@@ -183,6 +183,9 @@
   };
 
   environment = {
+    systemPackages = with pkgs;[
+      git
+    ];
 
     sessionVariables = {
       XDG_DATA_HOME = "$HOME/.local/share";
@@ -351,18 +354,13 @@
       ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/add_random}="1"
       ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/nr_requests}="2048"
 
-      KERNEL=="khugepaged", ATTR{scan_sleep_millisecs}="30000"
-
-      KERNEL=="ksm", ATTR{pages_to_scan}="1000"
-      KERNEL=="ksm", ATTR{sleep_millisecs}="4000"
-
       # Custom
       # Set MTU and Transmit Queue Length
       # MTU set to 1492 as wifi is PPPoE
       ACTION=="add", SUBSYSTEM=="net", KERNEL=="wl*", ATTR{mtu}="1492", ATTR{tx_queue_len}="2000"
 
-      ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm1_enable" ATTR{pwm1_enable}="0"
-      ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm2_enable" ATTR{pwm2_enable}="0"
+      ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm1_enable", ATTR{pwm1_enable}="0"
+      ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm2_enable", ATTR{pwm2_enable}="0"
     '';
 
     terraria = {
@@ -381,6 +379,9 @@
 
     tmpfiles.rules = [
       "w! /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"
+      "w! /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs - - - - 30000"
+      "w! /sys/kernel/mm/ksm/pages_to_scan - - - - 1000"
+      "w! /sys/kernel/mm/ksm/sleep_millisecs - - - - 4000"
     ];
 
     user.services.lxqt-policykit-agent = {
