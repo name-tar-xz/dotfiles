@@ -284,6 +284,10 @@
       package = pkgs.ananicy-cpp;
       rulesProvider = pkgs.ananicy-cpp-rules;
     };
+    undervolt = {
+      enable = true;
+      temp = 88;
+    };
 
     resolved = {
       enable = true;
@@ -403,7 +407,11 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs;[ xdg-desktop-portal-hyprland xdg-desktop-portal-gtk ];
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [ "hyprland" "gtk" ];
+    };
   };
 
   security = {
@@ -446,7 +454,7 @@
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        (intel-vaapi-driver.override { enableHybridCodec = true; }) # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
         vaapiVdpau
         libvdpau-va-gl
       ];
@@ -504,7 +512,6 @@
       (iosevka-bin.override { variant = "sgr-iosevka-term"; })
       cascadia-code
       dejavu_fonts
-      # freefont_ttf
       gyre-fonts # TrueType substitutes for standard PostScript fonts
       jetbrains-mono
       liberation_ttf
