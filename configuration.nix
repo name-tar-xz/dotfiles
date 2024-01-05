@@ -1,5 +1,9 @@
 { config, pkgs, lib, inputs, ... }: {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    inputs.chaotic.nixosModules.default
+    inputs.home-manager.nixosModules.home-manager
+  ];
 
   boot = {
     tmp.useTmpfs = true;
@@ -163,6 +167,13 @@
     description = "***REMOVED***";
     extraGroups = [ "networkmanager" "wheel" "docker" "video" ];
     shell = pkgs.dash;
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.***REMOVED*** = import ./home.nix;
+    extraSpecialArgs = { inherit inputs; };
   };
 
   nix = {
@@ -509,10 +520,8 @@
       jetbrains-mono
       liberation_ttf
       noto-fonts
-      roboto
-      roboto-slab
       noto-fonts-cjk
-      iosevka
+      roboto
     ];
   };
 

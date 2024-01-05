@@ -67,18 +67,6 @@
         };
         modules = [
           ./configuration.nix # Your system configuration.
-          chaotic.nixosModules.default # OUR DEFAULT MODULE
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.***REMOVED*** = import ./home.nix;
-              extraSpecialArgs = { inherit inputs; };
-            };
-          }
-
           /* imports = [ aagl.nixosModules.default ];
           programs.honkers-railway-launcher.enable = false; */
 

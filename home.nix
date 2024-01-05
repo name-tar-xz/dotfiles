@@ -39,7 +39,6 @@
       wl-clipboard
       ## Brightness
       brightnessctl
-      wluma
       ## Audio
       pamixer
       qpwgraph
