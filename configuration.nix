@@ -187,13 +187,6 @@
       git
     ];
 
-    sessionVariables = {
-      XDG_DATA_HOME = "$HOME/.local/share";
-      XDG_CONFIG_HOME = "$HOME/.config";
-      XDG_STATE_HOME = "$HOME/.local/state";
-      XDG_CACHE_HOME = "$HOME/.local/cache";
-    };
-
     etc = {
       "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = /* lua */ ''
         bluez_monitor.properties = {

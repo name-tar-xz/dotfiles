@@ -1,12 +1,16 @@
 { config, pkgs, inputs, ... }: {
-  home.username = "***REMOVED***";
-  home.homeDirectory = "/home/***REMOVED***";
-  xdg.cacheHome = "/home/***REMOVED***/.local/cache";
-
   imports = [ inputs.ags.homeManagerModules.default ];
 
+  xdg = {
+    cacheHome = "/home/***REMOVED***/.local/cache";
+    configHome = "/home/***REMOVED***/.config";
+    dataHome = "/home/***REMOVED***/.local/share";
+    stateHome = "/home/***REMOVED***/.local/state";
+  };
 
   home = {
+    username = "***REMOVED***";
+    homeDirectory = "/home/***REMOVED***";
     # You can also create simple shell scripts directly inside your
     # configuration. For example, this adds a command 'my-hello' to your
     # environment:
@@ -159,13 +163,15 @@
     ];
 
     sessionVariables = {
+      XDG_DATA_HOME = "${config.xdg.dataHome}";
+      XDG_CONFIG_HOME = "${config.xdg.configHome}";
+      XDG_STATE_HOME = "${config.xdg.stateHome}";
+      XDG_CACHE_HOME = "${config.xdg.cacheHome}";
+
       NIXOS_OZONE_WL = "1";
-      MOZ_ENABLE_WAYLAND = "1";
       SDL_VIDEODRIVER = "wayland";
       XDG_SESSION_TYPE = "wayland";
       QT_QPA_PLATFORM = "wayland;xcb";
-      WLR_NO_HARDWARE_CURSORS = "1";
-      KITTY_ENABLE_WAYLAND = "1";
 
       KDEHOME = "$XDG_CONFIG_HOME/kde";
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
@@ -234,20 +240,30 @@
       diff = "delta";
       cd = "z";
       getenv = "printenv|rg -i";
-      cls = "TERM=alacritty clear";
-      cl = "TERM=alacritty clear";
-      c = "TERM=alacritty clear";
-      clear = "TERM=alacritty clear";
+      cls = "TERM=xterm clear";
+      cl = "TERM=xterm clear";
+      c = "TERM=xterm clear";
+      clear = "TERM=xterm clear";
       db = "dotbare";
       cat = "bat -Pp";
       nohup = "command rm nohup.out;nohup";
 
-      update = "nix flake update ~/.config/nixos --commit-lock-file; sudo nixos-rebuild switch";
+      update = "nix flake update ~/.config/nixos; sudo nixos-rebuild switch";
       switch = "sudo nixos-rebuild switch";
     };
 
     file = {
       "${config.xdg.configHome}/nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
+    };
+
+    pointerCursor = {
+      gtk.enable = true;
+      x11.enable = true;
+      size = 24;
+      name = "Nero";
+      package = pkgs.runCommand "moveUp" { } ''
+        mkdir -p $out/share/icons
+        ln -s ${inputs.nero} $out/share/icons/Nero'';
     };
   };
 

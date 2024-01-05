@@ -45,6 +45,10 @@
       url = "file+https://hblock.molinero.dev/hosts";
       flake = false;
     };
+    nero = {
+      url = "gitlab:name.tar.xz/Nero";
+      flake = false;
+    };
     /* aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
