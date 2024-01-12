@@ -1,5 +1,8 @@
 { config, pkgs, inputs, ... }: {
-  imports = [ inputs.ags.homeManagerModules.default ];
+  imports = [
+    inputs.ags.homeManagerModules.default
+    inputs.nur.nixosModules.nur
+  ];
 
   xdg = {
     cacheHome = "/home/***REMOVED***/.local/cache";
@@ -50,7 +53,6 @@
       ferdium
       kitty
       libreoffice-fresh
-      (librewolf.override { cfg = { speechSynthesisSupport = false; }; })
       monophony
       wezterm
 
@@ -253,6 +255,8 @@
 
     file = {
       "${config.xdg.configHome}/nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
+      "/home/***REMOVED***/.mozilla/firefox/main/chrome/includes".source = "${inputs.cascade}/chrome/includes";
+      "/home/***REMOVED***/.mozilla/firefox/main/chrome/csshacks".source = "${inputs.csshacks}";
     };
 
     pointerCursor = {
@@ -298,6 +302,48 @@
 
   programs = {
     home-manager.enable = true;
+
+    firefox = {
+      # link ~/.mozilla/firefox and ~/.librewolf for this to work
+      enable = true;
+      package = (pkgs.librewolf.override { cfg = { speechSynthesisSupport = false; }; });
+      profiles = {
+        main = {
+          extraConfig = ''
+            ${builtins.readFile ./.config/arkenfox/user-overrides.js}
+          '';
+
+          userChrome = builtins.readFile "${inputs.cascade}/chrome/userChrome.css";
+          userContent = builtins.readFile "${inputs.cascade}/chrome/userContent.css";
+
+          extensions = with config.nur.repos.rycee.firefox-addons;[
+            ublock-origin
+            libredirect
+            bitwarden
+            tree-style-tab
+            darkreader
+            tridactyl
+            nighttab
+
+            redirector
+            tampermonkey
+            user-agent-string-switcher
+          ];
+
+          search = {
+            engines = {
+              "Brave" = {
+                template = "https://search.brave.com/search";
+                params = [{ name = "q"; value = "{searchTerms}"; }];
+              };
+              "Bing".metaData.hidden = true;
+              "Google".metaData.hidden = true;
+            };
+          };
+        };
+        test.id = 1;
+      };
+    };
 
     zsh = {
       enable = true;

@@ -25,6 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    nur.url = "github:nix-community/NUR";
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,6 +48,14 @@
     };
     nero = {
       url = "gitlab:name.tar.xz/Nero";
+      flake = false;
+    };
+    cascade = {
+      url = "gitlab:name.tar.xz/cascade";
+      flake = false;
+    };
+    csshacks = {
+      url = "github:MrOtherGuy/firefox-csshacks";
       flake = false;
     };
     /* aagl = {
