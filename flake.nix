@@ -52,7 +52,7 @@
     /* aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; */
+      }; */
   };
 
   outputs = { self, nixpkgs, home-manager, chaotic, ... }@inputs:
@@ -68,7 +68,7 @@
         modules = [
           ./configuration.nix # Your system configuration.
           /* imports = [ aagl.nixosModules.default ];
-          programs.honkers-railway-launcher.enable = false; */
+            programs.honkers-railway-launcher.enable = false; */
 
         ];
       };
@@ -77,6 +77,6 @@
         inherit pkgs;
         modules = [ ./home.nix ];
         extraSpecialArgs = { inherit inputs; };
-      }; */
+        }; */
     };
 }

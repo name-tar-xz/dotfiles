@@ -247,7 +247,7 @@
       cat = "bat -Pp";
       nohup = "command rm nohup.out;nohup";
 
-      update = "nix flake update ~/.config/nixos; sudo nixos-rebuild switch";
+      update = "nix flake update ~/.config/nixos --commit-lock-file; sudo nixos-rebuild switch";
       switch = "sudo nixos-rebuild switch";
     };
 
@@ -260,7 +260,7 @@
       x11.enable = true;
       size = 24;
       name = "Nero";
-      package = pkgs.runCommand "moveUp" { } ''
+      package = pkgs.runCommand "Nero" { } ''
         mkdir -p $out/share/icons
         ln -s ${inputs.nero} $out/share/icons/Nero'';
     };
@@ -278,7 +278,9 @@
     theme = {
       name = "Catppuccin-Mocha-Compact-Mauve-Dark";
     };
-    font = { name = "Noto Sans"; };
+    font = {
+      name = "Noto Sans";
+    };
     iconTheme = {
       name = "Papirus-Dark";
     };
@@ -306,7 +308,7 @@
     };
 
     ags = {
-      enable = true;
+      enable = false;
 
       # packages to add to gjs's runtime
       # extraPackages = with pkgs; [ ];

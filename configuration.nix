@@ -268,7 +268,7 @@
 
     psd.enable = true;
     auto-cpufreq = {
-      enable = true;
+      enable = false;
       settings = {
         charger = {
           governor = "powersave";
@@ -291,6 +291,7 @@
     undervolt = {
       enable = true;
       temp = 88;
+      useTimer = true;
     };
 
     resolved = {
