@@ -61,7 +61,6 @@
       doas-sudo-shim
       fastfetch
       fzf
-      git
       hyperfine
       jq
       lazygit
@@ -155,12 +154,6 @@
       # Themes
       papirus-icon-theme
       libsForQt5.lightly
-      (catppuccin-gtk.override {
-        accents = [ "mauve" ]; # You can specify multiple accents here to output multiple themes
-        size = "compact";
-        tweaks = [ "black" ]; # You can also specify multiple tweaks here
-        variant = "mocha";
-      })
     ];
 
     sessionVariables = {
@@ -255,13 +248,17 @@
 
     file = {
       "${config.xdg.configHome}/nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
-      "/home/***REMOVED***/.mozilla/firefox/main/chrome/includes".source = "${inputs.cascade}/chrome/includes";
-      "/home/***REMOVED***/.mozilla/firefox/main/chrome/csshacks".source = "${inputs.csshacks}";
+
+      "${config.home.homeDirectory}/.mozilla/firefox/main/chrome/includes".source = "${inputs.cascade}/chrome/includes";
+      "${config.home.homeDirectory}/.mozilla/firefox/main/chrome/csshacks".source = "${inputs.csshacks}";
+
+      "${config.xdg.configHome}/gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+      "${config.xdg.configHome}/gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
     };
 
     pointerCursor = {
       gtk.enable = true;
-      x11.enable = true;
+      x11.enable = false;
       size = 24;
       name = "Nero";
       package = pkgs.runCommand "Nero" { } ''
@@ -273,25 +270,26 @@
   qt = {
     enable = true;
     platformTheme = "qtct";
-    style = {
-      name = "lightly";
-    };
+    style.name = "lightly";
   };
 
   gtk = {
-    theme = {
-      name = "Catppuccin-Mocha-Compact-Mauve-Dark";
-    };
-    font = {
-      name = "Noto Sans";
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-    };
-    cursorTheme = { name = "Nero"; size = 24; };
+    enable = true;
     gtk2 = {
       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
+
+    theme = {
+      name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+      package = (pkgs.catppuccin-gtk.override {
+        accents = [ "mauve" "sapphire" ]; # You can specify multiple accents here to output multiple themes
+        size = "compact";
+        tweaks = [ "black" ]; # You can also specify multiple tweaks here
+        variant = "mocha";
+      });
+    };
+    font.name = "Noto Sans";
+    iconTheme.name = "Papirus-Dark";
   };
 
   wayland.windowManager.hyprland = {
@@ -331,6 +329,7 @@
           ];
 
           search = {
+            default = "Brave";
             engines = {
               "Brave" = {
                 template = "https://search.brave.com/search";

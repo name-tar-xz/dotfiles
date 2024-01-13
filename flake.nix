@@ -42,6 +42,11 @@
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    /* aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      }; */
+
     hblock = {
       url = "file+https://hblock.molinero.dev/hosts";
       flake = false;
@@ -58,10 +63,6 @@
       url = "github:MrOtherGuy/firefox-csshacks";
       flake = false;
     };
-    /* aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      }; */
   };
 
   outputs = { self, nixpkgs, home-manager, chaotic, ... }@inputs:
