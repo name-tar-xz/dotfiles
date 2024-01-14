@@ -20,6 +20,22 @@
         "type": "github"
       }
     },
+    "betterfox": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704291255,
+        "narHash": "sha256-NFDA8eiopF71aXXwV/xkm9A8pi9tr5gtGFAKxkX4OxA=",
+        "owner": "yokoffing",
+        "repo": "Betterfox",
+        "rev": "4d23050c740d6b773aedaf3c659166e64447fdd5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yokoffing",
+        "repo": "Betterfox",
+        "type": "github"
+      }
+    },
     "cascade": {
       "flake": false,
       "locked": {
@@ -613,6 +629,7 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "betterfox": "betterfox",
         "cascade": "cascade",
         "chaotic": "chaotic",
         "csshacks": "csshacks",

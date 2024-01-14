@@ -55,6 +55,10 @@
       url = "gitlab:name.tar.xz/Nero";
       flake = false;
     };
+    betterfox = {
+      url = "github:yokoffing/Betterfox";
+      flake = false;
+    };
     cascade = {
       url = "gitlab:name.tar.xz/cascade";
       flake = false;

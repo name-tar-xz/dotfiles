@@ -308,7 +308,8 @@
       profiles = {
         main = {
           extraConfig = ''
-            ${builtins.readFile ./.config/arkenfox/user-overrides.js}
+            ${builtins.readFile "${inputs.betterfox}/user.js"}
+            ${builtins.readFile ./.config/firefox/user.js}
           '';
 
           userChrome = builtins.readFile "${inputs.cascade}/chrome/userChrome.css";
@@ -328,7 +329,7 @@
             user-agent-string-switcher
           ];
 
-          search = {
+          /* search = {
             default = "Brave";
             engines = {
               "Brave" = {
@@ -338,7 +339,7 @@
               "Bing".metaData.hidden = true;
               "Google".metaData.hidden = true;
             };
-          };
+          }; */
         };
         test.id = 1;
       };
