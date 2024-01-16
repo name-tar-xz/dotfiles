@@ -1,6 +1,5 @@
 { config, pkgs, inputs, ... }: {
   imports = [
-    inputs.ags.homeManagerModules.default
     inputs.nur.nixosModules.nur
   ];
 
@@ -249,7 +248,6 @@
     file = {
       "${config.xdg.configHome}/nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
 
-      "${config.home.homeDirectory}/.mozilla/firefox/main/chrome/includes".source = "${inputs.cascade}/chrome/includes";
       "${config.home.homeDirectory}/.mozilla/firefox/main/chrome/csshacks".source = "${inputs.csshacks}";
 
       "${config.xdg.configHome}/gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
@@ -311,8 +309,8 @@
             ${builtins.readFile ./.config/firefox/user.js}
           '';
 
-          userChrome = builtins.readFile "${inputs.cascade}/chrome/userChrome.css";
-          userContent = builtins.readFile "${inputs.cascade}/chrome/userContent.css";
+          userChrome = builtins.readFile ./.config/firefox/chrome/userChrome.css;
+          userContent = builtins.readFile ./.config/firefox/chrome/userContent.css;
 
           extensions = with config.nur.repos.rycee.firefox-addons;[
             ublock-origin
@@ -350,13 +348,6 @@
       dotDir = ".config/zsh";
       initExtra = "${builtins.readFile ./.config/zsh/.zshrc}";
       envExtra = "${builtins.readFile ./.config/zsh/.zshenv}";
-    };
-
-    ags = {
-      enable = false;
-
-      # packages to add to gjs's runtime
-      # extraPackages = with pkgs; [ ];
     };
   };
 

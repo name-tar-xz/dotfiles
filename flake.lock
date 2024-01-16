@@ -1,25 +1,5 @@
 {
   "nodes": {
-    "ags": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1705330508,
-        "narHash": "sha256-QnMaWQjMa8plbxkrxpeyI/OQTFU3mNWExzoXGH2RKTI=",
-        "owner": "Aylur",
-        "repo": "ags",
-        "rev": "6eb6755115d6982dbc260e124c4728886b576d24",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Aylur",
-        "repo": "ags",
-        "type": "github"
-      }
-    },
     "betterfox": {
       "flake": false,
       "locked": {
@@ -34,22 +14,6 @@
         "owner": "yokoffing",
         "repo": "Betterfox",
         "type": "github"
-      }
-    },
-    "cascade": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1705100920,
-        "narHash": "sha256-bsjK4V8LNR1cM6Hv2lVJaPDZsOgtPzeupHxcvleCNpI=",
-        "owner": "name.tar.xz",
-        "repo": "cascade",
-        "rev": "de274f9f58bcaf3d156747e9d5b8da7c2ff5269e",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "name.tar.xz",
-        "repo": "cascade",
-        "type": "gitlab"
       }
     },
     "chaotic": {
@@ -628,9 +592,7 @@
     },
     "root": {
       "inputs": {
-        "ags": "ags",
         "betterfox": "betterfox",
-        "cascade": "cascade",
         "chaotic": "chaotic",
         "csshacks": "csshacks",
         "hblock": "hblock",

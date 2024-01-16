@@ -1,0 +1,153 @@
+@import "includes/cascade-nav-bar.css";
+
+@import "csshacks/chrome/multi-row_bookmarks.css";
+@import "csshacks/chrome/rounded_menupopups.css";
+@import "csshacks/chrome/button_effect_icon_glow.css";
+@import "csshacks/chrome/hide_tabs_scrollbuttons.css";
+@import "csshacks/chrome/privatemode_indicator_as_menu_button.css";
+@import "csshacks/chrome/urlbar_connection_type_text_colors.css";
+@import "csshacks/chrome/proton_dark_light_notifications.css";
+@import "csshacks/chrome/loading_indicator_bouncing_line.css";
+@import "csshacks/chrome/hide_toolbox_top_bottom_borders.css";
+@import "csshacks/chrome/custom_menupopup_check_icons.css";
+@import "csshacks/chrome/overlay_tab_audio_icons.css";
+@import "csshacks/chrome/iconized_main_menu.css";
+/* @import "csshacks/chrome/round_caption_buttons.css"; */
+@import "csshacks/chrome/round_ui_items.css";
+/* @import "csshacks/chrome/rounded_menupopups.css"; */
+
+@import "includes/cleaner_extensions_menu.css";
+@import "includes/no_search_engines_in_url_bar.css";
+
+/** Add your custom styles below **********************************************/
+* {
+  font-family: -moz-fixed;
+}
+
+/* Center urlbar and right align links */
+#urlbar {
+  text-align: center;
+}
+
+#urlbar-results {
+  text-align: right;
+}
+
+/* Hide UI Items */
+.titlebar-buttonbox-container {
+  display: none !important;
+}
+
+#pageActionButton {
+  display: none !important;
+}
+
+#PanelUI-menu-button {
+  padding: 0px !important;
+}
+
+#PanelUI-menu-button .toolbarbutton-icon {
+  width: 1px !important;
+}
+
+#PanelUI-menu-button .toolbarbutton-badge-stack {
+  padding: 0px !important;
+}
+
+/* Disable the Navigation Buttons */
+#back-button,
+#forward-button {
+  display: none !important;
+}
+
+#identity-icon-box {
+  background: transparent !important;
+}
+
+/* Hide the »Go«-arrow in the URL Bar */
+#urlbar-go-button {
+  display: none !important;
+}
+
+/* Make Header Unifiead and black */
+#nav-bar {
+  padding-block-start: 0px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+
+#urlbar,
+#urlbar * {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+#urlbar-background {
+  border: transparent !important;
+}
+
+/* Enable option to edit bookmark URLs under Add Bookmark (blue star) menu */
+
+#editBMPanel_locationRow {
+  visibility: visible !important;
+}
+
+/* Disable Email Image/Audio/Video and Set as Desktop Background context menu items */
+
+#context-sendimage,
+#context-sendvideo,
+#context-sendaudio,
+#context-setDesktopBackground {
+  display: none !important;
+}
+
+#TabsToolbar {
+  visibility: collapse;
+}
+
+/* Sidebar min and max width removal */
+#sidebar-box {
+  max-width: none !important;
+  min-width: 0px !important;
+}
+
+/* Hide splitter, when using Tree Style Tab. */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]+#sidebar-splitter {
+  display: none !important;
+}
+
+/* Hide sidebar header, when using Tree Style Tab. */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+  visibility: collapse;
+  display: none;
+}
+
+/* Shrink sidebar until hovered, when using Tree Style Tab. */
+:root {
+  --thin-tab-width: 40px;
+  --wide-tab-width: 200px;
+}
+
+#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
+  min-width: var(--wide-tab-width) !important;
+  max-width: none !important;
+}
+
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] {
+  position: relative !important;
+  transition: all 200ms !important;
+  min-width: var(--thin-tab-width) !important;
+  max-width: var(--thin-tab-width) !important;
+}
+
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]:hover {
+  transition: all 200ms !important;
+  transition-delay: 0.2s !important;
+  min-width: var(--wide-tab-width) !important;
+  max-width: var(--wide-tab-width) !important;
+  margin-right: calc((var(--wide-tab-width) - var(--thin-tab-width)) * -1) !important;
+  z-index: 1;
+}

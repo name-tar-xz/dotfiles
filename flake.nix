@@ -38,10 +38,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags = {
+    /* ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
+    }; */
     /* aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -57,10 +57,6 @@
     };
     betterfox = {
       url = "github:yokoffing/Betterfox";
-      flake = false;
-    };
-    cascade = {
-      url = "gitlab:name.tar.xz/cascade";
       flake = false;
     };
     csshacks = {

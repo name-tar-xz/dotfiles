@@ -64,9 +64,9 @@
       "net.ipv4.conf.default.secure_redirects" = 0;
       "net.ipv4.conf.default.send_redirects" = 0;
       # Zram
-      "vm.swappiness " = 180;
-      "vm.watermark_boost_factor " = 0;
-      "vm.watermark_scale_factor " = 125;
+      "vm.swappiness" = 180;
+      "vm.watermark_boost_factor" = 0;
+      "vm.watermark_scale_factor" = 125;
     };
     consoleLogLevel = 3;
     kernelParams = [ "quiet" "systemd.show_status=auto" "udev.log_level=3" "nowatchdog" ];
