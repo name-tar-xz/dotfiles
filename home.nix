@@ -302,9 +302,8 @@
     home-manager.enable = true;
 
     firefox = {
-      # link ~/.mozilla/firefox and ~/.librewolf for this to work
       enable = true;
-      package = (pkgs.librewolf.override { cfg = { speechSynthesisSupport = false; }; });
+      package = (pkgs.librewolf.override { cfg = { speechSynthesisSupport = false; }; }); # link ~/.mozilla/firefox and ~/.librewolf for this to work
       profiles = {
         main = {
           extraConfig = ''

@@ -21,7 +21,7 @@
     initrd.verbose = false;
     kernel.sysctl = {
       # CachyOS
-      "vm.swappiness" = 20;
+      # "vm.swappiness" = 20;
       "vm.vfs_cache_pressure" = 50;
       # "vm.dirty_bytes" = 268435456;
       "vm.page-cluster" = 0;
@@ -63,6 +63,10 @@
       "net.ipv6.conf.default.accept_redirects" = 0;
       "net.ipv4.conf.default.secure_redirects" = 0;
       "net.ipv4.conf.default.send_redirects" = 0;
+      # Zram
+      "vm.swappiness " = 180;
+      "vm.watermark_boost_factor " = 0;
+      "vm.watermark_scale_factor " = 125;
     };
     consoleLogLevel = 3;
     kernelParams = [ "quiet" "systemd.show_status=auto" "udev.log_level=3" "nowatchdog" ];
@@ -493,7 +497,10 @@
     };
   };
 
-  zramSwap.enable = true;
+  zramSwap = {
+    enable = true;
+    memoryPercent = 100;
+  };
 
   fonts = {
     enableDefaultPackages = false;
