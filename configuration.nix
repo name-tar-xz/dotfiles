@@ -48,6 +48,7 @@
       "kernel.core_pattern" = "/dev/null";
       "kernel.sched_rt_runtime_us" = 980000;
       "kernel.split_lock_mitigate" = 0;
+      "dev.hpet.max-user-freq" = 3072;
       # Clear Linux
       "vm.dirty_ratio" = 50;
       "vm.dirty_background_ratio" = 5;
@@ -202,6 +203,13 @@
       git
     ];
 
+    sessionVariables = {
+      XDG_CACHE_HOME = "$HOME/.local/cache";
+      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_DATA_HOME = "$HOME/.local/share";
+      XDG_STATE_HOME = "$HOME/.local/state";
+    };
+
     etc = {
       "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = /* lua */ ''
         bluez_monitor.properties = {
@@ -351,13 +359,14 @@
       ACTION=="add", SUBSYSTEM=="leds", RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/leds/%k/brightness"
       ACTION=="add", SUBSYSTEM=="leds", RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/leds/%k/brightness"
 
-      # BFQ is recommended for slow storage such as rotational block devices and SD cards.
-      ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
-      ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="mmcblk?", ATTR{queue/scheduler}="bfq"
-
-      # Kyber is recommended for faster storage such as NVME and SATA SSDs.
-      ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/scheduler}="kyber"
-      ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="sd?", ATTR{queue/scheduler}="kyber"
+      # HDD
+      ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
+      
+      # SSD
+      ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
+      
+      # NVMe SSD
+      ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
 
       # Audio Latency
       KERNEL=="rtc0", GROUP="audio"
@@ -395,6 +404,7 @@
       "w! /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs - - - - 30000"
       "w! /sys/kernel/mm/ksm/pages_to_scan - - - - 1000"
       "w! /sys/kernel/mm/ksm/sleep_millisecs - - - - 4000"
+      "w! /sys/class/rtc/rtc0/max_user_freq - - - - 3072"
     ];
 
     user.services.lxqt-policykit-agent = {

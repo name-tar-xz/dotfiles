@@ -47,12 +47,9 @@
       pavucontrol
 
       # Applications
-      brave
-      distrobox
       ferdium
       kitty
       libreoffice-fresh
-      monophony
       wezterm
 
       # CLI tools
@@ -135,7 +132,6 @@
       # Languages
       arduino-cli
       go
-      rustup
       ## C/C++
       clang
       gnumake
@@ -143,7 +139,6 @@
       nodejs
       bun
       ## Python
-      pipx
       python3
 
       # Misc
