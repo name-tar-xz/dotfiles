@@ -169,7 +169,6 @@
       HISTFILE = "${config.xdg.stateHome}/bash/history";
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
       NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-      GNUPGHOME = "${config.xdg.dataHome}/gnupg";
       WINEPREFIX = "${config.xdg.dataHome}/wine";
       NODE_REPL_HISTORY = "${config.xdg.dataHome}/node_repl_history";
       NVM_DIR = "${config.xdg.dataHome}/nvm";
@@ -335,6 +334,11 @@
         };
         test.id = 1;
       };
+    };
+
+    gpg = {
+      enable = true;
+      homedir = "${config.xdg.dataHome}/gnupg";
     };
 
     zsh = {
