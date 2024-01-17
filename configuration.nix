@@ -550,5 +550,9 @@
     age.keyFile = "/home/***REMOVED***/.config/sops/age/keys.txt";
     secrets."wg/a" = { };
     secrets."wg/b" = { };
+    secrets.ssh = {
+      mode = "0004";
+      path = "/home/***REMOVED***/.ssh/id_ed25519";
+    };
   };
 }
