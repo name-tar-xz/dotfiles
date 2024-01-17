@@ -38,6 +38,11 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     /* ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";

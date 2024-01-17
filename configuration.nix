@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
     inputs.chaotic.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
+    inputs.sops-nix.nixosModules.sops
   ];
 
   boot = {
@@ -126,7 +127,7 @@
     wg-quick.interfaces = {
       /* wg0 = {
         address = [ "10.2.0.2/32" ];
-        privateKey = "***REMOVED***";
+        privateKeyFile = config.sops.secrets."wg/a".path;
         peers = [{
           allowedIPs = [ "0.0.0.0/0" ];
           publicKey = "jDrSMRMm6XJgYGcSd01QqJbYiW13dyaOKp8GWDs0rTQ=";
@@ -135,7 +136,7 @@
       }; */
       wg0 = {
         address = [ "10.2.0.2/32" ];
-        privateKey = "***REMOVED***";
+        privateKeyFile = config.sops.secrets."wg/b".path;
         peers = [{
           allowedIPs = [ "0.0.0.0/0" ];
           publicKey = "nsQBMSreq3f0B/BvRRL2aZtuvFAahf7TECaKpbooZVw=";
@@ -543,4 +544,11 @@
   };
 
   chaotic.steam.extraCompatPackages = with pkgs; [ proton-ge-custom ];
+
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.keyFile = "/home/***REMOVED***/.config/sops/age/keys.txt";
+    secrets."wg/a" = { };
+    secrets."wg/b" = { };
+  };
 }
