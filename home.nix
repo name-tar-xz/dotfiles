@@ -286,7 +286,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    extraConfig = "${builtins.readFile ./.config/hypr/hyprland.conf}";
+    extraConfig = "${builtins.readFile ./config/hypr/hyprland.conf}";
   };
 
   programs = {
@@ -299,11 +299,11 @@
         main = {
           extraConfig = ''
             ${builtins.readFile "${inputs.betterfox}/user.js"}
-            ${builtins.readFile ./.config/firefox/user.js}
+            ${builtins.readFile ./config/firefox/user.js}
           '';
 
-          userChrome = builtins.readFile ./.config/firefox/chrome/userChrome.css;
-          userContent = builtins.readFile ./.config/firefox/chrome/userContent.css;
+          userChrome = builtins.readFile ./config/firefox/chrome/userChrome.css;
+          userContent = builtins.readFile ./config/firefox/chrome/userContent.css;
 
           extensions = with config.nur.repos.rycee.firefox-addons;[
             ublock-origin
@@ -344,8 +344,8 @@
       enable = true;
       enableCompletion = false;
       dotDir = ".config/zsh";
-      initExtra = "${builtins.readFile ./.config/zsh/.zshrc}";
-      envExtra = "${builtins.readFile ./.config/zsh/.zshenv}";
+      initExtra = "${builtins.readFile ./config/zsh/.zshrc}";
+      envExtra = "${builtins.readFile ./config/zsh/.zshenv}";
     };
   };
 
