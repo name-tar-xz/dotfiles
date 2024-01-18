@@ -551,8 +551,12 @@
     secrets."wg/a" = { };
     secrets."wg/b" = { };
     secrets.ssh = {
-      mode = "0004";
+      owner = "***REMOVED***";
       path = "/home/***REMOVED***/.ssh/id_ed25519";
+    };
+    secrets.gpg = {
+      owner = "***REMOVED***";
+      path = "/home/***REMOVED***/.local/share/gnupg/private-keys-v1.d/F2F3ACD0B6055BC445CFFFC1E3DD87591F0A6FC2.key";
     };
   };
 }
