@@ -354,6 +354,14 @@
     udiskie.enable = true;
   };
 
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.keyFile = "/home/***REMOVED***/.config/sops/age/keys.txt";
+
+    secrets.ssh.path = "/home/***REMOVED***/.ssh/id_ed25519";
+    secrets.gpg.path = "/home/***REMOVED***/.local/share/gnupg/private-keys-v1.d/F2F3ACD0B6055BC445CFFFC1E3DD87591F0A6FC2.key";
+  };
+
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.

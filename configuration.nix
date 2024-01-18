@@ -180,6 +180,9 @@
     useUserPackages = true;
     users.***REMOVED*** = import ./home.nix;
     extraSpecialArgs = { inherit inputs; };
+    sharedModules = [
+      inputs.sops-nix.homeManagerModules.sops
+    ];
   };
 
   nix = {
@@ -548,15 +551,8 @@
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/home/***REMOVED***/.config/sops/age/keys.txt";
+
     secrets."wg/a" = { };
     secrets."wg/b" = { };
-    secrets.ssh = {
-      owner = "***REMOVED***";
-      path = "/home/***REMOVED***/.ssh/id_ed25519";
-    };
-    secrets.gpg = {
-      owner = "***REMOVED***";
-      path = "/home/***REMOVED***/.local/share/gnupg/private-keys-v1.d/F2F3ACD0B6055BC445CFFFC1E3DD87591F0A6FC2.key";
-    };
   };
 }
