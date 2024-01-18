@@ -157,9 +157,9 @@
       XDG_CACHE_HOME = "${config.xdg.cacheHome}";
 
       NIXOS_OZONE_WL = "1";
-      SDL_VIDEODRIVER = "wayland";
+      /* SDL_VIDEODRIVER = "wayland";
       XDG_SESSION_TYPE = "wayland";
-      QT_QPA_PLATFORM = "wayland;xcb";
+      QT_QPA_PLATFORM = "wayland;xcb"; */
 
       KDEHOME = "${config.xdg.configHome}/kde";
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
@@ -184,10 +184,10 @@
       LIBVA_DRIVER_NAME = "nvidia";
         __EGL_VENDOR_LIBRARY_FILENAMES = "/usr/share/glvnd/egl_vendor.d/10_nvidia.json"; */
 
-      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+      /* QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       GTK_THEME = "Catppuccin-Mocha-Compact-Mauve-Dark";
-      GDK_SCALE = "2";
+      GDK_SCALE = "2"; */
     };
 
     shellAliases = {
@@ -344,8 +344,8 @@
       enable = true;
       enableCompletion = false;
       dotDir = ".config/zsh";
-      initExtra = "${builtins.readFile ./config/zsh/.zshrc}";
-      envExtra = "${builtins.readFile ./config/zsh/.zshenv}";
+      initExtra = "${builtins.readFile ./config/zsh/zshrc}";
+      envExtra = "${builtins.readFile ./config/zsh/zshenv}";
     };
   };
 
