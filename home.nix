@@ -74,7 +74,7 @@
       bat
       delta
       fd
-      lsd
+      eza
       ripgrep
       ## Downloaders
       aria
@@ -216,12 +216,11 @@
       v = "nvim";
       em = "/usr/bin/emacs -nw";
       hx = "helix";
-      l = "lsd";
-      lt = "lsd --tree"; # tree listing
-      ls = "lsd";
-      la = "lsd -l";
-      ll = "lsd -l";
-      "l." = "lsd -A|egrep '^.'";
+      l = "eza -GA --group-directories-first --icons=auto --git-ignore";
+      ls = "eza -GA --group-directories-first --icons=auto --git-ignore";
+      la = "eza -lAX --group-directories-first --icons=auto --smart-group --git --git-repos --git-ignore";
+      ll = "eza -lAX --group-directories-first --icons=auto --smart-group --git --git-repos --git-ignore";
+      lt = "eza -lAX --group-directories-first --icons=auto --smart-group --git --git-repos --git-ignore --tree *"; # tree listing
       cp = "cp -i";
       mv = "mv -i";
       diff = "delta";
