@@ -1,6 +1,25 @@
 ## Run neofetch
 fastfetch
 
+command_not_found_handler() {
+  local p='/run/current-system/sw/bin/command-not-found'
+  if [ -x "$p" ] && [ -f '/nix/var/nix/profiles/per-user/root/channels/nixos/programs.sqlite' ]; then
+    # Run the helper program.
+    "$p" "$@"
+
+    # Retry the command if we just installed it.
+    if [ $? = 126 ]; then
+      "$@"
+    else
+      return 127
+    fi
+  else
+    # Indicate than there was an error so ZSH falls back to its default handler
+    echo "$1: command not found" >&2
+    return 127
+  fi
+}
+
 # Activate Powerlevel10k Instant Prompt.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
