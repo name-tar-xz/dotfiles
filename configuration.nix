@@ -101,7 +101,7 @@
     wireless.iwd = {
       enable = true;
       settings = {
-        General = { AddressRandomization = "network"; };
+        General.AddressRandomization = "network";
         Settings = {
           AutoConnect = true;
           AlwaysRandomizeAddress = true;
@@ -443,7 +443,7 @@
     rtkit.enable = true;
   };
 
-  system.autoUpgrade = { enable = true; };
+  system.autoUpgrade.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -490,7 +490,7 @@
 
     bluetooth = {
       enable = true;
-      settings = { General = { ControllerMode = "bredr"; }; };
+      settings.General.ControllerMode = "bredr";
     };
   };
 
