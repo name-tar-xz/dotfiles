@@ -352,6 +352,16 @@
   services = {
     blueman-applet.enable = true;
     udiskie.enable = true;
+    swayidle = {
+      enable = true;
+      timeouts = [
+        { timeout = 60; command = "${inputs.nixpkgs-wayland.packages."x86_64-linux".swaylock-effects}/bin/swaylock -f"; }
+        { timeout = 60; command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off"; resumeCommand = "${pkgs.hyprland}/bin/hyprland dispatch dpms on"; }
+      ];
+      events = [
+        { event = "before-sleep"; command = "${inputs.nixpkgs-wayland.packages."x86_64-linux".swaylock-effects}/bin/swaylock -f"; }
+      ];
+    };
   };
 
   sops = {
