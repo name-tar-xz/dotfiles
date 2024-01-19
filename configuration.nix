@@ -535,7 +535,7 @@
     waydroid.enable = false;
   };
 
-  chaotic.steam.extraCompatPackages = with pkgs; [ proton-ge-custom ];
+  # chaotic.steam.extraCompatPackages = with pkgs; [ proton-ge-custom ];
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
