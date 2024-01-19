@@ -88,14 +88,6 @@
       trash-cli
       xdg-utils
 
-      # MPV
-      (mpv.override {
-        scripts = with mpvScripts; [
-          autodeint
-          mpris
-          sponsorblock
-        ];
-      })
       ani-cli
       yt-dlp
 
@@ -333,6 +325,38 @@
         };
         test.id = 1;
       };
+    };
+
+    mpv = {
+      enable = true;
+      scripts = with pkgs.mpvScripts; [
+        autodeint
+        mpris
+        sponsorblock
+      ];
+      config = {
+        hwdec = "auto-safe";
+        vo = "gpu-next";
+        ao = "pipewire,";
+        gpu-context = "wayland";
+        profile = "gpu-hq";
+        scale = "ewa_lanczos";
+        cscale = "ewa_lanczos";
+        deband = true;
+        audio-spdif = [ "ac3" "eac3" "dts-hd" "truehd" ];
+        sub-font = "Cascadia Code";
+        cache = true;
+        speed = 2;
+        volume-max = 100;
+        hls-bitrate = "max";
+
+        cursor-autohide = 200;
+        cursor-autohide-fs-only = true;
+        msg-color = true;
+        msg-module = true;
+        term-osd-bar = true;
+      };
+      scriptOpts.ytdl_hook.try_ytdl_first = true;
     };
 
     ssh = {
