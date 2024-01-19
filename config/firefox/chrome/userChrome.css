@@ -1,5 +1,3 @@
-@import "includes/cascade-nav-bar.css";
-
 @import "csshacks/chrome/multi-row_bookmarks.css";
 @import "csshacks/chrome/rounded_menupopups.css";
 @import "csshacks/chrome/button_effect_icon_glow.css";
@@ -18,6 +16,7 @@
 
 @import "includes/cleaner_extensions_menu.css";
 @import "includes/no_search_engines_in_url_bar.css";
+@import "includes/sidebar.css";
 
 /** Add your custom styles below **********************************************/
 * {
@@ -34,7 +33,7 @@
 }
 
 /* Hide UI Items */
-.titlebar-buttonbox-container {
+#titlebar #toolbar-menubar .titlebar-buttonbox-container {
   display: none !important;
 }
 
@@ -77,13 +76,11 @@
   background: transparent !important;
 }
 
-
 #urlbar,
 #urlbar * {
   outline: none !important;
   box-shadow: none !important;
 }
-
 
 #urlbar-background {
   border: transparent !important;
@@ -106,48 +103,4 @@
 
 #TabsToolbar {
   visibility: collapse;
-}
-
-/* Sidebar min and max width removal */
-#sidebar-box {
-  max-width: none !important;
-  min-width: 0px !important;
-}
-
-/* Hide splitter, when using Tree Style Tab. */
-#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]+#sidebar-splitter {
-  display: none !important;
-}
-
-/* Hide sidebar header, when using Tree Style Tab. */
-#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
-  visibility: collapse;
-  display: none;
-}
-
-/* Shrink sidebar until hovered, when using Tree Style Tab. */
-:root {
-  --thin-tab-width: 40px;
-  --wide-tab-width: 200px;
-}
-
-#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
-  min-width: var(--wide-tab-width) !important;
-  max-width: none !important;
-}
-
-#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] {
-  position: relative !important;
-  transition: all 200ms !important;
-  min-width: var(--thin-tab-width) !important;
-  max-width: var(--thin-tab-width) !important;
-}
-
-#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]:hover {
-  transition: all 200ms !important;
-  transition-delay: 0.2s !important;
-  min-width: var(--wide-tab-width) !important;
-  max-width: var(--wide-tab-width) !important;
-  margin-right: calc((var(--wide-tab-width) - var(--thin-tab-width)) * -1) !important;
-  z-index: 1;
 }
