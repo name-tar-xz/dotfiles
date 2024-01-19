@@ -35,8 +35,7 @@
     "/home" = {
       device = "/dev/disk/by-uuid/c5b9d76e-b4e6-4c87-929e-60eb94c910b7";
       fsType = "xfs";
-      options =
-        [ "lazytime" "noatime" "attr2" "inode64" "logbsize=256k" "noquota" ];
+      options = [ "lazytime" "noatime" "inode64" "logbsize=256k" "noquota" ];
     };
   };
 

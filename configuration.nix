@@ -199,7 +199,7 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [ inputs.neovim-nightly-overlay.overlay ];
+    overlays = with inputs; [ neovim-nightly-overlay.overlay ];
   };
 
   environment = {
@@ -238,20 +238,9 @@
       withNodeJs = false;
     };
 
-    zsh = {
-      enable = true;
-      enableLsColors = false;
-      enableCompletion = false;
-      promptInit = "";
-    };
-
-    ssh.package = pkgs.openssh_hpn;
-    gnupg = {
-      agent = {
-        enable = true;
-        enableSSHSupport = true;
-      };
-      dirmngr.enable = true;
+    ssh = {
+      package = pkgs.openssh_hpn;
+      ciphers = [ "aes128-gcm@openssh.com" "aes256-gcm@openssh.com" "chacha20-poly1305@openssh.com" "aes256-ctr" "aes192-ctr" "aes128-ctr" ];
     };
     dconf.enable = true;
 

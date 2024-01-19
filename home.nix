@@ -242,6 +242,7 @@
       "${config.xdg.configHome}/nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
 
       "${config.home.homeDirectory}/.mozilla/firefox/main/chrome/csshacks".source = "${inputs.csshacks}";
+      "${config.home.homeDirectory}/.mozilla/firefox/main/chrome/includes".source = ./config/firefox/chrome/includes;
 
       "${config.xdg.configHome}/gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
       "${config.xdg.configHome}/gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
@@ -261,7 +262,6 @@
   qt = {
     enable = true;
     platformTheme = "qtct";
-    style.name = "lightly";
   };
 
   gtk = {
@@ -335,6 +335,13 @@
       };
     };
 
+    ssh = {
+      enable = true;
+      package = pkgs.openssh_hpn;
+      controlMaster = "auto";
+      controlPersist = "yes";
+      extraConfig = "Ciphers aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr";
+    };
     gpg = {
       enable = true;
       homedir = "${config.xdg.dataHome}/gnupg";

@@ -86,6 +86,11 @@
   border: transparent !important;
 }
 
+/* bookmark icon margin fix */
+.urlbar-page-action .urlbar-icon {
+  margin-top: 0px !important;
+}
+
 /* Enable option to edit bookmark URLs under Add Bookmark (blue star) menu */
 
 #editBMPanel_locationRow {
