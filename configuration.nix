@@ -1,9 +1,9 @@
 { config, pkgs, lib, inputs, ... }: {
-  imports = [
+  imports = with inputs;[
     ./hardware-configuration.nix
-    inputs.chaotic.nixosModules.default
-    inputs.home-manager.nixosModules.home-manager
-    inputs.sops-nix.nixosModules.sops
+    chaotic.nixosModules.default
+    home-manager.nixosModules.home-manager
+    sops-nix.nixosModules.sops
   ];
 
   boot = {

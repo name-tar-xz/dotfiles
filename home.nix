@@ -1,6 +1,6 @@
 { config, pkgs, inputs, ... }: {
-  imports = [
-    inputs.nur.nixosModules.nur
+  imports = with inputs;[
+    nur.nixosModules.nur
   ];
 
   xdg = {

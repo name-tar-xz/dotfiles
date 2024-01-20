@@ -72,7 +72,7 @@
 
   outputs = { self, nixpkgs, home-manager, chaotic, ... }@inputs:
     let
-      system = "x86_64-linux";
+      system = nixpkgs.system;
       # pkgs = nixpkgs.legacyPackages.${system};
     in
     {
