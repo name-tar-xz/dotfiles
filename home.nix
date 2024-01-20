@@ -152,10 +152,10 @@
     ];
 
     sessionVariables = {
-      XDG_DATA_HOME = "${config.xdg.dataHome}";
-      XDG_CONFIG_HOME = "${config.xdg.configHome}";
-      XDG_STATE_HOME = "${config.xdg.stateHome}";
-      XDG_CACHE_HOME = "${config.xdg.cacheHome}";
+      XDG_DATA_HOME = config.xdg.dataHome;
+      XDG_CONFIG_HOME = config.xdg.configHome;
+      XDG_STATE_HOME = config.xdg.stateHome;
+      XDG_CACHE_HOME = config.xdg.cacheHome;
 
       NIXOS_OZONE_WL = "1";
       /* SDL_VIDEODRIVER = "wayland";
@@ -240,7 +240,7 @@
     };
 
     file = {
-      ".mozilla/firefox/main/chrome/csshacks".source = "${inputs.csshacks}";
+      ".mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;
       ".mozilla/firefox/main/chrome/includes".source = ./config/firefox/chrome/includes;
     };
 
@@ -282,7 +282,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    extraConfig = "${builtins.readFile ./config/hypr/hyprland.conf}";
+    extraConfig = builtins.readFile ./config/hypr/hyprland.conf;
   };
 
   programs = {
@@ -379,8 +379,8 @@
       enable = true;
       enableCompletion = false;
       dotDir = ".config/zsh";
-      initExtra = "${builtins.readFile ./config/zsh/zshrc}";
-      envExtra = "${builtins.readFile ./config/zsh/zshenv}";
+      initExtra = builtins.readFile ./config/zsh/zshrc;
+      envExtra = builtins.readFile ./config/zsh/zshenv;
     };
   };
 
