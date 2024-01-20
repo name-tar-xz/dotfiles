@@ -34,7 +34,6 @@
       hyprpicker
       inputs.nixpkgs-wayland.packages.${system}.swaylock-effects ## LockScreen
       swaybg
-      swayidle
       waybar
       wlogout
       wofi ## Launcher
@@ -146,9 +145,6 @@
       bash-completion
       libnotify
       topgrade
-      # Themes
-      papirus-icon-theme
-      libsForQt5.lightly
     ];
 
     sessionVariables = {
@@ -258,6 +254,7 @@
   qt = {
     enable = true;
     platformTheme = "qtct";
+    style.package = pkgs.libsForQt5.lightly;
   };
 
   gtk = {
@@ -276,7 +273,10 @@
       });
     };
     font.name = "Noto Sans";
-    iconTheme.name = "Papirus-Dark";
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
   };
 
   wayland.windowManager.hyprland = {
