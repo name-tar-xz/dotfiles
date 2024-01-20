@@ -8,6 +8,15 @@
     configHome = "/home/***REMOVED***/.config";
     dataHome = "/home/***REMOVED***/.local/share";
     stateHome = "/home/***REMOVED***/.local/state";
+
+    configFile = {
+      "nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
+
+      "wlogout/icons".source = "${pkgs.wlogout}/share/wlogout/icons";
+
+      "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+      "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+    };
   };
 
   home = {
@@ -231,13 +240,8 @@
     };
 
     file = {
-      "${config.xdg.configHome}/nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
-
-      "${config.home.homeDirectory}/.mozilla/firefox/main/chrome/csshacks".source = "${inputs.csshacks}";
-      "${config.home.homeDirectory}/.mozilla/firefox/main/chrome/includes".source = ./config/firefox/chrome/includes;
-
-      "${config.xdg.configHome}/gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-      "${config.xdg.configHome}/gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+      ".mozilla/firefox/main/chrome/csshacks".source = "${inputs.csshacks}";
+      ".mozilla/firefox/main/chrome/includes".source = ./config/firefox/chrome/includes;
     };
 
     pointerCursor = {
