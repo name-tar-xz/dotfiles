@@ -57,27 +57,20 @@
       btop
       doas-sudo-shim
       fastfetch
-      fzf
       hyperfine
       jq
-      lazygit
-      mcfly
       moar
-      inputs.nix-alien.packages.${system}.nix-alien
+      inputs.nix-alien.packages.${pkgs.system}.nix-alien
       onefetch
-      playerctl
-      tealdeer
       unzip
       vivid
       zip
       zoxide
       ## Coreutil Replacements
       bat
-      delta
       fd
-      eza
-      ripgrep
       ## Downloaders
+      ani-cli
       aria
       wget
       ## File Management
@@ -88,9 +81,6 @@
       rmtrash
       trash-cli
       xdg-utils
-
-      ani-cli
-      yt-dlp
 
       # Neovim formatter,LSP,linters
       codespell
@@ -181,8 +171,6 @@
     };
 
     shellAliases = {
-      rg = "rg -SL";
-
       jctl = "journalctl -b";
       sysfailed = "systemctl list-units --failed";
       ssn = "shutdown now";
@@ -206,20 +194,16 @@
       v = "nvim";
       em = "/usr/bin/emacs -nw";
       hx = "helix";
-      l = "eza -GA --group-directories-first --icons=auto --git-ignore";
-      ls = "eza -GA --group-directories-first --icons=auto --git-ignore";
-      la = "eza -lAX --group-directories-first --icons=auto --smart-group --git --git-repos --git-ignore";
-      ll = "eza -lAX --group-directories-first --icons=auto --smart-group --git --git-repos --git-ignore";
-      lt = "eza -lAX --group-directories-first --icons=auto --smart-group --git --git-repos --git-ignore --tree *"; # tree listing
+      l = "ls";
       cp = "cp -i";
       mv = "mv -i";
       diff = "delta";
       cd = "z";
       getenv = "printenv|rg -i";
-      cls = "TERM=xterm clear";
-      cl = "TERM=xterm clear";
-      c = "TERM=xterm clear";
-      clear = "TERM=xterm clear";
+      clear = "clear -T xterm";
+      cls = "clear -T xterm";
+      cl = "clear -T xterm";
+      c = "clear -T xterm";
       db = "dotbare";
       cat = "bat -Pp";
       nohup = "command rm nohup.out;nohup";
@@ -355,6 +339,13 @@
       };
       scriptOpts.ytdl_hook.try_ytdl_first = true;
     };
+    yt-dlp = {
+      enable = true;
+      settings = {
+        downloader = "aria2c";
+        downloader-args = "-c -j 6 -x 6 -s 6 -k 1M";
+      };
+    };
 
     waybar = {
       enable = true;
@@ -373,6 +364,46 @@
       ];
     };
 
+    git = {
+      enable = true;
+      userName = "name.tar.xz";
+      userEmail = "git.3myp3@slmail.me";
+      signing = {
+        key = "D3C9DE564A3DBD30";
+        signByDefault = true;
+      };
+      aliases.lg = "log --graph";
+      extraConfig = {
+        log = {
+          decorate = true;
+          initialDecorationSet = "all";
+          date = "human";
+        };
+
+        init.dafaultBranch = "master";
+        merge.conflictstyle = "diff3";
+
+        diff = {
+          tool = "vimdiff";
+          colorMoved = "default";
+        };
+        difftool.prompt = false;
+      };
+      delta = {
+        enable = true;
+        options = {
+          navigate = true;
+          features = "decorations line-numbers";
+          true-color = "always";
+          decorations = {
+            file-style = "omit";
+            hunk-header-style = "file line-number syntax";
+            hunk-header-line-number-style = "yellow";
+            syntax-theme = "Catppuccin-mocha";
+          };
+        };
+      };
+    };
     ssh = {
       enable = true;
       package = pkgs.openssh_hpn;
@@ -391,7 +422,89 @@
       dotDir = ".config/zsh";
       initExtra = builtins.readFile ./config/zsh/zshrc;
       envExtra = builtins.readFile ./config/zsh/zshenv;
+      history = {
+        path = "${config.xdg.stateHome}/zsh/history";
+        size = 100000;
+        save = 100000;
+      };
     };
+    eza = {
+      enable = true;
+      enableAliases = true;
+      extraOptions = [ "-aX" "--group-directories-first" "--icons=auto" "--smart-group" "--git" "--git-repos" "--git-ignore" ];
+    };
+    fzf = {
+      enable = true;
+      defaultCommand = "fd --prune --type file -L --color=always";
+      defaultOptions = [
+        "--inline-info"
+        "--ansi"
+        "--cycle"
+        "--multi"
+        "--height ~100%"
+        "--border"
+        "--bind 'alt-/:preview:bat --style=numbers,header-filename,header-filesize,snip,rule --color=always --paging=always {}'"
+        "--preview-window 'right,border-left,<60(down,border)'"
+        "--bind 'ctrl-r:reload(${config.programs.fzf.defaultCommand})'"
+      ];
+      colors = {
+        "bg+" = "#313244";
+        "fg+" = "#cdd6f4";
+        "hl+" = "#f38ba8";
+        fg = "#cdd6f4";
+        header = "#f38ba8";
+        hl = "#f38ba8";
+        info = "#cba6f7";
+        marker = "#f5e0dc";
+        pointer = "#f5e0dc";
+        prompt = "#cba6f7";
+        spinner = "#f5e0dc";
+      };
+      enableZshIntegration = true;
+    };
+    ripgrep = {
+      enable = true;
+      arguments = [ "--smart-case" "--follow" "--pretty" ];
+    };
+    tealdeer = {
+      enable = true;
+      settings = {
+        display.compact = true;
+        style = {
+          command_name.foreground = "green";
+          example_text.foreground = "yellow";
+          example_code.foreground = "cyan";
+          example_variable = { foreground = "magenta"; underline = true; };
+        };
+        updates.auto_update = true;
+      };
+    };
+    lazygit = {
+      enable = true;
+      settings = {
+        git.paging.pager = "delta --dark --paging=never";
+        gui = {
+          showIcons = true;
+          nerdFontsVersion = "3";
+          theme = {
+            activeBorderColor = [ "#cba6f7" "bold" ];
+            inactiveBorderColor = [ "#a6adc8" ];
+            optionsTextColor = [ "#89b4fa" ];
+            selectedLineBgColor = [ "#313244" ];
+            selectedRangeBgColor = [ "#313244" ];
+            cherryPickedCommitBgColor = [ "#45475a" ];
+            cherryPickedCommitFgColor = [ "#cba6f7" ];
+            unstagedChangesColor = [ "#f38ba8" ];
+            defaultFgColor = [ "#cdd6f4" ];
+            searchingActiveBorderColor = [ "#f9e2af" ];
+          };
+        };
+      };
+    };
+    /* zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    }; */
   };
 
   services = {

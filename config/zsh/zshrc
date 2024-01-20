@@ -32,17 +32,11 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 
 # automatically load bash completion functions
-HISTFILE="$XDG_STATE_HOME"/zsh/history
-HISTSIZE=100000
-SAVEHIST=100000
 # typeset -g -A key
 
 source "$HOME/.config/sh/functions.sh"
 source "$ZDOTDIR/keys.sh"
 source "$ZDOTDIR/opts.sh"
-
-eval "$(mcfly init zsh)"
-eval "$(npm completion)"
 
 zinit light kazhala/dotbare
 zinit light chisui/zsh-nix-shell
