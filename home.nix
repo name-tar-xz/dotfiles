@@ -13,9 +13,10 @@
       "nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
 
       "wlogout/icons".source = "${pkgs.wlogout}/share/wlogout/icons";
+      "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
 
       "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-      "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+      "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
     };
   };
 
@@ -32,23 +33,15 @@
       # Hyprland
       dunst ## Notification Daemon
       hyprpicker
-      inputs.nixpkgs-wayland.packages.${system}.swaylock-effects ## LockScreen
+      inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects ## LockScreen
       swaybg
-      waybar
-      wlogout
       wofi ## Launcher
       rofi-wayland
-      ## Screenshot
-      grim
-      slurp
+      grimblast ## Screenshot
+      iwgtk # System Control
+      wl-clipboard ## Clipboard
+      brightnessctl ## Brightness
 
-      # System Control
-      iwgtk
-      ## Clipboard
-      cliphist
-      wl-clipboard
-      ## Brightness
-      brightnessctl
       ## Audio
       pamixer
       qpwgraph
@@ -363,6 +356,23 @@
       scriptOpts.ytdl_hook.try_ytdl_first = true;
     };
 
+    waybar = {
+      enable = true;
+      systemd.enable = true;
+      style = ./config/waybar/style.css;
+    };
+    wlogout = {
+      enable = true;
+      style = ./config/wlogout/style.css;
+      layout = [
+        { label = "shutdown"; action = "systemctl poweroff"; text = "Shutdown"; keybind = "s"; }
+        { label = "reboot"; action = "systemctl reboot"; text = "Reboot"; keybind = "r"; }
+        { label = "hibernate"; action = "systemctl hibernate"; text = "Hibernate"; keybind = "h"; }
+        { label = "suspend"; action = "systemctl suspend"; text = "Suspend"; keybind = "u"; }
+        { label = "logout"; action = "hyprctl dispatch exit 0"; text = "Logout"; keybind = "e"; }
+      ];
+    };
+
     ssh = {
       enable = true;
       package = pkgs.openssh_hpn;
@@ -387,16 +397,17 @@
   services = {
     blueman-applet.enable = true;
     udiskie.enable = true;
+    cliphist.enable = true;
     swayidle = {
       enable = true;
       timeouts = [
-        { timeout = 60; command = "${inputs.nixpkgs-wayland.packages."x86_64-linux".swaylock-effects}/bin/swaylock -f"; }
+        { timeout = 60; command = "${inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects}/bin/swaylock -f"; }
         { timeout = 60; command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off"; resumeCommand = "${pkgs.hyprland}/bin/hyprland dispatch dpms on"; }
       ];
-      events = [
-        { event = "before-sleep"; command = "${inputs.nixpkgs-wayland.packages."x86_64-linux".swaylock-effects}/bin/swaylock -f"; }
-      ];
+      events = [{ event = "before-sleep"; command = "${inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects}/bin/swaylock -f"; }];
     };
+
+    playerctld.enable = true;
   };
 
   sops = {

@@ -1,0 +1,205 @@
+@define-color base #000000;
+@define-color mantle #010101;
+@define-color crust #020202;
+
+@define-color text #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color subtext1 #bac2de;
+
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
+
+@define-color overlay0 #6c7086;
+@define-color overlay1 #7f849c;
+@define-color overlay2 #9399b2;
+
+@define-color blue #89b4fa;
+@define-color lavender #b4befe;
+@define-color sapphire #74c7ec;
+@define-color sky #89dceb;
+@define-color teal #94e2d5;
+@define-color green #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color peach #fab387;
+@define-color maroon #eba0ac;
+@define-color red #f38ba8;
+@define-color mauve #cba6f7;
+@define-color pink #f5c2e7;
+@define-color flamingo #f2cdcd;
+@define-color rosewater #f5e0dc;
+
+/* Reset all styles */
+
+* {
+  /* color: @text; */
+  border: 0;
+  /* border-top: 1px; */
+  border-radius: 0;
+  padding: 0 2px;
+  font-family: "monospace";
+  font-size: 1rem;
+  padding-bottom: 0px;
+}
+
+window#waybar {
+  /* background: alpha(@base, 0.8); */
+  background: @base;
+}
+
+#window {
+  color: @text
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+  color: transparent;
+}
+
+tooltip {
+  color: @text;
+  background-color: transparent;
+}
+
+tooltip label {
+  color: @text;
+  background-color: transparent;
+}
+
+#workspaces button {
+  padding-left: 4px;
+  padding-right: 4px;
+  color: @text;
+  /* border-color: @text; */
+  /* border-style: solid; */
+  margin: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+#workspaces button.active {
+  color: @blue;
+}
+
+#workspaces button.urgent {
+  color: @red;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#idle_inhibitor,
+#temperature,
+#backlight,
+#network,
+#bluetooth,
+#pulseaudio,
+#pulseaudio.microphone,
+#tray,
+#window,
+#custom-fan,
+#custom-notification {
+  /* border-style: solid; */
+  margin-left: 8px;
+}
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+#clock {
+  color: @mauve;
+}
+
+#backlight {
+  color: @yellow;
+}
+
+#battery {
+  color: @green;
+}
+
+#battery.charging {
+  color: @green;
+}
+
+@keyframes blink {
+  to {
+    color: #4c566a;
+    background-color: @text;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background: @red;
+  color: @text;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#cpu {
+  color: @sapphire;
+}
+
+#memory {
+  color: @maroon;
+}
+
+#network.disabled {
+  color: @red;
+}
+
+#network {
+  color: @peach;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+/* #pulseaudio.microphone { */
+/*   margin-right: 0px; */
+/*   margin-left: 0px; */
+/* } */
+
+/* #pulseaudio.microphone.muted { */
+/*   color: #a3be8c; */
+/* } */
+
+#pulseaudio {
+  color: @pink;
+}
+
+#pulseaudio.muted {
+  color: @surface0;
+}
+
+#temperature {
+  color: @sky;
+}
+
+#temperature.critical {
+  color: @red;
+}
+
+#idle_inhibitor {
+  color: @yellow;
+}
+
+#tray {}
+
+#mpris {
+  color: @text;
+}
+
+#window {
+  border-style: hidden;
+}
+
+#custom-fan {
+  color: @blue;
+}

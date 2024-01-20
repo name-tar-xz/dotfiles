@@ -1,0 +1,260 @@
+{
+  "layer": "top", // Waybar at top layer
+  "position": "top", // Waybar position (top|bottom|left|right)
+  // "height": 1900,
+  // "width": 216,
+  "margin": "0 0 0 0",
+  "rotate": 270,
+  "spacing": 0,
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "mpris"
+  ],
+  "modules-right": [
+    "custom/fan",
+    "cpu",
+    "temperature",
+    "memory",
+    "network",
+    // "backlight",
+    // "bluetooth",
+    // "group/audio",
+    "pulseaudio#microphone",
+    "pulseaudio",
+    "battery",
+    "tray",
+    // "custom/notification",
+    // "idle_inhibitor",
+    "clock"
+  ],
+  "group/audio": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "audio",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "pulseaudio",
+      "pulseaudio#microphone"
+    ]
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "all-outputs": true,
+    "sort-by-number": true,
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "0",
+      "focused": "",
+      "default": "󰟒"
+    },
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1"
+  },
+  "hyprland/window": {
+    "format": "{}",
+    "rewrite": {
+      "(.*) — LibreWolf": "$1",
+      "(.*) - zsh": "> [$1]"
+    },
+    "icon": true,
+    "icon-size": 18,
+    "separate-outputs": false
+  },
+  "idle_inhibitor": {
+    "format": "{icon} ",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "tray": {
+    "icon-size": 15,
+    "spacing": 0
+  },
+  "clock": {
+    // "tooltip-format": "<big>{:%A, %d}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": " {:%d/%m  %H:%M}",
+    "format-alt": " {:%a %d %b  %H:%M}", //24 hour format
+    //"timezones": [ "Kolkata" ],
+    //"max-length": 200
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "left",
+      "on-scroll": -1,
+      "on-click-right": "mode",
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>{}</b></span>",
+        "weekdays": "<span color='#ffcc67'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "cpu": {
+    // "format": " {max_frequency}GHz|{usage: >2}%",
+    "format": " {max_frequency:2.1f}GHz",
+    "interval": 2
+  },
+  "memory": {
+    "format": " {used:2.0f}G",
+    "tooltip-format": "{used}GiB RAM\n{swapUsed}GiB Swap"
+  },
+  "temperature": {
+    "critical-threshold": 80,
+    "format": " {temperatureC}°C",
+    "interval": 2
+  },
+  "backlight": {
+    "format": "{icon} {percent}%",
+    "format-icons": [
+      "",
+      ""
+    ],
+    "on-scroll-up": "brightnessctl -c backlight set 5%-",
+    "on-scroll-down": "brightnessctl -c backlight set +5%"
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}{capacity: >3}%",
+    "format-charging": "󰂄{capacity: >3}%",
+    "format-plugged": "󰚥{capacity: >3}%",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ],
+    "interval": 1
+  },
+  "network": {
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "format": "󰤮 Off",
+    "format-wifi": "{icon} {bandwidthDownBytes}",
+    "tooltip-format": "{essid} ({frequency} MHz) {signalStrength}%\n⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
+    "interval": 1,
+    "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
+    "format-disconnected": "󰤫 D/C",
+    "on-click": "iwgtk"
+  },
+  "pulseaudio": {
+    "scroll-step": 5,
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "headphones": "",
+      "handsfree": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "pamixer -t",
+    "on-scroll-down": "pamixer -i 5",
+    "on-scroll-up": "pamixer -d 5"
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "󰍬 {volume}%",
+    "format-source-muted": "󰍭",
+    "on-click": "pamixer --default-source -t",
+    "on-scroll-down": "pamixer --default-source -i 5",
+    "on-scroll-up": "pamixer --default-source -d 5",
+    "scroll-step": 5
+  },
+  "custom/fan": {
+    "format": "󰈐 {: >4}",
+    "exec": "cat /sys/devices/platform/asus-nb-wmi/hwmon/hwmon*/fan1_input",
+    "interval": 5
+  },
+  "mpris": {
+    "format": "{player_icon} {dynamic}",
+    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "player-icons": {
+      "default": "󰏤"
+    },
+    "status-icons": {
+      "paused": "󰐊"
+    },
+    "interval": 1
+  },
+  "bluetooth": {
+    "on-click": "blueman-manager",
+    "format": "",
+    "format-disabled": "", // an empty format will hide the module
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon} {}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  }
+}
