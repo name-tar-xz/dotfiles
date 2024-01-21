@@ -8,12 +8,6 @@ export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 
 export LS_COLORS="$(vivid generate catppuccin-mocha)" #Set lsd,fd colors
 
-export MOAR='-wrap -statusbar plain -style native -no-linenumbers -quit-if-one-screen'
-
-export MCFLY_RESULTS=75
-export MCFLY_RESULTS_SORT=LAST_RUN
-export MCFLY_FUZZY=1
-
 export GPG_TTY=$(tty)
 
 # export BUN_INSTALL="$HOME/.local/share/.bun"
@@ -42,11 +36,6 @@ fi
 fpath=(~/.config/zsh/completion $fpath)
 
 setopt rcs
-export BROWSER=librewolf
-export SUDO_EDITOR=nvim
-export EDITOR=nvim
-export VISUAL=nvim
-export PAGER=moar
 
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 

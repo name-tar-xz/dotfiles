@@ -38,6 +38,8 @@ source "$HOME/.config/sh/functions.sh"
 source "$ZDOTDIR/keys.sh"
 source "$ZDOTDIR/opts.sh"
 
+eval "$(batpipe)"
+
 zinit light kazhala/dotbare
 zinit light chisui/zsh-nix-shell
 zinit wait lucid for \

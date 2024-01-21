@@ -58,25 +58,21 @@
       fastfetch
       hyperfine
       jq
-      moar
       inputs.nix-alien.packages.${pkgs.system}.nix-alien
       onefetch
       unzip
       vivid
       zip
-      zoxide
       ## Coreutil Replacements
-      bat
       fd
+      zoxide
       ## Downloaders
       ani-cli
       aria
       wget
       ## File Management
       file
-      lf
       nix-tree
-      ranger
       rmtrash
       trash-cli
       xdg-utils
@@ -134,6 +130,13 @@
       XDG_CONFIG_HOME = config.xdg.configHome;
       XDG_STATE_HOME = config.xdg.stateHome;
       XDG_CACHE_HOME = config.xdg.cacheHome;
+
+      BROWSER = "librewolf";
+      SUDO_EDITOR = "nvim";
+      EDITOR = "nvim";
+      VISUAL = "nvim";
+      PAGER = "less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse --ignore-case --LONG-PROMPT --quit-on-intr --tilde";
+      DELTA_PAGER = config.home.sessionVariables.PAGER;
 
       NIXOS_OZONE_WL = "1";
       /* SDL_VIDEODRIVER = "wayland";
@@ -204,8 +207,9 @@
       cl = "clear -T xterm";
       c = "clear -T xterm";
       db = "dotbare";
-      cat = "bat -Pp";
+      cat = "bat";
       nohup = "command rm nohup.out;nohup";
+      less = config.home.sessionVariables.PAGER;
 
       update = "nix flake update ~/.config/nixos --commit-lock-file; sudo nixos-rebuild switch";
       switch = "sudo nixos-rebuild switch";
@@ -472,6 +476,17 @@
       enableAliases = true;
       extraOptions = [ "-aX" "--group-directories-first" "--icons=auto" "--smart-group" "--git" "--git-repos" "--git-ignore" ];
     };
+    bat = {
+      enable = true;
+      config = {
+        theme = "Catppuccin-mocha";
+        style = "changes,header-filename,header-filesize,rule,numbers,snip";
+        pager = config.home.sessionVariables.PAGER;
+
+        map-syntax = [ "*.ino:C++" "*.ignore:Git Ignore" ];
+      };
+      extraPackages = with pkgs.bat-extras; [ batwatch batgrep batpipe ];
+    };
     fzf = {
       enable = true;
       defaultCommand = "fd --prune --type file -L --color=always";
@@ -482,7 +497,10 @@
         "--multi"
         "--height ~100%"
         "--border"
-        "--bind 'alt-/:preview:bat --style=numbers,header-filename,header-filesize,snip,rule --color=always --paging=always {}'"
+        "--preview 'bat --force-colorization --paging=always {}'"
+        "--bind='alt-/:toggle-preview'"
+        "--bind='ctrl-u:preview-page-up'"
+        "--bind='ctrl-d:preview-page-down'"
         "--preview-window 'right,border-left,<60(down,border)'"
         "--bind 'ctrl-r:reload(${config.programs.fzf.defaultCommand})'"
       ];
@@ -517,6 +535,24 @@
         };
         updates.auto_update = true;
       };
+    };
+    lf = {
+      enable = true;
+      previewer.source = "${pkgs.pistol}/bin/pistol";
+      settings = {
+        icons = true;
+        hidden = true;
+        cursorpreviewfmt = "";
+        scrolloff = 999;
+      };
+    };
+    pistol = {
+      enable = true;
+      associations = [
+        { mime = "text/*"; command = "bat --paging=never --color=always %pistol-filename%"; }
+        { mime = "image/*"; command = "kitty +kitten icat --silent --stdin no --transfer-mode file %pistol-filename%"; }
+        { mime = "inode/directory"; command = "eza %pistol-filename% --icons=always -l"; }
+      ];
     };
     lazygit = {
       enable = true;
