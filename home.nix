@@ -259,9 +259,10 @@
     };
   };
 
-  wayland.windowManager.hyprland = {
+  wayland.windowManager.hyprland = let vars = builtins.mapAttrs (name: value: name + "," + builtins.toString (value)) config.home.sessionVariables; in {
     enable = true;
     xwayland.enable = true;
+    settings.env = (map (key: builtins.getAttr key vars) (builtins.attrNames vars));
     extraConfig = builtins.readFile ./config/hypr/hyprland.conf;
   };
 
