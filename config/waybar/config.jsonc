@@ -227,7 +227,7 @@
   },
   "bluetooth": {
     "on-click": "blueman-manager",
-    "format": "",
+    "format": "",
     "format-disabled": "", // an empty format will hide the module
     "format-connected": " {device_alias}",
     "format-connected-battery": " {device_alias} {device_battery_percentage}%",

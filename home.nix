@@ -39,6 +39,7 @@
       wl-clipboard ## Clipboard
       brightnessctl ## Brightness
       rofi-bluetooth ## Bluetooth
+      rofi-power-menu
 
       ## Audio
       pamixer
@@ -359,18 +360,17 @@
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      plugins = with pkgs;[ rofi-calc ];
+      plugins = with pkgs;[ rofi-calc rofi-power-menu ];
 
       cycle = true;
       font = "monospace 12";
       theme = ./config/rofi/theme.rasi;
       extraConfig = {
-        modes = "drun,window,run,filebrowser,calc";
+        modes = "drun,window,run,calc";
         fixed-num-lines = false;
         show-icons = true;
         terminal = "kitty";
-        # run-command = "{cmd}";
-        # run-shell-command = "{terminal} -e sh -c {cmd}";
+        run-shell-command = "{terminal} -e bash -c {cmd}";
         drun-url-launcher = "xdg-open";
         disable-history = false;
         case-sensitive = false;
@@ -425,17 +425,6 @@
         effect-vignette = "0.5:0.5";
         screenshots = true;
       };
-    };
-    wlogout = {
-      enable = true;
-      style = ./config/wlogout/style.css;
-      layout = [
-        { label = "shutdown"; action = "systemctl poweroff"; text = "Shutdown"; keybind = "s"; }
-        { label = "reboot"; action = "systemctl reboot"; text = "Reboot"; keybind = "r"; }
-        { label = "hibernate"; action = "systemctl hibernate"; text = "Hibernate"; keybind = "h"; }
-        { label = "suspend"; action = "systemctl suspend"; text = "Suspend"; keybind = "u"; }
-        { label = "logout"; action = "hyprctl dispatch exit 0"; text = "Logout"; keybind = "e"; }
-      ];
     };
 
     git = {
