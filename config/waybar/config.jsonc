@@ -20,7 +20,7 @@
     "memory",
     "network",
     // "backlight",
-    // "bluetooth",
+    "bluetooth",
     // "group/audio",
     "pulseaudio#microphone",
     "pulseaudio",

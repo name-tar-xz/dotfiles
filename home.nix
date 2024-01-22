@@ -34,12 +34,11 @@
       dunst ## Notification Daemon
       hyprpicker
       swaybg
-      wofi ## Launcher
-      rofi-wayland
       grimblast ## Screenshot
       iwgtk # System Control
       wl-clipboard ## Clipboard
       brightnessctl ## Brightness
+      rofi-bluetooth ## Bluetooth
 
       ## Audio
       pamixer
@@ -356,6 +355,36 @@
       systemd.enable = true;
       style = ./config/waybar/style.css;
     };
+    rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
+      plugins = with pkgs;[ rofi-calc ];
+
+      cycle = true;
+      font = "monospace 12";
+      theme = ./config/rofi/theme.rasi;
+      extraConfig = {
+        modes = "drun,window,run,filebrowser,calc";
+        fixed-num-lines = false;
+        show-icons = true;
+        terminal = "kitty";
+        # run-command = "{cmd}";
+        # run-shell-command = "{terminal} -e sh -c {cmd}";
+        drun-url-launcher = "xdg-open";
+        disable-history = false;
+        case-sensitive = false;
+        sidebar-mode = true;
+        matching = "regex";
+        scroll-method = 1;
+        window-format = "{w} {c} : {t}";
+        display-drun = " 󰣆  Apps ";
+        display-run = "   Run ";
+        display-window = " 󰕰  Window";
+        display-filebrowser = "   Files";
+        display-calc = " 󰪚  Calc";
+        steal-focus = true;
+      };
+    };
     swaylock = {
       enable = true;
       package = inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects;
@@ -601,7 +630,7 @@
   };
 
   services = {
-    blueman-applet.enable = true;
+    blueman-applet.enable = false;
     udiskie.enable = true;
     cliphist.enable = true;
     swayidle = {
