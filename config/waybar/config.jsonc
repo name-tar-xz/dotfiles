@@ -25,10 +25,10 @@
     "pulseaudio#microphone",
     "pulseaudio",
     "battery",
-    "tray",
     // "custom/notification",
     // "idle_inhibitor",
-    "clock"
+    "clock",
+    "tray"
   ],
   "group/audio": {
     "orientation": "inherit",

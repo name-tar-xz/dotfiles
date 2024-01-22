@@ -286,7 +286,7 @@
       };
     };
     thermald.enable = true;
-    irqbalance.enable = false;
+    irqbalance.enable = true;
     bpftune.enable = true;
     ananicy = {
       enable = true;
@@ -510,7 +510,7 @@
       };
       includeUserConf = true;
       antialias = true;
-      subpixel.rgba = "none";
+      subpixel.rgba = "rgb";
       hinting = {
         enable = false;
         style = "none";

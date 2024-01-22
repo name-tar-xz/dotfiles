@@ -49,6 +49,7 @@
       ferdium
       kitty
       libreoffice-fresh
+      monophony
       wezterm
 
       # CLI tools
@@ -291,7 +292,7 @@
             nighttab
 
             redirector
-            tampermonkey
+            violentmonkey
             user-agent-string-switcher
           ];
 
@@ -445,7 +446,10 @@
         key = "D3C9DE564A3DBD30";
         signByDefault = true;
       };
-      aliases.lg = "log --graph";
+      aliases = {
+        lg = "log --graph";
+        history = "log -p";
+      };
       extraConfig = {
         log = {
           decorate = true;
