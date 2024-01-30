@@ -471,7 +471,10 @@
 
     bluetooth = {
       enable = true;
-      settings.General.ControllerMode = "bredr";
+      settings.General = {
+        ControllerMode = "bredr";
+        Experimental = true;
+      };
     };
   };
 

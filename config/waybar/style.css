@@ -95,7 +95,6 @@ tooltip label {
 #network,
 #bluetooth,
 #pulseaudio,
-#pulseaudio.microphone,
 #tray,
 #window,
 #custom-fan,
@@ -114,6 +113,10 @@ tooltip label {
 
 #backlight {
   color: @yellow;
+}
+
+#bluetooth {
+  color: @blue;
 }
 
 #battery {
@@ -142,7 +145,7 @@ tooltip label {
 }
 
 #cpu {
-  color: @sapphire;
+  color: @lavender;
 }
 
 #memory {
@@ -161,10 +164,9 @@ tooltip label {
   color: @red;
 }
 
-/* #pulseaudio.microphone { */
-/*   margin-right: 0px; */
-/*   margin-left: 0px; */
-/* } */
+#pulseaudio.microphone {
+  margin-left: 2px;
+}
 
 /* #pulseaudio.microphone.muted { */
 /*   color: #a3be8c; */
@@ -201,5 +203,5 @@ tooltip label {
 }
 
 #custom-fan {
-  color: @blue;
+  color: @sapphire
 }

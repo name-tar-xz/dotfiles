@@ -14,16 +14,14 @@
     "mpris"
   ],
   "modules-right": [
+    "temperature",
     "custom/fan",
     "cpu",
-    "temperature",
     "memory",
     "network",
     // "backlight",
     "bluetooth",
-    // "group/audio",
-    "pulseaudio#microphone",
-    "pulseaudio",
+    "group/audio",
     "battery",
     // "custom/notification",
     // "idle_inhibitor",
@@ -99,11 +97,11 @@
       "on-scroll": -1,
       "on-click-right": "mode",
       "format": {
-        "months": "<span color='#ffead3'><b>{}</b></span>",
-        "days": "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks": "<span color='#99ffdd'><b>{}</b></span>",
-        "weekdays": "<span color='#ffcc67'><b>{}</b></span>",
-        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+        "months": "<span color='#89b4fa'><i><b>{}</b></i></span>",
+        "days": "<span color='#cdd6f4'>{}</span>",
+        "weeks": "<span color='#89dceb'><i>{}</i></span>",
+        "weekdays": "<span color='#b4befe'><b>{}</b></span>",
+        "today": "<span color='#cba6f7'><b><i>{}</i></b></span>"
       }
     },
     "actions": {
@@ -115,7 +113,6 @@
     }
   },
   "cpu": {
-    // "format": " {max_frequency}GHz|{usage: >2}%",
     "format": " {max_frequency:2.1f}GHz",
     "interval": 2
   },
@@ -227,15 +224,15 @@
   },
   "bluetooth": {
     "on-click": "blueman-manager",
-    "format": "",
+    "format": "",
     "format-disabled": "", // an empty format will hide the module
     "format-connected": " {device_alias}",
-    "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    "format-connected-battery": " {device_alias} [{device_battery_percentage}%]",
     // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-    "tooltip-format": "{controller_alias}\n{num_connections} connected",
-    "tooltip-format-connected": "{controller_alias}\n\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format": "{controller_alias}",
+    "tooltip-format-connected": "{controller_alias} : {num_connections} connected\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
-    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
+    "tooltip-format-enumerate-connected-battery": "{device_alias} [{device_battery_percentage}%]"
   },
   "custom/notification": {
     "tooltip": false,
