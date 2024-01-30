@@ -4,10 +4,10 @@
   ];
 
   xdg = {
-    cacheHome = "/home/***REMOVED***/.local/cache";
-    configHome = "/home/***REMOVED***/.config";
-    dataHome = "/home/***REMOVED***/.local/share";
-    stateHome = "/home/***REMOVED***/.local/state";
+    cacheHome = "${config.home.homeDirectory}/.local/cache";
+    configHome = "${config.home.homeDirectory}/.config";
+    dataHome = "${config.home.homeDirectory}/.local/share";
+    stateHome = "${config.home.homeDirectory}/.local/state";
 
     configFile = {
       "nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
@@ -60,7 +60,9 @@
       hyperfine
       jq
       inputs.nix-alien.packages.${pkgs.system}.nix-alien
+      nh
       onefetch
+      sops
       unzip
       vivid
       zip
@@ -131,13 +133,15 @@
       XDG_CONFIG_HOME = config.xdg.configHome;
       XDG_STATE_HOME = config.xdg.stateHome;
       XDG_CACHE_HOME = config.xdg.cacheHome;
+      FLAKE = "${config.home.homeDirectory}/.config/nixos";
 
       BROWSER = "librewolf";
       SUDO_EDITOR = "nvim";
       EDITOR = "nvim";
       VISUAL = "nvim";
       PAGER = "less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse --ignore-case --LONG-PROMPT --quit-on-intr --tilde";
-      DELTA_PAGER = config.home.sessionVariables.PAGER;
+      BAT_PAGER = config.home.sessionVariables.PAGER;
+      LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p";
 
       NIXOS_OZONE_WL = "1";
       /* SDL_VIDEODRIVER = "wayland";
@@ -186,11 +190,11 @@
       sudoedit = "doasedit";
       de = "doasedit";
       wget = "wget -c --hsts-file='$XDG_DATA_HOME/wget-hsts ' ";
-      ".." = "z ..";
-      "..." = "z ../..";
-      "...." = "z ../../..";
-      "....." = "z ../../../..";
-      "......" = "z ../../../../..";
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      "...." = "cd ../../..";
+      "....." = "cd ../../../..";
+      "......" = "cd ../../../../..";
       rm = "rmtrash -v";
       rmdir = "rmdirtrash -v --ignore-fail-on-non-empty";
 
@@ -198,6 +202,7 @@
       em = "/usr/bin/emacs -nw";
       hx = "helix";
       l = "ls";
+      a = "ll";
       cp = "cp -i";
       mv = "mv -i";
       diff = "delta";
@@ -212,8 +217,9 @@
       nohup = "command rm nohup.out;nohup";
       less = config.home.sessionVariables.PAGER;
 
-      update = "nix flake update ~/.config/nixos --commit-lock-file; sudo nixos-rebuild switch";
-      switch = "sudo nixos-rebuild switch";
+      update = "nix flake update ${config.home.sessionVariables.FLAKE} --commit-lock-file;nh os switch";
+      switch = "nh os switch";
+      fast = "sudo nixos-rebuild switch --fast";
     };
 
     file = {
@@ -524,7 +530,7 @@
         style = "changes,header-filename,rule,numbers,snip";
         pager = config.home.sessionVariables.PAGER;
 
-        map-syntax = [ "*.ino:C++" "*.ignore:Git Ignore" "*.rasi:CSS" ];
+        map-syntax = [ "*.ino:C++" "*.ignore:Git Ignore" "*.rasi:CSS" "*.jsonc:JSON" ];
       };
       extraPackages = with pkgs.bat-extras; [ batwatch batgrep batpipe ];
     };
