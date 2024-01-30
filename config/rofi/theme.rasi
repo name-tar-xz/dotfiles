@@ -13,7 +13,7 @@ window {
   anchor: center;
   fullscreen: false;
   width: 600px;
-  height: 608px;
+  height: 609px;
   x-offset: 0px;
   y-offset: 0px;
 
@@ -178,6 +178,7 @@ button selected {
   background-color: transparent;
   text-color: @selected;
 }
-  mode-switcher {
+
+mode-switcher {
     background-color: transparent;
 }

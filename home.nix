@@ -366,7 +366,7 @@
       font = "monospace 12";
       theme = ./config/rofi/theme.rasi;
       extraConfig = {
-        modes = "drun,window,run,calc";
+        modes = "drun,window,calc";
         fixed-num-lines = false;
         show-icons = true;
         terminal = "kitty";
@@ -393,7 +393,7 @@
         show-failed-attempts = true;
         clock = true;
         color = "1f1d2e80";
-        font = "Cascadia Code";
+        font = "monospace";
         indicator = true;
         indicator-radius = 100;
         indicator-thickness = 15;
