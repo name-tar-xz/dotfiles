@@ -42,17 +42,20 @@
     };
 
     /* anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    }; */
+         url = "github:Kirottu/anyrun";
+         inputs.nixpkgs.follows = "nixpkgs";
+       };
+    */
     /* ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    }; */
+         url = "github:Aylur/ags";
+         inputs.nixpkgs.follows = "nixpkgs";
+       };
+    */
     /* aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      }; */
+         url = "github:ezKEa/aagl-gtk-on-nix";
+         inputs.nixpkgs.follows = "nixpkgs";
+       };
+    */
 
     hblock = {
       url = "file+https://hblock.molinero.dev/hosts";
@@ -72,28 +75,36 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, chaotic, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      chaotic,
+      ...
+    }@inputs:
     let
       system = nixpkgs.system;
-      # pkgs = nixpkgs.legacyPackages.${system};
     in
+    # pkgs = nixpkgs.legacyPackages.${system};
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs system;
         };
         modules = [
-          ./configuration.nix # Your system configuration.
+          ./configuration.nix
           /* imports = [ aagl.nixosModules.default ];
-            programs.honkers-railway-launcher.enable = false; */
-
+             programs.honkers-railway-launcher.enable = false;
+          */
         ];
       };
 
       /* homeConfigurations.***REMOVED*** = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home.nix ];
-        extraSpecialArgs = { inherit inputs; };
-        }; */
+         inherit pkgs;
+         modules = [ ./home.nix ];
+         extraSpecialArgs = { inherit inputs; };
+         };
+      */
     };
 }

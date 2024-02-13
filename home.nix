@@ -1,7 +1,11 @@
-{ config, pkgs, inputs, ... }: {
-  imports = with inputs;[
-    nur.nixosModules.nur
-  ];
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = with inputs; [ nur.nixosModules.nur ];
 
   xdg = {
     cacheHome = "${config.home.homeDirectory}/.local/cache";
@@ -23,25 +27,21 @@
   home = {
     username = "***REMOVED***";
     homeDirectory = "/home/***REMOVED***";
-    # You can also create simple shell scripts directly inside your
-    # configuration. For example, this adds a command 'my-hello' to your
-    # environment:
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-    packages = with pkgs; with nodePackages_latest; [
+    packages = with pkgs; [
       # Hyprland
-      dunst ## Notification Daemon
       hyprpicker
       swaybg
-      grimblast ## Screenshot
+      grimblast # Screenshot
       iwgtk # System Control
-      wl-clipboard ## Clipboard
-      brightnessctl ## Brightness
-      rofi-bluetooth ## Bluetooth
+      wl-clipboard # Clipboard
+      brightnessctl # Brightness
+      rofi-bluetooth # Bluetooth
       rofi-power-menu
 
-      ## Audio
+      # Audio
       pamixer
       qpwgraph
       pavucontrol
@@ -83,13 +83,14 @@
       # Neovim formatter,LSP,linters
       codespell
       vscode-langservers-extracted
-      taplo ## TOML
+      ## TOML
+      taplo
       ## Arduino
       arduino-language-server
       astyle
       ## Nix
       nil
-      nixpkgs-fmt
+      nixfmt-rfc-style
       ## Shell
       shfmt
       shellcheck
@@ -117,7 +118,7 @@
       clang
       gnumake
       ## JavaScript
-      nodejs
+      nodePackages_latest.nodejs
       bun
       ## Python
       python3
@@ -145,8 +146,9 @@
 
       NIXOS_OZONE_WL = "1";
       /* SDL_VIDEODRIVER = "wayland";
-      XDG_SESSION_TYPE = "wayland";
-      QT_QPA_PLATFORM = "wayland;xcb"; */
+         XDG_SESSION_TYPE = "wayland";
+         QT_QPA_PLATFORM = "wayland;xcb";
+      */
 
       KDEHOME = "${config.xdg.configHome}/kde";
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
@@ -165,16 +167,18 @@
       GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
 
       /* __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      NVD_BACKEND = "direct";
-      MOZ_DISABLE_RDD_SANDBOX = "1";
-      EGL_PLATFORM = "wayland";
-      LIBVA_DRIVER_NAME = "nvidia";
-        __EGL_VENDOR_LIBRARY_FILENAMES = "/usr/share/glvnd/egl_vendor.d/10_nvidia.json"; */
+         NVD_BACKEND = "direct";
+         MOZ_DISABLE_RDD_SANDBOX = "1";
+         EGL_PLATFORM = "wayland";
+         LIBVA_DRIVER_NAME = "nvidia";
+           __EGL_VENDOR_LIBRARY_FILENAMES = "/usr/share/glvnd/egl_vendor.d/10_nvidia.json";
+      */
 
       /* QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      GTK_THEME = "Catppuccin-Mocha-Compact-Mauve-Dark";
-      GDK_SCALE = "2"; */
+         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+         GTK_THEME = "Catppuccin-Mocha-Compact-Mauve-Dark";
+         GDK_SCALE = "2";
+      */
     };
 
     shellAliases = {
@@ -252,12 +256,17 @@
 
     theme = {
       name = "Catppuccin-Mocha-Compact-Mauve-Dark";
-      package = (pkgs.catppuccin-gtk.override {
-        accents = [ "mauve" "sapphire" ]; # You can specify multiple accents here to output multiple themes
-        size = "compact";
-        tweaks = [ "black" ]; # You can also specify multiple tweaks here
-        variant = "mocha";
-      });
+      package = (
+        pkgs.catppuccin-gtk.override {
+          accents = [
+            "mauve"
+            "sapphire"
+          ];
+          size = "compact";
+          tweaks = [ "black" ];
+          variant = "mocha";
+        }
+      );
     };
     font.name = "Noto Sans";
     iconTheme = {
@@ -266,19 +275,23 @@
     };
   };
 
-  wayland.windowManager.hyprland = let vars = builtins.mapAttrs (name: value: name + "," + builtins.toString (value)) config.home.sessionVariables; in {
-    enable = true;
-    xwayland.enable = true;
-    settings.env = (map (key: builtins.getAttr key vars) (builtins.attrNames vars));
-    extraConfig = builtins.readFile ./config/hypr/hyprland.conf;
-  };
+  wayland.windowManager.hyprland =
+    let
+      vars = builtins.mapAttrs (name: value: name + "," + builtins.toString (value)) config.home.sessionVariables;
+    in
+    {
+      enable = true;
+      xwayland.enable = true;
+      settings.env = (map (key: builtins.getAttr key vars) (builtins.attrNames vars));
+      extraConfig = builtins.readFile ./config/hypr/hyprland.conf;
+    };
 
   programs = {
     home-manager.enable = true;
 
     firefox = {
       enable = true;
-      package = (pkgs.librewolf.override { cfg = { speechSynthesisSupport = false; }; }); # link ~/.mozilla/firefox and ~/.librewolf for this to work
+      package = (pkgs.librewolf.override { cfg.speechSynthesisSupport = false; }); # link ~/.mozilla/firefox and ~/.librewolf for this to work
       profiles = {
         main = {
           extraConfig = ''
@@ -289,7 +302,7 @@
           userChrome = builtins.readFile ./config/firefox/chrome/userChrome.css;
           userContent = builtins.readFile ./config/firefox/chrome/userContent.css;
 
-          extensions = with config.nur.repos.rycee.firefox-addons;[
+          extensions = with config.nur.repos.rycee.firefox-addons; [
             ublock-origin
             libredirect
             bitwarden
@@ -302,18 +315,6 @@
             violentmonkey
             user-agent-string-switcher
           ];
-
-          /* search = {
-            default = "Brave";
-            engines = {
-              "Brave" = {
-                template = "https://search.brave.com/search";
-                params = [{ name = "q"; value = "{searchTerms}"; }];
-              };
-              "Bing".metaData.hidden = true;
-              "Google".metaData.hidden = true;
-            };
-          }; */
         };
         test.id = 1;
       };
@@ -335,7 +336,12 @@
         scale = "ewa_lanczos";
         cscale = "ewa_lanczos";
         deband = true;
-        audio-spdif = [ "ac3" "eac3" "dts-hd" "truehd" ];
+        audio-spdif = [
+          "ac3"
+          "eac3"
+          "dts-hd"
+          "truehd"
+        ];
         sub-font = "Cascadia Code";
         cache = true;
         speed = 2;
@@ -366,7 +372,10 @@
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      plugins = with pkgs;[ rofi-calc rofi-power-menu ];
+      plugins = with pkgs; [
+        rofi-calc
+        rofi-power-menu
+      ];
 
       cycle = true;
       font = "monospace 12";
@@ -409,7 +418,7 @@
         ring-color = "191724";
         inside-color = "1f1d2e";
         key-hl-color = "eb6f92";
-        separator-color = 00000000;
+        separator-color = "00000000";
         text-color = "e0def4";
         line-ver-color = "eb6f92";
         ring-ver-color = "eb6f92";
@@ -523,7 +532,15 @@
     eza = {
       enable = true;
       enableAliases = true;
-      extraOptions = [ "-aX" "--group-directories-first" "--icons=auto" "--smart-group" "--git" "--git-repos" "--git-ignore" ];
+      extraOptions = [
+        "-aX"
+        "--group-directories-first"
+        "--icons=auto"
+        "--smart-group"
+        "--git"
+        "--git-repos"
+        "--git-ignore"
+      ];
     };
     bat = {
       enable = true;
@@ -532,9 +549,18 @@
         style = "changes,header-filename,rule,numbers,snip";
         pager = config.home.sessionVariables.PAGER;
 
-        map-syntax = [ "*.ino:C++" "*.ignore:Git Ignore" "*.rasi:CSS" "*.jsonc:JSON" ];
+        map-syntax = [
+          "*.ino:C++"
+          "*.ignore:Git Ignore"
+          "*.rasi:CSS"
+          "*.jsonc:JSON"
+        ];
       };
-      extraPackages = with pkgs.bat-extras; [ batwatch batgrep batpipe ];
+      extraPackages = with pkgs.bat-extras; [
+        batwatch
+        batgrep
+        batpipe
+      ];
     };
     fzf = {
       enable = true;
@@ -570,7 +596,11 @@
     };
     ripgrep = {
       enable = true;
-      arguments = [ "--smart-case" "--follow" "--pretty" ];
+      arguments = [
+        "--smart-case"
+        "--follow"
+        "--pretty"
+      ];
     };
     tealdeer = {
       enable = true;
@@ -580,7 +610,10 @@
           command_name.foreground = "green";
           example_text.foreground = "yellow";
           example_code.foreground = "cyan";
-          example_variable = { foreground = "magenta"; underline = true; };
+          example_variable = {
+            foreground = "magenta";
+            underline = true;
+          };
         };
         updates.auto_update = true;
       };
@@ -615,9 +648,18 @@
     pistol = {
       enable = true;
       associations = [
-        { mime = "text/*"; command = "bat --paging=never --color=always %pistol-filename%"; }
-        { mime = "image/*"; command = "kitty +kitten icat --silent --stdin no --transfer-mode file %pistol-filename%"; }
-        { mime = "inode/directory"; command = "eza %pistol-filename% --icons=always -l"; }
+        {
+          mime = "text/*";
+          command = "bat --paging=never --color=always %pistol-filename%";
+        }
+        {
+          mime = "image/*";
+          command = "kitty +kitten icat --silent --stdin no --transfer-mode file %pistol-filename%";
+        }
+        {
+          mime = "inode/directory";
+          command = "eza %pistol-filename% --icons=always -l";
+        }
       ];
     };
     lazygit = {
@@ -628,7 +670,10 @@
           showIcons = true;
           nerdFontsVersion = "3";
           theme = {
-            activeBorderColor = [ "#cba6f7" "bold" ];
+            activeBorderColor = [
+              "#cba6f7"
+              "bold"
+            ];
             inactiveBorderColor = [ "#a6adc8" ];
             optionsTextColor = [ "#89b4fa" ];
             selectedLineBgColor = [ "#313244" ];
@@ -643,9 +688,10 @@
       };
     };
     /* zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-    }; */
+         enable = true;
+         enableZshIntegration = true;
+       };
+    */
   };
 
   services = {
@@ -655,10 +701,22 @@
     swayidle = {
       enable = true;
       timeouts = [
-        { timeout = 60; command = "${inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects}/bin/swaylock -f"; }
-        { timeout = 60; command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off"; resumeCommand = "${pkgs.hyprland}/bin/hyprland dispatch dpms on"; }
+        {
+          timeout = 60;
+          command = "${inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects}/bin/swaylock -f";
+        }
+        {
+          timeout = 60;
+          command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
+          resumeCommand = "${pkgs.hyprland}/bin/hyprland dispatch dpms on";
+        }
       ];
-      events = [{ event = "before-sleep"; command = "${inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects}/bin/swaylock -f"; }];
+      events = [
+        {
+          event = "before-sleep";
+          command = "${inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects}/bin/swaylock -f";
+        }
+      ];
     };
     dunst = {
       enable = true;
@@ -705,25 +763,21 @@
 
           corner_radius = 10;
           timeout = 5;
-
         };
         urgency_low = {
           background = "#1E1E2ECC";
           foreground = "#CDD6F4";
           # frame_color = "#c0caf5";
-
         };
         urgency_normal = {
           background = "#1E1E2ECC";
           foreground = "#CDD6F4";
           # frame_color = "#c0caf5";
-
         };
         urgency_critical = {
           background = "#1E1E2ECC";
           foreground = "#CDD6F4";
           frame_color = "#FAB387";
-
         };
       };
       iconTheme = {
@@ -744,8 +798,5 @@
     secrets.gpg.path = "/home/***REMOVED***/.local/share/gnupg/private-keys-v1.d/F2F3ACD0B6055BC445CFFFC1E3DD87591F0A6FC2.key";
   };
 
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
+  home.stateVersion = "23.11";
 }

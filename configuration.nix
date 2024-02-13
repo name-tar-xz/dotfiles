@@ -1,5 +1,12 @@
-{ config, pkgs, lib, inputs, ... }: {
-  imports = with inputs;[
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
+  imports = with inputs; [
     ./hardware-configuration.nix
     chaotic.nixosModules.default
     home-manager.nixosModules.home-manager
@@ -71,7 +78,12 @@
       "vm.watermark_scale_factor" = 125;
     };
     consoleLogLevel = 3;
-    kernelParams = [ "quiet" "systemd.show_status=auto" "udev.log_level=3" "nowatchdog" ];
+    kernelParams = [
+      "quiet"
+      "systemd.show_status=auto"
+      "udev.log_level=3"
+      "nowatchdog"
+    ];
     kernelPackages = pkgs.linuxPackages_cachyos;
 
     extraModprobeConfig = ''
@@ -110,7 +122,10 @@
     };
     firewall = {
       enable = false;
-      allowedTCPPorts = [ 80 443 ];
+      allowedTCPPorts = [
+        80
+        443
+      ];
       allowedUDPPortRanges = [
         {
           from = 4000;
@@ -126,22 +141,27 @@
 
     wg-quick.interfaces = {
       /* wg0 = {
-        address = [ "10.2.0.2/32" ];
-        privateKeyFile = config.sops.secrets."wg/a".path;
-        peers = [{
-          allowedIPs = [ "0.0.0.0/0" ];
-          publicKey = "jDrSMRMm6XJgYGcSd01QqJbYiW13dyaOKp8GWDs0rTQ=";
-          endpoint = "185.177.125.172:51820";
-        }];
-      }; */
+           address = [ "10.2.0.2/32" ];
+           privateKeyFile = config.sops.secrets."wg/a".path;
+           peers = [
+             {
+               allowedIPs = [ "0.0.0.0/0" ];
+               publicKey = "jDrSMRMm6XJgYGcSd01QqJbYiW13dyaOKp8GWDs0rTQ=";
+               endpoint = "185.177.125.172:51820";
+             }
+           ];
+         };
+      */
       wg0 = {
         address = [ "10.2.0.2/32" ];
         privateKeyFile = config.sops.secrets."wg/b".path;
-        peers = [{
-          allowedIPs = [ "0.0.0.0/0" ];
-          publicKey = "nsQBMSreq3f0B/BvRRL2aZtuvFAahf7TECaKpbooZVw=";
-          endpoint = "149.34.244.134:51820";
-        }];
+        peers = [
+          {
+            allowedIPs = [ "0.0.0.0/0" ];
+            publicKey = "nsQBMSreq3f0B/BvRRL2aZtuvFAahf7TECaKpbooZVw=";
+            endpoint = "149.34.244.134:51820";
+          }
+        ];
       };
     };
   };
@@ -150,14 +170,17 @@
   time.timeZone = "Asia/Kolkata";
 
   # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "en_US.UTF8";
-  };
+  i18n.defaultLocale = "en_US.UTF8";
 
   users.users.***REMOVED*** = {
     isNormalUser = true;
     description = "***REMOVED***";
-    extraGroups = [ "networkmanager" "wheel" "docker" "video" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "video"
+    ];
     shell = pkgs.dash;
   };
 
@@ -165,17 +188,23 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.***REMOVED*** = import ./home.nix;
-    extraSpecialArgs = { inherit inputs; };
-    sharedModules = [
-      inputs.sops-nix.homeManagerModules.sops
-    ];
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+    sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
   };
 
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
     };
     gc = {
       automatic = true;
@@ -189,9 +218,7 @@
   };
 
   environment = {
-    systemPackages = with pkgs;[
-      git
-    ];
+    systemPackages = with pkgs; [ git ];
 
     sessionVariables = {
       XDG_CACHE_HOME = "$HOME/.local/cache";
@@ -201,14 +228,15 @@
     };
 
     etc = {
-      "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = /* lua */ ''
-        bluez_monitor.properties = {
-          ["bluez5.enable-sbc-xq"] = true,
-          ["bluez5.enable-msbc"] = true,
-          ["bluez5.enable-hw-volume"] = true,
-          ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-        }
-      '';
+      "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = # lua
+        ''
+          bluez_monitor.properties = {
+            ["bluez5.enable-sbc-xq"] = true,
+            ["bluez5.enable-msbc"] = true,
+            ["bluez5.enable-hw-volume"] = true,
+            ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+          }
+        '';
     };
 
     binsh = "${pkgs.dash}/bin/dash";
@@ -226,7 +254,14 @@
 
     ssh = {
       package = pkgs.openssh_hpn;
-      ciphers = [ "aes128-gcm@openssh.com" "aes256-gcm@openssh.com" "chacha20-poly1305@openssh.com" "aes256-ctr" "aes192-ctr" "aes128-ctr" ];
+      ciphers = [
+        "aes128-gcm@openssh.com"
+        "aes256-gcm@openssh.com"
+        "chacha20-poly1305@openssh.com"
+        "aes256-ctr"
+        "aes192-ctr"
+        "aes128-ctr"
+      ];
     };
     dconf.enable = true;
 
@@ -305,53 +340,54 @@
       # jack.enable = true;
     };
 
-    udev.extraRules = /* udev */ ''
-      # CachyOS
-      # PCI runtime power management
-      ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
+    udev.extraRules = # udev
+      ''
+        # CachyOS
+        # PCI runtime power management
+        ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
 
-      # USB autosuspend
-      ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
-      ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend" ATTR{power/autosuspend}="60"
+        # USB autosuspend
+        ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
+        ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend" ATTR{power/autosuspend}="60"
 
-      # SATA active link power management
-      ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="min_power"
-      # ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="max_performance"
+        # SATA active link power management
+        ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="min_power"
+        # ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="max_performance"
 
-      # Wlan power save
-      ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="${pkgs.iw}/bin/iw dev %k set power_save on"
+        # Wlan power save
+        ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="${pkgs.iw}/bin/iw dev %k set power_save on"
 
-      # Disable bluetooth
-      # SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="0" #Destroys CPU
+        # Disable bluetooth
+        # SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="0" #Destroys CPU
 
-      # Disable wake-on-LAN
-      ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*" RUN+="${pkgs.ethtool}/bin/ethtool -s %k wol d"
+        # Disable wake-on-LAN
+        ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*" RUN+="${pkgs.ethtool}/bin/ethtool -s %k wol d"
 
-      # HDD
-      ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
-      
-      # SSD
-      ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
-      
-      # NVMe SSD
-      ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+        # HDD
+        ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
 
-      # Audio Latency
-      KERNEL=="rtc0", GROUP="audio"
-      KERNEL=="hpet", GROUP="audio"
+        # SSD
+        ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
 
-      # Clear Linux
-      ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/add_random}="1"
-      ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/nr_requests}="2048"
+        # NVMe SSD
+        ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
 
-      # Custom
-      # Set MTU and Transmit Queue Length
-      # MTU set to 1492 as wifi is PPPoE
-      ACTION=="add", SUBSYSTEM=="net", KERNEL=="wl*", ATTR{mtu}="1492", ATTR{tx_queue_len}="2000"
+        # Audio Latency
+        KERNEL=="rtc0", GROUP="audio"
+        KERNEL=="hpet", GROUP="audio"
 
-      ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm1_enable", ATTR{pwm1_enable}="0"
-      ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm2_enable", ATTR{pwm2_enable}="0"
-    '';
+        # Clear Linux
+        ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/add_random}="1"
+        ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/nr_requests}="2048"
+
+        # Custom
+        # Set MTU and Transmit Queue Length
+        # MTU set to 1492 as wifi is PPPoE
+        ACTION=="add", SUBSYSTEM=="net", KERNEL=="wl*", ATTR{mtu}="1492", ATTR{tx_queue_len}="2000"
+
+        ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm1_enable", ATTR{pwm1_enable}="0"
+        ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm2_enable", ATTR{pwm2_enable}="0"
+      '';
 
     terraria = {
       enable = false;
@@ -394,10 +430,16 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = false;
-    extraPortals = with pkgs;[ xdg-desktop-portal-hyprland xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
     config = {
       common.default = [ "gtk" ];
-      hyprland.default = [ "hyprland" "gtk" ];
+      hyprland.default = [
+        "hyprland"
+        "gtk"
+      ];
     };
   };
 
@@ -419,7 +461,7 @@
       ];
     };
     polkit.enable = true;
-    pam.services.swaylock = { text = "auth include login"; };
+    pam.services.swaylock.text = "auth include login";
 
     rtkit.enable = true;
   };
@@ -501,7 +543,12 @@
       };
     };
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ]; })
+      (nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "NerdFontsSymbolsOnly"
+        ];
+      })
       (iosevka-bin.override { variant = "sgr-iosevka-term"; })
       cascadia-code
       dejavu_fonts
