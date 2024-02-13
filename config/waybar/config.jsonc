@@ -113,7 +113,7 @@
     }
   },
   "cpu": {
-    "format": " {max_frequency:2.1f}GHz",
+    "format": "󰻠 {max_frequency:2.1f}GHz",
     "interval": 2
   },
   "memory": {
@@ -121,8 +121,14 @@
     "tooltip-format": "{used}GiB RAM\n{swapUsed}GiB Swap"
   },
   "temperature": {
-    "critical-threshold": 80,
-    "format": " {temperatureC}°C",
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
     "interval": 2
   },
   "backlight": {

@@ -328,7 +328,7 @@
       ];
       config = {
         hwdec = "auto-safe";
-        vo = "gpu-next";
+        vo = "gpu";
         ao = "pipewire,";
         gpu-context = "wayland";
         profile = "gpu-hq";
@@ -354,7 +354,7 @@
       enable = true;
       settings = {
         downloader = "aria2c";
-        downloader-args = "-c -j 6 -x 6 -s 6 -k 1M";
+        downloader-args = "'-c -j 6 -x 6 -s 6 -k 1M'";
       };
     };
 
@@ -381,7 +381,9 @@
         disable-history = false;
         case-sensitive = false;
         sidebar-mode = true;
-        matching = "regex";
+        matching = "fuzzy";
+        sort = true;
+        sorting-method = "fzf";
         scroll-method = 1;
         window-format = "{w} {c} : {t}";
         display-drun = " 󰣆  Apps ";

@@ -151,7 +151,7 @@
 
   # Select internationalisation properties.
   i18n = {
-    defaultLocale = "en_IN";
+    defaultLocale = "en_US.UTF8";
   };
 
   users.users.***REMOVED*** = {
