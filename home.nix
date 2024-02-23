@@ -14,8 +14,6 @@
     stateHome = "${config.home.homeDirectory}/.local/state";
 
     configFile = {
-      "nvim/parser/norg.so".source = "${pkgs.tree-sitter-grammars.tree-sitter-norg}/parser";
-
       "wlogout/icons".source = "${pkgs.wlogout}/share/wlogout/icons";
       "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
 
@@ -298,12 +296,9 @@
       ];
       config = {
         hwdec = "auto-safe";
-        vo = "gpu";
+        vo = "dmabuf-wayland";
         ao = "pipewire,";
         gpu-context = "wayland";
-        profile = "gpu-hq";
-        scale = "ewa_lanczos";
-        cscale = "ewa_lanczos";
         deband = true;
         audio-spdif = [
           "ac3"
@@ -495,8 +490,49 @@
       withPython3 = false;
       withRuby = false;
 
+      extraLuaConfig = # lua
+        ''
+          require("startup")
+          vim.opt.rtp:append("${
+            pkgs.symlinkJoin {
+              name = "treesitter";
+              paths =
+                (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+                  p: with p; [
+                    # bash, c, lua, markdown, python, query, vim, vimdoc installed by default
+                    arduino
+                    css
+                    git_config
+                    git_rebase
+                    gitattributes
+                    gitcommit
+                    gitignore
+                    go
+                    html
+                    java
+                    javascript
+                    json
+                    json5
+                    jsonc
+                    luap
+                    markdown_inline
+                    nix
+                    norg
+                    regex
+                    rust
+                    svelte
+                    toml
+                    typescript
+                    vue
+                    yaml
+                  ]
+                )).dependencies;
+            }
+          }")
+        '';
+
       extraPackages = with pkgs; [
-        # Neovim formatter,LSP,linters
+        # Formatter, LSP, linters
         codespell
         vscode-langservers-extracted
         ## TOML
@@ -571,7 +607,6 @@
       };
       extraPackages = with pkgs.bat-extras; [
         batwatch
-        batgrep
         batpipe
       ];
     };
