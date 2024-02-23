@@ -80,37 +80,6 @@
       trash-cli
       xdg-utils
 
-      # Neovim formatter,LSP,linters
-      codespell
-      vscode-langservers-extracted
-      ## TOML
-      taplo
-      ## Arduino
-      arduino-language-server
-      astyle
-      ## Nix
-      nil
-      nixfmt-rfc-style
-      ## Shell
-      shfmt
-      shellcheck
-      ## Lua
-      lua-language-server
-      selene
-      stylua
-      ## JavaScript
-      biome
-      typescript-language-server
-      ## Tailwind
-      tailwindcss-language-server
-      rustywind
-      ## Go
-      gopls
-      gofumpt
-      ## Python
-      ruff-lsp
-      pyright
-
       # Languages
       arduino-cli
       go
@@ -517,6 +486,49 @@
       homedir = "${config.xdg.dataHome}/gnupg";
     };
 
+    neovim = {
+      enable = true;
+      vimAlias = true;
+      viAlias = true;
+      vimdiffAlias = true;
+
+      withPython3 = false;
+      withRuby = false;
+
+      extraPackages = with pkgs; [
+        # Neovim formatter,LSP,linters
+        codespell
+        vscode-langservers-extracted
+        ## TOML
+        taplo
+        ## Arduino
+        arduino-language-server
+        astyle
+        ## Nix
+        nil
+        nixfmt-rfc-style
+        ## Shell
+        shfmt
+        shellcheck
+        ## Lua
+        lua-language-server
+        selene
+        stylua
+        ## JavaScript
+        biome
+        nodePackages_latest.typescript-language-server
+        ## Tailwind
+        tailwindcss-language-server
+        rustywind
+        ## Go
+        gopls
+        gofumpt
+        ## Python
+        ruff-lsp
+        pyright
+      ];
+    };
+
     zsh = {
       enable = true;
       enableCompletion = false;
@@ -529,6 +541,7 @@
         save = 100000;
       };
     };
+
     eza = {
       enable = true;
       enableAliases = true;
@@ -618,6 +631,33 @@
         updates.auto_update = true;
       };
     };
+
+    lazygit = {
+      enable = true;
+      settings = {
+        git.paging.pager = "delta --dark --paging=never";
+        gui = {
+          showIcons = true;
+          nerdFontsVersion = "3";
+          theme = {
+            activeBorderColor = [
+              "#cba6f7"
+              "bold"
+            ];
+            inactiveBorderColor = [ "#a6adc8" ];
+            optionsTextColor = [ "#89b4fa" ];
+            selectedLineBgColor = [ "#313244" ];
+            selectedRangeBgColor = [ "#313244" ];
+            cherryPickedCommitBgColor = [ "#45475a" ];
+            cherryPickedCommitFgColor = [ "#cba6f7" ];
+            unstagedChangesColor = [ "#f38ba8" ];
+            defaultFgColor = [ "#cdd6f4" ];
+            searchingActiveBorderColor = [ "#f9e2af" ];
+          };
+        };
+      };
+    };
+
     lf = {
       enable = true;
       previewer.source = pkgs.writeShellScript "pv.sh" ''
@@ -662,31 +702,6 @@
         }
       ];
     };
-    lazygit = {
-      enable = true;
-      settings = {
-        git.paging.pager = "delta --dark --paging=never";
-        gui = {
-          showIcons = true;
-          nerdFontsVersion = "3";
-          theme = {
-            activeBorderColor = [
-              "#cba6f7"
-              "bold"
-            ];
-            inactiveBorderColor = [ "#a6adc8" ];
-            optionsTextColor = [ "#89b4fa" ];
-            selectedLineBgColor = [ "#313244" ];
-            selectedRangeBgColor = [ "#313244" ];
-            cherryPickedCommitBgColor = [ "#45475a" ];
-            cherryPickedCommitFgColor = [ "#cba6f7" ];
-            unstagedChangesColor = [ "#f38ba8" ];
-            defaultFgColor = [ "#cdd6f4" ];
-            searchingActiveBorderColor = [ "#f9e2af" ];
-          };
-        };
-      };
-    };
     /* zoxide = {
          enable = true;
          enableZshIntegration = true;
@@ -695,9 +710,10 @@
   };
 
   services = {
-    blueman-applet.enable = false;
     udiskie.enable = true;
     cliphist.enable = true;
+    playerctld.enable = true;
+
     swayidle = {
       enable = true;
       timeouts = [
@@ -718,6 +734,7 @@
         }
       ];
     };
+
     dunst = {
       enable = true;
       settings = {
@@ -786,8 +803,6 @@
         size = "16x16";
       };
     };
-
-    playerctld.enable = true;
   };
 
   sops = {
