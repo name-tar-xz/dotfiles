@@ -46,14 +46,13 @@
 
       # Audio
       pamixer
-      qpwgraph
+      helvum
       pavucontrol
 
       # Applications
       ferdium
       kitty
       libreoffice-fresh
-      monophony
       wezterm
 
       # CLI tools
@@ -86,9 +85,6 @@
       # Languages
       arduino-cli
       go
-      ## C/C++
-      clang
-      gnumake
       ## JavaScript
       nodePackages_latest.nodejs
       bun
@@ -263,7 +259,7 @@
 
     firefox = {
       enable = true;
-      package = (pkgs.librewolf.override { cfg.speechSynthesisSupport = false; }); # link ~/.mozilla/firefox and ~/.librewolf for this to work
+      package = pkgs.librewolf; # link ~/.mozilla/firefox and ~/.librewolf for this to work
       profiles = {
         main = {
           extraConfig = ''

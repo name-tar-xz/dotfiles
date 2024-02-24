@@ -45,6 +45,3 @@ export MANPAGER="sh -c 'col -bx | bat --language=help --color=always --theme=def
 export PF_INFO="ascii title os kernel uptime pkgs shell editor de palette"
 
 export DOTBARE_DIR=$HOME/Public/cfg
-
-export CC=$(which clang)
-export CXX=$(which clang++)

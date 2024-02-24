@@ -214,7 +214,10 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = with inputs; [ neovim-nightly-overlay.overlay ];
+    overlays = with inputs; [
+      neovim-nightly-overlay.overlay
+      (final: prev: { librewolf = prev.librewolf.override { cfg.speechSynthesisSupport = false; }; })
+    ];
   };
 
   environment = {
