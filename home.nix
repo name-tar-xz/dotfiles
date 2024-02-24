@@ -19,6 +19,11 @@
 
       "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
       "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+
+      "nixos/config/nvim/.runtime".source = "${config.programs.neovim.finalPackage}/share/nvim/runtime";
+
+      "nvim/lua".source = ./config/nvim/lua;
+      "nvim/after".source = ./config/nvim/after;
     };
   };
 
@@ -492,6 +497,9 @@
 
       extraLuaConfig = # lua
         ''
+          P = {
+            telescope_fzf_native_nvim="${pkgs.vimPlugins.telescope-fzf-native-nvim}"
+          }
           require("startup")
           vim.opt.rtp:append("${
             pkgs.symlinkJoin {
@@ -548,7 +556,6 @@
         shellcheck
         ## Lua
         lua-language-server
-        selene
         stylua
         ## JavaScript
         biome
@@ -603,6 +610,7 @@
           "*.ignore:Git Ignore"
           "*.rasi:CSS"
           "*.jsonc:JSON"
+          "*.norg:orgmode"
         ];
       };
       extraPackages = with pkgs.bat-extras; [
