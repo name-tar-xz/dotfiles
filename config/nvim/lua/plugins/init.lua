@@ -1,44 +1,5 @@
 return {
   {
-    "folke/tokyonight.nvim",
-    enabled = false,
-    opts = {
-      -- transparent = true,
-      style = "night",
-      on_highlights = function(hl, c)
-        local prompt = "#2d3149"
-        local title = "#27a1b9"
-        local util = require("tokyonight.util")
-        hl.TelescopeNormal = { bg = c.bg_dark, fg = c.fg_dark }
-        hl.TelescopeBorder = { bg = c.bg_dark, fg = c.bg_dark }
-        hl.TelescopePromptNormal = { bg = prompt }
-        hl.TelescopePromptBorder = { bg = prompt, fg = prompt }
-        hl.TelescopeTitle = { bg = title }
-
-        hl.TreesitterContext = { bg = c.bg }
-        hl.TreesitterContextBottom = { underline = true, sp = c.dark3 }
-
-        hl.Folded = { bg = c.bg_dark }
-
-        hl.ModesInsert = { bg = c.green }
-        hl.ModesVisual = { bg = c.purple }
-
-        hl.NormalMode = { fg = util.darken(c.blue, 0.2) }
-        hl.InsertMode = { bg = util.darken(c.green, 0.15) }
-        hl.VisualMode = { fg = c.purple }
-        hl.CommandMode = { fg = c.orange }
-        hl.ReplaceMode = { fg = c.red }
-
-        hl.LspInlayHint = { bg = nil, fg = "#545c7e" }
-
-        hl.WinBar = { bg = nil, fg = c.fg_dark }
-        hl.WinBarNC = { bg = nil, fg = c.fg_gutter }
-        hl.Normal = { bg = nil }
-      end,
-    },
-  },
-
-  {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
@@ -85,6 +46,7 @@ return {
       highlight_overrides = {
         all = function(colors)
           return {
+            Normal = { bg = "NONE" },
             Visual = { bg = colors.surface0, style = {} },
             Folded = { bg = colors.mantle },
           }
@@ -95,68 +57,11 @@ return {
   {
     "numToStr/Comment.nvim",
     event = "BufReadPost",
-    opts = {
-      ignore = "^$",
-    },
+    opts = { ignore = "^$" },
   },
-  { "mbbill/undotree", cmd = "UndotreeToggle" },
   { "famiu/bufdelete.nvim", event = "BufAdd" },
   { "mrjones2014/smart-splits.nvim", event = "BufAdd" },
 
-  {
-    "nvim-pack/nvim-spectre",
-    cmd = "Spectre",
-    keys = {
-      { "<leader>s", desc = "Search / Replace", mode = { "n", "x" } },
-      { "<leader>s" .. "s", function() require("spectre").open() end, desc = "Spectre" },
-      { "<leader>s" .. "w", mode = "x", function() require("spectre").open_visual({ select_word = true }) end, desc = "Spectre (current word)" },
-      { "<leader>s" .. "f", function() require("spectre").open_file_search() end, desc = "Spectre (current file)" },
-    },
-
-    opts = function()
-      return {
-        mapping = {
-          send_to_qf = { map = "q" },
-          replace_cmd = { map = "c" },
-          show_option_menu = { map = "o" },
-          run_current_replace = { map = "C" },
-          run_replace = { map = "R" },
-          change_view_mode = { map = "v" },
-          resume_last_search = { map = "l" },
-        },
-      }
-    end,
-  },
-  {
-    "Weissle/persistent-breakpoints.nvim",
-    enabled = false,
-    keys = {
-      {
-        "<leader>db",
-        function() require("persistent-breakpoints.api").toggle_breakpoint() end,
-        { silent = true },
-        desc = "Toggle Breakpoint",
-      },
-      {
-        "<leader>dB",
-        function() require("persistent-breakpoints.api").clear_all_breakpoints() end,
-        { silent = true },
-        desc = "Clear Breakpoints",
-      },
-      {
-        "<leader>dC",
-        function() require("persistent-breakpoints.api").set_conditional_breakpoint() end,
-        { silent = true },
-        desc = "Conditional Breakpoint",
-      },
-    },
-  },
-  {
-    "sindrets/diffview.nvim",
-    enabled = false,
-    event = "User File",
-    cmd = { "DiffviewOpen" },
-  },
   {
     "monaqa/dial.nvim",
     keys = {
@@ -218,16 +123,6 @@ return {
     end,
   },
   {
-    "AckslD/nvim-neoclip.lua",
-    event = { "User File", "InsertEnter" },
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = function(_, opts)
-      require("neoclip").setup(opts)
-      require("telescope").load_extension("neoclip")
-    end,
-    keys = { { "<leader>fy", function() require("telescope").extensions.neoclip.neoclip() end, desc = "Find yanks (neoclip)" } },
-  },
-  {
     "chentoast/marks.nvim",
     event = "User File",
     opts = {
@@ -239,50 +134,6 @@ return {
         "alpha",
         "netrw",
         "neo-tree",
-      },
-    },
-  },
-  {
-    "windwp/nvim-autopairs",
-    enabled = false,
-    event = "User File",
-    opts = function()
-      require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done({ tex = false }))
-      return {
-        check_ts = true,
-        ts_config = { java = false },
-        fast_wrap = {
-          map = "<M-e>",
-          chars = { "{", "[", "(", '"', "'" },
-          pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-          offset = 0,
-          end_key = "$",
-          keys = "qwertyuiopzxcvbnmasdfghjkl",
-          check_comma = true,
-          highlight = "PmenuSel",
-          highlight_grey = "LineNr",
-        },
-      }
-    end,
-  },
-  {
-    "rmagatti/auto-session",
-    enabled = false,
-    keys = {
-      { "<leader>Ss", "<cmd>SessionSave<CR>", mode = "n", desc = "Save Session" },
-      { "<leader>Sl", function() require("auto-session.session-lens").search_session() end, mode = "n", desc = "Load Session" },
-      { "<leader>Sd", "<cmd>SessionDelete<CR>", mode = "n", desc = "Delete Session" },
-    },
-    opts = {
-      log_level = "error",
-      auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
-      auto_session_enabled = false,
-      session_lens = {
-        -- If load_on_setup is set to false, one needs to eventually call `require("auto-session").setup_session_lens()` if they want to use session-lens.
-        buftypes_to_ignore = {}, -- list of buffer types what should not be deleted from current session
-        load_on_setup = true,
-        theme_conf = false,
-        previewer = false,
       },
     },
   },

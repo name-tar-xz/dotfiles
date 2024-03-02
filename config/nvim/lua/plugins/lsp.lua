@@ -1,47 +1,4 @@
--- local utils = require("astronvim.utils")
 return {
-  { "williamboman/mason.nvim", cmd = "Mason", opts = {} },
-  -- {
-  --   "williamboman/mason-lspconfig.nvim",
-  --   opts = function(_, opts)
-  --     opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, { "volar", "bashls", "svelte" })
-  --   end,
-  -- },
-  -- {
-  --   "jay-babu/mason-nvim-dap.nvim",
-  --   opts = function(_, opts)
-  --     opts.ensure_installed = utils.list_insert_unique(opts.ensure_installed, { "js", "bash" })
-  --   end,
-  -- },
-  -- {
-  --   "jay-babu/mason-null-ls.nvim",
-  --   enabled = false,
-  --   opts = function(_, opts)
-  --     opts.ensure_installed =
-  --       utils.list_insert_unique(opts.ensure_installed, { "shellcheck", "shfmt", "stylua", "astyle", "nixfmt" })
-  --   end,
-  -- },
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   enabled = false,
-  --   config = function()
-  --     local null_ls = require("null-ls")
-  --
-  --     -- register any number of sources simultaneously
-  --     local sources = {
-  --       null_ls.builtins.formatting.prettierd.with({
-  --         extra_filetypes = { "svelte" },
-  --       }),
-  --       null_ls.builtins.formatting.eslint_d.with({
-  --         extra_filetypes = { "svelte" },
-  --       }),
-  --       null_ls.builtins.formatting.astyle,
-  --       null_ls.builtins.formatting.nixfmt,
-  --     }
-  --
-  --     null_ls.setup({ sources = sources, on_attach = require("astronvim.utils.lsp").on_attach })
-  --   end,
-  -- },
   "b0o/SchemaStore.nvim",
   {
     "neovim/nvim-lspconfig",

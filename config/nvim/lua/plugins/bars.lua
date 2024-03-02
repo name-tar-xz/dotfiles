@@ -3,8 +3,8 @@ return {
     "Bekaboo/dropbar.nvim",
     event = "BufEnter",
     dependencies = {
-      name = "nvim-telescope/telescope-fzf-native.nvim",
-      dir = P.telescope_fzf_native_nvim,
+      name = "telescope-fzf-native.nvim",
+      dir = P.telescope_fzf_native,
     },
     opts = {
       icons = {

@@ -1,35 +1,8 @@
 return {
-  -- {
-  -- 	"Exafunction/codeium.vim",
-  -- 	event = "User File",
-  -- 	config = function()
-  -- 		vim.keymap.set("i", "<C-g>", function()
-  -- 			return vim.fn["codeium#Accept"]()
-  -- 		end, { expr = true })
-  -- 		vim.keymap.set("i", "<C-;>", function()
-  -- 			return vim.fn["codeium#CycleCompletions"](1)
-  -- 		end, { expr = true })
-  -- 		vim.keymap.set("i", "<C-,>", function()
-  -- 			return vim.fn["codeium#CycleCompletions"](-1)
-  -- 		end, { expr = true })
-  -- 		vim.keymap.set("i", "<C-x>", function()
-  -- 			return vim.fn["codeium#Clear"]()
-  -- 		end, { expr = true })
-  -- 		vim.keymap.set("n", "<leader>;", function()
-  -- 			if vim.g.codeium_enabled == true then
-  -- 				vim.cmd("CodeiumDisable")
-  -- 			else
-  -- 				vim.cmd("CodeiumEnable")
-  -- 			end
-  -- 		end, { noremap = true, desc = "Toggle Codeium active" })
-  -- 	end,
-  -- },
   {
-    "L3MON4D3/LuaSnip",
-    build = vim.fn.has("win32") == 0 and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build\n'; make install_jsregexp" or nil,
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
+    name = "LuaSnip",
+    dir = P.luasnip,
+    dependencies = { "rafamadriz/friendly-snippets" },
     opts = {
       history = true,
       delete_check_events = "TextChanged",
@@ -99,7 +72,6 @@ return {
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = "buffer-lines" },
           { name = "buffer" },
         },
       })
@@ -119,8 +91,8 @@ return {
       return {
         sources = cmp.config.sources({
 
-          { name = "luasnip" },
           { name = "nvim_lsp" },
+          { name = "luasnip" },
 
           { name = "codeium" },
           { name = "cmp_tabnine" },
@@ -139,12 +111,8 @@ return {
 
           -- { name = "neorg" },
         }),
-        completion = {
-          completeopt = "menu,menuone,preview,noselect,noinsert",
-        },
-        snippet = {
-          expand = function(args) require("luasnip").lsp_expand(args.body) end,
-        },
+        completion = { completeopt = "menu,menuone,preview,noselect,noinsert" },
+        snippet = { expand = function(args) require("luasnip").lsp_expand(args.body) end },
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),

@@ -1,22 +1,4 @@
 return {
-  -- {
-  --   "echasnovski/mini.basics",
-  --   event = "VeryLazy",
-  --   version = false,
-  --   opts = {
-  --     options = {
-  --       basic = true,
-  --       extra_ui = false,
-  --     },
-  --     mappings = {
-  --       basic = true,
-  --       move_with_alt = true,
-  --       windows = true,
-  --     },
-  --     autocommands = { basic = true },
-  --     silent = true,
-  --   },
-  -- },
   {
     "echasnovski/mini.move",
     keys = {

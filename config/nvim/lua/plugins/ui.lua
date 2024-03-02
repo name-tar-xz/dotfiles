@@ -93,6 +93,7 @@ return {
     event = "VeryLazy",
     opts = {
       lsp = {
+        progress = { enabled = false },
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
@@ -139,31 +140,10 @@ return {
     },
     dependencies = {
       "MunifTanjim/nui.nvim",
-      {
-        "rcarriga/nvim-notify",
-        opts = {
-          timeout = 1000,
-          icons = {
-            DEBUG = "",
-            TRACE = "✎",
-            ERROR = "",
-            INFO = "",
-            WARN = "",
-          },
-          -- level = 2,
-          max_height = function() return math.floor(vim.o.lines * 0.75) end,
-          max_width = function() return math.floor(vim.o.columns * 0.75) end,
-          on_open = function(win) vim.api.nvim_win_set_config(win, { zindex = 100 }) end,
-          render = "wrapped-compact",
-          stages = "fade_in_slide_out", -- Replace with slide when https://github.com/rcarriga/nvim-notify/issues/177 is fixed
-          top_down = false,
-        },
-      },
     },
   },
   {
     "j-hui/fidget.nvim",
-    enabled = false,
     event = "VeryLazy",
     opts = {
       notification = {
@@ -330,8 +310,8 @@ return {
     dependencies = {
       "debugloop/telescope-undo.nvim",
       {
-        name = "nvim-telescope/telescope-fzf-native.nvim",
-        dir = P.telescope_fzf_native_nvim,
+        name = "telescope-fzf-native.nvim",
+        dir = P.telescope_fzf_native,
       },
     },
     keys = {
@@ -394,7 +374,6 @@ return {
       })
       require("telescope").load_extension("undo")
       require("telescope").load_extension("fzf")
-      require("telescope").load_extension("notify")
       require("telescope").load_extension("aerial")
       -- require("telescope").load_extension("session-lens")
     end,

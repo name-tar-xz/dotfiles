@@ -12,7 +12,6 @@ return {
       "andymass/vim-matchup",
 
       "RRethy/nvim-treesitter-endwise",
-      { "LiadOz/nvim-dap-repl-highlights", opts = {} },
     },
     build = ":TSUpdate",
     event = "BufReadPre",
