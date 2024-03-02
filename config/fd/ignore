@@ -1,0 +1,7 @@
+Games
+Public/cfg
+*Cache*
+*cache*
+Templates
+node_modules
+nix/store

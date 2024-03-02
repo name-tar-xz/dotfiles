@@ -14,8 +14,15 @@
     stateHome = "${config.home.homeDirectory}/.local/state";
 
     configFile = {
-      "wlogout/icons".source = "${pkgs.wlogout}/share/wlogout/icons";
       "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
+
+      "fastfetch/config.jsonc".source = ./config/fastfetch/config.jsonc;
+      "fd/ignore".source = ./config/fd/ignore;
+      "bat/themes/Catppuccin-mocha.tmTheme".source = ./config/bat/Catppuccin-mocha.tmTheme;
+      "btop/themes/catppuccin_mocha.theme".source = ./config/btop/catppuccin_mocha.theme;
+
+      "qt5ct/colors/Catppuccin-Black.conf".source = ./config/qtct/Catppuccin-Black.conf;
+      "qt6ct/colors/Catppuccin-Black.conf".source = ./config/qtct/Catppuccin-Black.conf;
 
       "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
       "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
