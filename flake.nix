@@ -41,20 +41,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    /* anyrun = {
-         url = "github:Kirottu/anyrun";
-         inputs.nixpkgs.follows = "nixpkgs";
-       };
+    /*
+      anyrun = {
+        url = "github:Kirottu/anyrun";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
     */
-    /* ags = {
-         url = "github:Aylur/ags";
-         inputs.nixpkgs.follows = "nixpkgs";
-       };
+    /*
+      ags = {
+        url = "github:Aylur/ags";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
     */
-    /* aagl = {
-         url = "github:ezKEa/aagl-gtk-on-nix";
-         inputs.nixpkgs.follows = "nixpkgs";
-       };
+    /*
+      aagl = {
+        url = "github:ezKEa/aagl-gtk-on-nix";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
     */
 
     hblock = {
@@ -94,17 +97,19 @@
         };
         modules = [
           ./configuration.nix
-          /* imports = [ aagl.nixosModules.default ];
-             programs.honkers-railway-launcher.enable = false;
+          /*
+            imports = [ aagl.nixosModules.default ];
+            programs.honkers-railway-launcher.enable = false;
           */
         ];
       };
 
-      /* homeConfigurations.***REMOVED*** = home-manager.lib.homeManagerConfiguration {
-         inherit pkgs;
-         modules = [ ./home.nix ];
-         extraSpecialArgs = { inherit inputs; };
-         };
+      /*
+        homeConfigurations.***REMOVED*** = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./home.nix ];
+        extraSpecialArgs = { inherit inputs; };
+        };
       */
     };
 }

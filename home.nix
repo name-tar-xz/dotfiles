@@ -119,9 +119,10 @@
       LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p";
 
       NIXOS_OZONE_WL = "1";
-      /* SDL_VIDEODRIVER = "wayland";
-         XDG_SESSION_TYPE = "wayland";
-         QT_QPA_PLATFORM = "wayland;xcb";
+      /*
+        SDL_VIDEODRIVER = "wayland";
+        XDG_SESSION_TYPE = "wayland";
+        QT_QPA_PLATFORM = "wayland;xcb";
       */
 
       KDEHOME = "${config.xdg.configHome}/kde";
@@ -140,18 +141,20 @@
       PARALLEL_HOME = "${config.xdg.configHome}/parallel";
       GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
 
-      /* __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-         NVD_BACKEND = "direct";
-         MOZ_DISABLE_RDD_SANDBOX = "1";
-         EGL_PLATFORM = "wayland";
-         LIBVA_DRIVER_NAME = "nvidia";
-           __EGL_VENDOR_LIBRARY_FILENAMES = "/usr/share/glvnd/egl_vendor.d/10_nvidia.json";
+      /*
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+        NVD_BACKEND = "direct";
+        MOZ_DISABLE_RDD_SANDBOX = "1";
+        EGL_PLATFORM = "wayland";
+        LIBVA_DRIVER_NAME = "nvidia";
+          __EGL_VENDOR_LIBRARY_FILENAMES = "/usr/share/glvnd/egl_vendor.d/10_nvidia.json";
       */
 
-      /* QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-         GTK_THEME = "Catppuccin-Mocha-Compact-Mauve-Dark";
-         GDK_SCALE = "2";
+      /*
+        QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+        GTK_THEME = "Catppuccin-Mocha-Compact-Mauve-Dark";
+        GDK_SCALE = "2";
       */
     };
 
@@ -854,10 +857,11 @@
         cleaner = "${pkgs.writeShellScript "cl.sh" "kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
       };
     };
-    /* zoxide = {
-         enable = true;
-         enableZshIntegration = true;
-       };
+    /*
+      zoxide = {
+        enable = true;
+        enableZshIntegration = true;
+      };
     */
   };
 
