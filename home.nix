@@ -841,7 +841,7 @@
           exit 1
         fi
 
-        pistol "$file"
+        bat --color=always "$file"
       '';
       settings = {
         icons = true;
@@ -853,23 +853,6 @@
         scrolloff = 999;
         cleaner = "${pkgs.writeShellScript "cl.sh" "kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
       };
-    };
-    pistol = {
-      enable = true;
-      associations = [
-        {
-          mime = "text/*";
-          command = "bat --paging=never --color=always %pistol-filename%";
-        }
-        {
-          mime = "image/*";
-          command = "kitty +kitten icat --silent --stdin no --transfer-mode file %pistol-filename%";
-        }
-        {
-          mime = "inode/directory";
-          command = "eza %pistol-filename% --icons=always -l";
-        }
-      ];
     };
     /* zoxide = {
          enable = true;
@@ -892,8 +875,8 @@
         }
         {
           timeout = 60;
-          command = "${pkgs.hyprland}/bin/hyprctl dispatch dpms off";
-          resumeCommand = "${pkgs.hyprland}/bin/hyprland dispatch dpms on";
+          command = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl dispatch dpms off";
+          resumeCommand = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprland dispatch dpms on";
         }
       ];
       events = [
@@ -941,8 +924,8 @@
           min_icon_size = 0;
           max_icon_size = 64;
 
-          dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst:";
-          browser = "${config.programs.firefox.package}/bin/librewolf --new-tab";
+          dmenu = "${config.programs.rofi.finalPackage}/bin/rofi -dmenu -p dunst:";
+          browser = "${config.programs.firefox.finalPackage}/bin/librewolf --new-tab";
 
           title = "Dunst";
           class = "Dunst";
