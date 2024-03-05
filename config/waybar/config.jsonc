@@ -11,6 +11,7 @@
     "hyprland/window"
   ],
   "modules-center": [
+    "privacy",
     "mpris"
   ],
   "modules-right": [
@@ -24,8 +25,8 @@
     "group/audio",
     "battery",
     // "custom/notification",
-    // "idle_inhibitor",
     "clock",
+    "idle_inhibitor",
     "tray"
   ],
   "group/audio": {
@@ -219,12 +220,24 @@
   },
   "mpris": {
     "format": "{player_icon} {dynamic}",
-    "format-paused": "{status_icon} <i>{dynamic}</i>",
+    "format-paused": "{player_icon} <i>{dynamic}</i>",
+    "dynamic-order": [
+      "title",
+      "album",
+      "artist",
+      "position",
+      "length"
+    ],
     "player-icons": {
-      "default": "󰏤"
+      "default": "",
+      "mpv": "",
+      "firefox": "󰈹",
+      "librewolf": "󰈹"
     },
     "status-icons": {
-      "paused": "󰐊"
+      "playing": "󰏤",
+      "paused": "󰐊",
+      "stopped": "󰓛"
     },
     "interval": 1
   },
@@ -234,7 +247,6 @@
     "format-disabled": "", // an empty format will hide the module
     "format-connected": " {device_alias}",
     "format-connected-battery": " {device_alias} [{device_battery_percentage}%]",
-    // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
     "tooltip-format": "{controller_alias}",
     "tooltip-format-connected": "{controller_alias} : {num_connections} connected\n{device_enumerate}",
     "tooltip-format-enumerate-connected": "{device_alias}",
@@ -259,5 +271,27 @@
     "on-click": "swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
     "escape": true
+  },
+  "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 18,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-out",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      }
+    ]
   }
 }
