@@ -35,8 +35,8 @@
   };
 
   home = {
-    username = "***REMOVED***";
-    homeDirectory = "/home/***REMOVED***";
+    username = "tarxz";
+    homeDirectory = "/home/tarxz";
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
@@ -587,7 +587,7 @@
         allow_hyperlinks = true;
 
         kitty_mod = "ctrl+shift";
-        action_alias = "kitty_scrollback_nvim kitten /home/***REMOVED***/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py";
+        action_alias = "kitty_scrollback_nvim kitten /home/tarxz/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py";
 
         mouse_map = "ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output";
       };
@@ -963,10 +963,10 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/***REMOVED***/.config/sops/age/keys.txt";
+    age.keyFile = "/home/tarxz/.config/sops/age/keys.txt";
 
-    secrets.ssh.path = "/home/***REMOVED***/.ssh/id_ed25519";
-    secrets.gpg.path = "/home/***REMOVED***/.local/share/gnupg/private-keys-v1.d/F2F3ACD0B6055BC445CFFFC1E3DD87591F0A6FC2.key";
+    secrets.ssh.path = "/home/tarxz/.ssh/id_ed25519";
+    secrets.gpg.path = "/home/tarxz/.local/share/gnupg/private-keys-v1.d/F2F3ACD0B6055BC445CFFFC1E3DD87591F0A6FC2.key";
   };
 
   home.stateVersion = "23.11";

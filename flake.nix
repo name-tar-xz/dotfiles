@@ -105,7 +105,7 @@
       };
 
       /*
-        homeConfigurations.***REMOVED*** = home-manager.lib.homeManagerConfiguration {
+        homeConfigurations.tarxz = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./home.nix ];
         extraSpecialArgs = { inherit inputs; };

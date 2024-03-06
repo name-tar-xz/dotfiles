@@ -172,9 +172,8 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF8";
 
-  users.users.***REMOVED*** = {
+  users.users.tarxz = {
     isNormalUser = true;
-    description = "***REMOVED***";
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -187,7 +186,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.***REMOVED*** = import ./home.nix;
+    users.tarxz = import ./home.nix;
     extraSpecialArgs = {
       inherit inputs;
     };
@@ -456,7 +455,7 @@
           persist = true;
         }
         {
-          users = [ "***REMOVED***" ];
+          users = [ "tarxz" ];
           cmd = "nixos-rebuild";
           noPass = true;
           setEnv = [ "LOCALE_ARCHIVE=/run/current-system/sw/lib/locale/locale-archive" ];
@@ -573,7 +572,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/***REMOVED***/.config/sops/age/keys.txt";
+    age.keyFile = "/home/tarxz/.config/sops/age/keys.txt";
 
     secrets."wg/a" = { };
     secrets."wg/b" = { };
