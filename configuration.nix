@@ -140,21 +140,10 @@
     };
 
     wg-quick.interfaces = {
-      /* wg0 = {
-           address = [ "10.2.0.2/32" ];
-           privateKeyFile = config.sops.secrets."wg/a".path;
-           peers = [
-             {
-               allowedIPs = [ "0.0.0.0/0" ];
-               publicKey = "jDrSMRMm6XJgYGcSd01QqJbYiW13dyaOKp8GWDs0rTQ=";
-               endpoint = "185.177.125.172:51820";
-             }
-           ];
-         };
-      */
       wg0 = {
+        autostart = false;
         address = [ "10.2.0.2/32" ];
-        privateKeyFile = config.sops.secrets."wg/b".path;
+        privateKeyFile = config.sops.secrets.wg.path;
         peers = [
           {
             allowedIPs = [ "0.0.0.0/0" ];
@@ -227,18 +216,6 @@
       XDG_CONFIG_HOME = "$HOME/.config";
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME = "$HOME/.local/state";
-    };
-
-    etc = {
-      "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = # lua
-        ''
-          bluez_monitor.properties = {
-            ["bluez5.enable-sbc-xq"] = true,
-            ["bluez5.enable-msbc"] = true,
-            ["bluez5.enable-hw-volume"] = true,
-            ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-          }
-        '';
     };
 
     binsh = "${pkgs.dash}/bin/dash";
@@ -353,8 +330,7 @@
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend" ATTR{power/autosuspend}="60"
 
         # SATA active link power management
-        ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="min_power"
-        # ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="max_performance"
+        ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="med_power_with_dipm"
 
         # Wlan power save
         ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="${pkgs.iw}/bin/iw dev %k set power_save on"
@@ -495,6 +471,7 @@
 
     nvidia = {
       modesetting.enable = true;
+      dynamicBoost.enable = true;
       powerManagement = {
         enable = true;
         finegrained = true;

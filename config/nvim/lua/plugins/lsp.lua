@@ -30,6 +30,8 @@ return {
         },
       })
 
+      lspconfig.nil_ls.setup({})
+
       lspconfig.arduino_language_server.setup({})
 
       lspconfig.taplo.setup({})
@@ -55,7 +57,7 @@ return {
         end,
       })
 
-      lspconfig.biome.setup({})
+      lspconfig.biome.setup({ single_file_support = true })
       lspconfig.tsserver.setup({
         init_options = {
           preferences = {

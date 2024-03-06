@@ -29,6 +29,7 @@ vim.opt.foldlevel = 99
 vim.opt.history = 100 -- Number of commands to remember in a history table
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true -- Case insensitive searching
+vim.opt.inccommand = "split"
 vim.opt.laststatus = 3 -- globalstatus
 vim.opt.list = true
 vim.opt.listchars = { trail = "·", nbsp = "␣" }
@@ -56,7 +57,7 @@ vim.opt.timeoutlen = 300 -- Length of time to wait for a mapped sequence
 vim.opt.title = true
 vim.opt.titlestring = " %t"
 vim.opt.undofile = true -- Enable persistent undo
-vim.opt.updatetime = 500 -- Length of time to wait before triggering the plugin
+vim.opt.updatetime = 250 -- Length of time to wait before triggering the plugin
 vim.opt.virtualedit = "block"
 vim.opt.wrap = false -- Disable wrapping of lines longer than the width of window
 vim.opt.writebackup = false -- Disable making a backup before overwriting a file

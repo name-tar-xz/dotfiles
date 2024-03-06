@@ -305,8 +305,8 @@
         sponsorblock
       ];
       config = {
-        hwdec = "auto-safe";
-        vo = "dmabuf-wayland";
+        hwdec = "vaapi,auto-safe";
+        vo = "gpu,auto";
         ao = "pipewire,";
         gpu-context = "wayland";
         deband = true;
@@ -505,7 +505,7 @@
         cursor_stop_blinking_after = 0;
 
         scrollback_lines = -1;
-        scrollback_pager = "${config.home.sessionVariables.PAGER}";
+        scrollback_pager = config.home.sessionVariables.PAGER;
 
         mouse_hide_wait = 0;
         url_style = "straight";
@@ -627,7 +627,8 @@
       extraLuaConfig = # lua
         ''
           P = {
-            telescope_fzf_native_nvim="${pkgs.vimPlugins.telescope-fzf-native-nvim}"
+            telescope_fzf_native="${pkgs.vimPlugins.telescope-fzf-native-nvim}",
+            luasnip="${pkgs.vimPlugins.luasnip}",
           }
           require("startup")
           vim.opt.rtp:append("${
@@ -660,6 +661,7 @@
                     svelte
                     toml
                     typescript
+                    udev
                     vue
                     yaml
                   ]
@@ -669,7 +671,7 @@
         '';
 
       extraPackages = with pkgs; [
-        # Formatter, LSP, linters
+        # Formatter, LSP, Linters
         codespell
         vscode-langservers-extracted
         ## TOML
