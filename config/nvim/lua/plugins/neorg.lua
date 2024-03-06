@@ -2,9 +2,8 @@ return {
   "nvim-neorg/neorg",
   enabled = true,
   cmd = "Neorg",
-  event = "VeryLazy",
+  ft = "norg",
   build = ":Neorg sync-parsers",
-  init = function() vim.g.maplocalleader = " " end,
   opts = {
     load = {
       ["core.defaults"] = {}, -- Loads default behaviour

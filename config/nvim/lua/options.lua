@@ -61,9 +61,6 @@ vim.opt.virtualedit = "block"
 vim.opt.wrap = false -- Disable wrapping of lines longer than the width of window
 vim.opt.writebackup = false -- Disable making a backup before overwriting a file
 
-vim.g.undotree_SplitWidth = 26
-vim.g.undotree_WindowLayout = 3
-
 vim.g.skip_ts_context_commentstring_module = true
 
 vim.g.firenvim_config = {

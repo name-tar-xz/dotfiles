@@ -25,20 +25,6 @@ return {
         diagnostics = "nvim_lsp",
         show_buffer_close_icons = false,
         show_close_icon = false,
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text = "Neotree",
-            highlight = "BufferLineFill",
-            text_align = "right",
-          },
-          {
-            filetype = "undotree",
-            text = "Undotree",
-            highlight = "BufferLineFill",
-            text_align = "right",
-          },
-        },
       },
     },
     keys = {
@@ -64,7 +50,6 @@ return {
           override_by_filename = {
             ["LICENSE"] = {
               icon = "",
-              -- color = "#f1502f",
             },
           },
         }

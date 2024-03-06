@@ -193,7 +193,6 @@ return {
       },
       formatters = {
         nixfmt = { prepend_args = { "-w", "120" } },
-        stylua = { prepend_args = { "--indent-type", "spaces", "--indent-width", "2", "--column-width", "999", "--collapse-simple-statement", "Always" } },
       },
     },
   },
