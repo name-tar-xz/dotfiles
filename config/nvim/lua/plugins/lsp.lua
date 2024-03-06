@@ -3,7 +3,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    cond = function() return not vim.opt.diff:get() end,
+    cond = not vim.opt.diff:get(),
     config = function()
       local lspconfig = require("lspconfig")
       local lsp_defaults = lspconfig.util.default_config
@@ -94,9 +94,13 @@ return {
     config = function()
       local lint = require("lint")
       local function list_insert_unique(lst, vals)
-        if not lst then lst = {} end
+        if not lst then
+          lst = {}
+        end
         assert(vim.tbl_islist(lst), "Provided table is not a list like table")
-        if not vim.tbl_islist(vals) then vals = { vals } end
+        if not vim.tbl_islist(vals) then
+          vals = { vals }
+        end
         local added = {}
         vim.tbl_map(function(v) added[v] = true end, lst)
         for _, val in ipairs(vals) do
@@ -135,7 +139,9 @@ return {
           local names = lint._resolve_linter_by_ft(ft)
 
           -- Add fallback linters.
-          if #names == 0 then list_insert_unique(names, lint.linters_by_ft["_"] or {}) end
+          if #names == 0 then
+            list_insert_unique(names, lint.linters_by_ft["_"] or {})
+          end
 
           -- Add global linters.
           list_insert_unique(names, lint.linters_by_ft["*"] or {})
@@ -145,7 +151,9 @@ return {
           -- ctx.dirname = vim.fn.fnamemodify(ctx.filename, ":h")
 
           -- Run linters.
-          if #names > 0 then lint.try_lint(names) end
+          if #names > 0 then
+            lint.try_lint(names)
+          end
         end
       end
 

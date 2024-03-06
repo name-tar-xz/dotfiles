@@ -109,11 +109,7 @@ return {
     "luckasRanarison/tree-sitter-hypr",
     ft = "hyprlang",
     build = ":TSUpdate hypr",
-    init = function()
-      vim.filetype.add({
-        pattern = { [".*/hyprland%.conf"] = "hyprlang" },
-      })
-    end,
+    init = function() vim.filetype.add({ pattern = { [".*/hyprland%.conf"] = "hyprlang" } }) end,
   },
 
   { "calops/hmts.nvim", ft = "nix" },

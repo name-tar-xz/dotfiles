@@ -161,11 +161,15 @@ return {
           -- first, trim the pattern relative to the current directory. For other
           -- options, see :h filename-modifers
           local filename = vim.fn.expand("%:t")
-          if filename == "" then return "[No Name]" end
+          if filename == "" then
+            return "[No Name]"
+          end
           -- now, if the filename would occupy more than 1/4th of the available
           -- space, we trim the file path to its initials
           -- See Flexible Components section below for dynamic truncation
-          if not conditions.width_percent_below(#filename, 0.25) then filename = vim.fn.pathshorten(filename) end
+          if not conditions.width_percent_below(#filename, 0.25) then
+            filename = vim.fn.pathshorten(filename)
+          end
           return filename
         end,
         -- hl = { bg = "mantle", fg = "surface1" },
@@ -182,7 +186,9 @@ return {
           local suffix = { "b", "k", "M", "G", "T", "P", "E" }
           local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
           fsize = (fsize < 0 and 0) or fsize
-          if fsize < 1024 then return fsize .. suffix[1] end
+          if fsize < 1024 then
+            return fsize .. suffix[1]
+          end
           local i = math.floor((math.log(fsize) / math.log(1024)))
           return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
         end,
@@ -280,7 +286,9 @@ return {
         condition = function() return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0 end,
         init = function(self)
           local ok, search = pcall(vim.fn.searchcount)
-          if ok and search.total then self.search = search end
+          if ok and search.total then
+            self.search = search
+          end
         end,
         provider = function(self)
           local search = self.search
@@ -391,7 +399,9 @@ return {
           name = "heirline_fold_click_handler",
           callback = function()
             local line = vim.fn.getmousepos().line
-            if not_fold_start(line) then return end
+            if not_fold_start(line) then
+              return
+            end
             vim.cmd.execute("'" .. line .. "fold" .. (fold_opened(line) and "close" or "open") .. "'")
           end,
         },

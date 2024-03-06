@@ -249,12 +249,14 @@ return {
             { "\nChoose to copy to clipboard:\n", "Normal" },
           }
           for i, result in pairs(results) do
-            if result.val and result.val ~= "" then vim.list_extend(messages, {
-              { ("%s."):format(i), "Identifier" },
-              { (" %s: "):format(result.msg) },
-              { result.val, "String" },
-              { "\n" },
-            }) end
+            if result.val and result.val ~= "" then
+              vim.list_extend(messages, {
+                { ("%s."):format(i), "Identifier" },
+                { (" %s: "):format(result.msg) },
+                { result.val, "String" },
+                { "\n" },
+              })
+            end
           end
           vim.api.nvim_echo(messages, false, {})
           local result = results[vim.fn.getcharstr()]
@@ -429,7 +431,9 @@ return {
       vim.api.nvim_create_autocmd("BufWinEnter", {
         desc = "Disable indentscope for certain buftypes",
         callback = function(event)
-          if vim.tbl_contains(excluded_buftypes, vim.bo[event.buf].buftype) then vim.b[event.buf].miniindentscope_disable = true end
+          if vim.tbl_contains(excluded_buftypes, vim.bo[event.buf].buftype) then
+            vim.b[event.buf].miniindentscope_disable = true
+          end
         end,
       })
       vim.api.nvim_create_autocmd("TermOpen", {
@@ -542,7 +546,9 @@ return {
             table.insert(newVirtText, { chunkText, hlGroup })
             chunkWidth = vim.fn.strdisplaywidth(chunkText)
             -- str width returned from truncate() may less than 2nd argument, need padding
-            if curWidth + chunkWidth < targetWidth then suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth) end
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+            end
             break
           end
           curWidth = curWidth + chunkWidth

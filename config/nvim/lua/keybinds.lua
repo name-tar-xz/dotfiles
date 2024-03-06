@@ -91,7 +91,9 @@ vim.keymap.set("n", "gY", vim.lsp.buf.type_definition, { desc = "Goto Type Defin
 
 vim.keymap.set("n", "K", function()
   local winid = require("ufo").peekFoldedLinesUnderCursor()
-  if not winid then vim.lsp.buf.hover() end
+  if not winid then
+    vim.lsp.buf.hover()
+  end
 end, { desc = "Hover" })
 vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 

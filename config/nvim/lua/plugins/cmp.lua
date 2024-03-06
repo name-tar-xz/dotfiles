@@ -15,12 +15,22 @@ return {
           silent = true,
           mode = "i",
         },
-        { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-        { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+        {
+          "<tab>",
+          function() require("luasnip").jump(1) end,
+          mode = "s",
+        },
+        {
+          "<s-tab>",
+          function() require("luasnip").jump(-1) end,
+          mode = { "i", "s" },
+        },
       },
     },
     config = function(_, opts)
-      if opts then require("luasnip").config.setup(opts) end
+      if opts then
+        require("luasnip").config.setup(opts)
+      end
       vim.tbl_map(function(type) require("luasnip.loaders.from_" .. type).lazy_load() end, { "vscode", "snipmate", "lua" })
     end,
   },
@@ -112,7 +122,9 @@ return {
           -- { name = "neorg" },
         }),
         completion = { completeopt = "menu,menuone,preview,noselect,noinsert" },
-        snippet = { expand = function(args) require("luasnip").lsp_expand(args.body) end },
+        snippet = {
+          expand = function(args) require("luasnip").lsp_expand(args.body) end,
+        },
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
