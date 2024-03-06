@@ -1,4 +1,3 @@
---# selene: allow(multiple_statements)
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
@@ -7,7 +6,6 @@ vim.keymap.set("n", "<leader>O", "<cmd>UndotreeFocus<CR>", { desc = "Focus UndoT
 
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save" })
 vim.keymap.set("n", "<leader>q", "<cmd>confirm q<CR>", { desc = "Quit" })
-vim.keymap.set("n", "<leader>fn", "<cmd>enew<CR>", { desc = "New File" })
 vim.keymap.set("n", "<C-q>", "<cmd>qa!<CR>", { desc = "Force quit" })
 
 vim.keymap.set("n", "|", "<cmd>vsplit<CR>", { desc = "Vertical Split" })
@@ -21,8 +19,6 @@ vim.keymap.set("n", "<leader>pS", "<cmd>Lazy sync<CR>", { desc = "Lazy sync" })
 vim.keymap.set("n", "<leader>ps", "<cmd>Lazy show<CR>", { desc = "Lazy status" })
 vim.keymap.set("n", "<leader>pp", "<cmd>Lazy profile<CR>", { desc = "Lazy Profile" })
 
-vim.keymap.set("n", "<leader>pm", "<cmd>Mason<CR>", { desc = "Mason" })
-
 -- Buffers
 vim.keymap.set("n", "<leader>c", function() require("bufdelete").bufdelete(0, false) end, { desc = "Close buffer" })
 vim.keymap.set("n", "<leader>C", function() require("bufdelete").bufdelete(0, true) end, { desc = "Force close buffer" })
@@ -33,10 +29,6 @@ vim.keymap.set("n", "<b", "<cmd>BufferLineMovePrev<CR>", { desc = "Move buffer t
 -- vim.keymap.set("n", "[b", "<cmd>bprev<CR>", { desc = "Previous buffer tab" })
 -- vim.keymap.set("n", "<S-l>", "<cmd>bnext<CR>", { desc = "Next buffer tab" })
 -- vim.keymap.set("n", "<S-h>", "<cmd>bprev<CR>", { desc = "Previous buffer tab" })
-
--- Navigate tabs
-vim.keymap.set("n", "]t", function() vim.cmd.tabnext() end, { desc = "Next tab" })
-vim.keymap.set("n", "[t", function() vim.cmd.tabprevious() end, { desc = "Previous tab" })
 
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", function() require("smart-splits").move_cursor_left() end, { desc = "Move to left split" })
@@ -51,7 +43,6 @@ vim.keymap.set("n", "<C-Left>", function() require("smart-splits").resize_left()
 vim.keymap.set("n", "<C-Right>", function() require("smart-splits").resize_right() end, { desc = "Resize split right" })
 
 -- GitSigns
-
 vim.keymap.set("n", "]g", function() require("gitsigns").next_hunk() end, { desc = "Next Git hunk" })
 vim.keymap.set("n", "[g", function() require("gitsigns").prev_hunk() end, { desc = "Previous Git hunk" })
 vim.keymap.set("n", "<leader>gl", function() require("gitsigns").blame_line() end, { desc = "View Git blame" })
@@ -62,6 +53,7 @@ vim.keymap.set("n", "<leader>gs", function() require("gitsigns").stage_hunk() en
 vim.keymap.set("n", "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage Git hunk" })
 vim.keymap.set("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View Git diff" })
 
+-- Comment
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "Comment line", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "Comment line", remap = true })
 
@@ -76,16 +68,13 @@ vim.keymap.set("n", "<leader>f/", function() require("telescope.builtin").curren
 vim.keymap.set("n", "<leader>f<CR>", function() require("telescope.builtin").resume() end, { desc = "Resume previous search" })
 vim.keymap.set("n", "<leader>fC", function() require("telescope.builtin").commands() end, { desc = "Find commands" })
 vim.keymap.set("n", "<leader>fF", function() require("telescope.builtin").find_files({ hidden = true, no_ignore = true }) end, { desc = "Find all files" })
-vim.keymap.set("n", "<leader>fW", function()
-  require("telescope.builtin").live_grep({ additional_args = function() return { "--hidden", "--no-ignore" } end })
-end, { desc = "Find words in all files" })
+vim.keymap.set("n", "<leader>fW", function() require("telescope.builtin").live_grep({ additional_args = { "--hidden", "--no-ignore" } }) end, { desc = "Find words in all files" })
 vim.keymap.set("n", "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Find buffers" })
 vim.keymap.set("n", "<leader>fc", function() require("telescope.builtin").grep_string() end, { desc = "Find word under cursor" })
 vim.keymap.set("n", "<leader>ff", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
 vim.keymap.set("n", "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Find help" })
 vim.keymap.set("n", "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Find keymaps" })
 vim.keymap.set("n", "<leader>fm", function() require("telescope.builtin").man_pages() end, { desc = "Find man" })
-vim.keymap.set("n", "<leader>fn", function() require("telescope").extensions.notify.notify() end, { desc = "Find notifications" })
 vim.keymap.set("n", "<leader>fo", function() require("telescope.builtin").oldfiles() end, { desc = "Find history" })
 vim.keymap.set("n", "<leader>fr", function() require("telescope.builtin").registers() end, { desc = "Find registers" })
 vim.keymap.set("n", "<leader>ft", function() require("telescope.builtin").colorscheme({ enable_preview = true }) end, { desc = "Find themes" })

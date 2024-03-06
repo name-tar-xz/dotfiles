@@ -17,8 +17,18 @@ return {
 
       lsp_defaults.capabilities = capabilities
 
-      lspconfig.lua_ls.setup({})
-      lspconfig.nil_ls.setup({})
+      lspconfig.lua_ls.setup({
+        settings = {
+          Lua = {
+            completion = {
+              callSnippet = "Replace",
+            },
+            hint = {
+              enable = true,
+            },
+          },
+        },
+      })
 
       lspconfig.arduino_language_server.setup({})
 
@@ -46,7 +56,20 @@ return {
       })
 
       lspconfig.biome.setup({})
-      lspconfig.tsserver.setup({})
+      lspconfig.tsserver.setup({
+        init_options = {
+          preferences = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+            importModuleSpecifierPreference = "non-relative",
+          },
+        },
+      })
 
       lspconfig.tailwindcss.setup({})
       lspconfig.cssls.setup({})
