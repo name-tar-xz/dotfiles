@@ -91,12 +91,14 @@
     in
     # pkgs = nixpkgs.legacyPackages.${system};
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+
+      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs system;
         };
         modules = [
-          ./configuration.nix
+          ./laptop.nix
           /*
             imports = [ aagl.nixosModules.default ];
             programs.honkers-railway-launcher.enable = false;

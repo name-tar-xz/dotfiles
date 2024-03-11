@@ -106,7 +106,7 @@
   };
 
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "laptop";
     hostFiles = [ inputs.hblock ];
 
     useNetworkd = true;
