@@ -47,6 +47,7 @@ return {
         all = function(colors)
           return {
             Normal = { bg = "NONE" },
+            NormalNC = { bg = "NONE" },
             Visual = { bg = colors.surface0, style = {} },
             Folded = { bg = colors.mantle },
           }

@@ -273,7 +273,7 @@
 
     psd.enable = true;
     auto-cpufreq = {
-      enable = false;
+      enable = true;
       settings = {
         charger = {
           governor = "powersave";
@@ -476,7 +476,7 @@
         enable = true;
         finegrained = true;
       };
-      open = false;
+      open = true;
       nvidiaSettings = false;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       prime = {
@@ -528,7 +528,7 @@
           "NerdFontsSymbolsOnly"
         ];
       })
-      (iosevka-bin.override { variant = "sgr-iosevka-term"; })
+      (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
       cascadia-code
       dejavu_fonts
       gyre-fonts # TrueType substitutes for standard PostScript fonts
@@ -551,7 +551,6 @@
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/home/tarxz/.config/sops/age/keys.txt";
 
-    secrets."wg/a" = { };
-    secrets."wg/b" = { };
+    secrets."wg" = { };
   };
 }
