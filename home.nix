@@ -37,9 +37,6 @@
   home = {
     username = "tarxz";
     homeDirectory = "/home/tarxz";
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
     packages = with pkgs; [
       # Hyprland
       hyprpicker
@@ -57,7 +54,6 @@
       pavucontrol
 
       # Applications
-      ferdium
       libreoffice-fresh
       wezterm
 
@@ -108,7 +104,7 @@
       XDG_CONFIG_HOME = config.xdg.configHome;
       XDG_STATE_HOME = config.xdg.stateHome;
       XDG_CACHE_HOME = config.xdg.cacheHome;
-      FLAKE = "${config.home.homeDirectory}/.config/nixos";
+      FLAKE = "${config.xdg.configHome}/nixos";
 
       BROWSER = "librewolf";
       SUDO_EDITOR = "nvim";
@@ -235,10 +231,7 @@
       name = "Catppuccin-Mocha-Compact-Mauve-Dark";
       package = (
         pkgs.catppuccin-gtk.override {
-          accents = [
-            "mauve"
-            "sapphire"
-          ];
+          accents = [ "mauve" ];
           size = "compact";
           tweaks = [ "black" ];
           variant = "mocha";
@@ -254,7 +247,9 @@
 
   wayland.windowManager.hyprland =
     let
-      vars = builtins.mapAttrs (name: value: name + "," + builtins.toString (value)) config.home.sessionVariables;
+      vars = builtins.mapAttrs (
+        name: value: name + "," + builtins.toString (value)
+      ) config.home.sessionVariables;
     in
     {
       enable = true;
@@ -649,6 +644,7 @@
                     html
                     java
                     javascript
+                    jsdoc
                     json
                     json5
                     jsonc

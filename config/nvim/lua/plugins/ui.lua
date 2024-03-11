@@ -355,13 +355,10 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = "User GitFile",
-    cond = function() return not vim.opt.diff:get() end,
+    cond = not vim.opt.diff:get(),
     opts = {
-      numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
-      linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+      numhl = true,
       signcolumn = false,
-      current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-      current_line_blame_opts = { delay = 0 },
     },
   },
 
@@ -382,9 +379,9 @@ return {
       },
       provider_selector = function()
         if vim.lsp.buf_is_attached(0, 1) then
-          return { "lsp", "treesitter" } -- if file opened, try to use treesitter if available
+          return { "lsp", "treesitter" }
         else
-          return { "treesitter", "indent" } -- if file opened, try to use treesitter if available
+          return { "treesitter", "indent" }
         end
       end,
       fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)

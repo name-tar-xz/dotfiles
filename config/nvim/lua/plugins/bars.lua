@@ -18,6 +18,7 @@ return {
   },
   {
     "akinsho/bufferline.nvim",
+    enabled = false,
     event = "BufEnter",
     opts = {
       highlights = require("catppuccin.groups.integrations.bufferline").get(),

@@ -43,7 +43,7 @@ vim.opt.scrolloff = 999 -- Number of lines to keep above and below the cursor
 vim.opt.shell = "/usr/bin/env zsh"
 vim.opt.shiftwidth = 0 -- Number of space inserted for indentation
 vim.opt.showmode = false -- Disable showing modes in command line
-vim.opt.showtabline = 2 -- always display tabline
+vim.opt.showtabline = 0 -- always display tabline
 vim.opt.sidescrolloff = 8 -- Number of columns to keep at the sides of the cursor
 vim.opt.signcolumn = "yes"
 vim.opt.smartcase = true -- Case sensitivie searching
@@ -88,6 +88,15 @@ vim.diagnostic.config({
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function() vim.highlight.on_yank() end,
+})
+
 autocmd({ "UIEnter" }, {
   callback = function(event)
     local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
@@ -110,14 +119,13 @@ autocmd({ "User", "BufWinEnter" }, {
   callback = function(args)
     if ((args.event == "User" and args.file == "AlphaReady") or (args.event == "BufWinEnter" and vim.api.nvim_get_option_value("filetype", { buf = args.buf }) == "alpha")) and not vim.g.before_alpha then
       vim.g.before_alpha = {
-        showtabline = vim.opt.showtabline:get(),
         laststatus = vim.opt.laststatus:get(),
         cmdheight = vim.opt.cmdheight:get(),
         statuscolumn = vim.opt.statuscolumn:get(),
       }
       vim.opt.showtabline, vim.opt.laststatus, vim.opt.cmdheight, vim.opt.statuscolumn = 0, 0, 0, ""
     elseif vim.g.before_alpha and args.event == "BufWinEnter" and vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= "nofile" then
-      vim.opt.laststatus, vim.opt.showtabline, vim.opt.cmdheight, vim.opt.statuscolumn = vim.g.before_alpha.laststatus, vim.g.before_alpha.showtabline, vim.g.before_alpha.cmdheight, vim.g.before_alpha.statuscolumn
+      vim.opt.laststatus, vim.opt.cmdheight, vim.opt.statuscolumn = vim.g.before_alpha.laststatus, vim.g.before_alpha.cmdheight, vim.g.before_alpha.statuscolumn
       vim.g.before_alpha = nil
     end
   end,

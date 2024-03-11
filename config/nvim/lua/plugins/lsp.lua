@@ -194,7 +194,7 @@ return {
         timeout_ms = 500,
       },
       formatters = {
-        nixfmt = { prepend_args = { "-w", "120" } },
+        stylua = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" } },
       },
     },
   },
