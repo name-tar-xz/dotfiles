@@ -580,7 +580,7 @@
         color7 = "#bac2de";
         color15 = "#a6adc8";
 
-        shell = "zsh";
+        shell = "${pkgs.zsh}/bin/zsh";
 
         listen_on = "unix:/tmp/kitty";
         update_check_interval = 0;
@@ -601,10 +601,10 @@
         "kitty_mod+g" = "kitty_scrollback_nvim --config ksb_builtin_last_cmd_output";
       };
       extraConfig = ''
-        font_features CascadiaCode-SemiLight +ss20 +ss02
-        font_features CascadiaCode-SemiBold +ss20 +ss02
-        font_features CascadiaCode-SemiLightItalic +ss20 +ss02
-        font_features CascadiaCode-SemiBoldItalic +ss20 +ss02
+        font_features CascadiaCode +ss20 +ss02
+        font_features CascadiaCode-Bold +ss20 +ss02
+        font_features CascadiaCode-Italic +ss20 +ss02
+        font_features CascadiaCode-BoldItalic +ss20 +ss02
 
         font_features FiraCodeNF-Reg +ss09 +cv25 +cv26 +cv32 +cv27 +cv28 +ss06 +ss07
 
@@ -842,11 +842,11 @@
         y=$5
 
         if [[ "$( file -Lb --mime-type "$file")" =~ ^image ]]; then
-          kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+          ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
           exit 1
         fi
 
-        bat --color=always "$file"
+        ${pkgs.bat}/bin/bat --color=always "$file"
       '';
       settings = {
         icons = true;
@@ -856,7 +856,7 @@
         info = "size";
         cursorpreviewfmt = "";
         scrolloff = 999;
-        cleaner = "${pkgs.writeShellScript "cl.sh" "kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
+        cleaner = "${pkgs.writeShellScript "cl.sh" "${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
       };
     };
     /*
