@@ -7,7 +7,7 @@
 }:
 {
   imports = with inputs; [
-    ./hardware-configuration.nix
+    ./laptop-hardware.nix
     chaotic.nixosModules.default
     home-manager.nixosModules.home-manager
     sops-nix.nixosModules.sops
