@@ -93,25 +93,26 @@
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
-      nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs system;
+      nixosConfigurations = {
+        laptop = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs system;
+          };
+          modules = [
+            ./laptop.nix
+            /*
+              imports = [ aagl.nixosModules.default ];
+              programs.honkers-railway-launcher.enable = false;
+            */
+          ];
         };
-        modules = [
-          ./laptop.nix
-          /*
-            imports = [ aagl.nixosModules.default ];
-            programs.honkers-railway-launcher.enable = false;
-          */
-        ];
-      };
 
-      /*
-        homeConfigurations.tarxz = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home.nix ];
-        extraSpecialArgs = { inherit inputs; };
+        server = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs system;
+          };
+          modules = [ ./server.nix ];
         };
-      */
+      };
     };
 }

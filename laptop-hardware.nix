@@ -17,6 +17,8 @@
     "thunderbolt"
     "vmd"
     "nvme"
+    "usb_storage"
+    "sd_mod"
     "rtsx_usb_sdmmc"
   ];
   boot.initrd.kernelModules = [ ];
@@ -25,7 +27,7 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/e8e01ef7-e7ee-4782-9646-062af6c29bd9";
+      device = "/dev/disk/by-uuid/178d06b2-7d84-4b30-a3bb-cea10de81194";
       fsType = "btrfs";
       options = [
         "subvol=@"
@@ -36,7 +38,7 @@
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/C077-D91A";
+      device = "/dev/disk/by-uuid/EAA3-95D7";
       fsType = "vfat";
       options = [ "noatime" ];
     };
@@ -61,8 +63,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  networking.interfaces.wg0.useDHCP = lib.mkDefault true;
-  networking.interfaces.wlan0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

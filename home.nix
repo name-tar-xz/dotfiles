@@ -111,7 +111,6 @@
       EDITOR = "nvim";
       VISUAL = "nvim";
       PAGER = "less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse --ignore-case --LONG-PROMPT --quit-on-intr --tilde";
-      BAT_PAGER = config.home.sessionVariables.PAGER;
       LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p";
 
       NIXOS_OZONE_WL = "1";
@@ -196,7 +195,7 @@
 
       update = "nix flake update ${config.home.sessionVariables.FLAKE} --commit-lock-file;nh os switch";
       switch = "nh os switch";
-      fast = "sudo nixos-rebuild switch --fast";
+      fast = "sudo nixos-rebuild test --fast";
     };
 
     file = {
@@ -350,7 +349,7 @@
       font = "monospace 12";
       theme = ./config/rofi/theme.rasi;
       extraConfig = {
-        modes = "drun,window,calc";
+        modes = "drun,window";
         fixed-num-lines = false;
         show-icons = true;
         terminal = "kitty";
@@ -714,7 +713,7 @@
 
     eza = {
       enable = true;
-      enableAliases = true;
+      #enableAliases = true;
       extraOptions = [
         "-aX"
         "--group-directories-first"
