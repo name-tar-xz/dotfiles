@@ -198,7 +198,7 @@
 
       update = "nix flake update ${config.home.sessionVariables.FLAKE} --commit-lock-file;nh os switch";
       switch = "nh os switch";
-      fast = "sudo nixos-rebuild test --fast";
+      fast = "sudo nixos-rebuild test --fast --flake ~/.config/nixos";
     };
 
     file = {

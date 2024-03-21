@@ -80,8 +80,8 @@ vim.g.firenvim_config = {
 vim.diagnostic.config({
   severity_sort = true,
   signs = {
-    -- text = { "", "󰌺", "", "" },
-    text = { "", "", "", "" },
+    -- text = { "", "󰌺", "", "" },
+    text = { "", "", "", "" },
   },
 })
 
@@ -91,9 +91,9 @@ local autocmd = vim.api.nvim_create_autocmd
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+autocmd("TextYankPost", {
+  desc = "Highlight when yanking text",
+  group = augroup("highlight-yank", { clear = true }),
   callback = function() vim.highlight.on_yank() end,
 })
 
@@ -113,6 +113,7 @@ autocmd({ "UIEnter" }, {
     end
   end,
 })
+-- TODO: Replace with Oil
 autocmd({ "User", "BufWinEnter" }, {
   desc = "Disable status, tablines, and cmdheight for alpha",
   group = augroup("alpha_settings", { clear = true }),

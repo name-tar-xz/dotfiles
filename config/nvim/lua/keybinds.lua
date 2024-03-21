@@ -81,6 +81,7 @@ vim.keymap.set("n", "<leader>ft", function() require("telescope.builtin").colors
 vim.keymap.set("n", "<leader>fw", function() require("telescope.builtin").live_grep() end, { desc = "Find words" })
 
 vim.keymap.set("n", "<leader>fs", function() require("telescope").extensions.aerial.aerial() end, { desc = "Find symbols" })
+vim.keymap.set("n", "<leader>fu", function() require("telescope").extensions.undo.undo() end, { desc = "Find undos" })
 
 -- LSP
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })

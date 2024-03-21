@@ -174,9 +174,7 @@ return {
         dir = P.telescope_fzf_native,
       },
     },
-    keys = {
-      { "<leader>fu", "<cmd>Telescope undo<CR>", desc = "Find undos" },
-    },
+
     config = function()
       local actions = require("telescope.actions")
       require("telescope").setup({
@@ -210,7 +208,6 @@ return {
               ["<M-k>"] = actions.move_selection_previous,
               ["<C-k>"] = actions.move_selection_previous,
             },
-            n = { ["q"] = actions.close },
           },
         },
 
@@ -219,14 +216,9 @@ return {
             diff_context_lines = 4,
             mappings = {
               i = {
-                ["<CR>"] = function(bufnr) require("telescope-undo.actions").restore(bufnr) end,
-                ["<C-CR>"] = function(bufnr) require("telescope-undo.actions").yank_additions(bufnr) end,
-                ["<S-CR>"] = function(bufnr) require("telescope-undo.actions").yank_deletions(bufnr) end,
-              },
-              n = {
-                ["y"] = function(bufnr) require("telescope-undo.actions").yank_additions(bufnr) end,
-                ["Y"] = function(bufnr) require("telescope-undo.actions").yank_deletions(bufnr) end,
-                ["u"] = function(bufnr) require("telescope-undo.actions").restore(bufnr) end,
+                ["<CR>"] = require("telescope-undo.actions").restore,
+                ["<C-CR>"] = require("telescope-undo.actions").yank_additions,
+                ["<S-CR>"] = require("telescope-undo.actions").yank_deletions,
               },
             },
           },
@@ -235,7 +227,6 @@ return {
       require("telescope").load_extension("undo")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("aerial")
-      -- require("telescope").load_extension("session-lens")
     end,
   },
   {

@@ -42,6 +42,7 @@
   };
 
   programs = {
+    nix-ld.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -179,7 +180,7 @@
         enable = true;
         finegrained = true;
       };
-      open = true;
+      open = false;
       nvidiaSettings = false;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       prime = {
