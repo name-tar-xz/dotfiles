@@ -313,7 +313,7 @@
           "dts-hd"
           "truehd"
         ];
-        sub-font = "Cascadia Code";
+        sub-font = "monospace";
         cache = true;
         speed = 2;
         volume-max = 100;
@@ -506,8 +506,8 @@
       enable = true;
       shellIntegration.mode = "no-cursor no-sudo";
       font = {
-        name = "Cascadia Code";
-        size = 12;
+        name = "monospace";
+        size = 12.7;
       };
       settings = {
         cursor_shape = "underline";

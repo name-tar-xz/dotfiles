@@ -6,7 +6,7 @@
     "percent": {
       "type": 3
     },
-    "separator": "➜ "
+    "separator": " ➜ "
   },
   "modules": [
     "title",

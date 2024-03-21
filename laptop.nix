@@ -209,7 +209,7 @@
       defaultFonts = {
         serif = [ "Noto Sans" ];
         sansSerif = [ "Noto Sans" ];
-        monospace = [ "Cascadia Code" ];
+        monospace = [ "Iosevka Term" ];
         emoji = [ "Segoe UI Emoji" ];
       };
       includeUserConf = true;
@@ -231,7 +231,6 @@
       cascadia-code
       dejavu_fonts
       gyre-fonts # TrueType substitutes for standard PostScript fonts
-      jetbrains-mono
       liberation_ttf
       noto-fonts
       noto-fonts-cjk
