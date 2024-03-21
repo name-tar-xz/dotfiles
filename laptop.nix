@@ -144,7 +144,7 @@
 
   security = {
     polkit.enable = true;
-    pam.services.swaylock.text = "auth include login";
+    pam.services.hyprlock = { };
 
     rtkit.enable = true;
   };

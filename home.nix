@@ -5,7 +5,10 @@
   ...
 }:
 {
-  imports = with inputs; [ nur.nixosModules.nur ];
+  imports = with inputs; [
+    nur.nixosModules.nur
+    hyprlock.homeManagerModules.hyprlock
+  ];
 
   xdg = {
     cacheHome = "${config.home.homeDirectory}/.local/cache";
@@ -371,46 +374,60 @@
         steal-focus = true;
       };
     };
-    swaylock = {
-      enable = true;
-      package = inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects;
-      settings = {
-        show-failed-attempts = true;
-        clock = true;
-        color = "1f1d2e80";
+    hyprlock =
+      let
         font = "monospace";
-        indicator = true;
-        indicator-radius = 100;
-        indicator-thickness = 15;
-        line-color = "1f1d2e";
-        ring-color = "191724";
-        inside-color = "1f1d2e";
-        key-hl-color = "eb6f92";
-        separator-color = "00000000";
-        text-color = "e0def4";
-        line-ver-color = "eb6f92";
-        ring-ver-color = "eb6f92";
-        inside-ver-color = "1f1d2e";
-        text-ver-color = "e0def4";
-        ring-wrong-color = "31748f";
-        text-wrong-color = "31748f";
-        inside-wrong-color = "1f1d2e";
-        inside-clear-color = "1f1d2e";
-        text-clear-color = "e0def4";
-        ring-clear-color = "9ccfd8";
-        line-clear-color = "1f1d2e";
-        line-wrong-color = "1f1d2e";
-        bs-hl-color = "31748f";
-        grace-no-mouse = true;
-        grace-no-touch = true;
-        datestr = "%d/%m";
-        fade-in = 0.1;
-        ignore-empty-password = true;
-        effect-blur = "7x5";
-        effect-vignette = "0.5:0.5";
-        screenshots = true;
+        fc = "rgb(205,214,244)";
+      in
+      {
+        enable = true;
+        images = [ ];
+
+        backgrounds = [
+          {
+            path = "/home/tarxz/Pictures/Wallpaper/the_neon_shallows_by_leikoi_ddm6tx0.png";
+            blur_passes = 2;
+            blur_size = 6;
+          }
+        ];
+
+        input-fields = [
+          {
+            outer_color = "rgba(0,0,0,0)";
+            inner_color = "rgba(17,17,27,0.5)";
+            font_color = fc;
+            valign = "bottom";
+            placeholder_text = "";
+            position = {
+              x = 0;
+              y = 32;
+            };
+          }
+        ];
+
+        labels = [
+          {
+            text = "cmd[update:1000] echo \"<b><big> $(date +'%-H:%M:%S') </big></b>\"";
+            font_size = 112;
+            font_family = font;
+            color = fc;
+            position = {
+              x = 0;
+              y = 0;
+            };
+          }
+          {
+            text = "cmd[update:0] echo \"<b><big> $(date +'%d/%m/%y') </big></b>\"";
+            font_size = 16;
+            font_family = font;
+            color = fc;
+            position = {
+              x = 0;
+              y = 0;
+            };
+          }
+        ];
       };
-    };
 
     git = {
       enable = true;
@@ -871,19 +888,19 @@
       enable = true;
       timeouts = [
         {
-          timeout = 60;
-          command = "${inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects}/bin/swaylock -f";
+          timeout = 65;
+          command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock -f";
         }
         {
           timeout = 60;
-          command = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl dispatch dpms off";
-          resumeCommand = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprland dispatch dpms on";
+          command = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10";
+          resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl -r";
         }
       ];
       events = [
         {
           event = "before-sleep";
-          command = "${inputs.nixpkgs-wayland.packages.${pkgs.system}.swaylock-effects}/bin/swaylock -f";
+          command = "${inputs.hyprlock.packages.${pkgs.system}.hyprlock}/bin/hyprlock -f";
         }
       ];
     };
