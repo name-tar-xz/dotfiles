@@ -104,6 +104,11 @@
       wireplumber.enable = true;
       # jack.enable = true;
     };
+    udev.extraRules = # udev
+      ''
+        ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm1_enable", ATTR{pwm1_enable}="0"
+        ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm2_enable", ATTR{pwm2_enable}="0"
+      '';
   };
 
   systemd.user.services.lxqt-policykit-agent = {
