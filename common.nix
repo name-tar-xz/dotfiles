@@ -6,11 +6,6 @@
   ...
 }:
 {
-  imports = with inputs; [
-    chaotic.nixosModules.default
-    sops-nix.nixosModules.sops
-  ];
-
   boot = {
     tmp.useTmpfs = true;
     plymouth.enable = true;

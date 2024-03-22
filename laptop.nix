@@ -6,12 +6,6 @@
   ...
 }:
 {
-  imports = with inputs; [
-    ./laptop-hardware.nix
-    ./common.nix
-    home-manager.nixosModules.home-manager
-  ];
-
   networking.hostName = "laptop";
 
   home-manager = {

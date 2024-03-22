@@ -1,7 +1,5 @@
 { config, ... }:
 {
-  imports = [ ./common.nix ];
-
   networking.hostName = "server";
 
   services = {

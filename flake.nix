@@ -84,6 +84,7 @@
       nixpkgs,
       home-manager,
       chaotic,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -99,6 +100,11 @@
             inherit inputs system;
           };
           modules = [
+            chaotic.nixosModules.default
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+            ./common.nix
+            ./laptop-hardware.nix
             ./laptop.nix
             /*
               imports = [ aagl.nixosModules.default ];
@@ -111,7 +117,12 @@
           specialArgs = {
             inherit inputs system;
           };
-          modules = [ ./server.nix ];
+          modules = [
+            chaotic.nixosModules.default
+            sops-nix.nixosModules.sops
+            ./common.nix
+            ./server.nix
+          ];
         };
       };
     };
