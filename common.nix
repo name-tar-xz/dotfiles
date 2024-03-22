@@ -319,7 +319,7 @@
   };
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/tarxz/.config/sops/age/keys.txt";
+    age.keyFile = "/var/lib/age.txt";
 
     templates.resolved = {
       content = ''

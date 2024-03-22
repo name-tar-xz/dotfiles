@@ -977,7 +977,7 @@
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/tarxz/.config/sops/age/keys.txt";
+    age.keyFile = "/var/lib/age.txt";
 
     secrets.ssh.path = "/home/tarxz/.ssh/id_ed25519";
     secrets.gpg.path = "/home/tarxz/.local/share/gnupg/private-keys-v1.d/F2F3ACD0B6055BC445CFFFC1E3DD87591F0A6FC2.key";
