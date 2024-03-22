@@ -232,6 +232,12 @@
       rulesProvider = pkgs.ananicy-cpp-rules;
     };
 
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      dnsovertls = "true";
+    };
+
     udev.extraRules = # udev
       ''
         # CachyOS
@@ -315,5 +321,27 @@
   zramSwap = {
     enable = true;
     memoryPercent = 100;
+  };
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.keyFile = "/home/tarxz/.config/sops/age/keys.txt";
+
+    templates.resolved = {
+      content = ''
+        [Resolve]
+        DNS=45.90.28.0#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
+        FallbackDNS=2a07:a8c0::#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
+        DNS=45.90.30.0#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
+        FallbackDNS=2a07:a8c1::#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
+      '';
+      path = "/etc/systemd/resolved.conf.d/dns.conf";
+      mode = "0444";
+    };
+
+    secrets = {
+      "wg" = { };
+      "tailscale-server" = { };
+      "nextdns" = { };
+    };
   };
 }

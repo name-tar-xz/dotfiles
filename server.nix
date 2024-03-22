@@ -7,7 +7,7 @@
   services = {
     tailscale = {
       enable = true;
-      authKeyFile = config.sops.tailscale.path;
+      authKeyFile = config.sops.tailscale-server.path;
     };
 
     minecraft-server = {
@@ -30,31 +30,6 @@
       enable = true;
       maxPlayers = 8;
       autoCreatedWorldSize = "large";
-    };
-
-    resolved = {
-      enable = true;
-      extraConfig = ''
-        DNS=45.90.28.0#Lenovo-***REMOVED***.dns.nextdns.io
-        FallbackDNS=2a07:a8c0::#Lenovo-***REMOVED***.dns.nextdns.io
-        DNS=45.90.30.0#Lenovo-***REMOVED***.dns.nextdns.io
-        FallbackDNS=2a07:a8c1::#Lenovo-***REMOVED***.dns.nextdns.io
-        DNSOverTLS=yes
-        DNSSEC=yes
-        MulticastDNS=yes
-        Cache=yes
-        ReadEtcHosts=yes
-      '';
-    };
-  };
-
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/tarxz/.config/sops/age/keys.txt";
-
-    secrets = {
-      "wg" = { };
-      "tailscale" = { };
     };
   };
 }

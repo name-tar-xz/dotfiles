@@ -81,20 +81,6 @@
     btrfs.autoScrub.enable = true;
 
     psd.enable = true;
-    resolved = {
-      enable = true;
-      extraConfig = ''
-        DNS=45.90.28.0#VivobookPro14-***REMOVED***.dns.nextdns.io
-        FallbackDNS=2a07:a8c0::#VivobookPro14-***REMOVED***.dns.nextdns.io
-        DNS=45.90.30.0#VivobookPro14-***REMOVED***.dns.nextdns.io
-        FallbackDNS=2a07:a8c1::#VivobookPro14-***REMOVED***.dns.nextdns.io
-        DNSOverTLS=yes
-        DNSSEC=yes
-        MulticastDNS=yes
-        Cache=yes
-        ReadEtcHosts=yes
-      '';
-    };
 
     blueman.enable = true;
     pipewire = {
@@ -236,12 +222,5 @@
       noto-fonts-cjk
       roboto
     ];
-  };
-
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/home/tarxz/.config/sops/age/keys.txt";
-
-    secrets."wg" = { };
   };
 }
