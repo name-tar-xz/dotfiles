@@ -55,6 +55,12 @@
   };
 
   services = {
+    syncthing = {
+      user = "tarxz";
+      configDir = "/home/tarxz/.config/syncthing";
+      dataDir = "/home/tarxz";
+    };
+
     greetd = {
       enable = true;
       settings = {
