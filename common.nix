@@ -201,6 +201,8 @@
     };
   };
   services = {
+    tailscale.enable = true;
+
     syncthing = {
       enable = true;
       openDefaultPorts = true;

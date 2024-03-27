@@ -3,11 +3,7 @@
   networking.hostName = "server";
 
   services = {
-    tailscale = {
-      enable = true;
-      authKeyFile = config.sops.tailscale-server.path;
-    };
-
+    tailscale.authKeyFile = config.sops.secrets.tailscale-server.path;
     minecraft-server = {
       enable = true;
       eula = true; # set to true if you agree to Mojang's EULA: https://account.mojang.com/documents/minecraft_eula
@@ -29,5 +25,9 @@
       maxPlayers = 8;
       autoCreatedWorldSize = "large";
     };
+  };
+
+  sops.secrets = {
+    tailscale-server = { };
   };
 }
