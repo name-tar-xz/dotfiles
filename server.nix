@@ -1,8 +1,24 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   networking.hostName = "server";
 
   services = {
+    nextcloud = {
+      enable = true;
+      package = pkgs.nextcloud28;
+      hostName = "localhost";
+      autoUpdateApps.enable = true;
+      extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps) phonetrack;
+      };
+      settings = {
+        trusted_domains = [
+          # TODO: Add IPs off Server from Tailscale
+        ];
+      };
+      config.adminpassFile = config.sops.secrets.nextcloudpass.path;
+    };
+
     tailscale.authKeyFile = config.sops.secrets.tailscale-server.path;
     minecraft-server = {
       enable = true;
@@ -29,5 +45,6 @@
 
   sops.secrets = {
     tailscale-server = { };
+    nextcloudpass = { };
   };
 }
