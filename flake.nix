@@ -121,6 +121,7 @@
             chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             ./common.nix
+            ./server-hardware.nix
             ./server.nix
           ];
         };

@@ -364,7 +364,7 @@
     "hblock": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-OsSMdjumsaPVorUS+VljGgYfkC0D8PNb/Qb6AjgwMPI=",
+        "narHash": "sha256-e+3wWaPnPhwwsEI1uDun1M+iCSkNGM9wGJ+ppja9Mp8=",
         "type": "file",
         "url": "https://hblock.molinero.dev/hosts"
       },
