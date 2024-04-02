@@ -258,7 +258,6 @@
       };
     };
 
-    btrfs.autoScrub.enable = true;
     fstrim.enable = true;
 
     auto-cpufreq = {
@@ -281,12 +280,6 @@
       enable = true;
       package = pkgs.ananicy-cpp;
       rulesProvider = pkgs.ananicy-cpp-rules;
-    };
-
-    resolved = {
-      enable = true;
-      dnssec = "true";
-      dnsovertls = "true";
     };
 
     udev.extraRules = # udev
@@ -377,22 +370,8 @@
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/var/lib/age.txt";
 
-    templates.resolved = {
-      content = ''
-        [Resolve]
-        DNS=45.90.28.0#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
-        FallbackDNS=2a07:a8c0::#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
-        DNS=45.90.30.0#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
-        FallbackDNS=2a07:a8c1::#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
-      '';
-      path = "/etc/systemd/resolved.conf.d/dns.conf";
-      mode = "0444";
-    };
-
     secrets = {
       "wg" = { };
-      "tailscale-server" = { };
-      "nextdns" = { };
     };
   };
 }

@@ -3,7 +3,10 @@
   networking.hostName = "server";
 
   services = {
-    sshd.enable = true;
+    openssh = {
+      enable = true;
+      settings.PasswordAuthentication = false;
+    };
     logind.lidSwitch = "ignore";
 
     nextcloud = {
@@ -16,7 +19,8 @@
       };
       settings = {
         trusted_domains = [
-          # TODO: Add IPs off Server from Tailscale
+          "server.tailf29b7.ts.net"
+          "100.118.136.122"
         ];
       };
       config.adminpassFile = config.sops.secrets.nextcloudpass.path;
