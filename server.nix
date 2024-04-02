@@ -3,6 +3,9 @@
   networking.hostName = "server";
 
   services = {
+    sshd.enable = true;
+    logind.lidSwitch = "ignore";
+
     nextcloud = {
       enable = true;
       package = pkgs.nextcloud28;
@@ -45,6 +48,6 @@
 
   sops.secrets = {
     tailscale-server = { };
-    nextcloudpass = { };
+    nextcloudpass.mode = "0444";
   };
 }
