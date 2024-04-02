@@ -65,7 +65,7 @@
       flake = false;
     };
     nero = {
-      url = "gitlab:name.tar.xz/Nero";
+      url = "gitlab:tarzst/Nero";
       flake = false;
     };
     betterfox = {

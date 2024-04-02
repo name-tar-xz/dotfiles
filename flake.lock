@@ -560,13 +560,13 @@
       "locked": {
         "lastModified": 1686507588,
         "narHash": "sha256-n1gIhkzrfAFfLR603GfYZvI4C09pG4GgLfdm/Hs/H0A=",
-        "owner": "name.tar.xz",
+        "owner": "tarzst",
         "repo": "Nero",
         "rev": "b609816350e3028246552572ab2d5251fc1127c5",
         "type": "gitlab"
       },
       "original": {
-        "owner": "name.tar.xz",
+        "owner": "tarzst",
         "repo": "Nero",
         "type": "gitlab"
       }
