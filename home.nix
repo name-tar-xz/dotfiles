@@ -58,7 +58,9 @@
 
       # Applications
       libreoffice-fresh
-      wezterm
+      retroarch
+      temurin-bin
+      bottles
 
       # CLI tools
       btop
@@ -138,6 +140,7 @@
       PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
       PARALLEL_HOME = "${config.xdg.configHome}/parallel";
       GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}}/java - djavafx.cachedir=${config.xdg.cacheHome}/openjfx";
 
       /*
         __GLX_VENDOR_LIBRARY_NAME = "nvidia";
@@ -168,7 +171,8 @@
       su = "doas -s";
       sudoedit = "doasedit";
       de = "doasedit";
-      wget = "wget -c --hsts-file='$XDG_DATA_HOME/wget-hsts ' ";
+      wget = "wget -c --hsts-file='${config.xdg.dataHome}/wget-hsts'";
+      adb = "HOME=${config.xdg.dataHome}/android adb";
       ".." = "cd ..";
       "..." = "cd ../..";
       "...." = "cd ../../..";
@@ -502,6 +506,10 @@
       homedir = "${config.xdg.dataHome}/gnupg";
     };
 
+    wezterm = {
+      enable = false;
+      enableZshIntegration = true;
+    };
     kitty = {
       enable = true;
       shellIntegration.mode = "no-cursor no-sudo";

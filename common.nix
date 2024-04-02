@@ -165,6 +165,7 @@
 
   nix = {
     settings = {
+      use-xdg-base-directories = true;
       experimental-features = [
         "nix-command"
         "flakes"
@@ -389,9 +390,9 @@
     };
 
     secrets = {
-      "wg" = { };
-      "tailscale-server" = { };
-      "nextdns" = { };
+      # password.neededForUsers = true;
+      wg = { };
+      nextdns.mode = "0444";
     };
   };
 }

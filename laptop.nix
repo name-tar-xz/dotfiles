@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -23,6 +22,19 @@
     overlays = with inputs; [
       neovim-nightly-overlay.overlay
       (final: prev: { librewolf = prev.librewolf.override { cfg.speechSynthesisSupport = false; }; })
+      (final: prev: {
+        retroarch = prev.retroarch.override {
+          cores = with pkgs.libretro; [
+            gambatte
+            mgba
+            melonds
+            picodrive
+            pcsx-rearmed
+            pcsx2
+            ppsspp
+          ];
+        };
+      })
     ];
   };
 
@@ -92,11 +104,6 @@
       wireplumber.enable = true;
       # jack.enable = true;
     };
-    udev.extraRules = # udev
-      ''
-        ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm1_enable", ATTR{pwm1_enable}="0"
-        ACTION=="add", SUBSYSTEM=="hwmon", KERNEL=="hwmon[0-9]", TEST=="pwm2_enable", ATTR{pwm2_enable}="0"
-      '';
   };
 
   systemd.user.services.lxqt-policykit-agent = {
@@ -187,6 +194,14 @@
         ControllerMode = "bredr";
         Experimental = true;
       };
+    };
+
+    openrazer = {
+      enable = true;
+      users = [
+        "tarxz"
+        "@wheel"
+      ];
     };
   };
 
