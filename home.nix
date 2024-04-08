@@ -118,11 +118,6 @@
       LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p";
 
       NIXOS_OZONE_WL = "1";
-      /*
-        SDL_VIDEODRIVER = "wayland";
-        XDG_SESSION_TYPE = "wayland";
-        QT_QPA_PLATFORM = "wayland;xcb";
-      */
 
       KDEHOME = "${config.xdg.configHome}/kde";
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
@@ -140,22 +135,6 @@
       PARALLEL_HOME = "${config.xdg.configHome}/parallel";
       GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}}/java - djavafx.cachedir=${config.xdg.cacheHome}/openjfx";
-
-      /*
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        NVD_BACKEND = "direct";
-        MOZ_DISABLE_RDD_SANDBOX = "1";
-        EGL_PLATFORM = "wayland";
-        LIBVA_DRIVER_NAME = "nvidia";
-          __EGL_VENDOR_LIBRARY_FILENAMES = "/usr/share/glvnd/egl_vendor.d/10_nvidia.json";
-      */
-
-      /*
-        QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-        GTK_THEME = "Catppuccin-Mocha-Compact-Mauve-Dark";
-        GDK_SCALE = "2";
-      */
     };
 
     shellAliases = {
