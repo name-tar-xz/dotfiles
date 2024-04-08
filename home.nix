@@ -69,7 +69,6 @@
       hyperfine
       jq
       inputs.nix-alien.packages.${pkgs.system}.nix-alien
-      nh
       onefetch
       sops
       unzip
@@ -200,9 +199,9 @@
       nohup = "command rm nohup.out;nohup";
       less = config.home.sessionVariables.PAGER;
 
-      update = "nix flake update ${config.home.sessionVariables.FLAKE} --commit-lock-file;nh os switch";
+      update = "nix flake update ${config.home.sessionVariables.FLAKE} --commit-lock-file;sudo nixos-rebuild switch --flake ${config.home.sessionVariables.FLAKE}";
       switch = "nh os switch";
-      fast = "sudo nixos-rebuild test --fast --flake ~/.config/nixos";
+      fast = "sudo nixos-rebuild test --fast --flake ${config.home.sessionVariables.FLAKE}";
     };
 
     file = {
