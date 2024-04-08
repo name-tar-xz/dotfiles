@@ -162,7 +162,7 @@
     ];
     shell = pkgs.dash;
   };
-
+  nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {
       use-xdg-base-directories = true;

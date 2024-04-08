@@ -28,7 +28,7 @@
 
     tailscale.authKeyFile = config.sops.secrets.tailscale-server.path;
     minecraft-server = {
-      enable = true;
+      enable = false;
       eula = true; # set to true if you agree to Mojang's EULA: https://account.mojang.com/documents/minecraft_eula
       declarative = true;
 
