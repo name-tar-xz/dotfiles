@@ -284,7 +284,7 @@
       },
       {
         "type": "audio-out",
-        "tooltip": true,
+        "tooltip": false,
         "tooltip-icon-size": 24
       },
       {
