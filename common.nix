@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 {
@@ -95,8 +94,6 @@
   };
 
   networking = {
-    hostFiles = [ inputs.hblock ];
-
     useNetworkd = true;
     wireless.iwd = {
       enable = true;

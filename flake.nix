@@ -60,10 +60,6 @@
       };
     */
 
-    hblock = {
-      url = "file+https://hblock.molinero.dev/hosts";
-      flake = false;
-    };
     nero = {
       url = "gitlab:tarzst/Nero";
       flake = false;
