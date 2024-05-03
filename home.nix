@@ -20,7 +20,6 @@
       "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
 
       "fastfetch/config.jsonc".source = ./config/fastfetch/config.jsonc;
-      "fd/ignore".source = ./config/fd/ignore;
       "bat/themes/Catppuccin-mocha.tmTheme".source = ./config/bat/Catppuccin-mocha.tmTheme;
       "btop/themes/catppuccin_mocha.theme".source = ./config/btop/catppuccin_mocha.theme;
 
@@ -745,6 +744,18 @@
       extraPackages = with pkgs.bat-extras; [
         batwatch
         batpipe
+      ];
+    };
+    fd = {
+      enable = true;
+      ignores = [
+        "Games"
+        "Public/cfg"
+        "*Cache*"
+        "*cache*"
+        "Templates"
+        "node_modules"
+        "nix/store"
       ];
     };
     fzf = {
