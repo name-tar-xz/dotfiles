@@ -12,9 +12,8 @@
     "title",
     {
       "type": "custom",
-      "format": "\u001b[30m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m     \u001b[97m  \u001b[96m  \u001b[95m  \u001b[94m  \u001b[93m  \u001b[92m  \u001b[91m  \u001b[90m "
+      "format": "\u001b[30m● \u001b[31m● \u001b[32m● \u001b[33m● \u001b[34m● \u001b[35m● \u001b[36m● \u001b[37m●    \u001b[97m● \u001b[96m● \u001b[95m● \u001b[94m● \u001b[93m● \u001b[92m● \u001b[91m● \u001b[90m●"
     },
-    "break",
     {
       "type": "command",
       "text": "grep ^VERSION= /etc/os-release|cut -d'\"' -f2",
@@ -27,7 +26,7 @@
     },
     {
       "type": "uptime",
-      "key": " ",
+      "key": "󰥔 ",
       "keyColor": "blue"
     },
     {
@@ -38,7 +37,7 @@
     "break",
     {
       "type": "shell",
-      "key": " ", // 
+      "key": "󱆃 ", //  
       "keyColor": "magenta"
     },
     {
@@ -51,9 +50,7 @@
       "key": "\u001b[92m "
       // "keyColor": "bright_green"
     },
-    {
-      "type": "break"
-    },
+    "break",
     {
       "type": "cpu",
       "key": "\u001b[96m󰻠 "
@@ -71,14 +68,13 @@
     },
     {
       "type": "disk",
-      "key": "\u001b[94m "
+      "key": "\u001b[94m󰋊 "
       // "keyColor": "bright_blue"
     },
     {
       "type": "battery",
       "key": "󰁹 ",
       "keyColor": "green"
-    },
-    "break"
+    }
   ]
 }
