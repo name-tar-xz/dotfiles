@@ -18,8 +18,7 @@
   };
 
   nixpkgs = {
-    overlays = with inputs; [
-      neovim-nightly-overlay.overlay
+    overlays = [
       (final: prev: { librewolf = prev.librewolf.override { cfg.speechSynthesisSupport = false; }; })
       (final: prev: {
         retroarch = prev.retroarch.override {
