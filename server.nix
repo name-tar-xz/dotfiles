@@ -11,7 +11,7 @@
 
     nextcloud = {
       enable = true;
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud29;
       hostName = "localhost";
       autoUpdateApps.enable = true;
       extraApps = {
@@ -44,7 +44,7 @@
       };
     };
     terraria = {
-      enable = true;
+      enable = false;
       maxPlayers = 8;
       autoCreatedWorldSize = "large";
     };
