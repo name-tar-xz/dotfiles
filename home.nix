@@ -16,7 +16,6 @@
     configFile = {
       "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
 
-      "fastfetch/config.jsonc".source = ./config/fastfetch/config.jsonc;
       "bat/themes/Catppuccin-mocha.tmTheme".source = ./config/bat/Catppuccin-mocha.tmTheme;
       "btop/themes/catppuccin_mocha.theme".source = ./config/btop/catppuccin_mocha.theme;
 
@@ -61,7 +60,6 @@
       # CLI tools
       btop
       doas-sudo-shim
-      fastfetch
       hyperfine
       jq
       inputs.nix-alien.packages.${pkgs.system}.nix-alien
@@ -861,6 +859,97 @@
         cursorpreviewfmt = "";
         scrolloff = 999;
         cleaner = "${pkgs.writeShellScript "cl.sh" "${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
+      };
+    };
+    fastfetch = {
+      enable = true;
+      settings = {
+        display = {
+          binaryPrefix = "si";
+          hideCursor = true;
+          percent = {
+            type = 3;
+          };
+          separator = " ➜ ";
+        };
+        modules = [
+          "title"
+          "separator"
+          /*
+            {
+              format = "\u001b[30m● \u001b[31m● \u001b[32m● \u001b[33m● \u001b[34m● \u001b[35m● \u001b[36m● \u001b[37m●    \u001b[97m● \u001b[96m● \u001b[95m● \u001b[94m● \u001b[93m● \u001b[92m● \u001b[91m● \u001b[90m●";
+              type = "custom";
+            } \ escaping does not work
+          */
+          {
+            key = "";
+            keyColor = "cyan";
+            text = "grep ^VERSION= /etc/os-release|cut -d'\"' -f2";
+            type = "command";
+          }
+          {
+            key = "󰻀";
+            keyColor = "light_yellow";
+            type = "kernel";
+          }
+          {
+            key = "󰥔";
+            keyColor = "blue";
+            type = "uptime";
+          }
+          {
+            key = "󰏖";
+            keyColor = "red";
+            type = "packages";
+          }
+          "break"
+          {
+            key = "󱆃";
+            keyColor = "magenta";
+            type = "shell";
+          }
+          {
+            key = "";
+            keyColor = "yellow";
+            type = "terminal";
+          }
+          {
+            key = "";
+            keyColor = "light_green";
+            type = "wm";
+          }
+          "break"
+          {
+            key = "󰻠";
+            keyColor = "light_cyan";
+            type = "cpu";
+          }
+          {
+            key = "󰘚";
+            keyColor = "light_red";
+            type = "gpu";
+          }
+          {
+            key = "󰍛";
+            keyColor = "light_magenta";
+            type = "memory";
+          }
+          {
+            key = "󰋊";
+            keyColor = "light_blue";
+            type = "disk";
+          }
+          {
+            key = "󰁹";
+            keyColor = "green";
+            type = "battery";
+          }
+          "break"
+          {
+            type = "colors";
+            symbol = "triangle";
+          }
+        ];
       };
     };
     /*
