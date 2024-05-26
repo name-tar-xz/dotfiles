@@ -357,7 +357,7 @@ return {
         {
           provider = function()
             local sign = vim.fn.sign_getplaced(vim.fn.bufname(), { group = "*", lnum = vim.v.lnum })[1].signs[1]
-            if sign ~= nil and sign.group ~= "gitsigns_extmark_signs_" then
+            if sign ~= nil and sign.group ~= "gitsigns_signs_" then
               return "%s"
             else
               return "%{v:relnum?v:relnum:v:lnum}"

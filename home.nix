@@ -195,7 +195,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "qtct";
+    platformTheme.name = "qtct";
     style.package = pkgs.libsForQt5.lightly;
   };
 
@@ -710,7 +710,7 @@
       enable = true;
       #enableAliases = true;
       extraOptions = [
-        "-aX"
+        "-a"
         "--group-directories-first"
         "--icons=auto"
         "--smart-group"
@@ -961,6 +961,7 @@
   };
 
   services = {
+    psd.enable = true;
     udiskie.enable = true;
     cliphist.enable = true;
     playerctld.enable = true;

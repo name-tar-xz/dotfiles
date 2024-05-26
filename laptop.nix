@@ -5,6 +5,7 @@
   ...
 }:
 {
+  boot.kernelParams = [ "intel_iommu=igfx_off" ]; # fix DMAR and DRHD errors in log causing full load on 1 core by kworker/acpi_notfy
   networking.hostName = "laptop";
 
   home-manager = {
@@ -91,8 +92,6 @@
     udisks2.enable = true;
     btrfs.autoScrub.enable = true;
 
-    psd.enable = true;
-
     blueman.enable = true;
     pipewire = {
       enable = true;
@@ -172,7 +171,7 @@
         enable = true;
         finegrained = true;
       };
-      open = false;
+      open = true;
       nvidiaSettings = false;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       prime = {

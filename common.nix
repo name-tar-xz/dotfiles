@@ -69,6 +69,7 @@
       "vm.watermark_boost_factor" = 0;
       "vm.watermark_scale_factor" = 125;
     };
+
     consoleLogLevel = 3;
     kernelParams = [
       "quiet"
@@ -185,7 +186,6 @@
   };
 
   programs = {
-
     ssh = {
       package = pkgs.openssh_hpn;
       ciphers = [
@@ -198,6 +198,7 @@
       ];
     };
   };
+
   services = {
     tailscale.enable = true;
 
@@ -368,7 +369,7 @@
 
   zramSwap = {
     enable = true;
-    memoryPercent = 100;
+    memoryPercent = 50;
   };
   sops = {
     defaultSopsFile = ./secrets.yaml;
