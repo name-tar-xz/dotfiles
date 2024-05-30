@@ -18,11 +18,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
     nur.url = "github:nix-community/NUR";
     nix-alien = {
       url = "github:thiagokokada/nix-alien";
@@ -71,7 +66,6 @@
       self,
       nixpkgs,
       home-manager,
-      chaotic,
       sops-nix,
       ...
     }@inputs:
@@ -88,7 +82,6 @@
             inherit inputs system;
           };
           modules = [
-            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             ./common.nix
@@ -106,7 +99,6 @@
             inherit inputs system;
           };
           modules = [
-            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             ./common.nix
             ./server-hardware.nix

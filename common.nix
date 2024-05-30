@@ -77,7 +77,6 @@
       "udev.log_level=3"
       "nowatchdog"
     ];
-    kernelPackages = pkgs.linuxPackages_cachyos;
 
     extraModprobeConfig = ''
       # Audio powersaving
@@ -278,7 +277,7 @@
     ananicy = {
       enable = true;
       package = pkgs.ananicy-cpp;
-      rulesProvider = pkgs.ananicy-cpp-rules;
+      rulesProvider = pkgs.ananicy-rules-cachyos;
     };
 
     resolved = {
