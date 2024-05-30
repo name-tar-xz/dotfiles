@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -27,7 +26,7 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/178d06b2-7d84-4b30-a3bb-cea10de81194";
+      device = "/dev/disk/by-uuid/98560629-bb53-4d83-b0c0-74d820d5c57e";
       fsType = "btrfs";
       options = [
         "subvol=@"
@@ -38,7 +37,7 @@
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/EAA3-95D7";
+      device = "/dev/disk/by-uuid/00AF-2938";
       fsType = "vfat";
       options = [ "noatime" ];
     };
