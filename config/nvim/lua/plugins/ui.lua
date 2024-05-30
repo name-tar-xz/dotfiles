@@ -263,7 +263,6 @@ return {
     event = "BufEnter",
     dependencies = "kevinhwang91/promise-async",
     opts = {
-      close_fold_kinds = { "imports", "comment" },
       preview = {
         win_config = { winblend = 0 },
         mappings = {
@@ -273,13 +272,7 @@ return {
           scrollD = "<C-d>",
         },
       },
-      provider_selector = function()
-        if vim.lsp.buf_is_attached(0, 1) then
-          return { "lsp", "treesitter" }
-        else
-          return { "treesitter", "indent" }
-        end
-      end,
+      provider_selector = function() return { "treesitter", "indent" } end,
       fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
         local suffix = (" 󰁂 %d "):format(endLnum - lnum)
