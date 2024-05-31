@@ -66,7 +66,6 @@
   };
 
   services = {
-    tailscale.authKeyFile = config.sops.secrets.tailscale-client.path;
     syncthing = {
       user = "tarxz";
       configDir = "/home/tarxz/.config/syncthing";
@@ -236,6 +235,4 @@
       roboto
     ];
   };
-
-  sops.secrets.tailscale-client = { };
 }

@@ -26,7 +26,6 @@
       config.adminpassFile = config.sops.secrets.nextcloudpass.path;
     };
 
-    tailscale.authKeyFile = config.sops.secrets.tailscale-server.path;
     minecraft-server = {
       enable = false;
       eula = true; # set to true if you agree to Mojang's EULA: https://account.mojang.com/documents/minecraft_eula
@@ -51,7 +50,6 @@
   };
 
   sops.secrets = {
-    tailscale-server = { };
     nextcloudpass.mode = "0444";
   };
 }

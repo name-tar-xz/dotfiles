@@ -199,7 +199,10 @@
   };
 
   services = {
-    tailscale.enable = true;
+    tailscale = {
+      enable = true;
+      authKeyFile = config.sops.secrets.tailscale.path;
+    };
 
     syncthing = {
       enable = true;
@@ -389,6 +392,7 @@
     secrets = {
       # password.neededForUsers = true;
       wg = { };
+      tailscale = { };
       nextdns.mode = "0444";
     };
   };
