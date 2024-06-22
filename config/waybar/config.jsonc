@@ -71,6 +71,7 @@
     },
     "icon": true,
     "icon-size": 18,
+    "max-length": 80,
     "separate-outputs": false
   },
   "idle_inhibitor": {
@@ -239,6 +240,7 @@
       "paused": "󰐊",
       "stopped": "󰓛"
     },
+    "max-length": 80,
     "interval": 1
   },
   "bluetooth": {

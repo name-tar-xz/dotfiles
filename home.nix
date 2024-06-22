@@ -70,14 +70,12 @@
       zip
       ## Coreutil Replacements
       fd
-      zoxide
       ## Downloaders
       ani-cli
       aria
       wget
       ## File Management
       file
-      nix-tree
       rmtrash
       trash-cli
       xdg-utils
@@ -476,10 +474,6 @@
       homedir = "${config.xdg.dataHome}/gnupg";
     };
 
-    wezterm = {
-      enable = false;
-      enableZshIntegration = true;
-    };
     kitty = {
       enable = true;
       shellIntegration.mode = "no-cursor no-sudo";
@@ -952,12 +946,10 @@
         ];
       };
     };
-    /*
-      zoxide = {
-        enable = true;
-        enableZshIntegration = true;
-      };
-    */
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 
   services = {
@@ -971,7 +963,7 @@
       timeouts = [
         {
           timeout = 65;
-          command = "${pkgs.hyprlock}/bin/hyprlock -f";
+          command = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock -f";
         }
         {
           timeout = 60;
@@ -982,7 +974,7 @@
       events = [
         {
           event = "before-sleep";
-          command = "${pkgs.hyprlock}/bin/hyprlock -f";
+          command = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock -f";
         }
       ];
     };

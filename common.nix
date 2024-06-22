@@ -150,6 +150,8 @@
   i18n.defaultLocale = "en_US.UTF8";
 
   users.users.tarxz = {
+    uid = 1000;
+    hashedPassword = "$y$j9T$988v1QRaUKdb9ce3TGIL5/$8/UFRFQ8bq7SQcUGUnnwxCW0RLg/It7hBD26m9J7AY5";
     isNormalUser = true;
     extraGroups = [
       "networkmanager"

@@ -46,7 +46,6 @@ zinit wait lucid for \
   atinit"ZINIT[COMPINIT_OPTS]=-C;
   autoload -U +X bashcompinit && bashcompinit;
   autoload -Uz compinit;compinit -i -u -d $XDG_CACHE_HOME/zsh/zcompdump;
-  eval $(zoxide init zsh);
   zicdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
     blockf \
