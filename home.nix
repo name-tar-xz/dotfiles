@@ -55,7 +55,9 @@
       libreoffice-fresh
       retroarch
       temurin-bin
-      bottles
+      lutris
+      ludusavi
+      wineWowPackages.waylandFull
 
       # CLI tools
       btop
@@ -236,6 +238,7 @@
 
   programs = {
     home-manager.enable = true;
+    mangohud.enable = true;
 
     firefox = {
       enable = true;
@@ -612,6 +615,7 @@
           P = {
             telescope_fzf_native="${pkgs.vimPlugins.telescope-fzf-native-nvim}",
             luasnip="${pkgs.vimPlugins.luasnip}",
+            treesitter="${pkgs.vimPlugins.nvim-treesitter}",
           }
           require("startup")
           vim.opt.rtp:append("${
@@ -655,6 +659,9 @@
         '';
 
       extraPackages = with pkgs; [
+        # lazy.nvim deps
+        luarocks
+        lua51Packages.lua
         # Formatter, LSP, Linters
         codespell
         vscode-langservers-extracted

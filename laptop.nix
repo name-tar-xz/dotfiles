@@ -36,6 +36,7 @@
         };
       })
     ];
+    config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
   };
 
   environment = {
@@ -62,7 +63,23 @@
 
     steam = {
       enable = true;
-      gamescopeSession.enable = true;
+      extraPackages = with pkgs; [ openssl_1_1 ];
+      # extraCompatPackages = with pkgs; [ proton-ge-bin ];
+    };
+    gamemode = {
+      enable = true;
+      enableRenice = true;
+      settings = {
+        general = {
+          renice = 20;
+          ioprio = 0;
+          softrealtime = "on";
+        };
+      };
+    };
+    gamescope = {
+      enable = true;
+      capSysNice = false;
     };
   };
 
@@ -99,7 +116,6 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       wireplumber.enable = true;
-      # jack.enable = true;
     };
   };
 
@@ -152,7 +168,7 @@
   hardware = {
     enableAllFirmware = true;
 
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
@@ -160,8 +176,7 @@
         vaapiVdpau
         libvdpau-va-gl
       ];
-      driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
     nvidia = {

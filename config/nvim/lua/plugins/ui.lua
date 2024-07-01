@@ -213,7 +213,7 @@ return {
 
         extensions = {
           undo = {
-            diff_context_lines = 4,
+            vim_diff_opts = { ctxlen = 4 },
             mappings = {
               i = {
                 ["<CR>"] = require("telescope-undo.actions").restore,
