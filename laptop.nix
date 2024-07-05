@@ -49,7 +49,6 @@
   };
 
   programs = {
-    nix-ld.enable = true;
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -182,6 +181,7 @@
     nvidia = {
       modesetting.enable = true;
       dynamicBoost.enable = true;
+      nvidiaPersistenced = true;
       powerManagement = {
         enable = true;
         finegrained = true;

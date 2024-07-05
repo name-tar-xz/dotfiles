@@ -206,7 +206,7 @@
     };
 
     theme = {
-      name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+      name = "catppuccin-mocha-mauve-compact+black";
       package = (
         pkgs.catppuccin-gtk.override {
           accents = [ "mauve" ];
