@@ -65,7 +65,7 @@
       "net.ipv4.conf.default.secure_redirects" = 0;
       "net.ipv4.conf.default.send_redirects" = 0;
       # Zram
-      "vm.swappiness" = 180;
+      "vm.swappiness" = 150;
       "vm.watermark_boost_factor" = 0;
       "vm.watermark_scale_factor" = 125;
     };
@@ -78,18 +78,15 @@
       "nowatchdog"
     ];
 
+    blacklistedKernelModules = [
+      "iTCO_wdt"
+      "sp5100_tco"
+    ];
     extraModprobeConfig = ''
       # Audio powersaving
-      # For AC97 cards:
       options snd_ac97_codec power_save=1
-      # For HD audio cards:
       options snd_hda_intel power_save=1
-
-      # Blacklist the Intel TCO Watchdog/Timer module
-      blacklist iTCO_wdt
-
-      # Blacklist the AMD SP5100 TCO Watchdog/Timer module (Required for Ryzen cpus)
-      blacklist sp5100_tco
+      options iwlwifi power_save=1
     '';
   };
 
@@ -263,21 +260,56 @@
 
     fstrim.enable = true;
 
-    auto-cpufreq = {
+    system76-scheduler.enable = true;
+    tlp = {
       enable = true;
       settings = {
-        charger = {
-          governor = "powersave";
-          turbo = "auto";
-        };
-        battery = {
-          governor = "powersave";
-          turbo = "auto";
-        };
+        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth wifi wwan";
+        NMI_WATCHDOG = 0;
+        DISK_IOSCHED = "keep keep";
+
+        # CHECK AGAIN
+        PLATFORM_PROFILE_ON_AC = "performance";
+        PLATFORM_PROFILE_ON_BAT = "low-power";
+
+        # CHECK AGAIN
+        MEM_SLEEP_ON_AC = "deep";
+        MEM_SLEEP_ON_BAT = "deep";
+
+        RUNTIME_PM_ON_AC = "auto";
+        RUNTIME_PM_ON_BAT = "auto";
+        AHCI_RUNTIME_PM_ON_AC = "auto";
+        AHCI_RUNTIME_PM_ON_BAT = "auto";
+
+        CPU_BOOST_ON_AC = 1;
+        CPU_BOOST_ON_BAT = 0;
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        # CHECK AGAIN
+        CPU_HWP_DYN_BOOST_ON_AC = 1;
+        CPU_HWP_DYN_BOOST_ON_BAT = 0;
+
+        # CHECK AGAIN
+        PCIE_ASPM_ON_AC = "default";
+        PCIE_ASPM_ON_BAT = "powersupersave";
+
+        # CHECK AGAIN
+        SATA_LINKPWR_ON_AC = "max_performance";
+        SATA_LINKPWR_ON_BAT = "min_power";
+
+        MAX_LOST_WORK_SECS_ON_BAT = 15;
+        MAX_LOST_WORK_SECS_ON_AC = 15;
+
+        # CHECK AGAIN
+        WIFI_PWR_ON_AC = "on";
+        WIFI_PWR_ON_BAT = "on";
+
+        USB_AUTOSUSPEND = 1;
       };
     };
     thermald.enable = true;
-    irqbalance.enable = true;
     bpftune.enable = true;
     ananicy = {
       enable = true;
@@ -301,9 +333,6 @@
         ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend" ATTR{power/autosuspend}="60"
 
-        # SATA active link power management
-        ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="med_power_with_dipm"
-
         # Wlan power save
         ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="${pkgs.iw}/bin/iw dev %k set power_save on"
 
@@ -317,10 +346,7 @@
         ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
 
         # SSD
-        ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="bfq"
-
-        # NVMe SSD
-        ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+        ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*|nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="kyber"
 
         # Audio Latency
         KERNEL=="rtc0", GROUP="audio"

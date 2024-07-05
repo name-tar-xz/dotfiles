@@ -6,7 +6,7 @@
 }:
 {
   boot.kernelParams = [ "intel_iommu=igfx_off" ]; # fix DMAR and DRHD errors in log causing full load on 1 core by kworker/acpi_notfy
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen; # lqx xanmod xanmod_latest xanmod_stable zen
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest; # lqx xanmod xanmod_latest xanmod_stable zen
   networking.hostName = "laptop";
 
   home-manager = {
