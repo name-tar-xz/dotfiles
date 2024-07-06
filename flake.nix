@@ -23,6 +23,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     /*
       anyrun = {
@@ -63,6 +67,7 @@
       nixpkgs,
       home-manager,
       sops-nix,
+      lanzaboote,
       ...
     }@inputs:
     let
@@ -78,6 +83,7 @@
             inherit inputs system;
           };
           modules = [
+            lanzaboote.nixosModules.lanzaboote
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             ./common.nix

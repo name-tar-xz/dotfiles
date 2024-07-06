@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }:
@@ -9,6 +10,12 @@
     kernelParams = [ "intel_iommu=igfx_off" ]; # fix DMAR and DRHD errors in log causing full load on 1 core by kworker/acpi_notfy
     supportedFilesystems = [ "bcachefs" ];
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest; # lqx xanmod xanmod_latest xanmod_stable zen
+
+    loader.systemd-boot.enable = lib.mkForce false;
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
   };
   networking.hostName = "laptop";
 
