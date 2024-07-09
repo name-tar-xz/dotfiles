@@ -73,6 +73,7 @@
       "systemd.show_status=auto"
       "udev.log_level=3"
       "nowatchdog"
+      "rcutree.enable_rcu_lazy=1"
     ];
 
     blacklistedKernelModules = [
@@ -84,6 +85,9 @@
       options snd_ac97_codec power_save=1
       options snd_hda_intel power_save=1
       options iwlwifi power_save=1
+
+      options nvidia NVreg_UsePageAttributeTable=1 NVreg_InitializeSystemMemoryAllocations=0
+      options nvidia_drm modeset=1
     '';
   };
 
@@ -369,6 +373,8 @@
 
     tmpfiles.rules = [
       "w! /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"
+      "w! /sys/kernel/mm/transparent_hugepage/shmem_enabled - - - - advise"
+      "w! /sys/kernel/mm/lru_gen/enabled - - - - 5"
       "w! /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs - - - - 30000"
       "w! /sys/kernel/mm/ksm/pages_to_scan - - - - 1000"
       "w! /sys/kernel/mm/ksm/sleep_millisecs - - - - 4000"

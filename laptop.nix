@@ -7,7 +7,14 @@
 }:
 {
   boot = {
-    kernelParams = [ "intel_iommu=igfx_off" ]; # fix DMAR and DRHD errors in log causing full load on 1 core by kworker/acpi_notfy
+    kernelParams = [
+      "intel_iommu=igfx_off" # fix DMAR and DRHD errors in log causing full load on 1 core by kworker/acpi_notfy
+      "nvme.noacpi=1"
+      "zswap.enabled=0"
+      "gather_data_sampling=off"
+      "tsc=reliable"
+      "clocksource=tsc"
+    ];
     supportedFilesystems = [ "bcachefs" ];
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest; # lqx xanmod xanmod_latest xanmod_stable zen
 
@@ -127,18 +134,32 @@
     };
   };
 
-  systemd.user.services.lxqt-policykit-agent = {
-    enable = true;
-    description = "LXQT Polkit Agent";
-    wantedBy = [ "xdg-desktop-portal.service" ];
-    wants = [ "xdg-desktop-portal.service" ];
-    after = [ "xdg-desktop-portal.service" ];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
-      Restart = "on-failure";
-      RestartSec = 1;
-      TimeoutStopSec = 10;
+  systemd = {
+    services.pci-latency = {
+      enable = true;
+      description = "PCI Latency";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        ${pkgs.pciutils}/bin/setpci -v -s '*:*' latency_timer=20
+        ${pkgs.pciutils}/bin/setpci -v -s '0:0' latency_timer=0
+        ${pkgs.pciutils}/bin/setpci -v -d "*:*:04xx" latency_timer=80
+      '';
+    };
+
+    user.services.lxqt-policykit-agent = {
+      enable = true;
+      description = "LXQT Polkit Agent";
+      wantedBy = [ "xdg-desktop-portal.service" ];
+      wants = [ "xdg-desktop-portal.service" ];
+      after = [ "xdg-desktop-portal.service" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
     };
   };
 
