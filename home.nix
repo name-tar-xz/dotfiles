@@ -48,13 +48,12 @@
 
       # Audio
       pamixer
-      helvum
+      qpwgraph
       pavucontrol
 
       # Applications
       libreoffice-fresh
       retroarch
-      temurin-bin
       lutris
       ludusavi
       wineWowPackages.waylandFull
@@ -176,6 +175,7 @@
       switch = "nh os switch";
       fast = "sudo nixos-rebuild test --fast --flake ${config.home.sessionVariables.FLAKE}";
     };
+    sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
     file = {
       ".mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;

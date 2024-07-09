@@ -21,11 +21,8 @@
     initrd.verbose = false;
     kernel.sysctl = {
       # CachyOS
-      # "vm.swappiness" = 20;
       "vm.vfs_cache_pressure" = 50;
-      # "vm.dirty_bytes" = 268435456;
       "vm.page-cluster" = 0;
-      # "vm.dirty_background_bytes" = 134217728;
       "vm.dirty_writeback_centisecs" = 1500;
       "vm.max_map_count" = 2147483642;
       "kernel.nmi_watchdog" = 0;
@@ -333,14 +330,8 @@
         ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend" ATTR{power/autosuspend}="60"
 
-        # Wlan power save
-        ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="${pkgs.iw}/bin/iw dev %k set power_save on"
-
         # Disable bluetooth
         # SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="0" #Destroys CPU
-
-        # Disable wake-on-LAN
-        ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*" RUN+="${pkgs.ethtool}/bin/ethtool -s %k wol d"
 
         # HDD
         ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
@@ -358,7 +349,6 @@
 
         # Custom
         # Set MTU and Transmit Queue Length
-        # MTU set to 1492 as wifi is PPPoE
         ACTION=="add", SUBSYSTEM=="net", KERNEL=="wl*", ATTR{mtu}="1500", ATTR{tx_queue_len}="2000"
       '';
   };

@@ -10,29 +10,6 @@ export LS_COLORS="$(vivid generate catppuccin-mocha)" #Set lsd,fd colors
 
 export GPG_TTY=$(tty)
 
-# export BUN_INSTALL="$HOME/.local/share/.bun"
-# export PATH="$BUN_INSTALL/bin:$PATH"
-
-## Path section
-if [ -d "$HOME/.local/share/flatpak/exports/share" ]; then
-	export XDG_DATA_DIRS=$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS
-fi
-if [ -d "$HOME/.local/share/cargo/bin" ]; then
-	export PATH=$HOME/.local/share/cargo/bin:$PATH
-fi
-if [ -d "$HOME/.local/share/npm/bin" ]; then
-	export PATH=$HOME/.local/share/npm/bin:$PATH
-fi
-if [ -d "$HOME/.emacs.d/bin" ]; then
-	export PATH=$HOME/.emacs.d/bin:$PATH
-fi
-if [ -d "$HOME/.local/bin" ]; then
-	export PATH=$HOME/.local/bin:$PATH
-fi
-if [ -d "$GOPATH/bin" ]; then
-	export PATH=$PATH:$GOPATH/bin
-fi
-
 fpath=(~/.config/zsh/completion $fpath)
 
 setopt rcs
