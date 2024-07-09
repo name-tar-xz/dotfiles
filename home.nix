@@ -406,10 +406,10 @@
 
     git = {
       enable = true;
-      userName = "name.tar.xz";
+      userName = "tarzst";
       userEmail = "git.3myp3@slmail.me";
       signing = {
-        key = "D3C9DE564A3DBD30";
+        key = "DA1AE234F1953A10F6078E9B9E604C53FBEFE1D9";
         signByDefault = true;
       };
       aliases = {

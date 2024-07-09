@@ -165,7 +165,7 @@
     rtkit.enable = true;
   };
 
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.05";
 
   hardware = {
     enableAllFirmware = true;
@@ -174,7 +174,8 @@
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        (intel-vaapi-driver.override { enableHybridCodec = true; }) # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        nvidia-vaapi-driver
+        # (intel-vaapi-driver.override { enableHybridCodec = true; }) # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       ];
       enable32Bit = true;
     };

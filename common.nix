@@ -48,7 +48,7 @@
       "dev.hpet.max-user-freq" = 3072;
       # Clear Linux
       "vm.dirty_ratio" = 50;
-      "vm.dirty_background_ratio" = 5;
+      "vm.dirty_background_ratio" = 20;
       "vm.extfrag_threshold" = 100;
       "kernel.unprivileged_bpf_disabled" = 1;
       "net.core.busy_poll" = 50;
@@ -62,7 +62,7 @@
       "net.ipv4.conf.default.secure_redirects" = 0;
       "net.ipv4.conf.default.send_redirects" = 0;
       # Zram
-      "vm.swappiness" = 150;
+      "vm.swappiness" = 180;
       "vm.watermark_boost_factor" = 0;
       "vm.watermark_scale_factor" = 125;
     };
@@ -143,17 +143,20 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF8";
 
-  users.users.tarxz = {
-    uid = 1000;
-    hashedPassword = "$y$j9T$988v1QRaUKdb9ce3TGIL5/$8/UFRFQ8bq7SQcUGUnnwxCW0RLg/It7hBD26m9J7AY5";
-    isNormalUser = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-      "video"
-    ];
-    shell = pkgs.dash;
+  users = {
+    mutableUsers = false;
+    users.tarxz = {
+      uid = 1000;
+      hashedPassword = "$y$j9T$988v1QRaUKdb9ce3TGIL5/$8/UFRFQ8bq7SQcUGUnnwxCW0RLg/It7hBD26m9J7AY5";
+      isNormalUser = true;
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "docker"
+        "video"
+      ];
+      shell = pkgs.dash;
+    };
   };
   nixpkgs.config.allowUnfree = true;
   nix = {
@@ -319,6 +322,7 @@
       dnssec = "true";
       dnsovertls = "true";
     };
+    journald.extraConfig = "SystemMaxUse=100M";
 
     udev.extraRules = # udev
       ''
@@ -355,7 +359,11 @@
 
   systemd = {
     oomd.enable = lib.mkForce true;
-    extraConfig = "DefaultTimeoutStopSec=10s";
+    extraConfig = ''
+      DefaultTimeoutStopSec=10s
+      DefaultTimeoutStartSec=15s
+      DefaultLimitNOFILE=2048:2097152
+    '';
 
     network.wait-online.enable = false;
 
