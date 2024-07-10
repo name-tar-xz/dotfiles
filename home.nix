@@ -63,7 +63,6 @@
       doas-sudo-shim
       hyperfine
       jq
-      inputs.nix-alien.packages.${pkgs.system}.nix-alien
       onefetch
       sops
       unzip
