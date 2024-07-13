@@ -15,7 +15,6 @@
       "tsc=reliable"
       "clocksource=tsc"
     ];
-    supportedFilesystems = [ "bcachefs" ];
     kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest; # lqx xanmod xanmod_latest xanmod_stable zen
 
     loader.systemd-boot.enable = lib.mkForce false;
@@ -123,7 +122,7 @@
     dbus.enable = true;
 
     udisks2.enable = true;
-    btrfs.autoScrub.enable = true;
+    btrfs.autoScrub.enable = false;
 
     blueman.enable = true;
     pipewire = {
