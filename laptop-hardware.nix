@@ -26,24 +26,31 @@
 
   fileSystems = {
     "/" = {
-      device = "UUID=0d413570-c86f-40e6-893f-a9c4454eb5c1";
-      fsType = "bcachefs";
+      device = "/dev/disk/by-uuid/98560629-bb53-4d83-b0c0-74d820d5c57e";
+      fsType = "btrfs";
       options = [
+        "subvol=@"
         "lazytime"
         "noatime"
-        "discard"
-        "compression=zstd"
-        "background_compression=zstd"
+        "compress=zstd"
       ];
     };
 
     "/boot" = {
       device = "/dev/disk/by-uuid/00AF-2938";
       fsType = "vfat";
+      options = [ "noatime" ];
+    };
+
+    "/home" = {
+      device = "/dev/disk/by-uuid/c5b9d76e-b4e6-4c87-929e-60eb94c910b7";
+      fsType = "xfs";
       options = [
+        "lazytime"
         "noatime"
-        "fmask=0077"
-        "dmask=0077"
+        "inode64"
+        "logbsize=256k"
+        "noquota"
       ];
     };
   };

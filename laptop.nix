@@ -123,6 +123,7 @@
     dbus.enable = true;
 
     udisks2.enable = true;
+    btrfs.autoScrub.enable = true;
 
     blueman.enable = true;
     pipewire = {
