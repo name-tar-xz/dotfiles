@@ -244,34 +244,49 @@
     enableDefaultPackages = false;
     fontconfig = {
       defaultFonts = {
-        serif = [ "Noto Sans" ];
-        sansSerif = [ "Noto Sans" ];
+        serif = [ "Inter" ];
+        sansSerif = [ "Inter" ];
         monospace = [ "Iosevka Term" ];
         emoji = [ "Segoe UI Emoji" ];
       };
-      includeUserConf = true;
+      includeUserConf = false;
       antialias = true;
-      subpixel.rgba = "rgb";
+      subpixel.rgba = "none";
       hinting = {
-        enable = false;
-        style = "none";
+        enable = true;
+        autohint = true;
+        style = "slight";
       };
+      localConf = # xml
+        ''
+          <?xml version="1.0"?>
+          <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+          <fontconfig>
+            <match target="font">
+              <test name="fontformat" compare="not_eq">
+                <string />
+              </test>
+              <test name="family">
+                <string>Inter</string>
+              </test>
+              <edit name="fontfeatures" mode="assign_replace">
+                <string>tnum</string>
+              </edit>
+              <edit name="fontfeatures" mode="append">
+                <string>ss04</string>
+              </edit>
+            </match>
+          </fontconfig>
+        '';
     };
     packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "NerdFontsSymbolsOnly"
-        ];
-      })
+      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
       (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
       cascadia-code
-      dejavu_fonts
       gyre-fonts # TrueType substitutes for standard PostScript fonts
+      inter
       liberation_ttf
-      noto-fonts
       noto-fonts-cjk
-      roboto
     ];
   };
 }
