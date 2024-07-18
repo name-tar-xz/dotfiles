@@ -15,7 +15,7 @@
       "tsc=reliable"
       "clocksource=tsc"
     ];
-    kernelPackages = pkgs.linuxKernel.packages.linux_xanmod_latest; # lqx xanmod xanmod_latest xanmod_stable zen
+    kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
 
     loader.systemd-boot.enable = lib.mkForce false;
     lanzaboote = {
