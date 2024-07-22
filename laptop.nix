@@ -23,7 +23,20 @@
       pkiBundle = "/etc/secureboot";
     };
   };
-  networking.hostName = "laptop";
+  networking = {
+    hostName = "laptop";
+    useNetworkd = true;
+    wireless.iwd = {
+      enable = true;
+      settings = {
+        General.AddressRandomization = "network";
+        Settings = {
+          AutoConnect = true;
+          AlwaysRandomizeAddress = true;
+        };
+      };
+    };
+  };
 
   home-manager = {
     useGlobalPkgs = true;

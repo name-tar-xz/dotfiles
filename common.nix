@@ -92,17 +92,6 @@
   };
 
   networking = {
-    useNetworkd = true;
-    wireless.iwd = {
-      enable = true;
-      settings = {
-        General.AddressRandomization = "network";
-        Settings = {
-          AutoConnect = true;
-          AlwaysRandomizeAddress = true;
-        };
-      };
-    };
     firewall = {
       enable = false;
       allowedTCPPorts = [

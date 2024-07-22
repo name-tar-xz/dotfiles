@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 {
-  networking.hostName = "server";
+  networking = {
+    hostName = "server";
+    networkmanager.enable = true;
+  };
 
   services = {
     openssh = {
