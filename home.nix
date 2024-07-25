@@ -959,7 +959,6 @@
   };
 
   services = {
-    psd.enable = true;
     udiskie.enable = true;
     cliphist.enable = true;
     playerctld.enable = true;

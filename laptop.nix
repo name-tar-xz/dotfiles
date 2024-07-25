@@ -8,7 +8,6 @@
 {
   boot = {
     kernelParams = [
-      "intel_iommu=igfx_off" # fix DMAR and DRHD errors in log causing full load on 1 core by kworker/acpi_notfy
       "nvme.noacpi=1"
       "zswap.enabled=0"
       "gather_data_sampling=off"
@@ -112,6 +111,7 @@
   };
 
   services = {
+    psd.enable = true;
     syncthing = {
       user = "tarxz";
       configDir = "/home/tarxz/.config/syncthing";
@@ -148,16 +148,19 @@
   };
 
   systemd = {
-    services.pci-latency = {
-      enable = true;
-      description = "PCI Latency";
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig.Type = "oneshot";
-      script = ''
-        ${pkgs.pciutils}/bin/setpci -v -s '*:*' latency_timer=20
-        ${pkgs.pciutils}/bin/setpci -v -s '0:0' latency_timer=0
-        ${pkgs.pciutils}/bin/setpci -v -d "*:*:04xx" latency_timer=80
-      '';
+    services = {
+      "systemd-backlight@".enable = false;
+      pci-latency = {
+        enable = true;
+        description = "PCI Latency";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig.Type = "oneshot";
+        script = ''
+          ${pkgs.pciutils}/bin/setpci -v -s '*:*' latency_timer=20
+          ${pkgs.pciutils}/bin/setpci -v -s '0:0' latency_timer=0
+          ${pkgs.pciutils}/bin/setpci -v -d "*:*:04xx" latency_timer=80
+        '';
+      };
     };
 
     user.services.lxqt-policykit-agent = {

@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, pkgs, ... }:
 {
   boot = {
     tmp.useTmpfs = true;
@@ -65,6 +60,9 @@
       "vm.swappiness" = 180;
       "vm.watermark_boost_factor" = 0;
       "vm.watermark_scale_factor" = 125;
+      # Gaming
+      "vm.compaction_proactiveness" = 0;
+      "vm.page_lock_unfairness" = 1;
     };
 
     consoleLogLevel = 3;
@@ -253,7 +251,6 @@
 
     fstrim.enable = true;
 
-    system76-scheduler.enable = true;
     tlp = {
       enable = true;
       settings = {
@@ -308,6 +305,11 @@
       enable = true;
       package = pkgs.ananicy-cpp;
       rulesProvider = pkgs.ananicy-rules-cachyos;
+      settings = {
+        apply_latnice = true;
+        check_freq = 15;
+        cgroup_realtime_workaround = false;
+      };
     };
 
     resolved = {
@@ -327,21 +329,17 @@
         ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend" ATTR{power/autosuspend}="60"
 
-        # Disable bluetooth
-        # SUBSYSTEM=="rfkill", ATTR{type}=="bluetooth", ATTR{state}="0" #Destroys CPU
-
         # HDD
         ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
 
         # SSD
-        ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*|nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="kyber"
+        ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*|nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
 
         # Audio Latency
         KERNEL=="rtc0", GROUP="audio"
         KERNEL=="hpet", GROUP="audio"
 
         # Clear Linux
-        ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/add_random}="1"
         ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/nr_requests}="2048"
 
         # Custom
@@ -351,7 +349,8 @@
   };
 
   systemd = {
-    oomd.enable = lib.mkForce true;
+    enableCgroupAccounting = true;
+    enableUnifiedCgroupHierarchy = true;
     extraConfig = ''
       DefaultTimeoutStopSec=10s
       DefaultTimeoutStartSec=15s
@@ -392,7 +391,7 @@
 
   zramSwap = {
     enable = true;
-    memoryPercent = 50;
+    memoryPercent = 100;
   };
   sops = {
     defaultSopsFile = ./secrets.yaml;
