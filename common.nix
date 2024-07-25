@@ -151,17 +151,17 @@
   };
   nixpkgs.config.allowUnfree = true;
   nix = {
+    package = pkgs.lix;
     settings = {
       use-xdg-base-directories = true;
       experimental-features = [
         "nix-command"
         "flakes"
+        "cgroups"
       ];
       auto-optimise-store = true;
-      trusted-users = [
-        "root"
-        "@wheel"
-      ];
+      trusted-users = [ "@wheel" ];
+      use-cgroups = true;
     };
     gc = {
       automatic = true;
@@ -410,7 +410,6 @@
     };
 
     secrets = {
-      # password.neededForUsers = true;
       wg = { };
       tailscale = { };
       nextdns.mode = "0444";

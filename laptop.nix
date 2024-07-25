@@ -85,6 +85,7 @@
       withPython3 = false;
       withRuby = false;
     };
+    nano.enable = false;
 
     dconf.enable = true;
 
@@ -137,7 +138,6 @@
     udisks2.enable = true;
     btrfs.autoScrub.enable = false;
 
-    blueman.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -205,7 +205,8 @@
   system.stateVersion = "23.05";
 
   hardware = {
-    enableAllFirmware = true;
+    enableRedistributableFirmware = false;
+    cpu.intel.updateMicrocode = true;
 
     graphics = {
       enable = true;
@@ -241,18 +242,12 @@
 
     bluetooth = {
       enable = true;
-      settings.General = {
-        ControllerMode = "bredr";
-        Experimental = true;
-      };
+      settings.General.ControllerMode = "bredr";
     };
 
     openrazer = {
       enable = true;
-      users = [
-        "tarxz"
-        "@wheel"
-      ];
+      users = [ "@wheel" ];
     };
   };
 
@@ -302,6 +297,7 @@
       gyre-fonts # TrueType substitutes for standard PostScript fonts
       inter
       liberation_ttf
+      noto-fonts
       noto-fonts-cjk
     ];
   };

@@ -44,6 +44,7 @@
       wl-clipboard # Clipboard
       brightnessctl # Brightness
       rofi-bluetooth # Bluetooth
+      overskride
       rofi-power-menu
 
       # Audio

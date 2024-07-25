@@ -85,12 +85,12 @@
           };
           modules = [
             lanzaboote.nixosModules.lanzaboote
+            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             ./common.nix
             ./laptop-hardware.nix
             ./laptop.nix
-            chaotic.nixosModules.default
             /*
               imports = [ aagl.nixosModules.default ];
               programs.honkers-railway-launcher.enable = false;
@@ -103,6 +103,7 @@
             inherit inputs system;
           };
           modules = [
+            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             ./common.nix
             ./server-hardware.nix
