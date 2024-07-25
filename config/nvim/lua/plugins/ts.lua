@@ -96,14 +96,6 @@ return {
   },
 
   {
-    "luckasRanarison/tree-sitter-hypr",
-    ft = "hyprlang",
-    build = ":TSUpdate hypr",
-    init = function() vim.filetype.add({ pattern = { [".*/hyprland%.conf"] = "hyprlang" } }) end,
-  },
-
-  { "calops/hmts.nvim", ft = "nix" },
-  {
     "lukas-reineke/headlines.nvim",
     dependencies = "nvim-treesitter/nvim-treesitter",
     ft = { "markdown", "norg", "org", "rmd" },

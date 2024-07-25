@@ -26,6 +26,7 @@ vim.opt.expandtab = true -- Enable the use of space in tab
 vim.opt.fileencoding = "utf-8" -- File content encoding for the buffer
 vim.opt.foldcolumn = "1"
 vim.opt.foldlevel = 99
+vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 vim.opt.history = 100 -- Number of commands to remember in a history table
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true -- Case insensitive searching

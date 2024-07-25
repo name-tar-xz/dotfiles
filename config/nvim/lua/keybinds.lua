@@ -1,9 +1,6 @@
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-vim.keymap.set("n", "<leader>o", "<cmd>UndotreeToggle<CR>", { desc = "Toggle UndoTree" })
-vim.keymap.set("n", "<leader>O", "<cmd>UndotreeFocus<CR>", { desc = "Focus UndoTree" })
-
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Save" })
 vim.keymap.set("n", "<leader>q", "<cmd>confirm q<CR>", { desc = "Quit" })
 vim.keymap.set("n", "<C-q>", "<cmd>qa!<CR>", { desc = "Force quit" })
@@ -100,7 +97,7 @@ vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Hel
 
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action" })
-vim.keymap.set("n", "<leader>lh", function() vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled(0)) end, { desc = "Toggle Inlay Hints" })
+vim.keymap.set("n", "<leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = "Toggle Inlay Hints" })
 vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "LSP Diagnostics" })
 
 vim.keymap.set("n", "<leader>lf", function() require("conform").format() end, { desc = "Format" })

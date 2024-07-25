@@ -65,28 +65,24 @@ return {
     opts = {
       icons = { group = "", separator = "" },
       disable = { filetypes = { "TelescopePrompt" } },
-      defaults = {
+
+      spec = {
         mode = { "n", "v" },
-        ["g"] = { name = "+goto", icon = "a" },
-        ["gs"] = { name = "+surround" },
-        ["]"] = { name = "+next" },
-        ["["] = { name = "+prev" },
-        ["<leader>f"] = { name = " Find" },
-        ["<leader>p"] = { name = "󰏖 Packages" },
-        ["<leader>l"] = { name = " LSP" },
-        ["<leader>b"] = { name = "󰓩 Buffers" },
-        ["<leader>bs"] = { name = "󰒺 Sort Buffers" },
-        ["<leader>d"] = { name = " Debugger" },
-        ["<leader>g"] = { name = "󰊢 Git" },
-        ["<leader>S"] = { name = "󱂬 Session" },
-        ["<leader>t"] = { name = " Terminal" },
+        { "<leader>f", group = "Find", icon = "" },
+        { "<leader>g", group = "Git", icon = "󰊢" },
+        { "<leader>l", group = "LSP", icon = "" },
+        { "<leader>p", group = "ackages", icon = "󰏖" },
+        { "<leader>x", desc = "Trouble", icon = "󱖫" },
+        { "[", group = "prev" },
+        { "]", group = "next" },
+        { "g", group = "goto" },
+
+        { "<leader>w", icon = "" },
+        { "<leader>/", hidden = true },
+        { "<leader>Y", hidden = true },
+        { "<leader>y", hidden = true },
       },
     },
-    config = function(_, opts)
-      local wk = require("which-key")
-      wk.setup(opts)
-      wk.register(opts.defaults)
-    end,
   },
   {
     "folke/noice.nvim",
@@ -169,6 +165,7 @@ return {
     cmd = "Telescope",
     dependencies = {
       "debugloop/telescope-undo.nvim",
+      "nvim-treesitter/nvim-treesitter",
       {
         name = "telescope-fzf-native.nvim",
         dir = P.telescope_fzf_native,
@@ -255,6 +252,7 @@ return {
     opts = {
       numhl = true,
       signcolumn = false,
+      signs_staged_enable = false,
     },
   },
 
