@@ -1,9 +1,15 @@
 { config, pkgs, ... }:
 {
+  boot.kernelPackages = pkgs.linuxPackages_cachyos-server;
+
   networking = {
     hostName = "server";
     networkmanager.enable = true;
   };
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjfC5kank8ZpPF5Jqq/Z8vev0oryX2nnzcPK4IYj38O git.3myp3@slmail.me"
+  ];
 
   services = {
     openssh = {
@@ -14,6 +20,7 @@
 
     nextcloud = {
       enable = true;
+      configureRedis = true;
       package = pkgs.nextcloud29;
       hostName = "localhost";
       autoUpdateApps.enable = true;
@@ -27,6 +34,14 @@
         ];
       };
       config.adminpassFile = config.sops.secrets.nextcloudpass.path;
+    };
+
+    ntfy-sh = {
+      enable = true;
+      settings = {
+        listen-http = ":8080";
+        base-url = "https://server.tailf29b7.ts.net";
+      };
     };
 
     minecraft-server = {
@@ -52,7 +67,23 @@
     };
   };
 
+  systemd.services.tailscale-funnel = {
+    wantedBy = [ "multi-user.target" ];
+    after = [
+      "network.target"
+      "tailscaled.service"
+    ];
+    serviceConfig = {
+      Type = "oneshot";
+      script = ''
+        ${pkgs.tailscale} funnel --bg 80
+        ${pkgs.tailscale} funnel --bg 8080
+      '';
+    };
+  };
+
   sops.secrets = {
     nextcloudpass.mode = "0444";
   };
+  system.stateVersion = "24.05";
 }
