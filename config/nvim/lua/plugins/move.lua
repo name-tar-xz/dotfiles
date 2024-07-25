@@ -31,6 +31,7 @@ return {
   }, ]]
   {
     "folke/flash.nvim",
+    dir = P.flash,
     event = "VeryLazy",
     opts = {
       labels = "sfnjklhodweimbuyvrgtaqpcxz/SFNJKLHODWEIMBUYVRGTAQPCXZ?",
@@ -75,6 +76,7 @@ return {
   },
   {
     "chrisgrieser/nvim-spider",
+    dir = P.spider,
     keys = {
       {
         "w",

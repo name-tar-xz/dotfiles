@@ -869,23 +869,16 @@
 
         shell = "${pkgs.zsh}/bin/zsh";
 
-        listen_on = "unix:/tmp/kitty";
         update_check_interval = 0;
         allow_hyperlinks = true;
 
         kitty_mod = "ctrl+shift";
-        action_alias = "kitty_scrollback_nvim kitten /home/tarxz/.local/share/nvim/lazy/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py";
-
-        mouse_map = "ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output";
       };
       keybindings = {
         "kitty_mod+u" = "scroll_page_up";
         "kitty_mod+d" = "scroll_page_down";
         "kitty_mod+enter" = "launch --cwd=current";
         "kitty_mod+space" = "kitten unicode_input";
-
-        "kitty_mod+h" = "kitty_scrollback_nvim";
-        "kitty_mod+g" = "kitty_scrollback_nvim --config ksb_builtin_last_cmd_output";
       };
       extraConfig = ''
         font_features CascadiaCode +ss20 +ss02
@@ -911,12 +904,86 @@
       withPython3 = false;
       withRuby = false;
 
+      plugins = with pkgs.vimPlugins; [ lazy-nvim ];
+
       extraLuaConfig = # lua
         ''
           P = {
-            telescope_fzf_native="${pkgs.vimPlugins.telescope-fzf-native-nvim}",
-            luasnip="${pkgs.vimPlugins.luasnip}",
-            treesitter="${pkgs.vimPlugins.nvim-treesitter}",
+            -- init.lua
+            catppuccin = "${pkgs.vimPlugins.catppuccin-nvim}",
+            bufdelete = "${pkgs.vimPlugins.bufdelete-nvim}",
+            smart_splits = "${pkgs.vimPlugins.smart-splits-nvim}",
+            dial = "${pkgs.vimPlugins.dial-nvim}",
+            marks = "${pkgs.vimPlugins.marks-nvim}",
+
+            -- bars.lua
+            dropbar = "${pkgs.vimPlugins.dropbar-nvim}",
+            heirline = "${pkgs.vimPlugins.heirline-nvim}",
+              web_devicons = "${pkgs.vimPlugins.nvim-web-devicons}",
+
+            -- cmp.lua
+            luasnip = "${pkgs.vimPlugins.luasnip}",
+              friendly_snippets = "${pkgs.vimPlugins.friendly-snippets}",
+            cmp = "${pkgs.vimPlugins.nvim-cmp}",
+              cmp_lsp = "${pkgs.vimPlugins.cmp-nvim-lsp}",
+              cmp_luasnip = "${pkgs.vimPlugins.cmp_luasnip}",
+              cmp_lua = "${pkgs.vimPlugins.cmp-nvim-lua}",
+              cmp_cmdline = "${pkgs.vimPlugins.cmp-cmdline}",
+              cmp_cmdline_history = "${pkgs.vimPlugins.cmp-cmdline-history}",
+              cmp_buffer = "${pkgs.vimPlugins.cmp-buffer}",
+              cmp_async_path = "${pkgs.vimPlugins.cmp-async-path}",
+              cmp_treesitter = "${pkgs.vimPlugins.cmp-treesitter}",
+              lspkind = "${pkgs.vimPlugins.lspkind-nvim}",
+
+            -- lsp.lua
+            SchemaStore = "${pkgs.vimPlugins.SchemaStore-nvim}",
+            lspconfig = "${pkgs.vimPlugins.nvim-lspconfig}",
+            lint = "${pkgs.vimPlugins.nvim-lint}",
+            conform = "${pkgs.vimPlugins.conform-nvim}",
+            trouble = "${pkgs.vimPlugins.trouble-nvim}",
+            aerial = "${pkgs.vimPlugins.aerial-nvim}",
+
+            -- mini.lua 
+            -- TODO: use mini.nvim instead of separate plugins
+
+            -- move.lua
+            flash = "${pkgs.vimPlugins.flash-nvim}",
+            spider = "${pkgs.vimPlugins.nvim-spider}",
+
+            -- ts.lua
+            treesitter = "${pkgs.vimPlugins.nvim-treesitter}",
+              treesitter_textobjects = "${pkgs.vimPlugins.nvim-treesitter-textobjects}",
+              treesitter_context = "${pkgs.vimPlugins.nvim-treesitter-context}",
+              ts_context_commentstring = "${pkgs.vimPlugins.nvim-ts-context-commentstring}",
+              rainbow_delimiters = "${pkgs.vimPlugins.rainbow-delimiters-nvim}",
+              ts_autotag = "${pkgs.vimPlugins.nvim-ts-autotag}",
+              matchup = "${pkgs.vimPlugins.vim-matchup}",
+              treesitter_endwise = "${pkgs.vimPlugins.nvim-treesitter-endwise}",
+
+            headlines = "${pkgs.vimPlugins.headlines-nvim}",
+            treesj = "${pkgs.vimPlugins.treesj}",
+
+            -- ui.lua
+            -- alpha = "${pkgs.vimPlugins.alpha-nvim}",
+            which_key = "${pkgs.vimPlugins.which-key-nvim}",
+
+            noice = "${pkgs.vimPlugins.noice-nvim}",
+              nui = "${pkgs.vimPlugins.nui-nvim}",
+            fidget = "${pkgs.vimPlugins.fidget-nvim}",
+            oil = "${pkgs.vimPlugins.oil-nvim}",
+            scope = "${pkgs.vimPlugins.scope-nvim}",
+            -- telescope = "${pkgs.vimPlugins.telescope-nvim}",
+              telescope_fzf_native = "${pkgs.vimPlugins.telescope-fzf-native-nvim}",
+              telescope_undo = "${pkgs.vimPlugins.telescope-undo-nvim}",
+
+            dressing = "${pkgs.vimPlugins.dressing-nvim}",
+            gitsigns = "${pkgs.vimPlugins.gitsigns-nvim}",
+            ufo = "${pkgs.vimPlugins.nvim-ufo}",
+              promise_async = "${pkgs.vimPlugins.promise-async}",
+            todo_comments = "${pkgs.vimPlugins.todo-comments-nvim}",
+              plenary = "${pkgs.vimPlugins.plenary-nvim}",
+            colorizer = "${pkgs.vimPlugins.nvim-colorizer-lua}",
+
           }
           require("startup")
           vim.opt.rtp:append("${
@@ -953,6 +1020,7 @@
                     udev
                     vue
                     yaml
+                    xml
                   ]
                 )).dependencies;
             }

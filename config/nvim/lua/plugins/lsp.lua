@@ -1,7 +1,8 @@
 return {
-  "b0o/SchemaStore.nvim",
+  { "b0o/SchemaStore.nvim", dir = P.SchemaStore },
   {
     "neovim/nvim-lspconfig",
+    dir = P.lspconfig,
     event = { "BufReadPre", "BufNewFile" },
     cond = not vim.opt.diff:get(),
     config = function()
@@ -90,6 +91,7 @@ return {
   },
   {
     "mfussenegger/nvim-lint",
+    dir = P.lint,
     cond = function() return not vim.opt.diff:get() end,
     main = "lint",
     event = { "BufReadPre", "BufNewFile" },
@@ -159,6 +161,7 @@ return {
   },
   {
     "stevearc/conform.nvim",
+    dir = P.conform,
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       formatters_by_ft = {
@@ -192,6 +195,7 @@ return {
   },
   {
     "folke/trouble.nvim",
+    dir = P.trouble,
     cmd = { "TroubleToggle", "Trouble" },
     keys = {
       { "<leader>x" .. "X", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
@@ -206,6 +210,7 @@ return {
   },
   {
     "stevearc/aerial.nvim",
+    dir = P.aerial,
     event = "User File",
     opts = {
       attach_mode = "global",

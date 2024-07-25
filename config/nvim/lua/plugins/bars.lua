@@ -1,11 +1,9 @@
 return {
   {
     "Bekaboo/dropbar.nvim",
+    dir = P.dropbar,
     event = "BufEnter",
-    dependencies = {
-      name = "telescope-fzf-native.nvim",
-      dir = P.telescope_fzf_native,
-    },
+    dependencies = { "nvim-telescope/telescope-fzf-native.nvim", dir = P.telescope_fzf_native },
     opts = {
       icons = {
         kinds = {
@@ -43,8 +41,10 @@ return {
 
   {
     "rebelot/heirline.nvim",
+    dir = P.heirline,
     dependencies = {
       "nvim-tree/nvim-web-devicons",
+      dir = P.web_devicons,
       opts = function()
         require("nvim-web-devicons").set_default_icon("󰈙", "#6d8086", 66)
         return {

@@ -1,8 +1,8 @@
 return {
   {
-    name = "LuaSnip",
+    "L3MON4D3/LuaSnip",
     dir = P.luasnip,
-    dependencies = { "rafamadriz/friendly-snippets" },
+    dependencies = { "rafamadriz/friendly-snippets", dir = P.friendly_snippets },
     opts = {
       history = true,
       delete_check_events = "TextChanged",
@@ -36,26 +36,21 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    dir = P.cmp,
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lua",
+      { "hrsh7th/cmp-nvim-lsp", dir = P.cmp_lsp },
+      { "saadparwaiz1/cmp_luasnip", dir = P.cmp_luasnip },
+      { "hrsh7th/cmp-nvim-lua", dir = P.cmp_lua },
 
-      "hrsh7th/cmp-cmdline",
-      "dmitmel/cmp-cmdline-history",
+      { "hrsh7th/cmp-cmdline", dir = P.cmp_cmdline },
+      { "dmitmel/cmp-cmdline-history", dir = P.cmp_cmdline_history },
 
-      "hrsh7th/cmp-emoji",
-      "chrisgrieser/cmp-nerdfont",
+      { "hrsh7th/cmp-buffer", dir = P.cmp_buffer },
+      { "FelipeLema/cmp-async-path", dir = P.cmp_async_path },
 
-      "hrsh7th/cmp-buffer",
-      "FelipeLema/cmp-async-path",
+      -- { "roobert/tailwindcss-colorizer-cmp.nvim", opts = { color_square_width = 0 } },
 
-      "amarakon/nvim-cmp-fonts",
-
-      { "roobert/tailwindcss-colorizer-cmp.nvim", opts = { color_square_width = 0 } },
-      "jcha0713/cmp-tw2css",
-
-      "ray-x/cmp-treesitter",
+      { "ray-x/cmp-treesitter", dir = P.cmp_treesitter },
 
       -- { "tzachar/cmp-tabnine", build = "./install.sh" },
       -- {
@@ -65,19 +60,14 @@ return {
       --   opts = {},
       -- },
 
-      "onsails/lspkind.nvim",
+      { "onsails/lspkind.nvim", dir = P.lspkind },
     },
     event = { "InsertEnter", "CmdlineEnter" },
 
     opts = function()
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
-
       local luasnip = require("luasnip")
-      local function has_words_before()
-        local line, col = (unpack or table.unpack)(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
 
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
@@ -104,20 +94,10 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
 
-          { name = "codeium" },
-          { name = "cmp_tabnine" },
-
           { name = "async_path" },
           { name = "buffer" },
 
-          { name = "nerdfont" },
-          { name = "emoji" },
-
           { name = "treesitter" },
-
-          { name = "fonts", option = { space_filter = "-" } },
-
-          { name = "cmp-tw2css" },
 
           -- { name = "neorg" },
         }),
@@ -175,7 +155,7 @@ return {
             local kind = require("lspkind").cmp_format({
               mode = "symbol_text",
               preset = "default",
-              before = require("tailwindcss-colorizer-cmp").formatter,
+              -- before = require("tailwindcss-colorizer-cmp").formatter,
               symbol_map = require("symbols"),
             })(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })

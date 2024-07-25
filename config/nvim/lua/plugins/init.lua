@@ -1,6 +1,7 @@
 return {
   {
     "catppuccin/nvim",
+    dir = P.catppuccin,
     name = "catppuccin",
     priority = 1000,
     opts = {
@@ -60,11 +61,12 @@ return {
     event = "BufReadPost",
     opts = { ignore = "^$" },
   },
-  { "famiu/bufdelete.nvim", event = "BufAdd" },
-  { "mrjones2014/smart-splits.nvim", event = "BufAdd" },
+  { "famiu/bufdelete.nvim", dir = P.bufdelete, event = "BufAdd" },
+  { "mrjones2014/smart-splits.nvim", dir = P.smart_splits, event = "BufAdd" },
 
   {
     "monaqa/dial.nvim",
+    dir = P.dial,
     keys = {
       {
         "<C-a>",
@@ -125,6 +127,7 @@ return {
   },
   {
     "chentoast/marks.nvim",
+    dir = P.marks,
     event = "User File",
     opts = {
       excluded_filetypes = {
@@ -137,11 +140,5 @@ return {
         "neo-tree",
       },
     },
-  },
-  {
-    "mikesmithgh/kitty-scrollback.nvim",
-    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
-    event = { "User KittyScrollbackLaunch" },
-    opts = {},
   },
 }

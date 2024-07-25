@@ -1,18 +1,18 @@
 return {
   {
     -- Highlight, edit, and navigate code
-    name = "nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter",
     dir = P.treesitter,
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      { "nvim-treesitter/nvim-treesitter-context", opts = { max_lines = 3 } },
-      "JoosepAlviste/nvim-ts-context-commentstring",
+      { "nvim-treesitter/nvim-treesitter-textobjects", dir = P.treesitter_textobjects },
+      { "nvim-treesitter/nvim-treesitter-context", dir = P.treesitter_context, opts = { max_lines = 3 } },
+      { "JoosepAlviste/nvim-ts-context-commentstring", dir = P.ts_context_commentstring },
 
-      "HiPhish/rainbow-delimiters.nvim",
-      "windwp/nvim-ts-autotag",
-      "andymass/vim-matchup",
+      { "HiPhish/rainbow-delimiters.nvim", dir = P.rainbow_delimiters },
+      { "windwp/nvim-ts-autotag", dir = P.ts_autotag },
+      { "andymass/vim-matchup", dir = P.matchup },
 
-      "RRethy/nvim-treesitter-endwise",
+      { "RRethy/nvim-treesitter-endwise", dir = P.treesitter_endwise },
     },
     build = ":TSUpdate",
     event = "BufReadPre",
@@ -97,12 +97,14 @@ return {
 
   {
     "lukas-reineke/headlines.nvim",
+    dir = P.headlines,
     dependencies = "nvim-treesitter/nvim-treesitter",
     ft = { "markdown", "norg", "org", "rmd" },
     opts = { norg = { fat_headlines = false } },
   },
   {
     "Wansmer/treesj",
+    dir = P.treesj,
     keys = { { "<leader>m", "<CMD>TSJToggle<CR>", desc = "Toggle Treesitter Join" } },
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     opts = { use_default_keymaps = false },

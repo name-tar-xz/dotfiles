@@ -1,6 +1,7 @@
 return {
   {
     "goolord/alpha-nvim",
+    -- dir = P.alpha,
     opts = function()
       local dashboard = require("alpha.themes.dashboard")
       dashboard.section.header.val = {
@@ -61,6 +62,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    dir = P.which_key,
     event = "VeryLazy",
     opts = {
       icons = { group = "", separator = "" },
@@ -86,6 +88,7 @@ return {
   },
   {
     "folke/noice.nvim",
+    dir = P.noice,
     event = "VeryLazy",
     opts = {
       lsp = {
@@ -134,12 +137,11 @@ return {
         },
       },
     },
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
+    dependencies = { "MunifTanjim/nui.nvim", dir = P.nui },
   },
   {
     "j-hui/fidget.nvim",
+    dir = P.fidget,
     event = "VeryLazy",
     opts = {
       notification = {
@@ -149,6 +151,7 @@ return {
   },
   {
     "stevearc/oil.nvim",
+    dir = P.oil,
     cmd = "Oil",
     event = { "VimEnter */*,.*", "BufNew */*,.*" },
     opts = {
@@ -159,17 +162,15 @@ return {
       view_options = { show_hidden = true },
     },
   },
-  { "tiagovla/scope.nvim", event = "VeryLazy", opts = {} },
+  { "tiagovla/scope.nvim", dir = P.scope, event = "VeryLazy", opts = {} },
   {
     "nvim-telescope/telescope.nvim",
+    -- dir = P.telescope,
     cmd = "Telescope",
     dependencies = {
-      "debugloop/telescope-undo.nvim",
+      { "debugloop/telescope-undo.nvim", dir = P.telescope_undo },
       "nvim-treesitter/nvim-treesitter",
-      {
-        name = "telescope-fzf-native.nvim",
-        dir = P.telescope_fzf_native,
-      },
+      { "nvim-telescope/telescope-fzf-native.nvim", dir = P.telescope_fzf_native },
     },
 
     config = function()
@@ -228,6 +229,7 @@ return {
   },
   {
     "stevearc/dressing.nvim",
+    dir = P.dressing,
     opts = {
       input = { default_prompt = "➤ " },
       select = { backend = { "telescope", "builtin" } },
@@ -247,6 +249,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    dir = P.gitsigns,
     event = "User GitFile",
     cond = not vim.opt.diff:get(),
     opts = {
@@ -258,8 +261,9 @@ return {
 
   {
     "kevinhwang91/nvim-ufo",
+    dir = P.ufo,
     event = "BufEnter",
-    dependencies = "kevinhwang91/promise-async",
+    dependencies = { "kevinhwang91/promise-async", dir = P.promise_async },
     opts = {
       preview = {
         win_config = { winblend = 0 },
@@ -302,13 +306,15 @@ return {
   },
   {
     "folke/todo-comments.nvim",
+    dir = P.todo_comments,
     event = "User File",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", dir = P.plenary },
     opts = { signs = false },
   },
   {
     "NvChad/nvim-colorizer.lua",
+    dir = P.colorizer,
     event = "BufReadPre",
     opts = { user_default_options = { css = true, tailwind = true } },
   },
