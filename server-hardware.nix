@@ -4,7 +4,6 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
@@ -29,11 +28,20 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/11773664-1f37-4fec-ac84-f47f0d7cd42c";
     fsType = "xfs";
+    options = [
+      "noatime"
+      "lazytime"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/07F0-B107";
     fsType = "vfat";
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+      "noatime"
+    ];
   };
 
   swapDevices = [ ];

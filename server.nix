@@ -22,17 +22,25 @@
       enable = true;
       configureRedis = true;
       package = pkgs.nextcloud29;
-      hostName = "localhost";
-      autoUpdateApps.enable = true;
+      hostName = "127.0.0.1";
       extraApps = {
         inherit (config.services.nextcloud.package.packages.apps) phonetrack;
       };
-      settings = {
-        trusted_domains = [
-          "server.tailf29b7.ts.net"
-          "100.118.136.122"
-        ];
-      };
+      settings =
+        let
+          prot = "https";
+          host = "server.tailf29b7.ts.net";
+          dir = "/nextcloud";
+        in
+        {
+          overwriteprotocol = prot;
+          overwritehost = host;
+          overwritewebroot = dir;
+          overwrite.cli.url = "${prot}://${host}${dir}/";
+          htaccess.RewriteBase = dir;
+
+          trusted_domains = [ "server.tailf29b7.ts.net" ];
+        };
       config.adminpassFile = config.sops.secrets.nextcloudpass.path;
     };
 
@@ -73,17 +81,16 @@
       "network.target"
       "tailscaled.service"
     ];
-    serviceConfig = {
-      Type = "oneshot";
-      script = ''
-        ${pkgs.tailscale} funnel --bg 80
-        ${pkgs.tailscale} funnel --bg 8080
-      '';
-    };
+    serviceConfig.Type = "oneshot";
+    script = ''
+      ${pkgs.tailscale}/bin/tailscale funnel --bg --set-path /nextcloud 80
+      ${pkgs.tailscale}/bin/tailscale funnel --bg --set-path /ntfy 8080
+    '';
   };
 
   sops.secrets = {
     nextcloudpass.mode = "0444";
   };
+
   system.stateVersion = "24.05";
 }

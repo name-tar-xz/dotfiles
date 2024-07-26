@@ -131,6 +131,19 @@
     fprintd.enable = false; # Disable until https://gitlab.freedesktop.org/libfprint/libfprint/-/issues/401 gets fixed
     fwupd.enable = true;
 
+    thermald.enable = true;
+    bpftune.enable = true;
+    ananicy = {
+      enable = true;
+      package = pkgs.ananicy-cpp;
+      rulesProvider = pkgs.ananicy-rules-cachyos;
+      settings = {
+        apply_latnice = true;
+        check_freq = 15;
+        cgroup_realtime_workaround = false;
+      };
+    };
+
     xserver.videoDrivers = [ "nvidia" ];
     flatpak.enable = true;
     dbus.enable = true;

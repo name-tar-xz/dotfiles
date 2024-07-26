@@ -299,18 +299,6 @@
         USB_AUTOSUSPEND = 1;
       };
     };
-    thermald.enable = true;
-    bpftune.enable = true;
-    ananicy = {
-      enable = true;
-      package = pkgs.ananicy-cpp;
-      rulesProvider = pkgs.ananicy-rules-cachyos;
-      settings = {
-        apply_latnice = true;
-        check_freq = 15;
-        cgroup_realtime_workaround = false;
-      };
-    };
 
     resolved = {
       enable = true;
