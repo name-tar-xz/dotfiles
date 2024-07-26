@@ -254,7 +254,6 @@
     tlp = {
       enable = true;
       settings = {
-        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth wifi wwan";
         NMI_WATCHDOG = 0;
         DISK_IOSCHED = "keep keep";
 

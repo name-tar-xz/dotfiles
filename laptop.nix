@@ -218,6 +218,7 @@
   system.stateVersion = "23.05";
 
   hardware = {
+    firmware = with pkgs; [ linux-firmware ];
     enableRedistributableFirmware = false;
     cpu.intel.updateMicrocode = true;
 
@@ -255,7 +256,10 @@
 
     bluetooth = {
       enable = true;
-      settings.General.ControllerMode = "bredr";
+      settings.General = {
+        ControllerMode = "bredr";
+        Experimental = true;
+      };
     };
 
     openrazer = {
