@@ -12,7 +12,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chaotic = {
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        jovian.follows = "";
+      };
     };
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -21,11 +25,18 @@
     nur.url = "github:nix-community/NUR";
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "";
+      };
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "https://flakehub.com/f/nix-community/lanzaboote/*.tar.gz";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "";
+        pre-commit-hooks-nix.follows = "";
+      };
     };
 
     /*
