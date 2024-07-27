@@ -157,14 +157,12 @@
       experimental-features = [
         "nix-command"
         "flakes"
-        "cgroups"
       ];
       auto-optimise-store = true;
       trusted-users = [ "@wheel" ];
-      use-cgroups = true;
     };
     gc = {
-      automatic = true;
+      automatic = false;
       options = "--delete-older-than 7d";
     };
   };
@@ -185,6 +183,14 @@
         "aes192-ctr"
         "aes128-ctr"
       ];
+    };
+
+    nh = {
+      enable = true;
+      clean = {
+        enable = true;
+        extraArgs = "--keep 5";
+      };
     };
   };
 

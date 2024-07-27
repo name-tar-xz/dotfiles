@@ -49,8 +49,8 @@
 
   nixpkgs = {
     overlays = [
-      (final: prev: { librewolf = prev.librewolf.override { cfg.speechSynthesisSupport = false; }; })
       (final: prev: {
+        librewolf = prev.librewolf.override { cfg.speechSynthesisSupport = false; };
         retroarch = prev.retroarch.override {
           cores = with pkgs.libretro; [
             gambatte
@@ -96,7 +96,7 @@
     };
     gamemode = {
       enable = true;
-      enableRenice = true;
+      enableRenice = false;
       settings = {
         general = {
           renice = 20;

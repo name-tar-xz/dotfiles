@@ -171,7 +171,7 @@
       nohup = "command rm nohup.out;nohup";
       less = config.home.sessionVariables.PAGER;
 
-      update = "nix flake update ${config.home.sessionVariables.FLAKE} --commit-lock-file;sudo nixos-rebuild switch --flake ${config.home.sessionVariables.FLAKE}";
+      update = "nix flake update --flake ${config.home.sessionVariables.FLAKE} --commit-lock-file; nh os boot";
       switch = "nh os switch";
       fast = "sudo nixos-rebuild test --fast --flake ${config.home.sessionVariables.FLAKE}";
     };
@@ -557,7 +557,7 @@
           extensions = with config.nur.repos.rycee.firefox-addons; [
             ublock-origin
             libredirect
-            bitwarden
+            proton-pass
             tree-style-tab
             darkreader
             tridactyl
@@ -1214,7 +1214,7 @@
         y=$5
 
         if [[ "$( file -Lb --mime-type "$file")" =~ ^image ]]; then
-          ${pkgs.kitty}/bin/kitty +kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+          ${pkgs.kitty}/bin/kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
           exit 1
         fi
 
@@ -1228,14 +1228,14 @@
         info = "size";
         cursorpreviewfmt = "";
         scrolloff = 999;
-        cleaner = "${pkgs.writeShellScript "cl.sh" "${pkgs.kitty}/bin/kitty +kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
+        cleaner = "${pkgs.writeShellScript "cl.sh" "${pkgs.kitty}/bin/kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
       };
     };
     fastfetch = {
       enable = true;
       settings = {
         display = {
-          binaryPrefix = "si";
+          size.binaryPrefix = "si";
           hideCursor = true;
           percent = {
             type = 3;
@@ -1429,7 +1429,6 @@
     age.keyFile = "/var/lib/age.txt";
 
     secrets.ssh.path = "/home/tarxz/.ssh/id_ed25519";
-    secrets.gpg.path = "/home/tarxz/.local/share/gnupg/private-keys-v1.d/F2F3ACD0B6055BC445CFFFC1E3DD87591F0A6FC2.key";
   };
 
   home.stateVersion = "23.11";
