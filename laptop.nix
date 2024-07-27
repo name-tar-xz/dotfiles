@@ -14,6 +14,7 @@
       "tsc=reliable"
       "clocksource=tsc"
     ];
+    supportedFilesystems = [ "bacachefs" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
 
     loader.systemd-boot.enable = lib.mkForce false;
@@ -150,6 +151,7 @@
 
     udisks2.enable = true;
     btrfs.autoScrub.enable = false;
+    fstrim.enable = false;
 
     pipewire = {
       enable = true;

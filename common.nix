@@ -255,8 +255,6 @@
       };
     };
 
-    fstrim.enable = true;
-
     tlp = {
       enable = true;
       settings = {

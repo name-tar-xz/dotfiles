@@ -17,6 +17,7 @@
       settings.PasswordAuthentication = false;
     };
     logind.lidSwitch = "ignore";
+    fstrim.enable = true;
 
     nextcloud = {
       enable = true;
