@@ -26,6 +26,9 @@
       "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
       "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
 
+      "npm/npmrc".source = ./config/npm/npmrc;
+      "python/pythonrc".source = ./config/python/pythonrc.py;
+
       "nixos/config/nvim/.runtime".source = "${config.programs.neovim.finalPackage}/share/nvim/runtime";
 
       "nvim/lua".source = ./config/nvim/lua;
@@ -94,7 +97,48 @@
       bash-completion
       zsh-completions
       libnotify
-      topgrade
+
+      (writeShellScriptBin "changeVolume" ''
+        #!/usr/bin/env bash
+        # Arbitrary but unique message tag
+        msgTag="myvolume"
+
+        # Change the volume using alsa(might differ if you use pulseaudio)
+        wpctl set-volume @DEFAULT_AUDIO_SINK@ "$@" >/dev/null
+
+        # Query amixer for the current volume and whether or not the speaker is muted
+        volume="$(pamixer --get-volume)"
+        mute="$(pamixer --get-mute)"
+        if [[ $volume == 0 || "$mute" == "off" ]]; then
+          # Show the sound muted notification
+          dunstify -a "changeVolume" -u low -i audio-volume-muted -h string:x-dunst-stack-tag:$msgTag "Volume muted"
+        else
+          # Show the volume notification
+          dunstify -a "changeVolume" -u low -i audio-volume-high -h string:x-dunst-stack-tag:$msgTag \
+            -h int:value:"$volume" "Volume: ''${volume}%"
+        fi
+
+        # Play the volume changed sound
+        canberra-gtk-play -i audio-volume-change -d "changeVolume"
+      '')
+      (writeShellScriptBin "changeBrightness" ''
+        #!/usr/bin/env bash
+        # Arbitrary but unique message tag
+        msgTag="mybrightness"
+
+        # Change the brightness using brightnessctl
+        brightnessctl set "$@" >/dev/null
+
+        # Query brightnessctl for the current brightness
+        brightness="$(brightnessctl i | grep .% | awk '{print $4}' | sed 's/[^0-9]*//g')"
+
+        # Show the brightness notification
+        dunstify -a "changeBrightness" -u low -i brightnesssettings -h string:x-dunst-stack-tag:$msgTag \
+        -h int:value:"$brightness" "Brightness: ''${brightness}%"
+
+        # Play the brightness changed sound
+        canberra-gtk-play -i brightness-change -d "changeBrightness"
+      '')
     ];
 
     sessionVariables = {
@@ -523,10 +567,10 @@
           "$mod SHIFT, J, resizeactive, 0 20"
 
           # Bind brightness and audio control
-          ", XF86MonBrightnessUp, exec, ~/.local/bin/changeBrightness +5%"
-          ", XF86MonBrightnessDown, exec, ~/.local/bin/changeBrightness 5%-"
-          ", XF86AudioRaiseVolume, exec, ~/.local/bin/changeVolume 5%+"
-          ", XF86AudioLowerVolume, exec, ~/.local/bin/changeVolume 5%-"
+          ", XF86MonBrightnessUp, exec, changeBrightness +5%"
+          ", XF86MonBrightnessDown, exec, changeBrightness 5%-"
+          ", XF86AudioRaiseVolume, exec, changeVolume 5%+"
+          ", XF86AudioLowerVolume, exec, changeVolume 5%-"
           ", XF86AudioMute, exec, pamixer --toggle-mute"
         ];
 
@@ -1445,6 +1489,38 @@
     zoxide = {
       enable = true;
       enableZshIntegration = true;
+    };
+
+    topgrade = {
+      enable = true;
+      settings = {
+        composer.self_update = false;
+        misc = {
+          assume_yes = true;
+          cleanup = false;
+          disable = [
+            "vim"
+            "emacs"
+            "helix"
+            "protonup"
+            "bun"
+            "system"
+          ];
+          display_time = false;
+          no_retry = true;
+          set_title = true;
+          skip_notify = true;
+          sudo_command = "doas";
+        };
+        firmware.upgrade = true;
+        flatpak.use_sudo = false;
+        git = {
+          arguments = "--rebase";
+          max_concurrency = 32;
+          repos = [ "~/git/*/" ];
+        };
+        pre_commands."Remove Unused Flatpak Dependencies" = "flatpak uninstall --unused";
+      };
     };
   };
 
