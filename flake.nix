@@ -16,6 +16,7 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         jovian.follows = "";
+        fenix.follows = "";
       };
     };
     home-manager = {
