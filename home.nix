@@ -54,7 +54,7 @@
       # Audio
       pamixer
       qpwgraph
-      pavucontrol
+      pwvucontrol
 
       # Applications
       libreoffice-fresh
@@ -701,7 +701,7 @@
       enable = true;
       settings =
         let
-          font = "monospace";
+          font = "sans";
           fc = "rgb(205,214,244)";
         in
         {
@@ -741,7 +741,7 @@
               font_size = 16;
               font_family = font;
               color = fc;
-              position = "0, 0";
+              position = "0, -96";
               text_align = "center";
               valign = "center";
               halign = "center";
@@ -988,7 +988,7 @@
             trouble = "${pkgs.vimPlugins.trouble-nvim}",
             aerial = "${pkgs.vimPlugins.aerial-nvim}",
 
-            -- mini.lua 
+            -- mini.lua
             -- TODO: use mini.nvim instead of separate plugins
 
             -- move.lua
@@ -1037,8 +1037,9 @@
               paths =
                 (pkgs.vimPlugins.nvim-treesitter.withPlugins (
                   p: with p; [
-                    # bash, c, lua, markdown, python, query, vim, vimdoc installed by default
+                    # c, lua, markdown, query, vim, vimdoc installed by default
                     arduino
+                    bash
                     css
                     git_config
                     git_rebase
@@ -1054,15 +1055,19 @@
                     json5
                     jsonc
                     luap
+                    markdown
                     markdown_inline
                     nix
                     norg
+                    python
                     regex
                     rust
                     svelte
                     toml
                     typescript
                     udev
+                    vim
+                    vimdoc
                     vue
                     yaml
                     xml
@@ -1534,7 +1539,7 @@
       timeouts = [
         {
           timeout = 65;
-          command = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock -f";
+          command = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         }
         {
           timeout = 60;
@@ -1545,7 +1550,7 @@
       events = [
         {
           event = "before-sleep";
-          command = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock -f";
+          command = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         }
       ];
     };

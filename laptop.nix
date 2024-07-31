@@ -146,7 +146,6 @@
     };
 
     xserver.videoDrivers = [ "nvidia" ];
-    flatpak.enable = true;
     dbus.enable = true;
 
     udisks2.enable = true;
