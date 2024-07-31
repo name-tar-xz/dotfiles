@@ -15,6 +15,7 @@
 
     configFile = {
       "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
+      "sh/functions.sh".source = ./config/sh/functions.sh;
 
       "bat/themes/Catppuccin-mocha.tmTheme".source = ./config/bat/Catppuccin-mocha.tmTheme;
       "btop/themes/catppuccin_mocha.theme".source = ./config/btop/catppuccin_mocha.theme;
@@ -67,7 +68,6 @@
       onefetch
       sops
       unzip
-      vivid
       zip
       ## Coreutil Replacements
       fd
@@ -92,6 +92,7 @@
 
       # Misc
       bash-completion
+      zsh-completions
       libnotify
       topgrade
     ];
@@ -1065,15 +1066,134 @@
 
     zsh = {
       enable = true;
-      enableCompletion = false;
       dotDir = ".config/zsh";
-      initExtra = builtins.readFile ./config/zsh/zshrc;
-      envExtra = builtins.readFile ./config/zsh/zshenv;
+
+      enableCompletion = true;
+      completionInit = "autoload -Uz compinit && compinit -i -u -d $XDG_CACHE_HOME/zsh/zcompdump";
+      defaultKeymap = "emacs";
+      autocd = true;
+
       history = {
         path = "${config.xdg.stateHome}/zsh/history";
         size = 100000;
         save = 100000;
+        ignoreAllDups = true;
       };
+
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = [
+          "main"
+          "brackets"
+        ];
+        styles = {
+          path = "fg=magenta,underline";
+          single-hyphen-option = "fg=cyan";
+          double-hyphen-option = "fg=cyan";
+        };
+      };
+
+      plugins = [
+        {
+          name = "zsh-powerlevel10k";
+          src = pkgs.zsh-powerlevel10k;
+          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+      ];
+
+      historySubstringSearch.enable = true;
+
+      envExtra = # sh
+        ''
+          export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+          export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+          export LESS_TERMCAP_me=$'\E[0m'           # end mode
+          export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+          export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
+          export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+          export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+
+          export LS_COLORS="$(${pkgs.vivid}/bin/vivid generate catppuccin-mocha)"
+
+          export MANROFFOPT="-c"
+          export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.bat}/bin/bat --language=help --color=always --theme=default -p'"
+        '';
+
+      initExtraFirst = # sh
+        ''
+          fastfetch
+          # Activate Powerlevel10k Instant Prompt.
+          if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+              source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+          fi
+        '';
+
+      initExtraBeforeCompInit = # sh
+        ''
+          zstyle ':completion:*' auto-description '+%d'
+          zstyle ':completion:*' completer _oldlist _expand _expand_alias _complete _ignored _correct _approximate _prefix
+          zstyle ':completion:*' file-sort name
+          # zstyle ':completion:*' group-name ""
+          zstyle ':completion:*' ignore-parents parent pwd
+          zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+          zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+          zstyle ':completion:*' matcher-list "" 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' '+l:|=* r:|=*'
+          zstyle ':completion:*' menu select
+          zstyle ':completion:*' original true
+          zstyle ':completion:*' preserve-prefix '//[^/]##/'
+          zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+          zstyle ':completion:*' verbose true
+          zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
+          zstyle ':completion:*:warnings' format 'No matches for: %d'
+          zstyle ':completion:*' format ' %d'
+
+          zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
+          zstyle ':completion:*' rehash true                              # automatically find new executables in path
+
+          zmodload zsh/complist
+          zmodload zsh/zpty
+          _comp_options+=(globdots)
+
+          # Speed up completions
+          zstyle ':completion:*' accept-exact '*(N)'
+          zstyle ':completion:*' use-cache on
+          zstyle ':completion:*' cache-path ~/.local/cache/zsh
+        '';
+
+      initExtra = # sh
+        ''
+          source ~/.config/zsh/.p10k.zsh
+          source ~/.config/sh/functions.sh
+
+          ctrlz() {
+          if [[ $#BUFFER -eq 0 ]]; then
+          BUFFER="fg"
+          zle accept-line
+          else
+          zle push-input
+          zle clear-screen
+          fi
+          }
+          zle -N ctrlz
+          bindkey '^Z' ctrlz
+
+          ## Options section
+          setopt correct                                                  # Auto correct mistakes
+          setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
+          setopt nocaseglob                                               # Case insensitive globbing
+          setopt rcexpandparam                                            # Array expansion with parameters
+          setopt nocheckjobs                                              # Don't warn about running processes when exiting
+          setopt numericglobsort                                          # Sort filenames numerically when it makes sense
+          setopt nobeep                                                   # No beep
+          setopt appendhistory                                            # Immediately append history instead of overwriting
+          setopt auto_pushd
+          setopt pushd_ignore_dups
+          setopt pushdminus
+          setopt globdots
+          setopt interactive_comments
+
+          autoload -U colors && colors # Load colors
+        '';
     };
 
     eza = {

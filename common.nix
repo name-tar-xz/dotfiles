@@ -146,7 +146,7 @@
         "docker"
         "video"
       ];
-      shell = pkgs.dash;
+      shell = pkgs.zsh;
     };
   };
   nixpkgs.config.allowUnfree = true;
@@ -173,6 +173,17 @@
   };
 
   programs = {
+    zsh = {
+      enable = true;
+      enableLsColors = false;
+      enableBashCompletion = true;
+      enableGlobalCompInit = false;
+      promptInit = "";
+      autosuggestions = {
+        enable = true;
+        async = true;
+      };
+    };
     ssh = {
       package = pkgs.openssh_hpn;
       ciphers = [
