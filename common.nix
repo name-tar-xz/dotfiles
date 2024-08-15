@@ -70,6 +70,12 @@
       "quiet"
       "systemd.show_status=auto"
       "udev.log_level=3"
+
+      "zswap.enabled=0"
+
+      "tsc=reliable"
+      "clocksource=tsc"
+
       "nowatchdog"
       "rcutree.enable_rcu_lazy=1"
     ];

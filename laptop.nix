@@ -9,10 +9,7 @@
   boot = {
     kernelParams = [
       "nvme.noacpi=1"
-      "zswap.enabled=0"
       "gather_data_sampling=off"
-      "tsc=reliable"
-      "clocksource=tsc"
     ];
     supportedFilesystems = [ "bacachefs" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
