@@ -271,14 +271,14 @@
   wayland.windowManager.hyprland =
     let
       vars = builtins.mapAttrs (
-        name: value: name + "," + builtins.toString (value)
+        name: value: name + "," + builtins.toString value
       ) config.home.sessionVariables;
     in
     {
       enable = true;
       xwayland.enable = true;
       settings = {
-        env = (map (key: builtins.getAttr key vars) (builtins.attrNames vars));
+        env = map (key: builtins.getAttr key vars) (builtins.attrNames vars);
 
         exec-once = [
           "swaybg -i ~/Pictures/Wallpaper/the_neon_shallows_by_leikoi_ddm6tx0.png -m fill &"
@@ -1247,7 +1247,7 @@
 
     eza = {
       enable = true;
-      #enableAliases = true;
+      # enableAliases = true;
       extraOptions = [
         "-a"
         "--group-directories-first"
