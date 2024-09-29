@@ -19,6 +19,10 @@
       enable = true;
       pkiBundle = "/etc/secureboot";
     };
+    extraModprobeConfig = ''
+      options nvidia NVreg_UsePageAttributeTable=1 NVreg_InitializeSystemMemoryAllocations=0
+      options nvidia_drm modeset=1 fbdev=1
+    '';
   };
   networking = {
     hostName = "laptop";
@@ -138,7 +142,7 @@
       settings = {
         apply_latnice = true;
         check_freq = 15;
-        cgroup_realtime_workaround = false;
+        cgroup_realtime_workaround = lib.mkForce false;
       };
     };
 
@@ -224,6 +228,7 @@
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        vpl-gpu-rt
         nvidia-vaapi-driver
         # (intel-vaapi-driver.override { enableHybridCodec = true; }) # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       ];

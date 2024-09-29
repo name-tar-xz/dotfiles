@@ -89,9 +89,6 @@
       options snd_ac97_codec power_save=1
       options snd_hda_intel power_save=1
       options iwlwifi power_save=1
-
-      options nvidia NVreg_UsePageAttributeTable=1 NVreg_InitializeSystemMemoryAllocations=0
-      options nvidia_drm modeset=1
     '';
   };
 
@@ -358,7 +355,6 @@
 
   systemd = {
     enableCgroupAccounting = true;
-    enableUnifiedCgroupHierarchy = true;
     extraConfig = ''
       DefaultTimeoutStopSec=10s
       DefaultTimeoutStartSec=15s

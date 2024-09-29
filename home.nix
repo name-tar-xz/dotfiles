@@ -62,6 +62,7 @@
       lutris
       ludusavi
       wineWowPackages.waylandFull
+      syncplay
 
       # CLI tools
       btop
@@ -335,7 +336,7 @@
           # vrr = 1;
           mouse_move_enables_dpms = true;
           key_press_enables_dpms = true;
-          enable_swallow = true;
+          enable_swallow = false;
           animate_manual_resizes = true;
           swallow_regex = "^(kitty)$";
           focus_on_activate = true;
@@ -1539,7 +1540,7 @@
       timeouts = [
         {
           timeout = 65;
-          command = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          command = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         }
         {
           timeout = 60;
@@ -1550,7 +1551,7 @@
       events = [
         {
           event = "before-sleep";
-          command = "pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          command = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         }
       ];
     };
