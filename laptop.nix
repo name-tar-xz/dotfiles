@@ -24,6 +24,9 @@
       options nvidia_drm modeset=1 fbdev=1
     '';
   };
+
+  console.earlySetup = true;
+
   networking = {
     hostName = "laptop";
     useNetworkd = true;
@@ -121,6 +124,12 @@
       dataDir = "/home/tarxz";
     };
 
+    kmscon = {
+      enable = true;
+      hwRender = true;
+      extraConfig = "font-size=16";
+      extraOptions = "--term xterm-256color";
+    };
     greetd = {
       enable = true;
       settings = {
@@ -230,7 +239,6 @@
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         vpl-gpu-rt
         nvidia-vaapi-driver
-        # (intel-vaapi-driver.override { enableHybridCodec = true; }) # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       ];
       enable32Bit = true;
     };
@@ -318,7 +326,7 @@
       inter
       liberation_ttf
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
     ];
   };
 }

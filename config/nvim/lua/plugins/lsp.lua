@@ -59,7 +59,7 @@ return {
       })
 
       lspconfig.biome.setup({ single_file_support = true })
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         init_options = {
           preferences = {
             includeInlayParameterNameHints = "all",
