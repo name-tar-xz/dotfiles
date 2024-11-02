@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }:
@@ -1143,14 +1144,6 @@
         };
       };
 
-      plugins = [
-        {
-          name = "zsh-powerlevel10k";
-          src = pkgs.zsh-powerlevel10k;
-          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-        }
-      ];
-
       historySubstringSearch.enable = true;
 
       envExtra = # sh
@@ -1169,14 +1162,7 @@
           export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.bat}/bin/bat --language=help --color=always --theme=default -p'"
         '';
 
-      initExtraFirst = # sh
-        ''
-          fastfetch
-          # Activate Powerlevel10k Instant Prompt.
-          if [[ -r "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-              source "''${XDG_CACHE_HOME:-''$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-          fi
-        '';
+      initExtraFirst = "${config.programs.fastfetch.package}/bin/fastfetch";
 
       initExtraBeforeCompInit = # sh
         ''
@@ -1212,17 +1198,16 @@
 
       initExtra = # sh
         ''
-          source ~/.config/zsh/.p10k.zsh
           source ~/.config/sh/functions.sh
 
           ctrlz() {
-          if [[ $#BUFFER -eq 0 ]]; then
-          BUFFER="fg"
-          zle accept-line
-          else
-          zle push-input
-          zle clear-screen
-          fi
+            if [[ $#BUFFER -eq 0 ]]; then
+              BUFFER="fg"
+              zle accept-line
+            else
+              zle push-input
+              zle clear-screen
+            fi
           }
           zle -N ctrlz
           bindkey '^Z' ctrlz
@@ -1244,6 +1229,57 @@
 
           autoload -U colors && colors # Load colors
         '';
+    };
+
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+      settings =
+        lib.attrsets.recursiveUpdate
+          (builtins.fromTOML (
+            builtins.readFile "${config.programs.starship.package}/share/starship/presets/nerd-font-symbols.toml"
+          ))
+          {
+            add_newline = false;
+            format = "$os$directory$git_commit$git_branch$git_metrics$git_status$character";
+            right_format = "$all";
+            continuation_prompt = "[▸▹ ](bright-black)";
+
+            os.disabled = false;
+
+            directory = {
+              fish_style_pwd_dir_length = 1;
+              format = "[ $path]($style)[$read_only]($read_only_style) ";
+              style = "blue";
+              # truncation_length = 8;
+              # truncation_symbol = "…/";
+            };
+
+            git_branch.format = "[$symbol$branch(:$remote_branch)]($style) ";
+            git_metrics.disabled = true;
+            git_status = {
+              style = "yellow";
+
+              ahead = " ⇡\${count}";
+              behind = " ⇣\${count}";
+              conflicted = " =\${count}";
+              deleted = " ✘\${count}";
+              diverged = " ⇕⇡\${ahead_count}⇣\${behind_count}";
+              modified = " !\${count}";
+              renamed = " »\${count}";
+              staged = " +\${count}";
+              stashed = " *\${count}";
+              untracked = " ?\${count}";
+            };
+
+            cmd_duration = {
+              format = "[ $duration]($style) ";
+              min_time = 0;
+              show_milliseconds = true;
+            };
+
+            status.disabled = false;
+          };
     };
 
     eza = {
