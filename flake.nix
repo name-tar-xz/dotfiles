@@ -25,10 +25,7 @@
     nur.url = "github:nix-community/NUR";
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
       url = "https://flakehub.com/f/nix-community/lanzaboote/*.tar.gz";
