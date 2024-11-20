@@ -370,12 +370,10 @@
             special = false;
           };
 
-          drop_shadow = false;
+          shadow.enabled = false;
         };
 
-        xwayland = {
-          force_zero_scaling = true;
-        };
+        xwayland.force_zero_scaling = true;
 
         animations = {
           enabled = true;
@@ -395,19 +393,13 @@
         };
 
         dwindle = {
-          no_gaps_when_only = 1;
           pseudotile = true;
           preserve_split = false;
         };
 
-        master = {
-          no_gaps_when_only = 1;
-          mfact = 0.5;
-        };
+        master.mfact = 0.5;
 
-        opengl = {
-          nvidia_anti_flicker = false;
-        };
+        opengl.nvidia_anti_flicker = false;
 
         windowrule = [
           "float, file_progress"
@@ -455,7 +447,18 @@
           "xray 1, ^(Alacritty$)"
         ];
 
-        workspace = "name:special:1,rounding:false,bordersize:0";
+        windowrulev2 = [
+          "bordersize 0, floating:0, onworkspace:w[tv1]"
+          "rounding 0, floating:0, onworkspace:w[tv1]"
+          "bordersize 0, floating:0, onworkspace:f[1]"
+          "rounding 0, floating:0, onworkspace:f[1]"
+        ];
+
+        workspace = [
+          "name:special:1,rounding:false,bordersize:0"
+          "w[tv1], gapsout:0, gapsin:0"
+          "f[1], gapsout:0, gapsin:0"
+        ];
 
         layerrule = [
           "blur, gtk-layer-shell"
