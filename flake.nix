@@ -22,6 +22,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
     nur.url = "github:nix-community/NUR";
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -77,6 +78,7 @@
       sops-nix,
       lanzaboote,
       chaotic,
+      catppuccin,
       ...
     }@inputs:
     let
@@ -94,6 +96,7 @@
           modules = [
             lanzaboote.nixosModules.lanzaboote
             chaotic.nixosModules.default
+            catppuccin.nixosModules.catppuccin
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
             ./common.nix

@@ -5,7 +5,12 @@
   ...
 }:
 {
-  imports = with inputs; [ nur.nixosModules.nur ];
+  imports = with inputs; [
+    nur.nixosModules.nur
+    catppuccin.homeManagerModules.catppuccin
+  ];
+
+  catppuccin.flavor = "mocha";
 
   xdg = {
     cacheHome = "${config.home.homeDirectory}/.local/cache";
@@ -21,9 +26,6 @@
         url = "https://raw.githubusercontent.com/gokcehan/lf/refs/heads/master/etc/icons.example";
         hash = "sha256-c0orDQO4hedh+xaNrovC0geh5iq2K+e+PZIL5abxnIk=";
       };
-
-      "bat/themes/Catppuccin-mocha.tmTheme".source = ./config/bat/Catppuccin-mocha.tmTheme;
-      "btop/themes/catppuccin_mocha.theme".source = ./config/btop/catppuccin_mocha.theme;
 
       "qt5ct/colors/Catppuccin-Black.conf".source = ./config/qtct/Catppuccin-Black.conf;
       "qt6ct/colors/Catppuccin-Black.conf".source = ./config/qtct/Catppuccin-Black.conf;
@@ -797,7 +799,7 @@
             file-style = "omit";
             hunk-header-style = "file line-number syntax";
             hunk-header-line-number-style = "yellow";
-            syntax-theme = "Catppuccin-mocha";
+            syntax-theme = config.programs.bat.config.theme;
             blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a";
             dark = true;
             file-decoration-style = "#cdd6f4";
@@ -1158,7 +1160,7 @@
           export LS_COLORS="$(${pkgs.vivid}/bin/vivid generate catppuccin-mocha)"
 
           export MANROFFOPT="-c"
-          export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.bat}/bin/bat --language=help --color=always --theme=default -p'"
+          export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.bat}/bin/bat --language=help --color=always -p'"
         '';
 
       initExtraFirst = "${config.programs.fastfetch.package}/bin/fastfetch";
@@ -1302,8 +1304,8 @@
     };
     bat = {
       enable = true;
+      catppuccin.enable = true;
       config = {
-        theme = "Catppuccin-mocha";
         style = "changes,header-filename,rule,numbers,snip";
         pager = config.home.sessionVariables.PAGER;
 
@@ -1413,7 +1415,6 @@
             inactiveBorderColor = [ "#a6adc8" ];
             optionsTextColor = [ "#89b4fa" ];
             selectedLineBgColor = [ "#313244" ];
-            selectedRangeBgColor = [ "#313244" ];
             cherryPickedCommitBgColor = [ "#45475a" ];
             cherryPickedCommitFgColor = [ "#cba6f7" ];
             unstagedChangesColor = [ "#f38ba8" ];
@@ -1542,6 +1543,28 @@
         ];
       };
     };
+    btop = {
+      enable = true;
+      catppuccin.enable = true;
+      settings = {
+        theme_background = false;
+        update_ms = 100;
+        base_10_sizes = true;
+
+        proc_gradient = false;
+        proc_left = true;
+        proc_per_core = true;
+        proc_filter_kernel = true;
+
+        cpu_graph_upper = "user";
+        cpu_graph_lower = "system";
+
+        net_sync = false;
+        net_auto = false;
+        net_download = 96;
+        net_upload = 8;
+      };
+    };
     zoxide = {
       enable = true;
       enableZshIntegration = true;
@@ -1576,6 +1599,7 @@
 
     dunst = {
       enable = true;
+      catppuccin.enable = true;
       settings = {
         global = {
           follow = "mouse";
@@ -1590,9 +1614,6 @@
           horizontal_padding = 8;
           text_icon_padding = 0;
           frame_width = 2;
-
-          frame_color = "#89B4FA";
-          separator_color = "frame";
 
           sort = "yes";
           idle_threshold = 120;
@@ -1619,21 +1640,6 @@
 
           corner_radius = 10;
           timeout = 5;
-        };
-        urgency_low = {
-          background = "#1E1E2ECC";
-          foreground = "#CDD6F4";
-          # frame_color = "#c0caf5";
-        };
-        urgency_normal = {
-          background = "#1E1E2ECC";
-          foreground = "#CDD6F4";
-          # frame_color = "#c0caf5";
-        };
-        urgency_critical = {
-          background = "#1E1E2ECC";
-          foreground = "#CDD6F4";
-          frame_color = "#FAB387";
         };
       };
       iconTheme = {
