@@ -7,7 +7,6 @@ return {
     opts = {
       icons = {
         kinds = {
-          use_devicons = true,
           symbols = require("symbols"),
         },
         ui = { bar = { separator = "  ", extends = "…" }, menu = { separator = "", indicator = " " } },

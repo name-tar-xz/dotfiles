@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -17,6 +16,11 @@
     configFile = {
       "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
       "sh/functions.sh".source = ./config/sh/functions.sh;
+
+      "lf/icons".source = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/gokcehan/lf/refs/heads/master/etc/icons.example";
+        hash = "sha256-c0orDQO4hedh+xaNrovC0geh5iq2K+e+PZIL5abxnIk=";
+      };
 
       "bat/themes/Catppuccin-mocha.tmTheme".source = ./config/bat/Catppuccin-mocha.tmTheme;
       "btop/themes/catppuccin_mocha.theme".source = ./config/btop/catppuccin_mocha.theme;
@@ -243,7 +247,10 @@
   qt = {
     enable = true;
     platformTheme.name = "qtct";
-    style.package = pkgs.libsForQt5.lightly;
+    style.package = [
+      pkgs.libsForQt5.lightly
+      pkgs.kdePackages.breeze
+    ];
   };
 
   gtk = {
@@ -1199,6 +1206,7 @@
       initExtra = # sh
         ''
           source ~/.config/sh/functions.sh
+          zle -N lfcd
 
           ctrlz() {
             if [[ $#BUFFER -eq 0 ]]; then
@@ -1210,7 +1218,6 @@
             fi
           }
           zle -N ctrlz
-          bindkey '^Z' ctrlz
 
           ## Options section
           setopt correct                                                  # Auto correct mistakes
@@ -1227,6 +1234,12 @@
           setopt globdots
           setopt interactive_comments
 
+          bindkey '^Z' ctrlz
+          bindkey '^O' lfcd
+          bindkey  "^[[H"   beginning-of-line
+          bindkey  "^[[F"   end-of-line
+          bindkey  "^[[3~"  delete-char
+
           autoload -U colors && colors # Load colors
         '';
     };
@@ -1235,7 +1248,7 @@
       enable = true;
       enableZshIntegration = true;
       settings =
-        lib.attrsets.recursiveUpdate
+        pkgs.lib.attrsets.recursiveUpdate
           (builtins.fromTOML (
             builtins.readFile "${config.programs.starship.package}/share/starship/presets/nerd-font-symbols.toml"
           ))
@@ -1531,38 +1544,6 @@
     zoxide = {
       enable = true;
       enableZshIntegration = true;
-    };
-
-    topgrade = {
-      enable = true;
-      settings = {
-        composer.self_update = false;
-        misc = {
-          assume_yes = true;
-          cleanup = false;
-          disable = [
-            "vim"
-            "emacs"
-            "helix"
-            "protonup"
-            "bun"
-            "system"
-          ];
-          display_time = false;
-          no_retry = true;
-          set_title = true;
-          skip_notify = true;
-          sudo_command = "doas";
-        };
-        firmware.upgrade = true;
-        flatpak.use_sudo = false;
-        git = {
-          arguments = "--rebase";
-          max_concurrency = 32;
-          repos = [ "~/git/*/" ];
-        };
-        pre_commands."Remove Unused Flatpak Dependencies" = "flatpak uninstall --unused";
-      };
     };
   };
 
