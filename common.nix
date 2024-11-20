@@ -120,8 +120,8 @@
         peers = [
           {
             allowedIPs = [ "0.0.0.0/0" ];
-            publicKey = "nsQBMSreq3f0B/BvRRL2aZtuvFAahf7TECaKpbooZVw=";
-            endpoint = "149.34.244.134:51820";
+            publicKey = "jDrSMRMm6XJgYGcSd01QqJbYiW13dyaOKp8GWDs0rTQ=";
+            endpoint = "185.177.125.173:51820";
           }
         ];
       };
