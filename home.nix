@@ -158,8 +158,7 @@
       SUDO_EDITOR = "nvim";
       EDITOR = "nvim";
       VISUAL = "nvim";
-      PAGER = "less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse --ignore-case --LONG-PROMPT --quit-on-intr --tilde";
-      LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p";
+      PAGER = "less";
 
       NIXOS_OZONE_WL = "1";
 
@@ -167,7 +166,6 @@
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
       CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
       GOPATH = "${config.xdg.dataHome}/go";
-      LESSHISTFILE = "${config.xdg.cacheHome}/less/history";
       HISTFILE = "${config.xdg.stateHome}/bash/history";
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
       NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
@@ -220,7 +218,6 @@
       db = "dotbare";
       cat = "bat";
       nohup = "command rm nohup.out;nohup";
-      less = config.home.sessionVariables.PAGER;
 
       update = "nix flake update --flake ${config.home.sessionVariables.FLAKE} --commit-lock-file; nh os boot";
       switch = "nh os switch";
@@ -1158,14 +1155,6 @@
 
       envExtra = # sh
         ''
-          export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
-          export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
-          export LESS_TERMCAP_me=$'\E[0m'           # end mode
-          export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
-          export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
-          export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
-          export LESS_TERMCAP_ue=$'\E[0m'           # end underline
-
           export LS_COLORS="$(${pkgs.vivid}/bin/vivid generate catppuccin-mocha)"
 
           export MANROFFOPT="-c"
@@ -1330,6 +1319,15 @@
         batwatch
         batpipe
       ];
+    };
+    less = {
+      enable = true;
+      keys = ''
+        #env
+        LESS = --RAW-CONTROL-CHARS --quit-if-one-screen --mouse --ignore-case --LONG-PROMPT --quit-on-intr --tilde
+        LESSUTFCHARDEF = E000-F8FF:p,F0000-FFFFD:p
+        LESSHISTFILE = ${config.xdg.cacheHome}/less/history
+      '';
     };
     fd = {
       enable = true;
