@@ -74,11 +74,11 @@
     {
       self,
       nixpkgs,
-      home-manager,
-      sops-nix,
-      lanzaboote,
       chaotic,
+      home-manager,
+      lanzaboote,
       catppuccin,
+      sops-nix,
       ...
     }@inputs:
     let
@@ -94,11 +94,11 @@
             inherit inputs system;
           };
           modules = [
-            lanzaboote.nixosModules.lanzaboote
+            home-manager.nixosModules.home-manager
             chaotic.nixosModules.default
+            lanzaboote.nixosModules.lanzaboote
             catppuccin.nixosModules.catppuccin
             sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
             ./common.nix
             ./laptop-hardware.nix
             ./laptop.nix

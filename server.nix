@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 {
-  boot.kernelPackages = pkgs.linuxPackages_cachyos-server;
-  boot.kernelParams = [ "mitigations=off" ];
+  boot = {
+    kernelPackages = pkgs.linuxPackages_cachyos-server;
+    kernelParams = [ "mitigations=off" ];
+  };
 
   networking = {
     hostName = "server";
@@ -23,7 +25,7 @@
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud29;
+      package = pkgs.nextcloud30;
       hostName = "127.0.0.1";
       extraApps = {
         inherit (config.services.nextcloud.package.packages.apps) phonetrack;

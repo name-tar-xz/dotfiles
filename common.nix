@@ -203,7 +203,7 @@
       enable = true;
       clean = {
         enable = true;
-        extraArgs = "--keep 5";
+        extraArgs = "--keep 3";
       };
     };
   };
@@ -219,7 +219,7 @@
       openDefaultPorts = true;
       overrideDevices = true;
       overrideFolders = true;
-      relay.enable = true;
+      relay.enable = false;
       settings = {
         gui = {
           theme = "black";

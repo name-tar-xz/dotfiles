@@ -72,7 +72,6 @@
       syncplay
 
       # CLI tools
-      btop
       doas-sudo-shim
       hyperfine
       jq
@@ -376,6 +375,7 @@
 
         animations = {
           enabled = true;
+          first_launch_animation = false;
           # bezier = overshot, 0.05, 0.9, 0.1, 1.05;
           # bezier = smoothOut, 0.36, 0, 0.66, -0.56;
           # bezier = smoothIn, 0.25, 1, 0.5, 1;
@@ -852,7 +852,6 @@
 
         mouse_hide_wait = 0;
         url_style = "straight";
-        copy_on_slect = false;
         strip_trailing_spaces = "always";
 
         default_pointer_shape = "arrow";
@@ -1119,7 +1118,7 @@
         gopls
         gofumpt
         ## Python
-        ruff-lsp
+        ruff
         pyright
       ];
     };
@@ -1291,7 +1290,6 @@
 
     eza = {
       enable = true;
-      # enableAliases = true;
       extraOptions = [
         "-a"
         "--group-directories-first"
@@ -1322,6 +1320,19 @@
         batpipe
       ];
     };
+    pistol = {
+      enable = true;
+      associations = [
+        {
+          mime = "text/*";
+          command = "${pkgs.bat}/bin/bat --color=always %pistol-filename%";
+        }
+        {
+          mime = "inode/directory";
+          command = "${config.programs.zsh.shellAliases.lla} --color=always --icons=always %pistol-filename%"; # Uses alias made by eza
+        }
+      ];
+    };
     less = {
       enable = true;
       keys = ''
@@ -1345,7 +1356,7 @@
     };
     fzf = {
       enable = true;
-      defaultCommand = "fd --prune --type file -L --color=always";
+      defaultCommand = "fd --type file -LH --color=always --max-depth=3";
       defaultOptions = [
         "--inline-info"
         "--ansi"
@@ -1353,7 +1364,7 @@
         "--multi"
         "--height ~100%"
         "--border"
-        "--preview 'bat --force-colorization --paging=always {}'"
+        "--preview 'pistol {}'"
         "--bind='alt-/:toggle-preview'"
         "--bind='ctrl-u:preview-page-up'"
         "--bind='ctrl-d:preview-page-down'"
@@ -1373,6 +1384,9 @@
         prompt = "#cba6f7";
         spinner = "#f5e0dc";
       };
+
+      changeDirWidgetCommand = "fd --type d -LH --color=always --max-depth=3";
+      fileWidgetCommand = "fd --type f -LH --color=always --max-depth=3";
       enableZshIntegration = true;
     };
     ripgrep = {

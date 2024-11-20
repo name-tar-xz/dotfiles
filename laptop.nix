@@ -69,7 +69,6 @@
         };
       })
     ];
-    config.permittedInsecurePackages = [ "openssl-1.1.1w" ];
   };
 
   environment = {
@@ -96,8 +95,7 @@
 
     steam = {
       enable = true;
-      extraPackages = with pkgs; [ openssl_1_1 ];
-      # extraCompatPackages = with pkgs; [ proton-ge-bin ];
+      extraCompatPackages = with pkgs; [ proton-ge-bin ];
     };
     gamemode = {
       enable = true;
@@ -293,7 +291,7 @@
       subpixel.rgba = "none";
       hinting = {
         enable = true;
-        autohint = true;
+        autohint = false;
         style = "slight";
       };
       localConf = # xml
