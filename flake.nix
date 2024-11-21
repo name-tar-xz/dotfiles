@@ -37,6 +37,11 @@
       };
     };
 
+    umu = {
+      url = "git+https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     /*
       anyrun = {
         url = "github:Kirottu/anyrun";

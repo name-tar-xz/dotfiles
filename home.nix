@@ -65,11 +65,13 @@
 
       # Applications
       libreoffice-fresh
+      syncplay
+
+      # Games
       retroarch
       lutris
+      (inputs.umu.packages.${pkgs.system}.umu.override { version = "${inputs.umu.shortRev}"; })
       ludusavi
-      wineWowPackages.waylandFull
-      syncplay
 
       # CLI tools
       doas-sudo-shim

@@ -67,6 +67,9 @@
             ppsspp
           ];
         };
+        lutris = prev.lutris.override {
+          extraPkgs = pkgs: with pkgs; [ wineWowPackages.waylandFull ];
+        };
       })
     ];
   };
