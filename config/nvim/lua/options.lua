@@ -63,6 +63,8 @@ vim.opt.virtualedit = "block"
 vim.opt.wrap = false -- Disable wrapping of lines longer than the width of window
 vim.opt.writebackup = false -- Disable making a backup before overwriting a file
 
+vim.lsp.inlay_hint.enable(true)
+
 vim.g.skip_ts_context_commentstring_module = true
 
 vim.g.firenvim_config = {

@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   boot = {
     tmp.useTmpfs = true;
@@ -155,6 +160,7 @@
   nixpkgs.config.allowUnfree = true;
   nix = {
     package = pkgs.lix;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
       use-xdg-base-directories = true;
       experimental-features = [

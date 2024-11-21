@@ -1102,7 +1102,7 @@
         arduino-language-server
         astyle
         ## Nix
-        nil
+        nixd
         nixfmt-rfc-style
         ## Shell
         shfmt

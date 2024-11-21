@@ -31,7 +31,21 @@ return {
         },
       })
 
-      lspconfig.nil_ls.setup({})
+      lspconfig.nixd.setup({
+        cmd = { "nixd", "--semantic-tokens=false" },
+        settings = {
+          nixd = {
+            nixpkgs = {
+              expr = "import <nixpkgs> {}",
+            },
+            options = {
+              home_manager = {
+                expr = '(builtins.getFlake "/home/tarxz/.config/nixos").nixosConfigurations.laptop.options.home-manager.users.type.getSubOptions []',
+              },
+            },
+          },
+        },
+      })
 
       lspconfig.arduino_language_server.setup({})
 
@@ -177,7 +191,6 @@ return {
         zsh = { "shfmt" },
 
         lua = { "stylua" },
-        nix = { "nixfmt" },
         arduino = { "astyle" },
         toml = { "taplo" },
         go = { "goimports", "gofumpt" },
