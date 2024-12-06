@@ -1592,25 +1592,22 @@
     cliphist.enable = true;
     playerctld.enable = true;
 
-    swayidle = {
+    hypridle = {
       enable = true;
-      timeouts = [
-        {
-          timeout = 65;
-          command = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-        }
-        {
-          timeout = 60;
-          command = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10";
-          resumeCommand = "${pkgs.brightnessctl}/bin/brightnessctl -r";
-        }
-      ];
-      events = [
-        {
-          event = "before-sleep";
-          command = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
-        }
-      ];
+      settings = {
+        general.before_sleep_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+        listener = [
+          {
+            timeout = 60;
+            on-timeout = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+          }
+          {
+            timeout = 60;
+            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10";
+            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
+          }
+        ];
+      };
     };
 
     dunst = {
