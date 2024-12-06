@@ -30,8 +30,10 @@
       "qt5ct/colors/Catppuccin-Black.conf".source = ./config/qtct/Catppuccin-Black.conf;
       "qt6ct/colors/Catppuccin-Black.conf".source = ./config/qtct/Catppuccin-Black.conf;
 
-      "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-      "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+      "gtk-4.0/assets".source =
+        "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+      "gtk-4.0/gtk-dark.css".source =
+        "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
 
       "npm/npmrc".source = ./config/npm/npmrc;
       "python/pythonrc".source = ./config/python/pythonrc.py;
@@ -1661,6 +1663,11 @@
         size = "16x16";
       };
     };
+  };
+
+  systemd.user = {
+    startServices = true;
+    services.waybar.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
   };
 
   sops = {

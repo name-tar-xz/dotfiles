@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
 }:
@@ -14,7 +13,7 @@
     supportedFilesystems = [ "bacachefs" ];
     kernelPackages = pkgs.linuxPackages_xanmod_latest; # lqx xanmod xanmod_latest xanmod_stable zen
 
-    loader.systemd-boot.enable = lib.mkForce false;
+    loader.systemd-boot.enable = pkgs.lib.mkForce false;
     lanzaboote = {
       enable = true;
       pkiBundle = "/etc/secureboot";
@@ -84,6 +83,15 @@
   };
 
   programs = {
+    uwsm = {
+      enable = true;
+      waylandCompositors.hyprland = {
+        binPath = "/etc/profiles/per-user/tarxz/bin/Hyprland";
+        comment = "Hyprland session managed by uwsm";
+        prettyName = "Hyprland";
+      };
+    };
+
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -135,7 +143,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --user-menu --cmd Hyprland";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --user-menu";
           user = "greeter";
         };
       };
@@ -152,12 +160,15 @@
       settings = {
         apply_latnice = true;
         check_freq = 15;
-        cgroup_realtime_workaround = lib.mkForce false;
+        cgroup_realtime_workaround = pkgs.lib.mkForce false;
       };
     };
 
     xserver.videoDrivers = [ "nvidia" ];
-    dbus.enable = true;
+    dbus = {
+      enable = true;
+      implementation = "broker";
+    };
 
     udisks2.enable = true;
     btrfs.autoScrub.enable = false;
