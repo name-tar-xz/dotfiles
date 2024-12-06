@@ -23,6 +23,11 @@
   font-family: -moz-fixed;
 }
 
+/* Move the sidebar header to the bottom of the sidebar */
+#sidebar-box {
+  flex-direction: column-reverse;
+}
+
 /* Center urlbar and right align links */
 #urlbar {
   text-align: center;

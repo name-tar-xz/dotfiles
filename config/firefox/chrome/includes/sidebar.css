@@ -1,3 +1,13 @@
+/* Hide main tabs toolbar */
+#main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar>.toolbar-items {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+  visibility: collapse !important;
+}
+
 /* Sidebar min and max width removal */
 #sidebar-box {
   max-width: none !important;
@@ -12,12 +22,11 @@
 /* Hide sidebar header, when using Tree Style Tab. */
 #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
   visibility: collapse;
-  display: none;
 }
 
 /* Shrink sidebar until hovered, when using Tree Style Tab. */
 :root {
-  --thin-tab-width: 40px;
+  --thin-tab-width: 30px;
   --wide-tab-width: 200px;
 }
 
@@ -28,9 +37,10 @@
 
 #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] {
   position: relative !important;
-  transition: all 200ms !important;
+  transition: all 100ms !important;
   min-width: var(--thin-tab-width) !important;
   max-width: var(--thin-tab-width) !important;
+  z-index: calc(var(--browser-area-z-index-tabbox, 10000) + 1) !important;
 }
 
 #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]:hover {
@@ -39,5 +49,4 @@
   min-width: var(--wide-tab-width) !important;
   max-width: var(--wide-tab-width) !important;
   margin-right: calc((var(--wide-tab-width) - var(--thin-tab-width)) * -1) !important;
-  z-index: 1;
 }
