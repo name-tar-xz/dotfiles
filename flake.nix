@@ -1,23 +1,8 @@
 {
   description = "Nix Flake";
 
-  nixConfig = {
-    extra-substituters = [ "https://nyx.chaotic.cx/" ];
-    extra-trusted-public-keys = [
-      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-        jovian.follows = "";
-      };
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -79,7 +64,6 @@
     {
       self,
       nixpkgs,
-      chaotic,
       home-manager,
       lanzaboote,
       catppuccin,
@@ -100,7 +84,6 @@
           };
           modules = [
             home-manager.nixosModules.home-manager
-            chaotic.nixosModules.default
             lanzaboote.nixosModules.lanzaboote
             catppuccin.nixosModules.catppuccin
             sops-nix.nixosModules.sops
@@ -119,7 +102,6 @@
             inherit inputs system;
           };
           modules = [
-            chaotic.nixosModules.default
             sops-nix.nixosModules.sops
             ./common.nix
             ./server-hardware.nix

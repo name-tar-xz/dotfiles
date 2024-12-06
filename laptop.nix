@@ -12,7 +12,7 @@
       "gather_data_sampling=off"
     ];
     supportedFilesystems = [ "bacachefs" ];
-    kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
+    kernelPackages = pkgs.linuxPackages_xanmod_latest; # lqx xanmod xanmod_latest xanmod_stable zen
 
     loader.systemd-boot.enable = lib.mkForce false;
     lanzaboote = {
