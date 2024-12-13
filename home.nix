@@ -6,7 +6,7 @@
 }:
 {
   imports = with inputs; [
-    nur.nixosModules.nur
+    nur.modules.homeManager.default
     catppuccin.homeManagerModules.catppuccin
   ];
 
@@ -614,7 +614,7 @@
           userChrome = builtins.readFile ./config/firefox/chrome/userChrome.css;
           userContent = builtins.readFile ./config/firefox/chrome/userContent.css;
 
-          extensions = with config.nur.repos.rycee.firefox-addons; [
+          extensions = with inputs.nur.legacyPackages.${pkgs.system}.repos.rycee.firefox-addons; [
             ublock-origin
             libredirect
             proton-pass
