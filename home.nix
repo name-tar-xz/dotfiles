@@ -13,10 +13,9 @@
   catppuccin.flavor = "mocha";
 
   xdg = {
+    enable = true;
+    userDirs.enable = true;
     cacheHome = "${config.home.homeDirectory}/.local/cache";
-    configHome = "${config.home.homeDirectory}/.config";
-    dataHome = "${config.home.homeDirectory}/.local/share";
-    stateHome = "${config.home.homeDirectory}/.local/state";
 
     configFile = {
       "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
@@ -153,10 +152,6 @@
     ];
 
     sessionVariables = {
-      XDG_DATA_HOME = config.xdg.dataHome;
-      XDG_CONFIG_HOME = config.xdg.configHome;
-      XDG_STATE_HOME = config.xdg.stateHome;
-      XDG_CACHE_HOME = config.xdg.cacheHome;
       FLAKE = "${config.xdg.configHome}/nixos";
 
       BROWSER = "librewolf";
