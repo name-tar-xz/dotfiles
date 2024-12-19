@@ -289,7 +289,6 @@
         serif = [ "Inter" ];
         sansSerif = [ "Inter" ];
         monospace = [ "Iosevka Term" ];
-        emoji = [ "Segoe UI Emoji" ];
       };
       includeUserConf = false;
       antialias = true;
@@ -322,7 +321,7 @@
         '';
     };
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      nerd-fonts.symbols-only
       (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
       cascadia-code
       gyre-fonts # TrueType substitutes for standard PostScript fonts

@@ -181,7 +181,7 @@
       PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
       PARALLEL_HOME = "${config.xdg.configHome}/parallel";
       GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
-      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}}/java - djavafx.cachedir=${config.xdg.cacheHome}/openjfx";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}}/java -djavafx.cachedir=${config.xdg.cacheHome}/openjfx";
     };
 
     shellAliases = {
@@ -249,9 +249,9 @@
   qt = {
     enable = true;
     platformTheme.name = "qtct";
-    style.package = [
-      pkgs.libsForQt5.lightly
-      pkgs.kdePackages.breeze
+    style.package = with pkgs; [
+      libsForQt5.lightly
+      kdePackages.breeze
     ];
   };
 
