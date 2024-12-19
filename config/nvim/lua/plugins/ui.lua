@@ -1,66 +1,5 @@
 return {
   {
-    "goolord/alpha-nvim",
-    -- dir = P.alpha,
-    opts = function()
-      local dashboard = require("alpha.themes.dashboard")
-      dashboard.section.header.val = {
-        [[                                                                       ]],
-        [[                                                                     ]],
-        [[       ████ ██████           █████      ██                     ]],
-        [[      ███████████             █████                             ]],
-        [[      █████████ ███████████████████ ███  ████████████   ]],
-        [[     █████████  ███    █████████████ █████ ██████████████   ]],
-        [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
-        [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
-        [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
-        [[                                                                       ]],
-      }
-
-      dashboard.section.buttons.val = {
-        dashboard.button("LDR n  ", "  New File  ", ""),
-        dashboard.button("LDR f f", "  Find File  ", ""),
-        dashboard.button("LDR f o", "󰈙  Recents  ", ""),
-        dashboard.button("LDR f w", "󰈭  Find Word  ", ""),
-        dashboard.button("LDR f '", "  Bookmarks  ", ""),
-        dashboard.button("LDR S l", "  Last Session  ", ""),
-      }
-      for _, button in ipairs(dashboard.section.buttons.val) do
-        button.opts.hl = "AlphaButtons"
-        button.opts.hl_shortcut = "AlphaShortcut"
-      end
-      dashboard.section.header.opts.hl = "AlphaHeader"
-      dashboard.section.buttons.opts.hl = "AlphaButtons"
-      dashboard.section.footer.opts.hl = "AlphaFooter"
-      dashboard.opts.layout[1].val = 8
-      return dashboard
-    end,
-    config = function(_, dashboard)
-      -- close Lazy and re-open when the dashboard is ready
-      if vim.o.filetype == "lazy" then
-        vim.cmd.close()
-        vim.api.nvim_create_autocmd("User", {
-          once = true,
-          pattern = "AlphaReady",
-          callback = function() require("lazy").show() end,
-        })
-      end
-
-      require("alpha").setup(dashboard.opts)
-
-      vim.api.nvim_create_autocmd("User", {
-        once = true,
-        pattern = "LazyVimStarted",
-        callback = function()
-          local stats = require("lazy").stats()
-          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          dashboard.section.footer.val = "⚡ Loaded  " .. stats.loaded .. "/" .. stats.count .. " in 󰥔 " .. ms .. "ms"
-          pcall(vim.cmd.AlphaRedraw)
-        end,
-      })
-    end,
-  },
-  {
     "folke/which-key.nvim",
     dir = P.which_key,
     event = "VeryLazy",
@@ -92,7 +31,7 @@ return {
     event = "VeryLazy",
     opts = {
       lsp = {
-        progress = { enabled = false },
+        progress = { enabled = true },
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
@@ -140,16 +79,6 @@ return {
     dependencies = { "MunifTanjim/nui.nvim", dir = P.nui },
   },
   {
-    "j-hui/fidget.nvim",
-    dir = P.fidget,
-    event = "VeryLazy",
-    opts = {
-      notification = {
-        override_vim_notify = true,
-      },
-    },
-  },
-  {
     "stevearc/oil.nvim",
     dir = P.oil,
     cmd = "Oil",
@@ -162,7 +91,6 @@ return {
       view_options = { show_hidden = true },
     },
   },
-  { "tiagovla/scope.nvim", dir = P.scope, event = "VeryLazy", opts = {} },
   {
     "nvim-telescope/telescope.nvim",
     -- dir = P.telescope,
@@ -225,26 +153,6 @@ return {
       require("telescope").load_extension("undo")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("aerial")
-    end,
-  },
-  {
-    "stevearc/dressing.nvim",
-    dir = P.dressing,
-    opts = {
-      input = { default_prompt = "➤ " },
-      select = { backend = { "telescope", "builtin" } },
-    },
-    init = function()
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.select = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.select(...)
-      end
-      ---@diagnostic disable-next-line: duplicate-set-field
-      vim.ui.input = function(...)
-        require("lazy").load({ plugins = { "dressing.nvim" } })
-        return vim.ui.input(...)
-      end
     end,
   },
   {

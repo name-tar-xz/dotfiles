@@ -341,57 +341,6 @@ return {
         hl = { fg = "sapphire", bg = "mantle" },
       }
 
-      local function is_virtual_line() return vim.v.virtnum < 0 end
-      local function is_wrapped_line() return vim.v.virtnum > 0 end
-      local function not_in_fold_range() return vim.fn.foldlevel(vim.v.lnum) <= 0 end
-      local function not_fold_start(line)
-        line = line or vim.v.lnum
-        return vim.fn.foldlevel(line) <= vim.fn.foldlevel(line - 1)
-      end
-      local function fold_opened(line) return vim.fn.foldclosed(line or vim.v.lnum) == -1 end
-
-      local Number = {
-        condition = function() return vim.opt.number:get() end,
-        { provider = "%=" },
-        {
-          provider = function()
-            local sign = vim.fn.sign_getplaced(vim.fn.bufname(), { group = "*", lnum = vim.v.lnum })[1].signs[1]
-            if sign ~= nil and sign.group ~= "gitsigns_signs_" then
-              return "%s"
-            else
-              return "%{v:relnum?v:relnum:v:lnum}"
-            end
-          end,
-        },
-        { provider = " " },
-      }
-
-      local Fold = {
-        condition = function() return vim.opt.foldcolumn:get() ~= "0" end,
-        provider = function()
-          if is_wrapped_line() or is_virtual_line() then
-            return ""
-          elseif not_in_fold_range() or not_fold_start() then
-            return " "
-          elseif fold_opened() then
-            return ""
-          else
-            return ""
-          end
-        end,
-        hl = { fg = "surface1" },
-        on_click = {
-          name = "heirline_fold_click_handler",
-          callback = function()
-            local line = vim.fn.getmousepos().line
-            if not_fold_start(line) then
-              return
-            end
-            vim.cmd.execute("'" .. line .. "fold" .. (fold_opened(line) and "close" or "open") .. "'")
-          end,
-        },
-      }
-
       require("heirline").setup({
         statusline = {
           ViMode,
@@ -425,11 +374,6 @@ return {
         },
         -- winbar = WinBar,
         -- tabline = TabLine,
-        statuscolumn = {
-          Fold,
-          Space(1),
-          Number,
-        },
 
         opts = {
           colors = colors,

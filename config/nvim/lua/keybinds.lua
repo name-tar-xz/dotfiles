@@ -17,15 +17,7 @@ vim.keymap.set("n", "<leader>ps", "<cmd>Lazy show<CR>", { desc = "Lazy status" }
 vim.keymap.set("n", "<leader>pp", "<cmd>Lazy profile<CR>", { desc = "Lazy Profile" })
 
 -- Buffers
-vim.keymap.set("n", "<leader>c", function() require("bufdelete").bufdelete(0, false) end, { desc = "Close buffer" })
-vim.keymap.set("n", "<leader>C", function() require("bufdelete").bufdelete(0, true) end, { desc = "Force close buffer" })
-vim.keymap.set("n", ">b", "<cmd>BufferLineMoveNext<CR>", { desc = "Move buffer tab right" })
-vim.keymap.set("n", "<b", "<cmd>BufferLineMovePrev<CR>", { desc = "Move buffer tab left" })
-
--- vim.keymap.set("n", "]b", "<cmd>bnext<CR>", { desc = "Next buffer tab" })
--- vim.keymap.set("n", "[b", "<cmd>bprev<CR>", { desc = "Previous buffer tab" })
--- vim.keymap.set("n", "<S-l>", "<cmd>bnext<CR>", { desc = "Next buffer tab" })
--- vim.keymap.set("n", "<S-h>", "<cmd>bprev<CR>", { desc = "Previous buffer tab" })
+vim.keymap.set("n", "<leader>c", function() Snacks.bufdelete() end, { desc = "Close buffer" })
 
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", function() require("smart-splits").move_cursor_left() end, { desc = "Move to left split" })
@@ -97,7 +89,6 @@ vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Hel
 
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP Rename" })
 vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Code Action" })
-vim.keymap.set("n", "<leader>lh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, { desc = "Toggle Inlay Hints" })
 vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "LSP Diagnostics" })
 
 vim.keymap.set("n", "<leader>lf", function() require("conform").format() end, { desc = "Format" })
