@@ -10,7 +10,12 @@
     catppuccin.homeManagerModules.catppuccin
   ];
 
-  catppuccin.flavor = "mocha";
+  catppuccin = {
+    flavor = "mocha";
+    bat.enable = true;
+    btop.enable = true;
+    dunst.enable = true;
+  };
 
   xdg = {
     enable = true;
@@ -1301,7 +1306,6 @@
     };
     bat = {
       enable = true;
-      catppuccin.enable = true;
       config = {
         style = "changes,header-filename,rule,numbers,snip";
         pager = config.home.sessionVariables.PAGER;
@@ -1558,7 +1562,6 @@
     };
     btop = {
       enable = true;
-      catppuccin.enable = true;
       settings = {
         theme_background = false;
         update_ms = 100;
@@ -1609,7 +1612,6 @@
 
     dunst = {
       enable = true;
-      catppuccin.enable = true;
       settings = {
         global = {
           follow = "mouse";
