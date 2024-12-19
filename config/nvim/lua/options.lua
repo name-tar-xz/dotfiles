@@ -67,19 +67,6 @@ vim.lsp.inlay_hint.enable(true)
 
 vim.g.skip_ts_context_commentstring_module = true
 
-vim.g.firenvim_config = {
-  globalSettings = { alt = "all" },
-  localSettings = {
-    [".*"] = {
-      cmdline = "firenvim",
-      content = "text",
-      priority = 0,
-      selector = "textarea",
-      takeover = "always",
-    },
-  },
-}
-
 vim.diagnostic.config({
   severity_sort = true,
   signs = {

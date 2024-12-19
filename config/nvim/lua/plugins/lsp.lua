@@ -1,5 +1,4 @@
 return {
-  { "b0o/SchemaStore.nvim", dir = P.SchemaStore },
   {
     "neovim/nvim-lspconfig",
     dir = P.lspconfig,
@@ -93,14 +92,7 @@ return {
 
       lspconfig.html.setup({})
 
-      lspconfig.jsonls.setup({
-        settings = {
-          json = {
-            schemas = require("schemastore").json.schemas(),
-            validate = { enable = true },
-          },
-        },
-      })
+      lspconfig.jsonls.setup({})
     end,
   },
   {

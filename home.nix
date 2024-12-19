@@ -995,7 +995,6 @@
               lspkind = "${pkgs.vimPlugins.lspkind-nvim}",
 
             -- lsp.lua
-            SchemaStore = "${pkgs.vimPlugins.SchemaStore-nvim}",
             lspconfig = "${pkgs.vimPlugins.nvim-lspconfig}",
             lint = "${pkgs.vimPlugins.nvim-lint}",
             conform = "${pkgs.vimPlugins.conform-nvim}",
