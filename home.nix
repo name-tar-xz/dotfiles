@@ -981,18 +981,8 @@
               web_devicons = "${pkgs.vimPlugins.nvim-web-devicons}",
 
             -- cmp.lua
-            luasnip = "${pkgs.vimPlugins.luasnip}",
-              friendly_snippets = "${pkgs.vimPlugins.friendly-snippets}",
-            cmp = "${pkgs.vimPlugins.nvim-cmp}",
-              cmp_lsp = "${pkgs.vimPlugins.cmp-nvim-lsp}",
-              cmp_luasnip = "${pkgs.vimPlugins.cmp_luasnip}",
-              cmp_lua = "${pkgs.vimPlugins.cmp-nvim-lua}",
-              cmp_cmdline = "${pkgs.vimPlugins.cmp-cmdline}",
-              cmp_cmdline_history = "${pkgs.vimPlugins.cmp-cmdline-history}",
-              cmp_buffer = "${pkgs.vimPlugins.cmp-buffer}",
-              cmp_async_path = "${pkgs.vimPlugins.cmp-async-path}",
-              cmp_treesitter = "${pkgs.vimPlugins.cmp-treesitter}",
-              lspkind = "${pkgs.vimPlugins.lspkind-nvim}",
+            friendly_snippets = "${pkgs.vimPlugins.friendly-snippets}",
+            blink = "${pkgs.vimPlugins.blink-cmp}",
 
             -- lsp.lua
             lspconfig = "${pkgs.vimPlugins.nvim-lspconfig}",

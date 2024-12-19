@@ -10,6 +10,7 @@ return {
         treesitter_context = true,
         mini = { enabled = true, indentscope_color = "blue" },
         noice = true,
+        blink_cmp = true,
         snacks = true,
         native_lsp = {
           enabled = true,

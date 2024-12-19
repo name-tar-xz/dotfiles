@@ -8,7 +8,7 @@ return {
       local lspconfig = require("lspconfig")
       local lsp_defaults = lspconfig.util.default_config
 
-      local capabilities = vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
+      local capabilities = require("blink.cmp").get_lsp_capabilities(lsp_defaults.capabilities)
       capabilities.textDocument.completion.completionItem.snippetSupport = true
       capabilities.textDocument.foldingRange = {
         dynamicRegistration = false,
