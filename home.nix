@@ -1017,9 +1017,7 @@
             noice = "${pkgs.vimPlugins.noice-nvim}",
               nui = "${pkgs.vimPlugins.nui-nvim}",
             oil = "${pkgs.vimPlugins.oil-nvim}",
-            -- telescope = "${pkgs.vimPlugins.telescope-nvim}",
-              telescope_fzf_native = "${pkgs.vimPlugins.telescope-fzf-native-nvim}",
-              telescope_undo = "${pkgs.vimPlugins.telescope-undo-nvim}",
+            fzf = "${pkgs.vimPlugins.fzf-lua}",
 
             gitsigns = "${pkgs.vimPlugins.gitsigns-nvim}",
             ufo = "${pkgs.vimPlugins.nvim-ufo}",

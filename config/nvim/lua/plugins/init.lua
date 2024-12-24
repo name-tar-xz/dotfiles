@@ -12,6 +12,7 @@ return {
         noice = true,
         blink_cmp = true,
         snacks = true,
+        fzf = true,
         native_lsp = {
           enabled = true,
           virtual_text = {
@@ -30,7 +31,6 @@ return {
             background = false,
           },
         },
-        telescope = { style = "nvchad" },
         dropbar = { enabled = true },
         headlines = true,
         lsp_trouble = true,

@@ -46,39 +46,6 @@ vim.keymap.set("n", "<leader>gd", function() require("gitsigns").diffthis() end,
 vim.keymap.set("n", "<leader>/", "gcc", { desc = "Comment line", remap = true })
 vim.keymap.set("v", "<leader>/", "gc", { desc = "Comment line", remap = true })
 
--- Telescope
-vim.keymap.set("n", "<leader>gC", function() require("telescope.builtin").git_bcommits({ use_file_path = true }) end, { desc = "Git commits (current file)" })
-vim.keymap.set("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
-vim.keymap.set("n", "<leader>gc", function() require("telescope.builtin").git_commits({ use_file_path = true }) end, { desc = "Git commits (repository)" })
-vim.keymap.set("n", "<leader>gt", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
-
-vim.keymap.set("n", "<leader>f`", function() require("telescope.builtin").marks() end, { desc = "Find marks" })
-vim.keymap.set("n", "<leader>f/", function() require("telescope.builtin").current_buffer_fuzzy_find() end, { desc = "Find words in current buffer" })
-vim.keymap.set("n", "<leader>f<CR>", function() require("telescope.builtin").resume() end, { desc = "Resume previous search" })
-vim.keymap.set("n", "<leader>fC", function() require("telescope.builtin").commands() end, { desc = "Find commands" })
-vim.keymap.set("n", "<leader>fF", function() require("telescope.builtin").find_files({ hidden = true, no_ignore = true }) end, { desc = "Find all files" })
-vim.keymap.set("n", "<leader>fW", function() require("telescope.builtin").live_grep({ additional_args = { "--hidden", "--no-ignore" } }) end, { desc = "Find words in all files" })
-vim.keymap.set("n", "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Find buffers" })
-vim.keymap.set("n", "<leader>fc", function() require("telescope.builtin").grep_string() end, { desc = "Find word under cursor" })
-vim.keymap.set("n", "<leader>ff", function() require("telescope.builtin").find_files() end, { desc = "Find files" })
-vim.keymap.set("n", "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Find help" })
-vim.keymap.set("n", "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Find keymaps" })
-vim.keymap.set("n", "<leader>fm", function() require("telescope.builtin").man_pages() end, { desc = "Find man" })
-vim.keymap.set("n", "<leader>fo", function() require("telescope.builtin").oldfiles() end, { desc = "Find history" })
-vim.keymap.set("n", "<leader>fr", function() require("telescope.builtin").registers() end, { desc = "Find registers" })
-vim.keymap.set("n", "<leader>ft", function() require("telescope.builtin").colorscheme({ enable_preview = true }) end, { desc = "Find themes" })
-vim.keymap.set("n", "<leader>fw", function() require("telescope.builtin").live_grep() end, { desc = "Find words" })
-
-vim.keymap.set("n", "<leader>fs", function() require("telescope").extensions.aerial.aerial() end, { desc = "Find symbols" })
-vim.keymap.set("n", "<leader>fu", function() require("telescope").extensions.undo.undo() end, { desc = "Find undos" })
-
--- LSP
-vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
-vim.keymap.set("n", "gr", function() require("telescope.builtin").lsp_references({ reuse_win = true }) end, { desc = "Goto Refrences" })
-vim.keymap.set("n", "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, { desc = "Goto Implementation" })
-vim.keymap.set("n", "gY", vim.lsp.buf.type_definition, { desc = "Goto Type Definition" })
-
 vim.keymap.set("n", "K", function()
   local winid = require("ufo").peekFoldedLinesUnderCursor()
   if not winid then
