@@ -1,6 +1,7 @@
 return {
   {
     "echasnovski/mini.move",
+    dir = P.mini_move,
     keys = {
       { "<A-h>", mode = "n", desc = "Move line left" },
       { "<A-j>", mode = "n", desc = "Move line down" },
@@ -26,6 +27,7 @@ return {
   },
   {
     "echasnovski/mini.surround",
+    dir = P.mini_surround,
     keys = { { "gz", desc = "Surround" } },
     opts = {
       mappings = {
@@ -41,11 +43,13 @@ return {
   },
   {
     "echasnovski/mini.ai",
+    dir = P.mini_ai,
     event = "User File",
     opts = {},
   },
   {
     "echasnovski/mini.bracketed",
+    dir = P.mini_bracketed,
     event = "User File",
     opts = {},
   },

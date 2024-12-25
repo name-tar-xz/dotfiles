@@ -115,6 +115,7 @@ return {
   },
   {
     "numToStr/Comment.nvim",
+    dir = P.comment,
     event = "BufReadPost",
     opts = { ignore = "^$" },
   },

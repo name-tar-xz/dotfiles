@@ -73,6 +73,7 @@ return {
   },
   {
     "chrisgrieser/nvim-various-textobjs",
+    dir = P.texobjs,
     event = "User File",
     opts = { keymaps = { useDefaults = true, disabledDefaults = { "gc", "il", "al" } } },
   },

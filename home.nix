@@ -992,11 +992,15 @@
             aerial = "${pkgs.vimPlugins.aerial-nvim}",
 
             -- mini.lua
-            -- TODO: use mini.nvim instead of separate plugins
+            mini_move = "${pkgs.vimPlugins.mini-move}",
+            mini_surround = "${pkgs.vimPlugins.mini-surround}",
+            mini_ai = "${pkgs.vimPlugins.mini-ai}",
+            mini_bracketed = "${pkgs.vimPlugins.mini-bracketed}",
 
             -- move.lua
             flash = "${pkgs.vimPlugins.flash-nvim}",
             spider = "${pkgs.vimPlugins.nvim-spider}",
+            texobjs = "${pkgs.vimPlugins.nvim-various-textobjs}",
 
             -- ts.lua
             treesitter = "${pkgs.vimPlugins.nvim-treesitter}",
