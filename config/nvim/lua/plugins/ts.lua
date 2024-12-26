@@ -105,7 +105,7 @@ return {
   {
     "Wansmer/treesj",
     dir = P.treesj,
-    keys = { { "<leader>m", "<CMD>TSJToggle<CR>", desc = "Toggle Treesitter Join" } },
+    keys = { { "<leader>m", "<CMD>TSJToggle<CR>", desc = "Treesitter Join" } },
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     opts = { use_default_keymaps = false },
   },

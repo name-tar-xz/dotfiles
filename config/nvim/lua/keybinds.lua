@@ -17,7 +17,7 @@ vim.keymap.set("n", "<leader>ps", "<cmd>Lazy show<CR>", { desc = "Lazy status" }
 vim.keymap.set("n", "<leader>pp", "<cmd>Lazy profile<CR>", { desc = "Lazy Profile" })
 
 -- Buffers
-vim.keymap.set("n", "<leader>c", function() Snacks.bufdelete() end, { desc = "Close buffer" })
+vim.keymap.set("n", "<leader>c", function() require("snacks").bufdelete() end, { desc = "Close buffer" })
 
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", function() require("smart-splits").move_cursor_left() end, { desc = "Move to left split" })
@@ -42,10 +42,6 @@ vim.keymap.set("n", "<leader>gs", function() require("gitsigns").stage_hunk() en
 vim.keymap.set("n", "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage Git hunk" })
 vim.keymap.set("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View Git diff" })
 
--- Comment
-vim.keymap.set("n", "<leader>/", "gcc", { desc = "Comment line", remap = true })
-vim.keymap.set("v", "<leader>/", "gc", { desc = "Comment line", remap = true })
-
 vim.keymap.set("n", "K", function()
   local winid = require("ufo").peekFoldedLinesUnderCursor()
   if not winid then
@@ -59,7 +55,6 @@ vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Co
 vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "LSP Diagnostics" })
 
 vim.keymap.set("n", "<leader>lf", function() require("conform").format() end, { desc = "Format" })
-vim.keymap.set("n", "<leader>ls", "<cmd>AerialToggle!<CR>", { desc = "Find symbols" })
 
 -- UFO
 vim.keymap.set("n", "zR", function() require("ufo").openAllFolds() end)

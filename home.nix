@@ -989,7 +989,6 @@
             lint = "${pkgs.vimPlugins.nvim-lint}",
             conform = "${pkgs.vimPlugins.conform-nvim}",
             trouble = "${pkgs.vimPlugins.trouble-nvim}",
-            aerial = "${pkgs.vimPlugins.aerial-nvim}",
 
             -- mini.lua
             mini_move = "${pkgs.vimPlugins.mini-move}",

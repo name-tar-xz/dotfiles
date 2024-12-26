@@ -93,31 +93,25 @@ return {
         pattern = "VeryLazy",
         callback = function()
           -- Setup some globals for debugging (lazy-loaded)
-          _G.dd = function(...) Snacks.debug.inspect(...) end
-          _G.bt = function() Snacks.debug.backtrace() end
+          _G.dd = function(...) require("snacks").debug.inspect(...) end
+          _G.bt = function() require("snacks").debug.backtrace() end
           vim.print = _G.dd -- Override print to use snacks for `:=` command
 
           -- Create some toggle mappings
-          Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-          Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-          Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
-          Snacks.toggle.diagnostics():map("<leader>ud")
-          Snacks.toggle.line_number():map("<leader>ul")
-          Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
-          Snacks.toggle.treesitter():map("<leader>uT")
-          Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-          Snacks.toggle.inlay_hints():map("<leader>lh")
-          -- Snacks.toggle.indent():map("<leader>ug")
-          -- Snacks.toggle.dim():map("<leader>uD")
+          require("snacks").toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+          require("snacks").toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+          require("snacks").toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+          require("snacks").toggle.diagnostics():map("<leader>ud")
+          require("snacks").toggle.line_number():map("<leader>ul")
+          require("snacks").toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
+          require("snacks").toggle.treesitter():map("<leader>uT")
+          require("snacks").toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
+          require("snacks").toggle.inlay_hints():map("<leader>lh")
+          -- require("snacks").toggle.indent():map("<leader>ug")
+          -- require("snacks").toggle.dim():map("<leader>uD")
         end,
       })
     end,
-  },
-  {
-    "numToStr/Comment.nvim",
-    dir = P.comment,
-    event = "BufReadPost",
-    opts = { ignore = "^$" },
   },
   { "mrjones2014/smart-splits.nvim", dir = P.smart_splits, event = "BufAdd" },
 
