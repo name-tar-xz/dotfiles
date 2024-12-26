@@ -1020,7 +1020,7 @@
 
             noice = "${pkgs.vimPlugins.noice-nvim}",
               nui = "${pkgs.vimPlugins.nui-nvim}",
-            oil = "${pkgs.vimPlugins.oil-nvim}",
+            mini_files = "${pkgs.vimPlugins.mini-files}",
             fzf = "${pkgs.vimPlugins.fzf-lua}",
 
             gitsigns = "${pkgs.vimPlugins.gitsigns-nvim}",
