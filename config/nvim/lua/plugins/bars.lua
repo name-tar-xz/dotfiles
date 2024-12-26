@@ -16,17 +16,11 @@ return {
     "rebelot/heirline.nvim",
     dir = P.heirline,
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
-      dir = P.web_devicons,
-      opts = function()
-        require("nvim-web-devicons").set_default_icon("󰈙", "#6d8086", 66)
-        return {
-          override_by_filename = {
-            ["LICENSE"] = {
-              icon = "",
-            },
-          },
-        }
+      "echasnovski/mini.icons",
+      dir = P.mini_icons,
+      config = function()
+        require("mini.icons").setup()
+        require("mini.icons").mock_nvim_web_devicons()
       end,
     },
     event = "BufEnter",

@@ -978,7 +978,7 @@
             -- bars.lua
             dropbar = "${pkgs.vimPlugins.dropbar-nvim}",
             heirline = "${pkgs.vimPlugins.heirline-nvim}",
-              web_devicons = "${pkgs.vimPlugins.nvim-web-devicons}",
+            mini_icons = "${pkgs.vimPlugins.mini-icons}",
 
             -- cmp.lua
             friendly_snippets = "${pkgs.vimPlugins.friendly-snippets}",
