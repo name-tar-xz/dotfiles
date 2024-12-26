@@ -25,13 +25,17 @@ return {
             },
             hint = {
               enable = true,
+              setType = false,
+              paramType = true,
+              paramName = "Disable",
+              semicolon = "Disable",
+              arrayIndex = "Disable",
             },
           },
         },
       })
 
       lspconfig.nixd.setup({
-        cmd = { "nixd", "--semantic-tokens=false" },
         settings = {
           nixd = {
             nixpkgs = {
@@ -72,17 +76,29 @@ return {
       })
 
       lspconfig.biome.setup({ single_file_support = true })
-      lspconfig.ts_ls.setup({
-        init_options = {
-          preferences = {
-            includeInlayParameterNameHints = "all",
-            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-            includeInlayFunctionParameterTypeHints = true,
-            includeInlayVariableTypeHints = true,
-            includeInlayPropertyDeclarationTypeHints = true,
-            includeInlayFunctionLikeReturnTypeHints = true,
-            includeInlayEnumMemberValueHints = true,
-            importModuleSpecifierPreference = "non-relative",
+
+      lspconfig.vtsls.setup({
+        settings = {
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              maxInlayHintLength = 30,
+              completion = { enableServerSideFuzzyMatch = true },
+            },
+          },
+          typescript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = { completeFunctionCalls = true },
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
           },
         },
       })

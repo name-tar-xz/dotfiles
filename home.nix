@@ -1101,7 +1101,7 @@
         stylua
         ## JavaScript
         biome
-        nodePackages_latest.typescript-language-server
+        vtsls
         ## Tailwind
         tailwindcss-language-server
         rustywind
