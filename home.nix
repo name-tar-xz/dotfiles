@@ -248,6 +248,8 @@
     file = {
       ".mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;
       ".mozilla/firefox/main/chrome/includes".source = ./config/firefox/chrome/includes;
+      ".icons/default/index.theme".enable = false;
+      ".icons/${config.home.pointerCursor.name}".enable = false;
     };
 
     pointerCursor = {

@@ -68,6 +68,12 @@
             ppsspp
           ]
         );
+
+        speechd = prev.speechd.override {
+          withLibao = false;
+          withFlite = false;
+          withEspeak = false;
+          withPico = false;
         };
       })
     ];
@@ -182,6 +188,9 @@
   systemd = {
     services = {
       "systemd-backlight@".enable = false;
+      "mount-pstore".enable = false;
+      audit.enable = false;
+
       pci-latency = {
         enable = true;
         description = "PCI Latency";
