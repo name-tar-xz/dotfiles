@@ -11,6 +11,7 @@
       "gather_data_sampling=off"
     ];
     supportedFilesystems = [ "bacachefs" ];
+    kernelModules = [ "ntsync" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
 
     loader.systemd-boot.enable = pkgs.lib.mkForce false;
@@ -19,8 +20,8 @@
       pkiBundle = "/etc/secureboot";
     };
     extraModprobeConfig = ''
-      options nvidia NVreg_UsePageAttributeTable=1 NVreg_InitializeSystemMemoryAllocations=0
-      options nvidia_drm modeset=1 fbdev=1
+      options nvidia NVreg_UsePageAttributeTable=1 NVreg_InitializeSystemMemoryAllocations=0 NVreg_DynamicPowerManagement=0x02
+      options nvidia_drm modeset=1
     '';
   };
 
@@ -144,6 +145,11 @@
 
     thermald.enable = true;
     bpftune.enable = true;
+    scx = {
+      enable = true;
+      scheduler = "scx_bpfland";
+      package = pkgs.scx.rustscheds;
+    };
     ananicy = {
       enable = true;
       package = pkgs.ananicy-cpp;

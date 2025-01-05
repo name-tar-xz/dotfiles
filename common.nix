@@ -30,20 +30,12 @@
       "kernel.printk" = "3 3 3 3";
       "kernel.kptr_restrict" = 2;
       "kernel.kexec_load_disabled" = 1;
-      "net.core.somaxconn" = 8192;
-      "net.core.netdev_max_backlog" = 16384;
+      "net.core.netdev_max_backlog" = 4096;
       "net.ipv4.tcp_ecn" = 1;
       "net.ipv4.tcp_slow_start_after_idle" = 0;
-      "net.ipv4.tcp_timestamps" = 0;
-      "net.ipv4.tcp_fastopen" = 3;
-      "net.ipv4.tcp_congestion_control" = "bbr";
-      "net.ipv4.tcp_syncookies" = 1;
       "net.ipv4.tcp_rfc1337" = 1;
-      "fs.inotify.max_user_watches" = 524288;
       "fs.file-max" = 2097152;
-      "fs.xfs.xfssyncd_centisecs" = 10000;
       "kernel.core_pattern" = "/dev/null";
-      "kernel.sched_rt_runtime_us" = 980000;
       "kernel.split_lock_mitigate" = 0;
       "dev.hpet.max-user-freq" = 3072;
       # Clear Linux
@@ -63,8 +55,6 @@
       "net.ipv4.conf.default.send_redirects" = 0;
       # Zram
       "vm.swappiness" = 180;
-      "vm.watermark_boost_factor" = 0;
-      "vm.watermark_scale_factor" = 125;
       # Gaming
       "vm.compaction_proactiveness" = 0;
       "vm.page_lock_unfairness" = 1;
@@ -344,11 +334,21 @@
         ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
 
         # SSD
-        ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*|nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
+        ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
+
+        # NVMe SSD
+        ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
 
         # Audio Latency
         KERNEL=="rtc0", GROUP="audio"
         KERNEL=="hpet", GROUP="audio"
+
+        # Nvidia
+        # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
+        ACTION=="add|bind", SUBSYSTEM=="pci", DRIVERS=="nvidia", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", TEST=="power/control", ATTR{power/control}="auto"
+
+        # Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
+        ACTION=="remove|unbind", SUBSYSTEM=="pci", DRIVERS=="nvidia", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", TEST=="power/control", ATTR{power/control}="on"
 
         # Clear Linux
         ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/nr_requests}="2048"
@@ -374,6 +374,7 @@
       "w! /sys/kernel/mm/transparent_hugepage/shmem_enabled - - - - advise"
       "w! /sys/kernel/mm/lru_gen/enabled - - - - 5"
       "w! /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs - - - - 30000"
+      "w! /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none - - - - 409"
       "w! /sys/kernel/mm/ksm/pages_to_scan - - - - 1000"
       "w! /sys/kernel/mm/ksm/sleep_millisecs - - - - 4000"
       "w! /sys/class/rtc/rtc0/max_user_freq - - - - 3072"
