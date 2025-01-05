@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 {
-  boot.kernelParams = [ "mitigations=off" ];
+  boot = {
+    kernelPackages = pkgs.linuxPackages_cachyos-server;
+    kernelParams = [ "mitigations=off" ];
+  };
 
   networking = {
     hostName = "server";

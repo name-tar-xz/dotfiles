@@ -42,6 +42,32 @@
         "type": "github"
       }
     },
+    "chaotic": {
+      "inputs": {
+        "flake-schemas": [],
+        "home-manager": [
+          "home-manager"
+        ],
+        "jovian": [],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1735943654,
+        "narHash": "sha256-rXmcRRQfXXYAKOa5IXlrMISTwgScA2Dx04JpONXRA+Q=",
+        "owner": "chaotic-cx",
+        "repo": "nyx",
+        "rev": "5edcf7fb24c73ff9665f299461af33fa6171836f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chaotic-cx",
+        "ref": "nyxpkgs-unstable",
+        "repo": "nyx",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -242,6 +268,7 @@
       "inputs": {
         "betterfox": "betterfox",
         "catppuccin": "catppuccin",
+        "chaotic": "chaotic",
         "csshacks": "csshacks",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
