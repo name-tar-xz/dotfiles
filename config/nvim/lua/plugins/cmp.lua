@@ -11,7 +11,6 @@ return {
       appearance = { nerd_font_variant = "mono" },
 
       completion = {
-        window = { border = "rounded" },
         menu = { border = "rounded" },
         documentation = { auto_show = true, auto_show_delay_ms = 0, window = { border = "rounded" } },
       },

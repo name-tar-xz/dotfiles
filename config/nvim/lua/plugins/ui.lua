@@ -81,6 +81,7 @@ return {
   {
     "echasnovski/mini.files",
     dir = P.mini_files,
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = { "VimEnter */*,.*", "BufNew */*,.*" },
     keys = {
       {
@@ -183,7 +184,7 @@ return {
       { "<leader>fm", function() require("fzf-lua").manpages() end, desc = "Find man" },
       { "<leader>fo", function() require("fzf-lua").oldfiles() end, desc = "Find history" },
       { "<leader>fr", function() require("fzf-lua").registers() end, desc = "Find registers" },
-      { "<leader>ft", function() require("fzf-lua").colorscheme({ enable_preview = true }) end, desc = "Find themes" },
+      { "<leader>ft", function() require("fzf-lua").colorschemes({ enable_preview = true }) end, desc = "Find themes" },
       { "<leader>fw", function() require("fzf-lua").live_grep() end, desc = "Find words" },
       { "<leader>fs", function() require("fzf-lua").lsp_document_symbols() end, desc = "Find symbols" },
 
