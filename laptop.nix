@@ -56,8 +56,9 @@
     overlays = [
       (final: prev: {
         librewolf = prev.librewolf.override { cfg.speechSynthesisSupport = false; };
-        retroarch = prev.retroarch.override {
-          cores = with pkgs.libretro; [
+
+        retroarch = prev.retroarch.withCores (
+          cores: with cores; [
             gambatte
             mgba
             melonds
@@ -65,10 +66,8 @@
             pcsx-rearmed
             pcsx2
             ppsspp
-          ];
-        };
-        lutris = prev.lutris.override {
-          extraPkgs = pkgs: with pkgs; [ wineWowPackages.waylandFull ];
+          ]
+        );
         };
       })
     ];
@@ -209,22 +208,6 @@
         RestartSec = 1;
         TimeoutStopSec = 10;
       };
-    };
-  };
-
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = false;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
-    config = {
-      common.default = [ "gtk" ];
-      hyprland.default = [
-        "hyprland"
-        "gtk"
-      ];
     };
   };
 

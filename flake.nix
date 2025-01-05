@@ -23,7 +23,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin.url = "github:catppuccin/nix";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,6 +40,18 @@
       };
     };
 
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "";
+        home-manager.follows = "";
+        home-manager-stable.follows = "";
+        nuscht-search.follows = "";
+        catppuccin-v1_1.follows = "";
+        catppuccin-v1_2.follows = "";
+      };
+    };
     umu = {
       url = "git+https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";

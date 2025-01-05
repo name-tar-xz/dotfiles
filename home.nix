@@ -22,6 +22,21 @@
     userDirs.enable = true;
     cacheHome = "${config.home.homeDirectory}/.local/cache";
 
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+      ];
+      config = {
+        common.default = [ "gtk" ];
+        hyprland.default = [
+          "hyprland"
+          "gtk"
+        ];
+      };
+    };
+
     configFile = {
       "waybar/config.jsonc".source = ./config/waybar/config.jsonc;
       "sh/functions.sh".source = ./config/sh/functions.sh;
@@ -240,6 +255,10 @@
       x11.enable = false;
       size = 24;
       name = "Nero";
+      hyprcursor = {
+        enable = true;
+        size = 24;
+      };
       package = pkgs.runCommand "Nero" { } ''
         mkdir -p $out/share/icons
         ln -s ${inputs.nero} $out/share/icons/Nero'';
@@ -1118,7 +1137,7 @@
       dotDir = ".config/zsh";
 
       enableCompletion = true;
-      completionInit = "autoload -Uz compinit && compinit -i -u -d $XDG_CACHE_HOME/zsh/zcompdump";
+      completionInit = "autoload -Uz compinit && compinit -i -u -C -d $XDG_CACHE_HOME/zsh/zcompdump";
       defaultKeymap = "emacs";
       autocd = true;
 
