@@ -992,7 +992,6 @@
             -- init.lua
             catppuccin = "${pkgs.vimPlugins.catppuccin-nvim}",
             snacks = "${pkgs.vimPlugins.snacks-nvim}",
-            smart_splits = "${pkgs.vimPlugins.smart-splits-nvim}",
             dial = "${pkgs.vimPlugins.dial-nvim}",
             marks = "${pkgs.vimPlugins.marks-nvim}",
 

@@ -113,7 +113,6 @@ return {
       })
     end,
   },
-  { "mrjones2014/smart-splits.nvim", dir = P.smart_splits, event = "BufAdd" },
 
   {
     "monaqa/dial.nvim",

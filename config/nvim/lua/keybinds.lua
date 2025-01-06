@@ -19,18 +19,6 @@ vim.keymap.set("n", "<leader>pp", "<cmd>Lazy profile<CR>", { desc = "Lazy Profil
 -- Buffers
 vim.keymap.set("n", "<leader>c", function() require("snacks").bufdelete() end, { desc = "Close buffer" })
 
--- Better window navigation
-vim.keymap.set("n", "<C-h>", function() require("smart-splits").move_cursor_left() end, { desc = "Move to left split" })
-vim.keymap.set("n", "<C-j>", function() require("smart-splits").move_cursor_down() end, { desc = "Move to below split" })
-vim.keymap.set("n", "<C-k>", function() require("smart-splits").move_cursor_up() end, { desc = "Move to above split" })
-vim.keymap.set("n", "<C-l>", function() require("smart-splits").move_cursor_right() end, { desc = "Move to right split" })
-
--- Resize with arrows
-vim.keymap.set("n", "<C-Up>", function() require("smart-splits").resize_up() end, { desc = "Resize split up" })
-vim.keymap.set("n", "<C-Down>", function() require("smart-splits").resize_down() end, { desc = "Resize split down" })
-vim.keymap.set("n", "<C-Left>", function() require("smart-splits").resize_left() end, { desc = "Resize split left" })
-vim.keymap.set("n", "<C-Right>", function() require("smart-splits").resize_right() end, { desc = "Resize split right" })
-
 -- GitSigns
 vim.keymap.set("n", "]g", function() require("gitsigns").next_hunk() end, { desc = "Next Git hunk" })
 vim.keymap.set("n", "[g", function() require("gitsigns").prev_hunk() end, { desc = "Previous Git hunk" })
