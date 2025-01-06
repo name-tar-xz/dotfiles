@@ -1044,8 +1044,6 @@
             fzf = "${pkgs.vimPlugins.fzf-lua}",
 
             gitsigns = "${pkgs.vimPlugins.gitsigns-nvim}",
-            ufo = "${pkgs.vimPlugins.nvim-ufo}",
-              promise_async = "${pkgs.vimPlugins.promise-async}",
             todo_comments = "${pkgs.vimPlugins.todo-comments-nvim}",
               plenary = "${pkgs.vimPlugins.plenary-nvim}",
             colorizer = "${pkgs.vimPlugins.nvim-colorizer-lua}",

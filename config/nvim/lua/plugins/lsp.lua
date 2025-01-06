@@ -10,10 +10,6 @@ return {
 
       local capabilities = require("blink.cmp").get_lsp_capabilities(lsp_defaults.capabilities)
       capabilities.textDocument.completion.completionItem.snippetSupport = true
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
 
       lsp_defaults.capabilities = capabilities
 

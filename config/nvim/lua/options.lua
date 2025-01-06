@@ -11,7 +11,7 @@ vim.keymap.set({ "n", "v" }, ":", ";")
 
 vim.opt.backspace:append({ "nostop" }) -- don't stop backspace at insert
 vim.opt.diffopt:append("linematch:60") -- enable linematch diff algorithm
-vim.opt.fillchars:append({ diff = "╱", eob = " " })
+vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " " })
 vim.opt.shortmess:append({ s = true, I = true, a = true, W = true }) -- disable search count wrap and startup messages
 vim.opt.viewoptions:remove("curdir") -- disable saving current directory with views
 
@@ -26,6 +26,9 @@ vim.opt.expandtab = true -- Enable the use of space in tab
 vim.opt.fileencoding = "utf-8" -- File content encoding for the buffer
 vim.opt.foldcolumn = "0"
 vim.opt.foldlevel = 99
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = ""
+vim.opt.foldmethod = "expr"
 vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
 vim.opt.history = 100 -- Number of commands to remember in a history table
 vim.opt.hlsearch = true

@@ -42,12 +42,8 @@ vim.keymap.set("n", "<leader>gs", function() require("gitsigns").stage_hunk() en
 vim.keymap.set("n", "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage Git hunk" })
 vim.keymap.set("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View Git diff" })
 
-vim.keymap.set("n", "K", function()
-  local winid = require("ufo").peekFoldedLinesUnderCursor()
-  if not winid then
-    vim.lsp.buf.hover()
-  end
-end, { desc = "Hover" })
+-- LSP
+vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, { desc = "Hover" })
 vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Signature Help" })
 
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { desc = "LSP Rename" })
@@ -55,12 +51,6 @@ vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, { desc = "Co
 vim.keymap.set("n", "<leader>ld", function() vim.diagnostic.open_float() end, { desc = "LSP Diagnostics" })
 
 vim.keymap.set("n", "<leader>lf", function() require("conform").format() end, { desc = "Format" })
-
--- UFO
-vim.keymap.set("n", "zR", function() require("ufo").openAllFolds() end)
-vim.keymap.set("n", "zM", function() require("ufo").closeAllFolds() end)
-vim.keymap.set("n", "zr", function() require("ufo").openFoldsExceptKinds() end)
-vim.keymap.set("n", "zm", function() require("ufo").closeFoldsWith() end) -- closeAllFolds == closeFoldsWith(0)
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
