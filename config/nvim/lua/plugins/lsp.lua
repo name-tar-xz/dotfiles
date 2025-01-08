@@ -3,15 +3,12 @@ return {
     "neovim/nvim-lspconfig",
     dir = P.lspconfig,
     event = { "BufReadPre", "BufNewFile" },
-    cond = not vim.opt.diff:get(),
+    cond = not vim.o.diff,
     config = function()
       local lspconfig = require("lspconfig")
       local lsp_defaults = lspconfig.util.default_config
 
-      local capabilities = require("blink.cmp").get_lsp_capabilities(lsp_defaults.capabilities)
-      capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-      lsp_defaults.capabilities = capabilities
+      lsp_defaults.capabilities = require("blink.cmp").get_lsp_capabilities(lsp_defaults.capabilities)
 
       lspconfig.lua_ls.setup({
         settings = {
@@ -34,14 +31,8 @@ return {
       lspconfig.nixd.setup({
         settings = {
           nixd = {
-            nixpkgs = {
-              expr = "import <nixpkgs> {}",
-            },
-            options = {
-              home_manager = {
-                expr = '(builtins.getFlake "/home/tarxz/.config/nixos").nixosConfigurations.laptop.options.home-manager.users.type.getSubOptions []',
-              },
-            },
+            nixpkgs = { expr = '(builtins.getFlake "/home/tarxz/.config/nixos").nixosConfigurations.laptop.options.home-manager.users.type.getSubOptions []' },
+            options = { home_manager = { expr = '(builtins.getFlake "/home/tarxz/.config/nixos").nixosConfigurations.laptop.options.home-manager.users.type.getSubOptions []' } },
           },
         },
       })
@@ -51,9 +42,7 @@ return {
       lspconfig.taplo.setup({})
 
       lspconfig.pyright.setup({})
-      lspconfig.ruff.setup({
-        on_attach = function(client) client.server_capabilities.hoverProvider = false end,
-      })
+      lspconfig.ruff.setup({ on_attach = function(client) client.server_capabilities.hoverProvider = false end })
 
       lspconfig.gopls.setup({
         function(client)
@@ -110,7 +99,7 @@ return {
   {
     "mfussenegger/nvim-lint",
     dir = P.lint,
-    cond = function() return not vim.opt.diff:get() end,
+    cond = not vim.o.diff,
     main = "lint",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
@@ -119,8 +108,8 @@ return {
         if not lst then
           lst = {}
         end
-        assert(vim.tbl_islist(lst), "Provided table is not a list like table")
-        if not vim.tbl_islist(vals) then
+        assert(vim.islist(lst), "Provided table is not a list like table")
+        if not vim.islist(vals) then
           vals = { vals }
         end
         local added = {}
@@ -149,7 +138,7 @@ return {
         -- * otherwise will split filetype by "." and add all those linters
         -- * this differs from conform.nvim which only uses the first filetype that has a formatter
         local ft = vim.bo.filetype
-        if ft ~= "neo-tree" and ft ~= "undotree" and ft ~= "diff" and ft ~= "alpha" then
+        if ft ~= "trouble" and ft ~= "undotree" and ft ~= "diff" then
           local names = lint._resolve_linter_by_ft(ft)
 
           -- Add fallback linters.
@@ -193,6 +182,7 @@ return {
         sh = { "shfmt" },
         bash = { "shfmt" },
         zsh = { "shfmt" },
+        nix = { "nixfmt" },
 
         lua = { "stylua" },
         arduino = { "astyle" },
@@ -213,12 +203,14 @@ return {
   {
     "folke/trouble.nvim",
     dir = P.trouble,
-    cmd = { "TroubleToggle", "Trouble" },
+    cmd = { "Trouble" },
     keys = {
-      { "<leader>x" .. "X", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-      { "<leader>x" .. "x", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-      { "<leader>x" .. "l", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-      { "<leader>x" .. "q", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
+      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics" },
+      { "<leader>xs", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols" },
+      { "<leader>xl", "<cmd>Trouble lsp toggle focus=false win.position=right<cr>", desc = "LSP Definitions / references / ..." },
+      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List" },
+      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List" },
     },
     opts = {
       use_diagnostic_signs = true,

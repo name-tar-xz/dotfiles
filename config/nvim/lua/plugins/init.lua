@@ -49,8 +49,9 @@ return {
           return {
             Normal = { bg = "NONE" },
             NormalNC = { bg = "NONE" },
-            Visual = { bg = colors.surface0, style = {} },
+            Visual = { bg = colors.surface0, style = nil },
             Folded = { bg = colors.mantle },
+            TreesitterContextBottom = { style = nil },
           }
         end,
       },
@@ -64,14 +65,10 @@ return {
     opts = {
       input = { enabled = true },
       scope = { enabled = true },
-      notifier = { enabled = true, style = "minimal" },
+      notifier = { enabled = true, style = "minimal", top_down = false },
+      quickfile = { enabled = true },
 
-      statuscolumn = {
-        enabled = true,
-        folds = {
-          open = true,
-        },
-      },
+      statuscolumn = { enabled = true, folds = { open = true, git_hl = true } },
 
       dashboard = {
         enabled = true,
@@ -105,10 +102,7 @@ return {
           require("snacks").toggle.line_number():map("<leader>ul")
           require("snacks").toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
           require("snacks").toggle.treesitter():map("<leader>uT")
-          require("snacks").toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-          require("snacks").toggle.inlay_hints():map("<leader>lh")
-          -- require("snacks").toggle.indent():map("<leader>ug")
-          -- require("snacks").toggle.dim():map("<leader>uD")
+          require("snacks").toggle.inlay_hints():map("<leader>uh")
         end,
       })
     end,
@@ -118,46 +112,14 @@ return {
     "monaqa/dial.nvim",
     dir = P.dial,
     keys = {
-      {
-        "<C-a>",
-        mode = { "v" },
-        function() return require("dial.map").inc_visual() end,
-        expr = true,
-        desc = "Increment",
-      },
-      {
-        "<C-x>",
-        mode = { "v" },
-        function() return require("dial.map").dec_visual() end,
-        expr = true,
-        desc = "Decrement",
-      },
-      {
-        "g<C-a>",
-        mode = { "v" },
-        function() return require("dial.map").inc_gvisual() end,
-        expr = true,
-        desc = "Increment",
-      },
-      {
-        "g<C-x>",
-        mode = { "v" },
-        function() return require("dial.map").dec_gvisual() end,
-        expr = true,
-        desc = "Decrement",
-      },
-      {
-        "<C-a>",
-        function() return require("dial.map").inc_normal() end,
-        expr = true,
-        desc = "Increment",
-      },
-      {
-        "<C-x>",
-        function() return require("dial.map").dec_normal() end,
-        expr = true,
-        desc = "Decrement",
-      },
+      { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
+      { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
+      { "g<C-a>", function() return require("dial.map").inc_gnormal() end, expr = true, desc = "Increment" },
+      { "g<C-x>", function() return require("dial.map").dec_gnormal() end, expr = true, desc = "Decrement" },
+      { "<C-a>", mode = "v", function() return require("dial.map").inc_visual() end, expr = true, desc = "Increment" },
+      { "<C-x>", mode = "v", function() return require("dial.map").dec_visual() end, expr = true, desc = "Decrement" },
+      { "g<C-a>", mode = "v", function() return require("dial.map").inc_gvisual() end, expr = true, desc = "Increment" },
+      { "g<C-x>", mode = "v", function() return require("dial.map").dec_gvisual() end, expr = true, desc = "Decrement" },
     },
     config = function()
       local augend = require("dial.augend")
@@ -168,27 +130,9 @@ return {
           augend.date.alias["%Y/%m/%d"],
           augend.constant.alias.bool,
           augend.semver.alias.semver,
-          augend.case.new({
-            types = { "camelCase", "PascalCase", "snake_case", "SCREAMING_SNAKE_CASE" },
-          }),
+          augend.case.new({ types = { "camelCase", "PascalCase", "snake_case", "SCREAMING_SNAKE_CASE" } }),
         },
       })
     end,
-  },
-  {
-    "chentoast/marks.nvim",
-    dir = P.marks,
-    event = "User File",
-    opts = {
-      excluded_filetypes = {
-        "qf",
-        "NvimTree",
-        "toggleterm",
-        "TelescopePrompt",
-        "alpha",
-        "netrw",
-        "neo-tree",
-      },
-    },
   },
 }

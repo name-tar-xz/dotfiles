@@ -4,7 +4,7 @@ return {
     dir = P.which_key,
     event = "VeryLazy",
     opts = {
-      icons = { group = "", separator = "" },
+      icons = { group = "" },
       disable = { filetypes = { "TelescopePrompt" } },
 
       spec = {
@@ -12,8 +12,9 @@ return {
         { "<leader>f", group = "Find", icon = "" },
         { "<leader>g", group = "Git", icon = "󰊢" },
         { "<leader>l", group = "LSP", icon = "" },
-        { "<leader>p", group = "ackages", icon = "󰏖" },
+        { "<leader>p", group = "Packages", icon = "󰏖" },
         { "<leader>x", desc = "Trouble", icon = "󱖫" },
+        { "<leader>u", desc = "UI", icon = "" },
         { "[", group = "prev" },
         { "]", group = "next" },
         { "g", group = "goto" },
@@ -35,45 +36,13 @@ return {
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
         },
       },
       presets = {
         bottom_search = false, -- use a classic bottom cmdline for search
         command_palette = true, -- position the cmdline and popupmenu together
         long_message_to_split = false, -- long messages will be sent to a split
-        inc_rename = true, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = true, -- add a border to hover docs and signature help
-      },
-      routes = {
-        {
-          filter = {
-            event = "msg_show",
-            kind = "",
-            find = "written",
-          },
-          opts = { skip = true },
-        },
-        {
-          filter = {
-            event = "msg_show",
-            kind = "",
-            find = "ago",
-          },
-          opts = { skip = true },
-        },
-      },
-      views = {
-        cmdline_popup = {
-          border = {
-            style = "none",
-            padding = { 1, 2 },
-          },
-          filter_options = {},
-          win_options = {
-            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-          },
-        },
+        lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     },
     dependencies = { "MunifTanjim/nui.nvim", dir = P.nui },
@@ -81,7 +50,6 @@ return {
   {
     "echasnovski/mini.files",
     dir = P.mini_files,
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = { "VimEnter */*,.*", "BufNew */*,.*" },
     keys = {
       {
@@ -97,7 +65,7 @@ return {
     opts = {
       windows = {
         preview = true,
-        width_preview = 30,
+        width_preview = 50,
       },
     },
     config = function(_, opts)
@@ -198,26 +166,18 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     dir = P.gitsigns,
-    event = "User GitFile",
-    cond = not vim.opt.diff:get(),
+    event = "VeryLazy",
+    cond = not vim.o.diff,
     opts = {
-      numhl = true,
-      signcolumn = false,
-      signs_staged_enable = false,
+      numhl = false,
+      signcolumn = true,
+      signs_staged_enable = true,
     },
   },
   {
-    "folke/todo-comments.nvim",
-    dir = P.todo_comments,
-    event = "User File",
-    cmd = { "TodoTrouble", "TodoTelescope" },
-    dependencies = { "nvim-lua/plenary.nvim", dir = P.plenary },
-    opts = { signs = false },
-  },
-  {
-    "NvChad/nvim-colorizer.lua",
+    "catgoose/nvim-colorizer.lua",
     dir = P.colorizer,
     event = "BufReadPre",
-    opts = { user_default_options = { css = true, tailwind = true } },
+    opts = { user_default_options = { names = false, css = true, tailwind = true } },
   },
 }

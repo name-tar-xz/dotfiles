@@ -1285,8 +1285,6 @@
               rainbow_delimiters = "${rainbow-delimiters-nvim}",
               ts_autotag = "${nvim-ts-autotag}",
               matchup = "${vim-matchup}",
-
-            headlines = "${headlines-nvim}",
             treesj = "${treesj}",
 
             -- ui.lua
@@ -1348,9 +1346,6 @@
         '';
 
       extraPackages = with pkgs; [
-        # lazy.nvim deps
-        luarocks
-        lua51Packages.lua
         # Formatter, LSP, Linters
         codespell
         vscode-langservers-extracted

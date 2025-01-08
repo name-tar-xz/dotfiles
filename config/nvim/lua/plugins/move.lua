@@ -4,12 +4,9 @@ return {
     dir = P.flash,
     event = "VeryLazy",
     opts = {
-      labels = "sfnjklhodweimbuyvrgtaqpcxz/SFNJKLHODWEIMBUYVRGTAQPCXZ?",
-      modes = {
-        char = {
-          jump_labels = true,
-        },
-      },
+      jump = { autojump = true },
+      modes = { char = { jump_labels = true } },
+      prompt = { enabled = false },
     },
     keys = {
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
@@ -33,7 +30,7 @@ return {
   {
     "chrisgrieser/nvim-various-textobjs",
     dir = P.texobjs,
-    event = "User File",
-    opts = { keymaps = { useDefaults = true, disabledDefaults = { "gc", "il", "al" } } },
+    event = "VeryLazy",
+    opts = { keymaps = { useDefaults = true, disabledDefaults = { "il", "al" } } },
   },
 }

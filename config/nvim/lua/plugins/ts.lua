@@ -11,16 +11,12 @@ return {
       { "HiPhish/rainbow-delimiters.nvim", dir = P.rainbow_delimiters },
       { "windwp/nvim-ts-autotag", dir = P.ts_autotag },
       { "andymass/vim-matchup", dir = P.matchup },
-
-      { "RRethy/nvim-treesitter-endwise", dir = P.treesitter_endwise },
     },
     build = ":TSUpdate",
-    event = "BufReadPre",
+    event = { "BufReadPre", "VeryLazy" },
     config = function()
       require("nvim-treesitter.configs").setup({
         autotag = { enable = true },
-        context_commentstring = { enable = true },
-        endwise = { enable = true },
         highlight = { enable = true },
         incremental_selection = {
           enable = true,
@@ -77,36 +73,15 @@ return {
               ["[P"] = { query = "@parameter.inner", desc = "Previous argument end" },
             },
           },
-          swap = {
-            enable = true,
-            swap_next = {
-              [">K"] = { query = "@block.outer", desc = "Swap next block" },
-              [">F"] = { query = "@function.outer", desc = "Swap next function" },
-              [">A"] = { query = "@parameter.inner", desc = "Swap next argument" },
-            },
-            swap_previous = {
-              ["<K"] = { query = "@block.outer", desc = "Swap previous block" },
-              ["<F"] = { query = "@function.outer", desc = "Swap previous function" },
-              ["<A"] = { query = "@parameter.inner", desc = "Swap previous argument" },
-            },
-          },
         },
       })
     end,
   },
-
-  {
-    "lukas-reineke/headlines.nvim",
-    dir = P.headlines,
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    ft = { "markdown", "norg", "org", "rmd" },
-    opts = { norg = { fat_headlines = false } },
-  },
   {
     "Wansmer/treesj",
     dir = P.treesj,
-    keys = { { "<leader>m", "<CMD>TSJToggle<CR>", desc = "Treesitter Join" } },
+    keys = { { "gS", function() require("treesj").toggle() end, desc = "Treesitter Join" } },
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
-    opts = { use_default_keymaps = false },
+    opts = { use_default_keymaps = false, max_join_length = 9999 },
   },
 }

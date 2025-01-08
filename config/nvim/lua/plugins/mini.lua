@@ -38,19 +38,21 @@ return {
         highlight = "gz" .. "h", -- Highlight surrounding
         replace = "gz" .. "r", -- Replace surrounding
         update_n_lines = "gz" .. "n", -- Update `n_lines`
+
+        suffix_last = "p",
       },
     },
   },
   {
     "echasnovski/mini.ai",
     dir = P.mini_ai,
-    event = "User File",
+    event = "VeryLazy",
     opts = {},
   },
   {
     "echasnovski/mini.bracketed",
     dir = P.mini_bracketed,
-    event = "User File",
+    event = "VeryLazy",
     opts = {},
   },
 }

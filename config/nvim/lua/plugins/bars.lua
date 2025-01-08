@@ -5,9 +5,6 @@ return {
     event = "BufEnter",
     opts = {
       icons = {
-        kinds = {
-          symbols = require("symbols"),
-        },
         ui = { bar = { separator = "  ", extends = "…" }, menu = { separator = "", indicator = " " } },
       },
     },
@@ -235,17 +232,6 @@ return {
         },
       }
 
-      local Lazy = {
-        condition = require("lazy.status").has_updates,
-        update = { "User", pattern = "LazyUpdate" },
-        provider = function() return require("lazy.status").updates() end,
-        on_click = {
-          callback = function() require("lazy").update() end,
-          name = "update_plugins",
-        },
-        hl = { fg = "yellow", bg = "mantle" },
-      }
-
       local LSPActive = {
         condition = conditions.lsp_attached,
         update = { "LspAttach", "LspDetach" },
@@ -254,7 +240,7 @@ return {
         {
           provider = function()
             local names = {}
-            for i, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
+            for i, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
               table.insert(names, server.name)
             end
             return " " .. table.concat(names, " ")
@@ -307,7 +293,6 @@ return {
           MacroRec,
 
           Align,
-          Lazy,
           Space(2),
           LSPActive,
           { condition = conditions.lsp_attached, Space(2) },
