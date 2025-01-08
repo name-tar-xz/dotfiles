@@ -246,8 +246,8 @@
     sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
     file = {
-      ".mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;
-      ".mozilla/firefox/main/chrome/includes".source = ./config/firefox/chrome/includes;
+      ".librewolf/main/chrome/csshacks".source = inputs.csshacks;
+      ".librewolf/main/chrome/includes".source = ./config/firefox/chrome/includes;
       ".icons/default/index.theme".enable = false;
       ".icons/${config.home.pointerCursor.name}".enable = false;
     };
@@ -622,9 +622,8 @@
     home-manager.enable = true;
     mangohud.enable = true;
 
-    firefox = {
+    librewolf = {
       enable = true;
-      package = pkgs.librewolf; # link ~/.mozilla/firefox and ~/.librewolf for this to work
       profiles = {
         main = {
           extraConfig = ''
@@ -649,7 +648,6 @@
             user-agent-string-switcher
           ];
         };
-        test.id = 1;
       };
     };
 
@@ -1646,7 +1644,7 @@
           max_icon_size = 64;
 
           dmenu = "${config.programs.rofi.finalPackage}/bin/rofi -dmenu -p dunst:";
-          browser = "${config.programs.firefox.finalPackage}/bin/librewolf --new-tab";
+          browser = "${config.programs.librewolf.finalPackage}/bin/librewolf --new-tab";
 
           title = "Dunst";
           class = "Dunst";
