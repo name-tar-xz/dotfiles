@@ -986,74 +986,71 @@
 
       plugins = with pkgs.vimPlugins; [ lazy-nvim ];
 
-      extraLuaConfig = # lua
+      extraLuaConfig =
+        with pkgs.vimPlugins; # lua
         ''
           P = {
             -- init.lua
-            catppuccin = "${pkgs.vimPlugins.catppuccin-nvim}",
-            snacks = "${pkgs.vimPlugins.snacks-nvim}",
-            dial = "${pkgs.vimPlugins.dial-nvim}",
-            marks = "${pkgs.vimPlugins.marks-nvim}",
+            catppuccin = "${catppuccin-nvim}",
+            snacks = "${snacks-nvim}",
+            dial = "${dial-nvim}",
+            marks = "${marks-nvim}",
 
             -- bars.lua
-            dropbar = "${pkgs.vimPlugins.dropbar-nvim}",
-            heirline = "${pkgs.vimPlugins.heirline-nvim}",
-            mini_icons = "${pkgs.vimPlugins.mini-icons}",
+            dropbar = "${dropbar-nvim}",
+            heirline = "${heirline-nvim}",
+            mini_icons = "${mini-icons}",
 
             -- cmp.lua
-            friendly_snippets = "${pkgs.vimPlugins.friendly-snippets}",
-            blink = "${pkgs.vimPlugins.blink-cmp}",
+            friendly_snippets = "${friendly-snippets}",
+            blink = "${blink-cmp}",
 
             -- lsp.lua
-            lspconfig = "${pkgs.vimPlugins.nvim-lspconfig}",
-            lint = "${pkgs.vimPlugins.nvim-lint}",
-            conform = "${pkgs.vimPlugins.conform-nvim}",
-            trouble = "${pkgs.vimPlugins.trouble-nvim}",
+            lspconfig = "${nvim-lspconfig}",
+            lint = "${nvim-lint}",
+            conform = "${conform-nvim}",
+            trouble = "${trouble-nvim}",
 
             -- mini.lua
-            mini_move = "${pkgs.vimPlugins.mini-move}",
-            mini_surround = "${pkgs.vimPlugins.mini-surround}",
-            mini_ai = "${pkgs.vimPlugins.mini-ai}",
-            mini_bracketed = "${pkgs.vimPlugins.mini-bracketed}",
+            mini_move = "${mini-move}",
+            mini_surround = "${mini-surround}",
+            mini_ai = "${mini-ai}",
+            mini_bracketed = "${mini-bracketed}",
 
             -- move.lua
-            flash = "${pkgs.vimPlugins.flash-nvim}",
-            spider = "${pkgs.vimPlugins.nvim-spider}",
-            texobjs = "${pkgs.vimPlugins.nvim-various-textobjs}",
+            flash = "${flash-nvim}",
+            spider = "${nvim-spider}",
+            texobjs = "${nvim-various-textobjs}",
 
             -- ts.lua
-            treesitter = "${pkgs.vimPlugins.nvim-treesitter}",
-              treesitter_textobjects = "${pkgs.vimPlugins.nvim-treesitter-textobjects}",
-              treesitter_context = "${pkgs.vimPlugins.nvim-treesitter-context}",
-              ts_context_commentstring = "${pkgs.vimPlugins.nvim-ts-context-commentstring}",
-              rainbow_delimiters = "${pkgs.vimPlugins.rainbow-delimiters-nvim}",
-              ts_autotag = "${pkgs.vimPlugins.nvim-ts-autotag}",
-              matchup = "${pkgs.vimPlugins.vim-matchup}",
-              treesitter_endwise = "${pkgs.vimPlugins.nvim-treesitter-endwise}",
+            treesitter = "${nvim-treesitter}",
+              treesitter_textobjects = "${nvim-treesitter-textobjects}",
+              treesitter_context = "${nvim-treesitter-context}",
+              ts_context_commentstring = "${nvim-ts-context-commentstring}",
+              rainbow_delimiters = "${rainbow-delimiters-nvim}",
+              ts_autotag = "${nvim-ts-autotag}",
+              matchup = "${vim-matchup}",
 
-            headlines = "${pkgs.vimPlugins.headlines-nvim}",
-            treesj = "${pkgs.vimPlugins.treesj}",
+            headlines = "${headlines-nvim}",
+            treesj = "${treesj}",
 
             -- ui.lua
-            which_key = "${pkgs.vimPlugins.which-key-nvim}",
+            which_key = "${which-key-nvim}",
 
-            noice = "${pkgs.vimPlugins.noice-nvim}",
-              nui = "${pkgs.vimPlugins.nui-nvim}",
-            mini_files = "${pkgs.vimPlugins.mini-files}",
-            fzf = "${pkgs.vimPlugins.fzf-lua}",
+            noice = "${noice-nvim}",
+              nui = "${nui-nvim}",
+            mini_files = "${mini-files}",
+            fzf = "${fzf-lua}",
 
-            gitsigns = "${pkgs.vimPlugins.gitsigns-nvim}",
-            todo_comments = "${pkgs.vimPlugins.todo-comments-nvim}",
-              plenary = "${pkgs.vimPlugins.plenary-nvim}",
-            colorizer = "${pkgs.vimPlugins.nvim-colorizer-lua}",
-
+            gitsigns = "${gitsigns-nvim}",
+            colorizer = "${nvim-colorizer-lua}",
           }
           require("startup")
           vim.opt.rtp:append("${
             pkgs.symlinkJoin {
               name = "treesitter";
               paths =
-                (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+                (nvim-treesitter.withPlugins (
                   p: with p; [
                     # c, lua, markdown, query, vim, vimdoc installed by default
                     arduino
