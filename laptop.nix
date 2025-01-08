@@ -148,13 +148,12 @@
     fprintd.enable = false; # Disable until https://gitlab.freedesktop.org/libfprint/libfprint/-/issues/401 gets fixed
     fwupd.enable = true;
 
-    thermald.enable = true;
-    bpftune.enable = true;
     scx = {
       enable = true;
       scheduler = "scx_bpfland";
       package = pkgs.scx.rustscheds;
     };
+
     ananicy = {
       enable = true;
       package = pkgs.ananicy-cpp;

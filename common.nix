@@ -265,60 +265,35 @@
       };
     };
 
-    tlp = {
-      enable = true;
-      settings = {
-        NMI_WATCHDOG = 0;
-        DISK_IOSCHED = "keep keep";
-
-        # CHECK AGAIN
-        PLATFORM_PROFILE_ON_AC = "performance";
-        PLATFORM_PROFILE_ON_BAT = "low-power";
-
-        # CHECK AGAIN
-        MEM_SLEEP_ON_AC = "deep";
-        MEM_SLEEP_ON_BAT = "deep";
-
-        RUNTIME_PM_ON_AC = "auto";
-        RUNTIME_PM_ON_BAT = "auto";
-        AHCI_RUNTIME_PM_ON_AC = "auto";
-        AHCI_RUNTIME_PM_ON_BAT = "auto";
-
-        CPU_BOOST_ON_AC = 1;
-        CPU_BOOST_ON_BAT = 0;
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        # CHECK AGAIN
-        CPU_HWP_DYN_BOOST_ON_AC = 1;
-        CPU_HWP_DYN_BOOST_ON_BAT = 0;
-
-        # CHECK AGAIN
-        PCIE_ASPM_ON_AC = "default";
-        PCIE_ASPM_ON_BAT = "powersupersave";
-
-        # CHECK AGAIN
-        SATA_LINKPWR_ON_AC = "max_performance";
-        SATA_LINKPWR_ON_BAT = "min_power";
-
-        MAX_LOST_WORK_SECS_ON_BAT = 15;
-        MAX_LOST_WORK_SECS_ON_AC = 15;
-
-        # CHECK AGAIN
-        WIFI_PWR_ON_AC = "on";
-        WIFI_PWR_ON_BAT = "on";
-
-        USB_AUTOSUSPEND = 1;
-      };
-    };
-
     resolved = {
       enable = true;
       dnssec = "true";
       dnsovertls = "true";
     };
     journald.extraConfig = "SystemMaxUse=100M";
+
+    thermald.enable = true;
+    bpftune.enable = true;
+
+    auto-cpufreq = {
+      enable = true;
+      settings = {
+        charger = {
+          governor = "performance";
+          energy_performance_preference = "performance";
+          energy_perf_bias = "balance_performance";
+          platform_profile = "balanced"; # Setting to performance ramps fans
+          turbo = "always";
+        };
+        battery = {
+          governor = "powersave";
+          energy_performance_preference = "power";
+          energy_perf_bias = "balance_power";
+          platform_profile = "quiet";
+          turbo = "never";
+        };
+      };
+    };
 
     udev.extraRules = # udev
       ''
@@ -359,12 +334,20 @@
       '';
   };
 
+  powerManagement.scsiLinkPolicy = "med_power_with_dipm";
+
   systemd = {
     enableCgroupAccounting = true;
+
     extraConfig = ''
       DefaultTimeoutStopSec=10s
       DefaultTimeoutStartSec=15s
       DefaultLimitNOFILE=2048:2097152
+    '';
+
+    sleep.extraConfig = ''
+      [Sleep]
+      MemorySleepMode=deep
     '';
 
     network.wait-online.enable = false;
