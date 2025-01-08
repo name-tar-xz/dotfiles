@@ -14,57 +14,57 @@ vim.opt.diffopt:append("linematch:60") -- enable linematch diff algorithm
 vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " " })
 vim.opt.shortmess:append({ s = true, I = true, a = true, W = true }) -- disable search count wrap and startup messages
 vim.opt.viewoptions:remove("curdir") -- disable saving current directory with views
-
-vim.opt.clipboard = "unnamed" -- Connection to the system clipboard
-vim.opt.cmdheight = 0 -- hide command line unless needed
-vim.opt.completeopt = { "menu", "menuone", "preview", "noselect", "noinsert" } -- Options for insert mode completion
-vim.opt.concealcursor = "c"
-vim.opt.conceallevel = 2
-vim.opt.copyindent = true -- Copy the previous indentation on autoindenting
-vim.opt.cursorline = true -- Highlight the text line of the cursor
-vim.opt.expandtab = true -- Enable the use of space in tab
-vim.opt.fileencoding = "utf-8" -- File content encoding for the buffer
-vim.opt.foldcolumn = "0"
-vim.opt.foldlevel = 99
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldtext = ""
-vim.opt.foldmethod = "expr"
-vim.opt.formatexpr = "v:lua.require'conform'.formatexpr()"
-vim.opt.history = 100 -- Number of commands to remember in a history table
-vim.opt.hlsearch = true
-vim.opt.ignorecase = true -- Case insensitive searching
-vim.opt.inccommand = "split"
-vim.opt.laststatus = 3 -- globalstatus
-vim.opt.list = true
+vim.opt.completeopt = { "menu", "menuone", "preview", "noinsert" } -- Options for insert mode completion
 vim.opt.listchars = { trail = "·", nbsp = "␣" }
-vim.opt.mouse = "a" -- Enable mouse support
-vim.opt.number = true -- Show numberline
-vim.opt.numberwidth = 1
-vim.opt.preserveindent = true -- Preserve indent structure as much as possible
-vim.opt.pumheight = 10 -- Height of the pop up menu
-vim.opt.relativenumber = true -- Show relative numberline
-vim.opt.scrolloff = 999 -- Number of lines to keep above and below the cursor
-vim.opt.shell = "/usr/bin/env zsh"
-vim.opt.shiftwidth = 0 -- Number of space inserted for indentation
-vim.opt.showmode = false -- Disable showing modes in command line
-vim.opt.showtabline = 0 -- always display tabline
-vim.opt.sidescrolloff = 8 -- Number of columns to keep at the sides of the cursor
-vim.opt.signcolumn = "yes"
-vim.opt.smartcase = true -- Case sensitivie searching
-vim.opt.splitbelow = true -- Splitting a new window below the current one
-vim.opt.splitright = true -- Splitting a new window at the right of the current one
-vim.opt.swapfile = false
-vim.opt.tabstop = 2 -- Number of space in a tab
-vim.opt.termguicolors = true -- Enable 24-bit RGB color in the TUI
-vim.opt.timeout = true
-vim.opt.timeoutlen = 300 -- Length of time to wait for a mapped sequence
-vim.opt.title = true
-vim.opt.titlestring = " %t"
-vim.opt.undofile = true -- Enable persistent undo
-vim.opt.updatetime = 250 -- Length of time to wait before triggering the plugin
-vim.opt.virtualedit = "block"
-vim.opt.wrap = false -- Disable wrapping of lines longer than the width of window
-vim.opt.writebackup = false -- Disable making a backup before overwriting a file
+
+vim.o.clipboard = "unnamed" -- Connection to the system clipboard
+vim.o.cmdheight = 0 -- hide command line unless needed
+vim.o.concealcursor = "c"
+vim.o.conceallevel = 2
+vim.o.copyindent = true -- Copy the previous indentation on autoindenting
+vim.o.cursorline = true -- Highlight the text line of the cursor
+vim.o.expandtab = true -- Enable the use of space in tab
+vim.o.fileencoding = "utf-8" -- File content encoding for the buffer
+vim.o.foldcolumn = "0"
+vim.o.foldlevel = 99
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldtext = ""
+vim.o.foldmethod = "expr"
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.o.history = 100 -- Number of commands to remember in a history table
+vim.o.hlsearch = true
+vim.o.ignorecase = true -- Case insensitive searching
+vim.o.inccommand = "split"
+vim.o.laststatus = 3 -- globalstatus
+vim.o.list = true
+vim.o.mouse = "a" -- Enable mouse support
+vim.o.number = true -- Show numberline
+vim.o.numberwidth = 1
+vim.o.preserveindent = true -- Preserve indent structure as much as possible
+vim.o.pumheight = 10 -- Height of the pop up menu
+vim.o.relativenumber = true -- Show relative numberline
+vim.o.scrolloff = 999 -- Number of lines to keep above and below the cursor
+vim.o.shell = "/usr/bin/env zsh"
+vim.o.shiftwidth = 0 -- Number of space inserted for indentation
+vim.o.showmode = false -- Disable showing modes in command line
+vim.o.showtabline = 0 -- always display tabline
+vim.o.sidescrolloff = 8 -- Number of columns to keep at the sides of the cursor
+vim.o.signcolumn = "yes"
+vim.o.smartcase = true -- Case sensitivie searching
+vim.o.splitbelow = true -- Splitting a new window below the current one
+vim.o.splitright = true -- Splitting a new window at the right of the current one
+vim.o.swapfile = false
+vim.o.tabstop = 2 -- Number of space in a tab
+vim.o.termguicolors = true -- Enable 24-bit RGB color in the TUI
+vim.o.timeout = true
+vim.o.timeoutlen = 300 -- Length of time to wait for a mapped sequence
+vim.o.title = true
+vim.o.titlestring = " %t"
+vim.o.undofile = true -- Enable persistent undo
+vim.o.updatetime = 250 -- Length of time to wait before triggering the plugin
+vim.o.virtualedit = "block"
+vim.o.wrap = false -- Disable wrapping of lines longer than the width of window
+vim.o.writebackup = false -- Disable making a backup before overwriting a file
 
 vim.lsp.inlay_hint.enable(true)
 
