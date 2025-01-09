@@ -11,11 +11,27 @@ return {
       appearance = { nerd_font_variant = "mono" },
 
       completion = {
-        menu = { border = "rounded" },
-        documentation = { auto_show = true, auto_show_delay_ms = 0, window = { border = "rounded" } },
+        list = {
+          selection = {
+            preselect = function(ctx) return ctx.mode ~= "cmdline" end,
+            auto_insert = function(ctx) return ctx.mode == "cmdline" end,
+          },
+        },
+
+        menu = {
+          border = "rounded",
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+
+          auto_show = function(ctx) return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) end,
+          draw = { treesitter = { "lsp" } },
+        },
+
+        documentation = { auto_show = true, auto_show_delay_ms = 0 },
+
+        ghost_text = { enabled = true },
       },
 
-      signature = { enabled = true, window = { border = "rounded" } },
+      signature = { enabled = false },
     },
   },
 }
