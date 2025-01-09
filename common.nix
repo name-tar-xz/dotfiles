@@ -7,7 +7,6 @@
 {
   boot = {
     tmp.useTmpfs = true;
-    plymouth.enable = true;
     loader = {
       timeout = 0;
       efi.canTouchEfiVariables = true;
@@ -58,6 +57,8 @@
       # Gaming
       "vm.compaction_proactiveness" = 0;
       "vm.page_lock_unfairness" = 1;
+
+      "net.core.default_qdisc" = "cake";
     };
 
     consoleLogLevel = 3;
@@ -175,13 +176,8 @@
     zsh = {
       enable = true;
       enableLsColors = false;
-      enableBashCompletion = true;
       enableGlobalCompInit = false;
       promptInit = "";
-      autosuggestions = {
-        enable = true;
-        async = true;
-      };
     };
     ssh = {
       package = pkgs.openssh_hpn;
@@ -205,6 +201,7 @@
   };
 
   services = {
+    userborn.enable = true;
     tailscale = {
       enable = true;
       authKeyFile = config.sops.secrets.tailscale.path;
@@ -303,7 +300,7 @@
 
         # USB autosuspend
         ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
-        ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend" ATTR{power/autosuspend}="60"
+        ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{power/autosuspend}="60"
 
         # HDD
         ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
@@ -327,10 +324,6 @@
 
         # Clear Linux
         ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/nr_requests}="2048"
-
-        # Custom
-        # Set MTU and Transmit Queue Length
-        ACTION=="add", SUBSYSTEM=="net", KERNEL=="wl*", ATTR{mtu}="1500", ATTR{tx_queue_len}="2000"
       '';
   };
 
@@ -350,7 +343,16 @@
       MemorySleepMode=deep
     '';
 
-    network.wait-online.enable = false;
+    network = {
+      wait-online.enable = false;
+      links."30-mtu" = {
+        matchConfig.Type = "wlan";
+        linkConfig = {
+          MTUBytes = 1492;
+          TransmitQueueLength = 2000;
+        };
+      };
+    };
 
     tmpfiles.rules = [
       "w! /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"

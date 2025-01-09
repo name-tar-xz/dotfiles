@@ -70,7 +70,6 @@
     packages = with pkgs; [
       # Hyprland
       hyprpicker
-      swaybg
       grimblast # Screenshot
       iwgtk # System Control
       wl-clipboard # Clipboard
@@ -86,12 +85,11 @@
 
       # Applications
       libreoffice-fresh
-      syncplay
 
       # Games
       retroarch
       lutris
-      (inputs.umu.packages.${pkgs.system}.umu.override { version = "${inputs.umu.shortRev}"; })
+      (inputs.umu.packages.${pkgs.system}.umu.override { version = inputs.umu.shortRev; })
       ludusavi
 
       # CLI tools
@@ -102,8 +100,6 @@
       sops
       unzip
       zip
-      ## Coreutil Replacements
-      fd
       ## Downloaders
       ani-cli
       aria
@@ -196,7 +192,7 @@
       PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
       PARALLEL_HOME = "${config.xdg.configHome}/parallel";
       GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
-      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}}/java -djavafx.cachedir=${config.xdg.cacheHome}/openjfx";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}/java -Djavafx.cachedir=${config.xdg.cacheHome}/openjfx";
     };
 
     shellAliases = {
@@ -278,9 +274,7 @@
 
   gtk = {
     enable = true;
-    gtk2 = {
-      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-    };
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
     theme = {
       name = "catppuccin-mocha-mauve-compact+black";
@@ -313,7 +307,7 @@
         env = map (key: builtins.getAttr key vars) (builtins.attrNames vars);
 
         exec-once = [
-          "swaybg -i ~/Pictures/Wallpaper/the_neon_shallows_by_leikoi_ddm6tx0.png -m fill &"
+          "${pkgs.swaybg}/bin/swaybg -i ~/Pictures/Wallpaper/the_neon_shallows_by_leikoi_ddm6tx0.png -m fill &"
           "[workspace special:1 silent] kitty -1"
         ];
 
@@ -700,10 +694,7 @@
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
-      plugins = with pkgs; [
-        rofi-calc
-        rofi-power-menu
-      ];
+      plugins = with pkgs; [ rofi-power-menu ];
 
       cycle = true;
       font = "monospace 12";
@@ -959,17 +950,10 @@
         "kitty_mod+space" = "kitten unicode_input";
       };
       extraConfig = ''
-        font_features CascadiaCode +ss20 +ss02
-        font_features CascadiaCode-Bold +ss20 +ss02
-        font_features CascadiaCode-Italic +ss20 +ss02
-        font_features CascadiaCode-BoldItalic +ss20 +ss02
-
-        font_features FiraCodeNF-Reg +ss09 +cv25 +cv26 +cv32 +cv27 +cv28 +ss06 +ss07
-
-        font_features Iosevka-Term-Extended +dlig +MTLB VLAD=2 VLAC=2
-        font_features Iosevka-Term-Bold-Extended +dlig +MTLB
-        font_features Iosevka-Term-Extended-Italic +dlig +MTLB
-        font_features Iosevka-Term-Bold-Extended-Italic +dlig  +MTLB
+        font_features IosevkaTermNFM +dlig
+        font_features IosevkaTermNFM-SemiBold +dlig
+        font_features IosevkaTermNFM-Italic +dlig
+        font_features IosevkaTermNFM-SemiBoldItalic +dlig
       '';
     };
 
@@ -1131,12 +1115,14 @@
       dotDir = ".config/zsh";
 
       enableCompletion = true;
+      autosuggestion.enable = true;
       completionInit = "autoload -Uz compinit && compinit -i -u -C -d $XDG_CACHE_HOME/zsh/zcompdump";
       defaultKeymap = "emacs";
       autocd = true;
 
       history = {
         path = "${config.xdg.stateHome}/zsh/history";
+        append = true;
         size = 100000;
         save = 100000;
         ignoreAllDups = true;
@@ -1260,8 +1246,6 @@
               fish_style_pwd_dir_length = 1;
               format = "[ $path]($style)[$read_only]($read_only_style) ";
               style = "blue";
-              # truncation_length = 8;
-              # truncation_symbol = "…/";
             };
 
             git_branch.format = "[$symbol$branch(:$remote_branch)]($style) ";
@@ -1317,10 +1301,6 @@
           "*.norg:orgmode"
         ];
       };
-      extraPackages = with pkgs.bat-extras; [
-        batwatch
-        batpipe
-      ];
     };
     pistol = {
       enable = true;
@@ -1482,17 +1462,10 @@
         modules = [
           "title"
           "separator"
-          /*
-            {
-              format = "\u001b[30m● \u001b[31m● \u001b[32m● \u001b[33m● \u001b[34m● \u001b[35m● \u001b[36m● \u001b[37m●    \u001b[97m● \u001b[96m● \u001b[95m● \u001b[94m● \u001b[93m● \u001b[92m● \u001b[91m● \u001b[90m●";
-              type = "custom";
-            } \ escaping does not work
-          */
           {
             key = "";
             keyColor = "cyan";
-            text = "grep ^VERSION= /etc/os-release|cut -d'\"' -f2";
-            type = "command";
+            type = "os";
           }
           {
             key = "󰻀";
@@ -1553,8 +1526,8 @@
           }
           "break"
           {
-            type = "colors";
-            symbol = "triangle";
+            type = "custom";
+            format = "{#30}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37}    {#97}  {#96}  {#95}  {#94}  {#93}  {#92}  {#91}  {#90}";
           }
         ];
       };
@@ -1587,9 +1560,18 @@
   };
 
   services = {
-    udiskie.enable = true;
+    psd.enable = true;
     cliphist.enable = true;
     playerctld.enable = true;
+    udiskie = {
+      enable = true;
+      settings = {
+        device_config = {
+          "- is_loop" = true;
+          ignore = true;
+        };
+      };
+    };
 
     hypridle = {
       enable = true;
@@ -1597,7 +1579,7 @@
         general.before_sleep_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         listener = [
           {
-            timeout = 60;
+            timeout = 65;
             on-timeout = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
           }
           {

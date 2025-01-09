@@ -46,9 +46,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     users.tarxz = import ./home.nix;
-    extraSpecialArgs = {
-      inherit inputs;
-    };
+    extraSpecialArgs = { inherit inputs; };
     sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
   };
 
@@ -103,7 +101,7 @@
 
     steam = {
       enable = true;
-      extraCompatPackages = with pkgs; [ proton-ge-bin ];
+      extraCompatPackages = with pkgs; [ proton-ge-custom ];
     };
     gamemode = {
       enable = true;
@@ -123,7 +121,6 @@
   };
 
   services = {
-    psd.enable = true;
     syncthing = {
       user = "tarxz";
       configDir = "/home/tarxz/.config/syncthing";
@@ -172,7 +169,6 @@
     };
 
     udisks2.enable = true;
-    btrfs.autoScrub.enable = false;
     fstrim.enable = false;
 
     pipewire = {
@@ -185,10 +181,12 @@
   };
 
   systemd = {
+    sockets.rfkill.enable = false;
     services = {
       "systemd-backlight@".enable = false;
       "mount-pstore".enable = false;
       audit.enable = false;
+      rfkill.enable = false;
 
       pci-latency = {
         enable = true;
@@ -267,6 +265,7 @@
 
     bluetooth = {
       enable = true;
+      powerOnBoot = false;
       settings.General = {
         ControllerMode = "bredr";
         Experimental = true;
@@ -285,7 +284,7 @@
       defaultFonts = {
         serif = [ "Inter" ];
         sansSerif = [ "Inter" ];
-        monospace = [ "Iosevka Term" ];
+        monospace = [ "IosevkaTerm Nerd Font Mono" ];
       };
       includeUserConf = false;
       antialias = true;
@@ -293,7 +292,7 @@
       hinting = {
         enable = true;
         autohint = false;
-        style = "slight";
+        style = "full";
       };
       localConf = # xml
         ''
@@ -319,8 +318,7 @@
     };
     packages = with pkgs; [
       nerd-fonts.symbols-only
-      (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
-      cascadia-code
+      nerd-fonts.iosevka-term
       gyre-fonts # TrueType substitutes for standard PostScript fonts
       inter
       liberation_ttf
