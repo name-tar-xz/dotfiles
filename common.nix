@@ -375,12 +375,6 @@
           groups = [ "wheel" ];
           persist = true;
         }
-        {
-          users = [ "tarxz" ];
-          cmd = "nixos-rebuild";
-          noPass = true;
-          setEnv = [ "LOCALE_ARCHIVE=/run/current-system/sw/lib/locale/locale-archive" ];
-        }
       ];
     };
   };

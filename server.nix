@@ -97,4 +97,5 @@
   };
 
   system.stateVersion = "24.05";
+  documentation.enable = false;
 }

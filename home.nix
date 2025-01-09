@@ -237,7 +237,7 @@
 
       update = "nix flake update --flake ${config.home.sessionVariables.FLAKE} --commit-lock-file; nh os boot";
       switch = "nh os switch";
-      fast = "sudo nixos-rebuild test --fast --flake ${config.home.sessionVariables.FLAKE}";
+      fast = "nh os test";
     };
     sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 

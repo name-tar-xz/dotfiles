@@ -17,6 +17,7 @@
         home-manager.follows = "home-manager";
         flake-schemas.follows = "";
         jovian.follows = "";
+        fenix.follows = "";
       };
     };
     home-manager = {

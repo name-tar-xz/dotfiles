@@ -6,6 +6,10 @@
 }:
 {
   boot = {
+    initrd = {
+      systemd.enable = true;
+      includeDefaultModules = false;
+    };
     kernelParams = [
       "nvme.noacpi=1"
       "gather_data_sampling=off"
@@ -75,6 +79,17 @@
         };
       })
     ];
+  };
+
+  environment = {
+    defaultPackages = [ ];
+    stub-ld.enable = false;
+  };
+
+  documentation = {
+    nixos.enable = false;
+    info.enable = false;
+    doc.enable = false;
   };
 
   programs = {
@@ -180,6 +195,11 @@
     };
   };
 
+  xdg = {
+    sounds.enable = false;
+    autostart.enable = pkgs.lib.mkForce false;
+  };
+
   systemd = {
     sockets.rfkill.enable = false;
     services = {
@@ -224,7 +244,10 @@
     rtkit.enable = true;
   };
 
-  system.stateVersion = "23.05";
+  system = {
+    stateVersion = "23.05";
+    disableInstallerTools = true;
+  };
 
   hardware = {
     firmware = with pkgs; [ linux-firmware ];
