@@ -1293,7 +1293,6 @@
             noice = "${noice-nvim}",
               nui = "${nui-nvim}",
             mini_files = "${mini-files}",
-            fzf = "${fzf-lua}",
 
             gitsigns = "${gitsigns-nvim}",
             colorizer = "${nvim-colorizer-lua}",
