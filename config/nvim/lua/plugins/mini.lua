@@ -44,6 +44,36 @@ return {
     },
   },
   {
+    "echasnovski/mini.files",
+    dir = P.mini_files,
+    event = { "VimEnter */*,.*", "BufNew */*,.*" },
+    keys = {
+      {
+        "<leader>e",
+        function()
+          if not require("mini.files").close() then
+            require("mini.files").open()
+          end
+        end,
+        desc = "Open mini.files",
+      },
+    },
+    opts = {
+      windows = {
+        preview = true,
+        width_preview = 50,
+      },
+    },
+    config = function(_, opts)
+      require("mini.files").setup(opts)
+
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniFilesActionRename",
+        callback = function(event) require("snacks").rename.on_rename_file(event.data.from, event.data.to) end,
+      })
+    end,
+  },
+  {
     "echasnovski/mini.ai",
     dir = P.mini_ai,
     event = "VeryLazy",
