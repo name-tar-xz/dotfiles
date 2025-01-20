@@ -22,7 +22,7 @@ vim.keymap.set("n", "\\", "<cmd>split<CR>", { desc = "Horizontal Split" })
 vim.keymap.set("n", "<leader>pp", function() require("lazy").profile() end, { desc = "Lazy Profile" })
 
 -- Buffers
-vim.keymap.set("n", "<leader>c", function() require("snacks").bufdelete() end, { desc = "Close buffer" })
+vim.keymap.set("n", "<leader>c", function() Snacks.bufdelete() end, { desc = "Close buffer" })
 
 -- GitSigns
 vim.keymap.set("n", "]g", function() require("gitsigns").next_hunk() end, { desc = "Next Git hunk" })
@@ -36,7 +36,7 @@ vim.keymap.set({ "n", "v" }, "<leader>gh", ":Gitsigns reset_hunk<CR>", { desc = 
 vim.keymap.set({ "n", "v" }, "<leader>gs", ":Gitsigns stage_hunk<CR>", { desc = "Stage Git hunk" })
 
 -- LSP
-vim.keymap.set("n", "grN", function() require("snacks").rename.rename_file() end, { desc = "Rename File" })
+vim.keymap.set("n", "grN", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
 vim.keymap.set("n", "grf", function() require("conform").format() end, { desc = "Format" })
 
 -- Clipboard
