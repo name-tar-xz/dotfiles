@@ -78,7 +78,6 @@
       rofi-power-menu
 
       # Audio
-      pamixer
       qpwgraph
       pwvucontrol
 
@@ -128,23 +127,20 @@
         # Arbitrary but unique message tag
         msgTag="myvolume"
 
-        # Change the volume using alsa(might differ if you use pulseaudio)
-        wpctl set-volume @DEFAULT_AUDIO_SINK@ "$@" >/dev/null
+        # Change the volume using wpctl
+        wpctl set-volume @DEFAULT_SINK@ "$@" >/dev/null
 
-        # Query amixer for the current volume and whether or not the speaker is muted
-        volume="$(pamixer --get-volume)"
-        mute="$(pamixer --get-mute)"
-        if [[ $volume == 0 || "$mute" == "off" ]]; then
+        # Query wpctl for the current volume and whether or not the speaker is muted
+        volume="$(wpctl get-volume @DEFAULT_SINK@ | awk '{print int($2*100)}')"
+        mute="$(wpctl get-volume @DEFAULT_SINK@ | awk '{print $3}')"
+
+        if [[ $volume == 0 || "$mute" == "[MUTED]" ]]; then
           # Show the sound muted notification
           dunstify -a "changeVolume" -u low -i audio-volume-muted -h string:x-dunst-stack-tag:$msgTag "Volume muted"
         else
           # Show the volume notification
-          dunstify -a "changeVolume" -u low -i audio-volume-high -h string:x-dunst-stack-tag:$msgTag \
-            -h int:value:"$volume" "Volume: ''${volume}%"
+          dunstify -a "changeVolume" -u low -i audio-volume-high -h string:x-dunst-stack-tag:$msgTag -h int:value:"$volume" "Volume: ''${volume}%"
         fi
-
-        # Play the volume changed sound
-        canberra-gtk-play -i audio-volume-change -d "changeVolume"
       '')
       (writeShellScriptBin "changeBrightness" ''
         #!/usr/bin/env bash
@@ -158,11 +154,7 @@
         brightness="$(brightnessctl i | grep .% | awk '{print $4}' | sed 's/[^0-9]*//g')"
 
         # Show the brightness notification
-        dunstify -a "changeBrightness" -u low -i brightnesssettings -h string:x-dunst-stack-tag:$msgTag \
-        -h int:value:"$brightness" "Brightness: ''${brightness}%"
-
-        # Play the brightness changed sound
-        canberra-gtk-play -i brightness-change -d "changeBrightness"
+        dunstify -a "changeBrightness" -u low -i brightnesssettings -h string:x-dunst-stack-tag:$msgTag -h int:value:"$brightness" "Brightness: ''${brightness}%"
       '')
     ];
 
@@ -593,7 +585,7 @@
         ", XF86MonBrightnessDown, exec, changeBrightness 5%-"
         ", XF86AudioRaiseVolume, exec, changeVolume 5%+"
         ", XF86AudioLowerVolume, exec, changeVolume 5%-"
-        ", XF86AudioMute, exec, pamixer --toggle-mute"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle"
       ];
 
       # Mouse
@@ -925,18 +917,18 @@
               portable = "";
             };
             format-muted = "󰝟";
-            on-click = "pamixer -t";
-            on-scroll-down = "pamixer -i 5";
-            on-scroll-up = "pamixer -d 5";
+            on-click = "wpctl set-mute @DEFAULT_SINK@ toggle";
+            on-scroll-down = "wpctl set-volume @DEFAULT_SINK@ 5%+";
+            on-scroll-up = "wpctl set-volume @DEFAULT_SINK@ 5%-";
             scroll-step = 5;
           };
           "pulseaudio#microphone" = {
             format = "{format_source}";
             format-source = "󰍬 {volume}%";
             format-source-muted = "󰍭";
-            on-click = "pamixer --default-source -t";
-            on-scroll-down = "pamixer --default-source -i 5";
-            on-scroll-up = "pamixer --default-source -d 5";
+            on-click = "wpctl set-mute @DEFAULT_SOURCE@ toggle";
+            on-scroll-down = "wpctl set-volume @DEFAULT_SOURCE@ 5%+";
+            on-scroll-up = "wpctl set-volume @DEFAULT_SOURCE@ 5%-";
             scroll-step = 5;
           };
           temperature = {
