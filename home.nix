@@ -1249,6 +1249,7 @@
             lspconfig = "${nvim-lspconfig}",
             lint = "${nvim-lint}",
             conform = "${conform-nvim}",
+            tiny_inline_diagnostic = "${tiny-inline-diagnostic-nvim}",
             trouble = "${trouble-nvim}",
 
             -- mini.lua
