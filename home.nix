@@ -1052,7 +1052,7 @@
           date = "human";
         };
 
-        init.dafaultBranch = "master";
+        init.defaultBranch = "master";
         merge.conflictstyle = "diff3";
 
         diff = {
@@ -1332,7 +1332,7 @@
 
       extraPackages = with pkgs; [
         # Formatter, LSP, Linters
-        codespell
+        typos-lsp
         vscode-langservers-extracted
         ## TOML
         taplo

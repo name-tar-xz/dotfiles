@@ -13,7 +13,7 @@ window {
   anchor: center;
   fullscreen: false;
   width: 600px;
-  height: 609px;
+  height: 610px;
   x-offset: 0px;
   y-offset: 0px;
 
@@ -111,7 +111,7 @@ element {
   background-color: transparent;
   text-color: @foreground;
   cursor: pointer;
-  higlight: bold;
+  highlight: bold;
 }
 
 element normal.normal {

@@ -10,6 +10,12 @@ return {
 
       lsp_defaults.capabilities = require("blink.cmp").get_lsp_capabilities(lsp_defaults.capabilities)
 
+      lspconfig.typos_lsp.setup({
+        init_options = {
+          diagnosticSeverity = "Hint",
+        },
+      })
+
       lspconfig.lua_ls.setup({
         settings = {
           Lua = {
@@ -128,15 +134,9 @@ return {
         bash = { "shellcheck" },
 
         zsh = { "zsh" },
-
-        ["*"] = { "codespell" },
       }
 
       local function linter()
-        -- Use nvim-lint's logic first:
-        -- * checks if linters exist for the full filetype first
-        -- * otherwise will split filetype by "." and add all those linters
-        -- * this differs from conform.nvim which only uses the first filetype that has a formatter
         local ft = vim.bo.filetype
         if ft ~= "trouble" and ft ~= "undotree" and ft ~= "diff" then
           local names = lint._resolve_linter_by_ft(ft)
@@ -148,10 +148,6 @@ return {
 
           -- Add global linters.
           list_insert_unique(names, lint.linters_by_ft["*"] or {})
-
-          -- Filter out linters that don't exist or don't match the condition.
-          -- local ctx = { filename = vim.api.nvim_buf_get_name(0) }
-          -- ctx.dirname = vim.fn.fnamemodify(ctx.filename, ":h")
 
           -- Run linters.
           if #names > 0 then
