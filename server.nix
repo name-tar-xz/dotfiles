@@ -1,5 +1,17 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = with inputs; [
+    chaotic.nixosModules.default
+    sops-nix.nixosModules.sops
+    ./nix/os/server-hardware.nix
+    ./nix/os/common.nix
+  ];
+
   boot = {
     kernelPackages = pkgs.linuxPackages_cachyos-server;
     kernelParams = [ "mitigations=off" ];
@@ -92,9 +104,7 @@
     '';
   };
 
-  sops.secrets = {
-    nextcloudpass.mode = "0444";
-  };
+  sops.secrets.nextcloudpass.mode = "0444";
 
   system.stateVersion = "24.05";
   documentation.enable = false;

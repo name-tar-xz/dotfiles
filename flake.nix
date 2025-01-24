@@ -74,16 +74,7 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      chaotic,
-      home-manager,
-      lanzaboote,
-      catppuccin,
-      sops-nix,
-      ...
-    }@inputs:
+    { nixpkgs, ... }@inputs:
     let
       system = nixpkgs.system;
     in
@@ -92,36 +83,13 @@
 
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs system;
-          };
-          modules = [
-            home-manager.nixosModules.home-manager
-            chaotic.nixosModules.default
-            lanzaboote.nixosModules.lanzaboote
-            catppuccin.nixosModules.catppuccin
-            sops-nix.nixosModules.sops
-            ./common.nix
-            ./laptop-hardware.nix
-            ./laptop.nix
-            /*
-              imports = [ aagl.nixosModules.default ];
-              programs.honkers-railway-launcher.enable = false;
-            */
-          ];
+          specialArgs = { inherit inputs system; };
+          modules = [ ./laptop.nix ];
         };
 
         server = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs system;
-          };
-          modules = [
-            chaotic.nixosModules.default
-            sops-nix.nixosModules.sops
-            ./common.nix
-            ./server-hardware.nix
-            ./server.nix
-          ];
+          specialArgs = { inherit inputs system; };
+          modules = [ ./server.nix ];
         };
       };
     };

@@ -1,11 +1,26 @@
 {
-  config,
   pkgs,
   lib,
   inputs,
   ...
 }:
 {
+  imports = with inputs; [
+    home-manager.nixosModules.home-manager
+    chaotic.nixosModules.default
+    lanzaboote.nixosModules.lanzaboote
+    catppuccin.nixosModules.catppuccin
+    sops-nix.nixosModules.sops
+
+    ./nix/os/laptop-hardware.nix
+    ./nix/os/common.nix
+
+    ./nix/os/nvidia.nix
+    ./nix/os/games.nix
+    ./nix/os/perf.nix
+    ./nix/os/fonts.nix
+  ];
+
   boot = {
     initrd = {
       systemd.enable = true;
@@ -16,7 +31,6 @@
       "gather_data_sampling=off"
     ];
     supportedFilesystems = [ "bacachefs" ];
-    kernelModules = [ "ntsync" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
 
     loader.systemd-boot.enable = lib.mkForce false;
@@ -24,10 +38,6 @@
       enable = true;
       pkiBundle = "/etc/secureboot";
     };
-    extraModprobeConfig = ''
-      options nvidia NVreg_UsePageAttributeTable=1 NVreg_InitializeSystemMemoryAllocations=0 NVreg_DynamicPowerManagement=0x02
-      options nvidia_drm modeset=1
-    '';
   };
 
   console.earlySetup = true;
@@ -82,17 +92,6 @@
     ];
   };
 
-  environment = {
-    defaultPackages = [ ];
-    stub-ld.enable = false;
-  };
-
-  documentation = {
-    nixos.enable = false;
-    info.enable = false;
-    doc.enable = false;
-  };
-
   programs = {
     uwsm = {
       enable = true;
@@ -103,6 +102,12 @@
       };
     };
 
+    zsh = {
+      enable = true;
+      enableLsColors = false;
+      enableGlobalCompInit = false;
+      promptInit = "";
+    };
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -114,26 +119,6 @@
     nano.enable = false;
 
     dconf.enable = true;
-
-    steam = {
-      enable = true;
-      extraCompatPackages = with pkgs; [ proton-ge-custom ];
-    };
-    gamemode = {
-      enable = true;
-      enableRenice = false;
-      settings = {
-        general = {
-          renice = 20;
-          ioprio = 0;
-          softrealtime = "on";
-        };
-      };
-    };
-    gamescope = {
-      enable = true;
-      capSysNice = false;
-    };
   };
 
   services = {
@@ -161,24 +146,6 @@
     fprintd.enable = false; # Disable until https://gitlab.freedesktop.org/libfprint/libfprint/-/issues/401 gets fixed
     fwupd.enable = true;
 
-    scx = {
-      enable = true;
-      scheduler = "scx_bpfland";
-      package = pkgs.scx.rustscheds;
-    };
-
-    ananicy = {
-      enable = true;
-      package = pkgs.ananicy-cpp;
-      rulesProvider = pkgs.ananicy-rules-cachyos;
-      settings = {
-        apply_latnice = true;
-        check_freq = 15;
-        cgroup_realtime_workaround = lib.mkForce false;
-      };
-    };
-
-    xserver.videoDrivers = [ "nvidia" ];
     dbus = {
       enable = true;
       implementation = "broker";
@@ -194,11 +161,6 @@
       pulse.enable = true;
       wireplumber.enable = true;
     };
-  };
-
-  xdg = {
-    sounds.enable = false;
-    autostart.enable = lib.mkForce false;
   };
 
   systemd = {
@@ -245,13 +207,10 @@
     rtkit.enable = true;
   };
 
-  system = {
-    stateVersion = "23.05";
-    disableInstallerTools = true;
-  };
+  system.stateVersion = "23.05";
 
   hardware = {
-    firmware = with pkgs; [ linux-firmware ];
+    firmware = [ pkgs.linux-firmware ];
     enableRedistributableFirmware = false;
     cpu.intel.updateMicrocode = true;
 
@@ -260,31 +219,8 @@
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
         vpl-gpu-rt
-        nvidia-vaapi-driver
       ];
       enable32Bit = true;
-    };
-
-    nvidia = {
-      modesetting.enable = true;
-      dynamicBoost.enable = true;
-      nvidiaPersistenced = true;
-      powerManagement = {
-        enable = true;
-        finegrained = true;
-      };
-      open = true;
-      nvidiaSettings = false;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-        # Make sure to use the correct Bus ID values for your system!
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:1:0:0";
-      };
     };
 
     bluetooth = {
@@ -300,54 +236,5 @@
       enable = true;
       users = [ "@wheel" ];
     };
-  };
-
-  fonts = {
-    enableDefaultPackages = false;
-    fontconfig = {
-      defaultFonts = {
-        serif = [ "Inter" ];
-        sansSerif = [ "Inter" ];
-        monospace = [ "IosevkaTerm Nerd Font Mono" ];
-      };
-      includeUserConf = false;
-      antialias = true;
-      subpixel.rgba = "none";
-      hinting = {
-        enable = true;
-        autohint = false;
-        style = "full";
-      };
-      localConf = # xml
-        ''
-          <?xml version="1.0"?>
-          <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-          <fontconfig>
-            <match target="font">
-              <test name="fontformat" compare="not_eq">
-                <string />
-              </test>
-              <test name="family">
-                <string>Inter</string>
-              </test>
-              <edit name="fontfeatures" mode="assign_replace">
-                <string>tnum</string>
-              </edit>
-              <edit name="fontfeatures" mode="append">
-                <string>ss04</string>
-              </edit>
-            </match>
-          </fontconfig>
-        '';
-    };
-    packages = with pkgs; [
-      nerd-fonts.symbols-only
-      nerd-fonts.iosevka-term
-      gyre-fonts # TrueType substitutes for standard PostScript fonts
-      inter
-      liberation_ttf
-      noto-fonts
-      noto-fonts-cjk-sans
-    ];
   };
 }

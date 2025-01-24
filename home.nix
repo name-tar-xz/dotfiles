@@ -246,7 +246,7 @@
   };
 
   sops = {
-    defaultSopsFile = ./secrets.yaml;
+    defaultSopsFile = ./nix/secrets.yaml;
     age.keyFile = "/var/lib/age.txt";
 
     secrets.ssh.path = "/home/tarxz/.ssh/id_ed25519";
