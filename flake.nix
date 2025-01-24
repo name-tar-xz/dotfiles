@@ -63,10 +63,6 @@
       };
     */
 
-    nero = {
-      url = "gitlab:tarzst/Nero";
-      flake = false;
-    };
     betterfox = {
       url = "github:yokoffing/Betterfox";
       flake = false;

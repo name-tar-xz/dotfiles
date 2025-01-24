@@ -250,7 +250,14 @@
       };
       package = pkgs.runCommand "Nero" { } ''
         mkdir -p $out/share/icons
-        ln -s ${inputs.nero} $out/share/icons/Nero'';
+        ln -s ${
+          pkgs.fetchFromGitLab {
+            owner = "tarzst";
+            repo = "Nero";
+            rev = "b609816350e3028246552572ab2d5251fc1127c5";
+            hash = "sha256-n1gIhkzrfAFfLR603GfYZvI4C09pG4GgLfdm/Hs/H0A=";
+          }
+        } $out/share/icons/Nero'';
     };
   };
 
