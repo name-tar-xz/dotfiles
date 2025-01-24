@@ -87,8 +87,8 @@
     ];
     serviceConfig.Type = "oneshot";
     script = ''
-      ${pkgs.tailscale}/bin/tailscale funnel --bg --set-path /nextcloud 80
-      ${pkgs.tailscale}/bin/tailscale funnel --bg --set-path /ntfy 8080
+      ${pkgs.lib.getExe pkgs.tailscale} funnel --bg --set-path /nextcloud 80
+      ${pkgs.lib.getExe pkgs.tailscale} funnel --bg --set-path /ntfy 8080
     '';
   };
 

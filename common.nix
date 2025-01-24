@@ -169,7 +169,7 @@
 
   environment = {
     systemPackages = with pkgs; [ git ];
-    binsh = "${pkgs.dash}/bin/dash";
+    binsh = "${pkgs.lib.getExe pkgs.dash}";
   };
 
   programs = {

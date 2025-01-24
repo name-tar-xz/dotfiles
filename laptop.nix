@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }:
@@ -18,7 +19,7 @@
     kernelModules = [ "ntsync" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
 
-    loader.systemd-boot.enable = pkgs.lib.mkForce false;
+    loader.systemd-boot.enable = lib.mkForce false;
     lanzaboote = {
       enable = true;
       pkiBundle = "/etc/secureboot";
@@ -152,7 +153,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --user-menu";
+          command = "${lib.getExe pkgs.greetd.tuigreet} --time --user-menu";
           user = "greeter";
         };
       };
@@ -173,7 +174,7 @@
       settings = {
         apply_latnice = true;
         check_freq = 15;
-        cgroup_realtime_workaround = pkgs.lib.mkForce false;
+        cgroup_realtime_workaround = lib.mkForce false;
       };
     };
 
@@ -197,7 +198,7 @@
 
   xdg = {
     sounds.enable = false;
-    autostart.enable = pkgs.lib.mkForce false;
+    autostart.enable = lib.mkForce false;
   };
 
   systemd = {
@@ -214,9 +215,9 @@
         wantedBy = [ "multi-user.target" ];
         serviceConfig.Type = "oneshot";
         script = ''
-          ${pkgs.pciutils}/bin/setpci -v -s '*:*' latency_timer=20
-          ${pkgs.pciutils}/bin/setpci -v -s '0:0' latency_timer=0
-          ${pkgs.pciutils}/bin/setpci -v -d "*:*:04xx" latency_timer=80
+          ${lib.getExe' pkgs.pciutils "setpci"} -v -s '*:*' latency_timer=20
+          ${lib.getExe' pkgs.pciutils "setpci"} -v -s '0:0' latency_timer=0
+          ${lib.getExe' pkgs.pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
         '';
       };
     };
@@ -229,7 +230,7 @@
       after = [ "xdg-desktop-portal.service" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${pkgs.lxqt.lxqt-policykit}/bin/lxqt-policykit-agent";
+        ExecStart = "${lib.getExe pkgs.lxqt.lxqt-policykit}";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;

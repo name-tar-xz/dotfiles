@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }:
@@ -298,7 +299,7 @@
     systemd.enable = false;
     settings = {
       exec-once = [
-        "${pkgs.swaybg}/bin/swaybg -i ~/Pictures/Wallpaper/the_neon_shallows_by_leikoi_ddm6tx0.png -m fill &"
+        "${lib.getExe pkgs.swaybg} -i ~/Pictures/Wallpaper/the_neon_shallows_by_leikoi_ddm6tx0.png -m fill &"
         "[workspace special:1 silent] kitty -1"
       ];
 
@@ -1201,7 +1202,7 @@
         color7 = "#bac2de";
         color15 = "#a6adc8";
 
-        shell = "${pkgs.zsh}/bin/zsh";
+        shell = "${lib.getExe pkgs.zsh}";
 
         update_check_interval = 0;
         allow_hyperlinks = true;
@@ -1405,13 +1406,13 @@
 
       envExtra = # sh
         ''
-          export LS_COLORS="$(${pkgs.vivid}/bin/vivid generate catppuccin-mocha)"
+          export LS_COLORS="$(${lib.getExe pkgs.vivid} generate catppuccin-mocha)"
 
           export MANROFFOPT="-c"
-          export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.bat}/bin/bat --language=help --color=always -p'"
+          export MANPAGER="/bin/sh -c 'col -bx | ${lib.getExe pkgs.bat} --language=help --color=always -p'"
         '';
 
-      initExtraFirst = "${config.programs.fastfetch.package}/bin/fastfetch";
+      initExtraFirst = "${lib.getExe config.programs.fastfetch.package}";
 
       initExtraBeforeCompInit = # sh
         ''
@@ -1490,7 +1491,7 @@
       enable = true;
       enableZshIntegration = true;
       settings =
-        pkgs.lib.attrsets.recursiveUpdate
+        lib.attrsets.recursiveUpdate
           (builtins.fromTOML (
             builtins.readFile "${config.programs.starship.package}/share/starship/presets/nerd-font-symbols.toml"
           ))
@@ -1567,7 +1568,7 @@
       associations = [
         {
           mime = "text/*";
-          command = "${pkgs.bat}/bin/bat --color=always %pistol-filename%";
+          command = "${lib.getExe pkgs.bat} --color=always %pistol-filename%";
         }
         {
           mime = "inode/directory";
@@ -1691,11 +1692,11 @@
         y=$5
 
         if [[ "$( file -Lb --mime-type "$file")" =~ ^image ]]; then
-          ${pkgs.kitty}/bin/kitten icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
+          ${lib.getExe' pkgs.kitty "kitten"} icat --silent --stdin no --transfer-mode file --place "''${w}x''${h}@''${x}x''${y}" "$file" < /dev/null > /dev/tty
           exit 1
         fi
 
-        ${pkgs.bat}/bin/bat --color=always "$file"
+        ${lib.getExe pkgs.bat} --color=always "$file"
       '';
       settings = {
         icons = true;
@@ -1705,7 +1706,7 @@
         info = "size";
         cursorpreviewfmt = "";
         scrolloff = 999;
-        cleaner = "${pkgs.writeShellScript "cl.sh" "${pkgs.kitty}/bin/kitten icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
+        cleaner = "${pkgs.writeShellScript "cl.sh" "${lib.getExe' pkgs.kitty "kitten"} icat --clear --stdin no --silent --transfer-mode file < /dev/null > /dev/tty"}";
       };
     };
     fastfetch = {
@@ -1836,16 +1837,16 @@
     hypridle = {
       enable = true;
       settings = {
-        general.before_sleep_cmd = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+        general.before_sleep_cmd = "${lib.getExe' pkgs.procps "pidof"} hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
         listener = [
           {
             timeout = 65;
-            on-timeout = "${pkgs.procps}/bin/pidof hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
+            on-timeout = "${lib.getExe' pkgs.procps "pidof"} hyprlock || ${pkgs.hyprlock}/bin/hyprlock";
           }
           {
             timeout = 60;
-            on-timeout = "${pkgs.brightnessctl}/bin/brightnessctl -s set 10";
-            on-resume = "${pkgs.brightnessctl}/bin/brightnessctl -r";
+            on-timeout = "${lib.getExe pkgs.brightnessctl} -s set 10";
+            on-resume = "${lib.getExe pkgs.brightnessctl} -r";
           }
         ];
       };
@@ -1885,8 +1886,8 @@
           min_icon_size = 0;
           max_icon_size = 64;
 
-          dmenu = "${config.programs.rofi.finalPackage}/bin/rofi -dmenu -p dunst:";
-          browser = "${config.programs.librewolf.finalPackage}/bin/librewolf --new-tab";
+          dmenu = "${lib.getExe config.programs.rofi.finalPackage} -dmenu -p dunst:";
+          browser = "${lib.getExe config.programs.librewolf.finalPackage} --new-tab";
 
           title = "Dunst";
           class = "Dunst";
