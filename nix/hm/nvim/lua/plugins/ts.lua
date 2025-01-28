@@ -1,6 +1,5 @@
 return {
   {
-    -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
     dir = P.treesitter,
     dependencies = {
@@ -9,14 +8,19 @@ return {
       { "JoosepAlviste/nvim-ts-context-commentstring", dir = P.ts_context_commentstring },
 
       { "HiPhish/rainbow-delimiters.nvim", dir = P.rainbow_delimiters },
-      { "windwp/nvim-ts-autotag", dir = P.ts_autotag },
-      { "andymass/vim-matchup", dir = P.matchup },
+      {
+        "andymass/vim-matchup",
+        dir = P.matchup,
+        config = function()
+          vim.g.matchup_matchparen_offscreen = { method = "popup", syntax_hl = 1 }
+          vim.g.matchup_transmute_enabled = 1
+        end,
+      },
     },
     build = ":TSUpdate",
     event = { "BufReadPre", "VeryLazy" },
     config = function()
       require("nvim-treesitter.configs").setup({
-        autotag = { enable = true },
         highlight = { enable = true },
         incremental_selection = {
           enable = true,

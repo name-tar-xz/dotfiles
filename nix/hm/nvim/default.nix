@@ -27,7 +27,6 @@
           catppuccin = "${catppuccin-nvim}",
           snacks = "${snacks-nvim}",
           dial = "${dial-nvim}",
-          marks = "${marks-nvim}",
 
           -- bars.lua
           dropbar = "${dropbar-nvim}",
@@ -62,7 +61,6 @@
             treesitter_context = "${nvim-treesitter-context}",
             ts_context_commentstring = "${nvim-ts-context-commentstring}",
             rainbow_delimiters = "${rainbow-delimiters-nvim}",
-            ts_autotag = "${nvim-ts-autotag}",
             matchup = "${vim-matchup}",
           treesj = "${treesj}",
 

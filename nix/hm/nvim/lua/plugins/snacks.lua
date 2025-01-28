@@ -10,7 +10,16 @@ return {
     scope = { enabled = true },
     quickfile = { enabled = true },
 
-    notifier = { enabled = true, style = "minimal", top_down = false },
+    notifier = {
+      enabled = true,
+      style = "minimal",
+      top_down = false,
+      icons = {
+        error = " ",
+        warn = " ",
+        info = " ",
+      },
+    },
 
     statuscolumn = { enabled = true, folds = { open = true, git_hl = true } },
 
@@ -72,15 +81,11 @@ return {
 
       previewers = { git = { native = true } },
       icons = {
-        ui = {
-          selected = "",
-          live = "󰐰",
-        },
         diagnostics = {
-          Error = "",
-          Warn = "",
-          Hint = "",
-          Info = "",
+          Error = " ",
+          Warn = " ",
+          Hint = " ",
+          Info = " ",
         },
       },
     },
@@ -89,11 +94,11 @@ return {
       enabled = true,
       sections = {
         { section = "header" },
-        { section = "recent_files", cwd = true, limit = 8, padding = 1 },
+        { section = "recent_files", cwd = true, limit = 10, padding = 1 },
         { section = "startup" },
       },
       preset = {
-        header = [[                                                           
+        header = [[
                                                                    
       ████ ██████           █████      ██                    
      ███████████             █████                            
@@ -129,41 +134,52 @@ return {
   end,
 
   keys = {
+    { "<leader>c", function() Snacks.bufdelete() end, desc = "Close buffer" },
+
     { "<leader>gc", function() Snacks.picker.git_log() end, desc = "Git Log" },
     { "<leader>gS", function() Snacks.picker.git_status() end, desc = "Git Status" },
     { "<leader>gf", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
 
-    { "<leader>fm", function() Snacks.picker.marks() end, desc = "Marks" },
-    { "<leader>/", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
     { "<leader>f<CR>", function() Snacks.picker.resume() end, desc = "Resume" },
-    { "<leader>fC", function() Snacks.picker.commands() end, desc = "Commands" },
-    { "<leader>fc", function() Snacks.picker.command_history() end, desc = "Command History" },
+
+    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+    { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+
     { "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, desc = "Diagnostics" },
     { "<leader>fD", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
-    { "<leader>f.", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
-    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
-    { "<leader>fh", function() Snacks.picker.help() end, desc = "Help Pages" },
-    { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
-    { "<leader>fM", function() Snacks.picker.man() end, desc = "Man Pages" },
-    { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
-    { '<leader>f"', function() Snacks.picker.registers() end, desc = "Registers" },
-    { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
-    { "<leader>fw", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
-    { "<leader>fu", function() Snacks.picker.undo() end, desc = "LSP Symbols" },
 
-    { "<leader>fa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
-    { "<leader>fH", function() Snacks.picker.highlights() end, desc = "Highlights" },
+    { "<leader>fw", function() Snacks.picker.grep() end, desc = "Grep" },
+    { "<leader>f.", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
+    { "<leader>/", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+
+    { "<leader>fu", function() Snacks.picker.undo() end, desc = "Find Undo" },
+
+    { '<leader>f"', function() Snacks.picker.registers() end, desc = "Registers" },
+    { "<leader>fm", function() Snacks.picker.marks() end, desc = "Marks" },
+
+    { "<leader>fC", function() Snacks.picker.commands() end, desc = "Commands" },
+    { "<leader>fc", function() Snacks.picker.command_history() end, desc = "Command History" },
+
     { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jumps" },
     { "<leader>fl", function() Snacks.picker.loclist() end, desc = "Location List" },
     { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
     { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
+
+    { "<leader>fH", function() Snacks.picker.highlights() end, desc = "Highlights" },
+    { "<leader>fM", function() Snacks.picker.man() end, desc = "Man Pages" },
+    { "<leader>fa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
+    { "<leader>fh", function() Snacks.picker.help() end, desc = "Help Pages" },
+    { "<leader>fk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+    { "<leader>fn", function() Snacks.picker.notifications() end, desc = "Find Notifications" },
+    { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
 
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
     { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Definition" },
     { "grr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
     { "gri", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
     { "gry", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+    { "grN", function() Snacks.rename.rename_file() end, desc = "Rename File" },
   },
 }

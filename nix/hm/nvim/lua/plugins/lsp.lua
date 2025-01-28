@@ -191,9 +191,6 @@ return {
         quiet = true,
         timeout_ms = 500,
       },
-      formatters = {
-        stylua = { prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" } },
-      },
     },
   },
   {

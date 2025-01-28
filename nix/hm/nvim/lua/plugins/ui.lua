@@ -57,6 +57,17 @@ return {
       signcolumn = true,
       signs_staged_enable = true,
     },
+    keys = {
+      { "]g", function() require("gitsigns").next_hunk() end, desc = "Next Git hunk" },
+      { "[g", function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" },
+      { "<leader>gl", function() require("gitsigns").blame_line() end, desc = "View Git blame" },
+      { "<leader>gp", function() require("gitsigns").preview_hunk() end, desc = "Preview Git hunk" },
+      { "<leader>gr", function() require("gitsigns").reset_buffer() end, desc = "Reset Git buffer" },
+      { "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, desc = "Unstage Git hunk" },
+      { "<leader>gd", function() require("gitsigns").diffthis() end, desc = "View Git diff" },
+      { "<leader>gh", ":Gitsigns reset_hunk<CR>", desc = "Reset Git hunk", mode = { "n", "v" } },
+      { "<leader>gs", ":Gitsigns stage_hunk<CR>", desc = "Stage Git hunk", mode = { "n", "v" } },
+    },
   },
   {
     "catgoose/nvim-colorizer.lua",
