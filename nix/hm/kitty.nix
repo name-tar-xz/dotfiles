@@ -101,11 +101,5 @@
       "kitty_mod+enter" = "launch --cwd=current";
       "kitty_mod+space" = "kitten unicode_input";
     };
-    extraConfig = ''
-      font_features IosevkaTermNFM +dlig
-      font_features IosevkaTermNFM-SemiBold +dlig
-      font_features IosevkaTermNFM-Italic +dlig
-      font_features IosevkaTermNFM-SemiBoldItalic +dlig
-    '';
   };
 }

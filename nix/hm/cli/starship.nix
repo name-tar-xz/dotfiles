@@ -14,7 +14,10 @@
           right_format = "$all";
           continuation_prompt = "[▸▹ ](bright-black)";
 
-          os.disabled = false;
+          os = {
+            disabled = false;
+            symbols.NixOS = "󱄅 ";
+          };
 
           directory = {
             fish_style_pwd_dir_length = 1;

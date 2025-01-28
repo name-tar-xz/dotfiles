@@ -9,13 +9,13 @@
         percent = {
           type = 3;
         };
-        separator = " ➜ ";
+        separator = "  ➜ ";
       };
       modules = [
         "title"
         "separator"
         {
-          key = "";
+          key = "󱄅";
           keyColor = "cyan";
           type = "os";
         }
@@ -36,7 +36,7 @@
         }
         "break"
         {
-          key = "󱆃";
+          key = "";
           keyColor = "magenta";
           type = "shell";
         }
@@ -72,14 +72,14 @@
           type = "disk";
         }
         {
-          key = "󰁹";
+          key = "";
           keyColor = "green";
           type = "battery";
         }
         "break"
         {
           type = "custom";
-          format = "{#30}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37}    {#97}  {#96}  {#95}  {#94}  {#93}  {#92}  {#91}  {#90}";
+          format = "{#30}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37}    {#97}  {#96}  {#95}  {#94}  {#93}  {#92}  {#91}  {#90} ";
         }
       ];
     };
