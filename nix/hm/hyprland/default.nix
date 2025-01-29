@@ -7,6 +7,27 @@
     ./hypridle.nix
   ];
 
+  systemd.user.services = {
+    cliphist.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
+    cliphist-images.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
+
+    lxqt-policykit-agent = {
+      Install.WantedBy = [ "graphical-session.target" ];
+      Unit = {
+        After = [ "graphical-session.target" ];
+        Description = "LXQT Polkit Agent";
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = "${pkgs.lib.getExe pkgs.lxqt.lxqt-policykit}";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [

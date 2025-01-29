@@ -183,21 +183,6 @@
         '';
       };
     };
-
-    user.services.lxqt-policykit-agent = {
-      enable = true;
-      description = "LXQT Polkit Agent";
-      wantedBy = [ "xdg-desktop-portal.service" ];
-      wants = [ "xdg-desktop-portal.service" ];
-      after = [ "xdg-desktop-portal.service" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${lib.getExe pkgs.lxqt.lxqt-policykit}";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
   };
 
   security = {
