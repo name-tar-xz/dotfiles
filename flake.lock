@@ -313,8 +313,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs",
         "nur": "nur",
-        "sops-nix": "sops-nix",
-        "umu": "umu"
+        "sops-nix": "sops-nix"
       }
     },
     "rust-overlay": {
@@ -376,28 +375,6 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "type": "github"
-      }
-    },
-    "umu": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "packaging/nix",
-        "lastModified": 1738306689,
-        "narHash": "sha256-T9euT20nh+6c4tF6Q26jksOGyNuLjlTNrpuluh5dbug=",
-        "owner": "Open-Wine-Components",
-        "repo": "umu-launcher",
-        "rev": "7a71163b79e56222fe3f3097d1e71208a91a1a3b",
-        "type": "github"
-      },
-      "original": {
-        "dir": "packaging/nix",
-        "owner": "Open-Wine-Components",
-        "repo": "umu-launcher",
         "type": "github"
       }
     }

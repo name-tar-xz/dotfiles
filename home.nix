@@ -65,7 +65,7 @@
       # Games
       retroarch
       lutris
-      (inputs.umu.packages.${pkgs.system}.umu.override { version = inputs.umu.shortRev; })
+      umu-launcher
       ludusavi
 
       # CLI tools
