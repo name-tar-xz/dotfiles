@@ -22,8 +22,6 @@
         "--icons=auto"
         "--smart-group"
         "--git"
-        "--git-repos"
-        "--git-ignore"
       ];
     };
 

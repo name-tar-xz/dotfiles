@@ -61,7 +61,7 @@
     };
 
     ntfy-sh = {
-      enable = true;
+      enable = false;
       settings = {
         listen-http = ":8080";
         base-url = "https://server.tailf29b7.ts.net";

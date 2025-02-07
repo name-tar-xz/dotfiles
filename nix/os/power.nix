@@ -49,7 +49,7 @@
         ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
 
         # USB autosuspend
-        ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
+        ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{power/autosuspend}="60"
 
         # HDD
@@ -64,16 +64,6 @@
         # Audio Latency
         KERNEL=="rtc0", GROUP="audio"
         KERNEL=="hpet", GROUP="audio"
-
-        # Nvidia
-        # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
-        ACTION=="add|bind", SUBSYSTEM=="pci", DRIVERS=="nvidia", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", TEST=="power/control", ATTR{power/control}="auto"
-
-        # Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
-        ACTION=="remove|unbind", SUBSYSTEM=="pci", DRIVERS=="nvidia", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", TEST=="power/control", ATTR{power/control}="on"
-
-        # Clear Linux
-        ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/nr_requests}="2048"
       '';
   };
 

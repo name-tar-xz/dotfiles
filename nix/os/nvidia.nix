@@ -5,7 +5,18 @@
     options nvidia_drm modeset=1
   '';
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services = {
+    xserver.videoDrivers = [ "nvidia" ];
+
+    udev.extraRules = # udev
+      ''
+        # Enable runtime PM for NVIDIA VGA/3D controller devices on driver bind
+        ACTION=="add|bind", SUBSYSTEM=="pci", DRIVERS=="nvidia", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", TEST=="power/control", ATTR{power/control}="auto"
+
+        # Disable runtime PM for NVIDIA VGA/3D controller devices on driver unbind
+        ACTION=="remove|unbind", SUBSYSTEM=="pci", DRIVERS=="nvidia", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", TEST=="power/control", ATTR{power/control}="on"
+      '';
+  };
 
   hardware = {
     graphics.extraPackages = [ pkgs.nvidia-vaapi-driver ];

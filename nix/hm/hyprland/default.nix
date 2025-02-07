@@ -139,19 +139,6 @@
       animations = {
         enabled = true;
         first_launch_animation = false;
-        # bezier = overshot, 0.05, 0.9, 0.1, 1.05;
-        # bezier = smoothOut, 0.36, 0, 0.66, -0.56;
-        # bezier = smoothIn, 0.25, 1, 0.5, 1;
-        # bezier = linear, 0.45, 0, 0.55, 1;
-
-        # animation = borderangle, 1, 100, linear, loop;
-        # animation = windows, 1, 5, overshot, slide;
-        # animation = windowsOut, 1, 4, smoothOut, slide;
-        # animation = windowsMove, 1, 4, default;
-        # animation = border, 1, 10, default;
-        # animation = fade, 1, 10, smoothIn;
-        # animation = fadeDim, 1, 10, smoothIn;
-        # animation = workspaces, 1, 6, default;
       };
 
       dwindle = {
@@ -348,11 +335,15 @@
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle"
       ];
 
-      # Mouse
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
       ];
+
+      ecosystem = {
+        no_update_news = true;
+        no_donation_nag = true;
+      };
     };
   };
 }

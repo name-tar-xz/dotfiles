@@ -50,6 +50,11 @@
 
       changeDirWidgetCommand = "fd --type d -LH --color=always --max-depth=3";
       fileWidgetCommand = "fd --type f -LH --color=always --max-depth=3";
+      historyWidgetOptions = [
+        "--sort"
+        "--exact"
+      ];
+
       enableZshIntegration = true;
     };
   };

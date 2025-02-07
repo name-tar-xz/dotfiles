@@ -1,5 +1,7 @@
 { lib, ... }:
 {
+  boot.enableContainers = false;
+
   environment = {
     defaultPackages = [ ];
     stub-ld.enable = false;
