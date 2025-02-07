@@ -61,7 +61,8 @@ vim.lsp.inlay_hint.enable(true)
 
 vim.diagnostic.config({
   severity_sort = true,
-  virtual_text = false,
+  virtual_text = true,
+  virtual_lines = { current_line = true },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = " ",

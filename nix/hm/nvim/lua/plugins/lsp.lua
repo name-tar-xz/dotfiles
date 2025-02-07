@@ -194,17 +194,6 @@ return {
     },
   },
   {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    dir = P.tiny_inline_diagnostic,
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      options = {
-        use_icons_from_diagnostic = true,
-        multilines = true,
-      },
-    },
-  },
-  {
     "folke/trouble.nvim",
     dir = P.trouble,
     cmd = { "Trouble" },
