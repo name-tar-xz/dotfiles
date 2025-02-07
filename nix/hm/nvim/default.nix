@@ -53,7 +53,6 @@
           -- move.lua
           flash = "${flash-nvim}",
           spider = "${nvim-spider}",
-          texobjs = "${nvim-various-textobjs}",
 
           -- ts.lua
           treesitter = "${nvim-treesitter}",

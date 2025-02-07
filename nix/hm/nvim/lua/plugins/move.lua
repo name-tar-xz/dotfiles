@@ -27,10 +27,4 @@ return {
     },
     opts = {},
   },
-  {
-    "chrisgrieser/nvim-various-textobjs",
-    dir = P.texobjs,
-    event = "VeryLazy",
-    opts = { keymaps = { useDefaults = true, disabledDefaults = { "il", "al" } } },
-  },
 }

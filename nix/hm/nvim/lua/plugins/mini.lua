@@ -77,7 +77,40 @@ return {
     "echasnovski/mini.ai",
     dir = P.mini_ai,
     event = "VeryLazy",
-    opts = {},
+    opts = function()
+      local tss = require("mini.ai").gen_spec.treesitter
+
+      return {
+        custom_textobjects = {
+          F = tss({ a = "@function.outer", i = "@function.inner" }),
+          -- ["?"] = tss({ a = "@conditional.outer", i = "@conditional.inner" }),
+          l = tss({ a = "@loop.outer", i = "@loop.inner" }),
+          c = tss({ a = "@class.outer", i = "@class.inner" }),
+          a = tss({ a = "@parameter.outer", i = "@parameter.inner" }),
+          k = tss({ a = "@block.outer", i = "@block.inner" }),
+
+          -- Whole Buffer
+          g = function()
+            local from = { line = 1, col = 1 }
+            local to = {
+              line = vim.fn.line("$"),
+              col = math.max(vim.fn.getline("$"):len(), 1),
+            }
+            return { from = from, to = to }
+          end,
+
+          S = {
+            {
+              "%u[%l%d]+%f[^%l%d]",
+              "%f[%S][%l%d]+%f[^%l%d]",
+              "%f[%P][%l%d]+%f[^%l%d]",
+              "^[%l%d]+%f[^%l%d]",
+            },
+            "^().*()$",
+          },
+        },
+      }
+    end,
   },
   {
     "echasnovski/mini.bracketed",
