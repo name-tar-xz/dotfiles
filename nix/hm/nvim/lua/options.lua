@@ -1,10 +1,10 @@
 vim.opt.backspace:append("nostop") -- don't stop backspace at insert
-vim.opt.diffopt:append("linematch:60") -- enable linematch diff algorithm
+vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heutistic"] = true }) -- enable linematch diff algorithm
 vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "" })
-vim.opt.shortmess:append({ s = true, I = true, a = true, W = true }) -- disable search count wrap and startup messages
+vim.opt.shortmess:append({ s = true, I = true, a = true, W = true, A = true }) -- disable search count wrap and startup messages
 vim.opt.viewoptions:remove("curdir") -- disable saving current directory with views
 vim.opt.completeopt = { "menu", "menuone", "popup", "noinsert" } -- Options for insert mode completion
-vim.opt.listchars = { trail = "·", nbsp = "␣" }
+vim.opt.listchars = { trail = "·", nbsp = "␣", tab = "  " }
 
 vim.o.clipboard = "unnamed" -- Connection to the system clipboard
 vim.o.cmdheight = 0 -- hide command line unless needed
@@ -74,9 +74,6 @@ vim.diagnostic.config({
   },
 })
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking text",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),

@@ -16,7 +16,7 @@ return {
       "echasnovski/mini.icons",
       dir = P.mini_icons,
       config = function()
-        require("mini.icons").setup()
+        require("mini.icons").setup({ extension = { css = { glyph = "" } } })
         ---@diagnostic disable-next-line: undefined-global
         MiniIcons.mock_nvim_web_devicons()
       end,

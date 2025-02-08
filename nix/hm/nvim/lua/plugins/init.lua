@@ -52,12 +52,14 @@ return {
             Visual = { bg = colors.surface0, style = nil },
             Folded = { bg = colors.mantle },
             TreesitterContextBottom = { style = nil },
-            SnacksPickerBorder = { bg = colors.mantle, fg = colors.blue },
+            SnacksPickerBorder = { bg = colors.mantle, fg = colors.mantle },
+            SnacksPickerInputBorder = { bg = colors.mantle, fg = colors.blue },
             SnacksPickerTitle = { link = "IncSearch" },
           }
         end,
       },
     },
+    init = function() vim.cmd.colorscheme("catppuccin") end,
   },
   {
     "monaqa/dial.nvim",

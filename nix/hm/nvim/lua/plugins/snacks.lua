@@ -26,58 +26,7 @@ return {
     picker = {
       ui_select = true,
 
-      layouts = {
-        default = {
-          layout = {
-            box = "horizontal",
-            width = 0.8,
-            min_width = 120,
-            height = 0.8,
-            {
-              box = "vertical",
-              border = "solid",
-              title = "{source} {live}",
-              title_pos = "center",
-              { win = "input", height = 1, border = "bottom" },
-              { win = "list", border = "none" },
-            },
-            { win = "preview", border = "vpad", width = 0.6 },
-          },
-        },
-        ivy = {
-          layout = {
-            box = "vertical",
-            backdrop = false,
-            row = -1,
-            width = 0,
-            height = 0.4,
-            border = "vpad",
-            title = " {source} {live}",
-            title_pos = "left",
-            { win = "input", height = 1, border = "bottom" },
-            {
-              box = "horizontal",
-              { win = "list", border = "none" },
-              { win = "preview", width = 0.6, border = "left" },
-            },
-          },
-        },
-        vscode = {
-          preview = false,
-          layout = {
-            backdrop = false,
-            row = 1,
-            width = 0.4,
-            min_width = 80,
-            height = 0.4,
-            border = "none",
-            box = "vertical",
-            { win = "input", height = 1, border = "solid", title = "{source} {live}", title_pos = "center" },
-            { win = "list", border = "hpad" },
-            { win = "preview", border = "rounded" },
-          },
-        },
-      },
+      layouts = { sidebar = { layout = { position = "right" } } },
 
       previewers = { git = { native = true } },
       icons = {
@@ -175,8 +124,10 @@ return {
     { "<leader>fn", function() Snacks.picker.notifications() end, desc = "Find Notifications" },
     { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
 
+    { "<leader>E", function() Snacks.picker.explorer() end, desc = "Snacks Explorer" },
+
     { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
-    { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Definition" },
+    { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
     { "grr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
     { "gri", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
     { "gry", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },

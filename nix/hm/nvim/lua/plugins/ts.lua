@@ -6,8 +6,6 @@ return {
       { "nvim-treesitter/nvim-treesitter-textobjects", dir = P.treesitter_textobjects },
       { "nvim-treesitter/nvim-treesitter-context", dir = P.treesitter_context, opts = { max_lines = 3 } },
       { "JoosepAlviste/nvim-ts-context-commentstring", dir = P.ts_context_commentstring },
-
-      { "HiPhish/rainbow-delimiters.nvim", dir = P.rainbow_delimiters },
       {
         "andymass/vim-matchup",
         dir = P.matchup,

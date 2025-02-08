@@ -58,7 +58,6 @@
             treesitter_textobjects = "${nvim-treesitter-textobjects}",
             treesitter_context = "${nvim-treesitter-context}",
             ts_context_commentstring = "${nvim-ts-context-commentstring}",
-            rainbow_delimiters = "${rainbow-delimiters-nvim}",
             matchup = "${vim-matchup}",
           treesj = "${treesj}",
 
@@ -148,7 +147,7 @@
       gofumpt
       ## Python
       ruff
-      pyright
+      basedpyright
     ];
   };
 }

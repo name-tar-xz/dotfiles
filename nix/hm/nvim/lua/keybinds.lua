@@ -6,8 +6,8 @@ vim.keymap.set("n", "]A", "<cmd>tablast<CR>")
 vim.keymap.set("n", "[a", "<cmd>tabprevious<CR>")
 vim.keymap.set("n", "[A", "<cmd>tabfirst<CR>")
 
-vim.keymap.set({ "n", "v" }, ";", ":")
-vim.keymap.set({ "n", "v" }, ":", ";")
+vim.keymap.set({ "n", "v", "o" }, ";", ":")
+vim.keymap.set({ "n", "v", "o" }, ":", ";")
 
 vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

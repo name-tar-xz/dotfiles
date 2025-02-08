@@ -47,7 +47,15 @@ return {
 
       lspconfig.taplo.setup({})
 
-      lspconfig.pyright.setup({})
+      lspconfig.basedpyright.setup({
+        settings = {
+          basedpyright = {
+            analysis = {
+              typeCheckingMode = "standard",
+            },
+          },
+        },
+      })
       lspconfig.ruff.setup({ on_attach = function(client) client.server_capabilities.hoverProvider = false end })
 
       lspconfig.gopls.setup({
