@@ -68,7 +68,7 @@
   nixpkgs = {
     overlays = [
       (final: prev: {
-        librewolf = prev.librewolf.override { cfg.speechSynthesisSupport = false; };
+        firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
 
         retroarch = prev.retroarch.withCores (
           cores: with cores; [
@@ -84,9 +84,13 @@
 
         speechd = prev.speechd.override {
           withLibao = false;
+          withPulse = false;
+          withAlsa = false;
+          withOss = false;
           withFlite = false;
           withEspeak = false;
           withPico = false;
+          libsOnly = true;
         };
       })
     ];

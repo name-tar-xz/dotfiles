@@ -178,7 +178,7 @@
         "opaque, mpv"
         "nodim, mpv"
 
-        "idleinhibit fullscreen, librewolf"
+        "idleinhibit fullscreen, firefox"
 
         "float, title:^(Media viewer)$"
         "float, title:^(Volume Control)$"
@@ -195,8 +195,6 @@
         "nodim, title:^(Picture-in-Picture)$"
         "opaque, title:^(Picture-in-Picture)$"
 
-        "float, title:^(LibreWolf — Sharing Indicator)$"
-        "float, title:^(FireDragon — Sharing Indicator)$"
         "float, title:^(Firefox — Sharing Indicator)$"
 
         "stayfocused, ^(rofi)$"
@@ -236,7 +234,7 @@
         "$mod,M,togglespecialworkspace,2"
 
         # Launching
-        "$mod, B, exec, librewolf"
+        "$mod, B, exec, firefox"
         "$mod, Return, exec, kitty -1"
         "$mod ALT, T, exec, kitty -1"
 

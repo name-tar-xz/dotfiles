@@ -64,7 +64,7 @@
     sessionVariables = {
       FLAKE = "${config.xdg.configHome}/nixos";
 
-      BROWSER = "librewolf";
+      BROWSER = "firefox";
       SUDO_EDITOR = "nvim";
       EDITOR = "nvim";
       VISUAL = "nvim";

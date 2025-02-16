@@ -1,7 +1,4 @@
 @import "csshacks/chrome/multi-row_bookmarks.css";
-@import "csshacks/chrome/rounded_menupopups.css";
-@import "csshacks/chrome/button_effect_icon_glow.css";
-@import "csshacks/chrome/hide_tabs_scrollbuttons.css";
 @import "csshacks/chrome/privatemode_indicator_as_menu_button.css";
 @import "csshacks/chrome/urlbar_connection_type_text_colors.css";
 @import "csshacks/chrome/proton_dark_light_notifications.css";
@@ -10,13 +7,8 @@
 @import "csshacks/chrome/custom_menupopup_check_icons.css";
 @import "csshacks/chrome/overlay_tab_audio_icons.css";
 @import "csshacks/chrome/iconized_main_menu.css";
-/* @import "csshacks/chrome/round_caption_buttons.css"; */
-@import "csshacks/chrome/round_ui_items.css";
-/* @import "csshacks/chrome/rounded_menupopups.css"; */
 
 @import "includes/cleaner_extensions_menu.css";
-@import "includes/no_search_engines_in_url_bar.css";
-@import "includes/sidebar.css";
 
 /** Add your custom styles below **********************************************/
 * {
@@ -35,27 +27,6 @@
 
 #urlbar-results {
   text-align: right;
-}
-
-/* Hide UI Items */
-#titlebar #toolbar-menubar .titlebar-buttonbox-container {
-  display: none !important;
-}
-
-#pageActionButton {
-  display: none !important;
-}
-
-#PanelUI-menu-button {
-  padding: 0px !important;
-}
-
-#PanelUI-menu-button .toolbarbutton-icon {
-  width: 1px !important;
-}
-
-#PanelUI-menu-button .toolbarbutton-badge-stack {
-  padding: 0px !important;
 }
 
 /* Disable the Navigation Buttons */
@@ -79,6 +50,10 @@
   border: none !important;
   box-shadow: none !important;
   background: transparent !important;
+}
+
+#sidebar-main {
+  background: black !important;
 }
 
 #urlbar,

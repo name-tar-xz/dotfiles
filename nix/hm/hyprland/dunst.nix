@@ -76,7 +76,7 @@
         max_icon_size = 64;
 
         dmenu = "${pkgs.lib.getExe config.programs.rofi.finalPackage} -dmenu -p dunst:";
-        browser = "${pkgs.lib.getExe config.programs.librewolf.finalPackage} --new-tab";
+        browser = "${pkgs.lib.getExe config.programs.firefox.finalPackage} --new-tab";
 
         title = "Dunst";
         class = "Dunst";

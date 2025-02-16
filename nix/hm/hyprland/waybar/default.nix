@@ -134,7 +134,7 @@
           max-length = 80;
           rewrite = {
             "(.*) - zsh" = "> [$1]";
-            "(.*) — LibreWolf" = "$1";
+            "(.*) — Mozilla Firefox" = "$1";
           };
           separate-outputs = false;
         };
@@ -186,7 +186,6 @@
           player-icons = {
             default = "";
             firefox = "󰈹";
-            librewolf = "󰈹";
             mpv = "";
           };
           status-icons = {
