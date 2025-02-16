@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    ani-cli
+    aria
+  ];
   programs = {
     mpv = {
       enable = true;

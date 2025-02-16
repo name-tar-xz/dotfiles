@@ -1,6 +1,21 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 {
   xdg.configFile."sh/functions.sh".source = ./functions.sh;
+
+  home.packages = with pkgs; [
+    comma
+    doas-sudo-shim
+    hyperfine
+    jq
+    onefetch
+
+    ## File Management
+    rmtrash
+    trash-cli
+
+    bash-completion
+    zsh-completions
+  ];
 
   imports = [
     ./fastfetch.nix

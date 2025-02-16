@@ -7,6 +7,14 @@
     ./hypridle.nix
   ];
 
+  home.packages = with pkgs; [
+    hyprpicker
+    grimblast # Screenshot
+    wl-clipboard # Clipboard
+    brightnessctl # Brightness
+    rofi-power-menu
+  ];
+
   systemd.user.services = {
     cliphist.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
     cliphist-images.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
