@@ -6,9 +6,9 @@ return {
     event = { "InsertEnter", "CmdlineEnter" },
 
     opts = {
-      keymap = { preset = "default" },
-
       appearance = { nerd_font_variant = "mono" },
+
+      cmdline = { completion = { menu = { auto_show = true } } },
 
       completion = {
         list = {
@@ -21,8 +21,6 @@ return {
         menu = {
           border = "rounded",
           winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-
-          auto_show = function(ctx) return ctx.mode ~= "cmdline" or not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) end,
           draw = { treesitter = { "lsp" } },
         },
 

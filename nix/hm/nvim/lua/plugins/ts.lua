@@ -5,7 +5,15 @@ return {
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-textobjects", dir = P.treesitter_textobjects },
       { "nvim-treesitter/nvim-treesitter-context", dir = P.treesitter_context, opts = { max_lines = 3 } },
-      { "JoosepAlviste/nvim-ts-context-commentstring", dir = P.ts_context_commentstring },
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        config = function()
+          ---@diagnostic disable-next-line: duplicate-set-field
+          vim.filetype.get_option = function(ft, opt) return opt == "commentstring" and require("ts_context_commentstring.internal").calculate_commentstring() or vim.filetype.get_option(ft, opt) end
+          return { enable_autocmd = false }
+        end,
+        dir = P.ts_context_commentstring,
+      },
       {
         "andymass/vim-matchup",
         dir = P.matchup,

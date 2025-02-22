@@ -24,8 +24,22 @@ return {
     event = "BufEnter",
     config = function()
       local conditions = require("heirline.conditions")
+      local utils = require("heirline.utils")
 
-      local colors = require("catppuccin.palettes").get_palette("mocha")
+      local colors = {
+        red = utils.get_highlight("MiniIconsRed").fg,
+        green = utils.get_highlight("MiniIconsGreen").fg,
+        purple = utils.get_highlight("MiniIconsPurple").fg,
+        yellow = utils.get_highlight("MiniIconsYellow").fg,
+        orange = utils.get_highlight("MiniIconsOrange").fg,
+        azure = utils.get_highlight("MiniIconsAzure").fg,
+        blue = utils.get_highlight("MiniIconsBlue").fg,
+        teal = utils.get_highlight("MiniIconsCyan").fg,
+
+        bright_bg = utils.get_highlight("NormalFloat").bg,
+        light_blue = utils.get_highlight("Operator").fg,
+      }
+
       local Align = { provider = "%=" }
       local Space = setmetatable({ provider = " " }, {
         __call = function(_, n) return { provider = string.rep(" ", n) } end,
@@ -45,13 +59,13 @@ return {
           mode_colors = {
             n = "blue",
             i = "green",
-            v = "mauve",
-            V = "mauve",
-            ["\22"] = "mauve",
-            c = "peach",
-            s = "mauve",
-            S = "mauve",
-            ["\19"] = "mauve",
+            v = "purple",
+            V = "purple",
+            ["\22"] = "purple",
+            c = "orange",
+            s = "purple",
+            S = "purple",
+            ["\19"] = "purple",
             R = "yellow",
             r = "yellow",
             ["!"] = "red",
@@ -70,7 +84,7 @@ return {
         -- Same goes for the highlight. Now the background will change according to the current mode.
         hl = function(self)
           local mode = self.mode:sub(1, 1) -- get only the first mode character
-          return { bg = self.mode_colors[mode], fg = "mantle", bold = true }
+          return { bg = self.mode_colors[mode], fg = "bright_bg", bold = true }
         end,
         -- Re-evaluate the component only on ModeChanged event!
         -- Also allows the statusline to be re-evaluated when entering operator-pending mode
@@ -90,7 +104,7 @@ return {
         end,
 
         provider = function(self) return " " .. self.status_dict.head .. "  " end,
-        hl = { bold = true, fg = "mauve", bg = "mantle" },
+        hl = { bold = true, fg = "purple", bg = "bright_bg" },
       }
 
       local FileIcon = {
@@ -100,7 +114,7 @@ return {
           self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
         end,
         provider = function(self) return self.icon and (self.icon .. " ") end,
-        hl = function(self) return { fg = self.icon_color, bg = "mantle" } end,
+        hl = function(self) return { fg = self.icon_color, bg = "bright_bg" } end,
       }
 
       local FileType = {
@@ -120,15 +134,15 @@ return {
           local i = math.floor((math.log(fsize) / math.log(1024)))
           return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
         end,
-        hl = { fg = "peach", bg = "mantle" },
+        hl = { fg = "orange", bg = "bright_bg" },
       }
 
       local FileFlags = {
-        hl = { bg = "mantle" },
+        hl = { bg = "bright_bg" },
         {
           condition = function() return vim.bo.modified end,
           provider = " ",
-          hl = { fg = "peach" },
+          hl = { fg = "orange" },
         },
         {
           condition = function() return not vim.bo.modifiable or vim.bo.readonly end,
@@ -142,10 +156,10 @@ return {
         condition = conditions.has_diagnostics,
 
         static = {
-          error_icon = vim.diagnostic.config().signs.text[1] .. " ",
-          warn_icon = vim.diagnostic.config().signs.text[2] .. " ",
-          info_icon = vim.diagnostic.config().signs.text[3] .. " ",
-          hint_icon = vim.diagnostic.config().signs.text[4] .. " ",
+          error_icon = vim.diagnostic.config().signs.text[1],
+          warn_icon = vim.diagnostic.config().signs.text[2],
+          info_icon = vim.diagnostic.config().signs.text[3],
+          hint_icon = vim.diagnostic.config().signs.text[4],
         },
 
         init = function(self)
@@ -162,19 +176,19 @@ return {
             -- 0 is just another output, we can decide to print it or not!
             return self.errors > 0 and (" " .. self.error_icon .. self.errors)
           end,
-          hl = { bg = "mantle", fg = "red" },
+          hl = { bg = "bright_bg", fg = "red" },
         },
         {
           provider = function(self) return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings) end,
-          hl = { bg = "mantle", fg = "yellow" },
+          hl = { bg = "bright_bg", fg = "yellow" },
         },
         {
           provider = function(self) return self.info > 0 and (" " .. self.info_icon .. self.info) end,
-          hl = { bg = "mantle", fg = "sky" },
+          hl = { bg = "bright_bg", fg = "azure" },
         },
         {
           provider = function(self) return self.hints > 0 and (" " .. self.hint_icon .. self.hints) end,
-          hl = { bg = "mantle", fg = "teal" },
+          hl = { bg = "bright_bg", fg = "teal" },
         },
       }
 
@@ -186,27 +200,27 @@ return {
           self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
         end,
 
-        hl = { fg = "orange", bg = "mantle" },
+        hl = { fg = "orange", bg = "bright_bg" },
         {
           provider = function(self)
             local count = self.status_dict.added or 0
             return count > 0 and ("  " .. count)
           end,
-          hl = { fg = colors.green },
+          hl = { fg = "green" },
         },
         {
           provider = function(self)
             local count = self.status_dict.removed or 0
             return count > 0 and ("  " .. count)
           end,
-          hl = { fg = colors.red },
+          hl = { fg = "red" },
         },
         {
           provider = function(self)
             local count = self.status_dict.changed or 0
             return count > 0 and ("  " .. count)
           end,
-          hl = { fg = colors.yellow },
+          hl = { fg = "yellow" },
         },
       }
 
@@ -246,7 +260,7 @@ return {
             end
             return " " .. table.concat(names, " ")
           end,
-          hl = { fg = "green", bg = "mantle" },
+          hl = { fg = "green", bg = "bright_bg" },
         },
       }
 
@@ -256,7 +270,7 @@ return {
         -- %c = column number
         -- %P = percentage through file of displayed window
         provider = "%l:%2c %P",
-        -- hl = { fg = "teal", bg = "mantle" },
+        -- hl = { fg = "teal", bg = "bright_bg" },
       }
 
       local ScrollBar = {
@@ -270,7 +284,7 @@ return {
           local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
           return string.rep(self.sbar[i], 2)
         end,
-        hl = { fg = "sapphire", bg = "mantle" },
+        hl = { fg = "light_blue", bg = "bright_bg" },
       }
 
       require("heirline").setup({
