@@ -41,15 +41,6 @@
 
         userChrome = builtins.readFile ./chrome/userChrome.css;
         userContent = builtins.readFile ./chrome/userContent.css;
-
-        extensions = with inputs.nur.legacyPackages.${pkgs.system}.repos.rycee.firefox-addons; [
-          ublock-origin
-          libredirect
-          proton-pass
-          darkreader
-          violentmonkey
-        ];
-        settings."extensions.autoDisableScopes" = 0;
       };
     };
   };
