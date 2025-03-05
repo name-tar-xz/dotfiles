@@ -121,6 +121,7 @@
       };
 
       decoration = {
+        rounding_power = 4;
         rounding = 10;
 
         active_opacity = 1.0;
@@ -144,10 +145,7 @@
 
       xwayland.force_zero_scaling = true;
 
-      animations = {
-        enabled = true;
-        first_launch_animation = false;
-      };
+      animations.first_launch_animation = false;
 
       dwindle = {
         pseudotile = true;
@@ -156,7 +154,7 @@
 
       master.mfact = 0.5;
 
-      opengl.nvidia_anti_flicker = false;
+      render.direct_scanout = true;
 
       windowrule = [
         "float, file_progress"
@@ -241,7 +239,7 @@
         # Screenshot
         ", Print, exec, grimblast --notify copy screen"
         "ALT, Print, exec, grimblast --notify copy active"
-        "SHIFT, Print, exec, grimblast --notify --freeze --cursor copy area"
+        "SHIFT, Print, exec, grimblast --notify --freeze copy area"
         "$mod, Print, exec, grimblast --notify copysave screen"
         "$mod ALT, Print, exec, grimblast --notify copysave active"
         "$mod SHIFT, Print, exec, grimblast --notify --freeze copysave area"
@@ -349,6 +347,10 @@
       ecosystem = {
         no_update_news = true;
         no_donation_nag = true;
+      };
+      experimental = {
+        wide_color_gamut = true;
+        xx_color_management_v4 = true;
       };
     };
   };

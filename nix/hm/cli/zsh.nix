@@ -51,28 +51,18 @@
         # zstyle ':completion:*' group-name ""
         zstyle ':completion:*' ignore-parents parent pwd
         zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
-        zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
         zstyle ':completion:*' matcher-list "" 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' '+l:|=* r:|=*'
         zstyle ':completion:*' menu select
         zstyle ':completion:*' original true
-        zstyle ':completion:*' preserve-prefix '//[^/]##/'
-        zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-        zstyle ':completion:*' verbose true
-        zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
-        zstyle ':completion:*:warnings' format 'No matches for: %d'
         zstyle ':completion:*' format ' %d'
 
         zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
         zstyle ':completion:*' rehash true                              # automatically find new executables in path
 
-        zmodload zsh/complist
-        zmodload zsh/zpty
-        _comp_options+=(globdots)
-
         # Speed up completions
         zstyle ':completion:*' accept-exact '*(N)'
         zstyle ':completion:*' use-cache on
-        zstyle ':completion:*' cache-path ~/.local/cache/zsh
+        zstyle ':completion:*' cache-path ${config.xdg.cacheHome}/zsh
       '';
 
     initExtra = # sh

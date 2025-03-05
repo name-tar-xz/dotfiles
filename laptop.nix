@@ -29,6 +29,7 @@
     kernelParams = [
       "nvme.noacpi=1"
       "gather_data_sampling=off"
+      "mem_sleep_default=deep"
     ];
     supportedFilesystems = [ "bacachefs" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
@@ -60,6 +61,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    backupFileExtension = "bak";
     users.tarxz = import ./home.nix;
     extraSpecialArgs = { inherit inputs; };
     sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];

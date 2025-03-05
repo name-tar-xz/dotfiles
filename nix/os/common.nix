@@ -120,11 +120,6 @@
       DefaultTimeoutStartSec=15s
       DefaultLimitNOFILE=2048:2097152
     '';
-
-    sleep.extraConfig = ''
-      [Sleep]
-      MemorySleepMode=deep
-    '';
   };
 
   security = {

@@ -30,8 +30,8 @@
         pkgs.fetchFromGitLab {
           owner = "tarzst";
           repo = "Nero";
-          rev = "b609816350e3028246552572ab2d5251fc1127c5";
-          hash = "sha256-n1gIhkzrfAFfLR603GfYZvI4C09pG4GgLfdm/Hs/H0A=";
+          rev = "7a51aa173c7069f113ca9dbe27a7600d41aa9a96";
+          hash = "sha256-WhmZXPe/XQ1ZuVZHTRqB0+yvluUJRGAYWb5vhePFdn8=";
         }
       } $out/share/icons/Nero'';
   };
