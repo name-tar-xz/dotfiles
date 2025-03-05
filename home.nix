@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
 
     ./nix/hm/hyprland
     ./nix/hm/theme
