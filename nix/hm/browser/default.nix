@@ -1,5 +1,7 @@
 { inputs, ... }:
 {
+  imports = [ ./ublock.nix ];
+
   home.file = {
     ".mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;
     ".mozilla/firefox/main/chrome/includes".source = ./chrome/includes;
