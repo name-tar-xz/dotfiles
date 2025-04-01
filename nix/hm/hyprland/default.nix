@@ -157,26 +157,26 @@
       render.direct_scanout = true;
 
       windowrule = [
-        "float, file_progress"
-        "float, confirm"
-        "float, dialog"
-        "float, download"
-        "float, notification"
-        "float, error"
-        "float, splash"
-        "float, confirmreset"
+        "float, class:file_progress"
+        "float, class:confirm"
+        "float, class:dialog"
+        "float, class:download"
+        "float, class:notification"
+        "float, class:error"
+        "float, class:splash"
+        "float, class:confirmreset"
         "float, title:Open File"
         "float, title:branchdialog"
-        "float, viewnior"
-        "float, file-roller"
+        "float, class:viewnior"
+        "float, class:file-roller"
 
-        "idleinhibit focus, mpv"
-        "fullscreen, mpv"
-        "noborder, mpv"
-        "opaque, mpv"
-        "nodim, mpv"
+        "idleinhibit focus, class:mpv"
+        "fullscreen, class:mpv"
+        "noborder, class:mpv"
+        "opaque, class:mpv"
+        "nodim, class:mpv"
 
-        "idleinhibit fullscreen, firefox"
+        "idleinhibit fullscreen, class:firefox"
 
         "float, title:^(Media viewer)$"
         "float, title:^(Volume Control)$"
@@ -184,23 +184,20 @@
         "float, title:^(Bluetooth Devices)$"
         "float, title:^(iwgtk)$"
         "float, title:^(dconf Editor)$"
-        "float, zoom"
+        "float, class:zoom"
 
-        "float, title:^(Picture-in-Picture)$"
-        "keepaspectratio, title:^(Picture-in-Picture)$"
-        "pin, title:^(Picture-in-Picture)$"
-        "noborder, title:^(Picture-in-Picture)$"
-        "nodim, title:^(Picture-in-Picture)$"
-        "opaque, title:^(Picture-in-Picture)$"
+        "float, title:^(Picture in picture)$"
+        "keepaspectratio, title:^(Picture in picture)$"
+        "pin, title:^(Picture in picture)$"
+        "noborder, title:^(Picture in picture)$"
+        "nodim, title:^(Picture in picture)$"
+        "opaque, title:^(Picture in picture)$"
 
         "float, title:^(Firefox — Sharing Indicator)$"
 
-        "stayfocused, ^(rofi)$"
-        "xray 1, ^(kitty$)"
-        "xray 1, ^(Alacritty$)"
-      ];
+        "stayfocused, class:^(rofi)$"
+        "xray 1, class:^(kitty$)"
 
-      windowrulev2 = [
         "bordersize 0, floating:0, onworkspace:w[tv1]"
         "rounding 0, floating:0, onworkspace:w[tv1]"
         "bordersize 0, floating:0, onworkspace:f[1]"
@@ -348,10 +345,7 @@
         no_update_news = true;
         no_donation_nag = true;
       };
-      experimental = {
-        wide_color_gamut = true;
-        xx_color_management_v4 = true;
-      };
+      experimental.xx_color_management_v4 = true;
     };
   };
 }
