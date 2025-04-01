@@ -1,9 +1,48 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 {
-  services.resolved = {
-    enable = true;
-    dnssec = "true";
-    dnsovertls = "true";
+  boot.kernel.sysctl = {
+    "net.core.rmem_max" = 8388608;
+    "net.core.wmem_max" = 8388608;
+  };
+
+  services = {
+    resolved.enable = false;
+
+    routedns = {
+      enable = true;
+      configFile = "/etc/routedns.toml";
+      settings = {
+        resolvers.nextdns = {
+          address = "${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io:853";
+          bootstrap-address = "45.90.28.166";
+          protocol = "doq";
+          enable-0rtt = true;
+        };
+
+        groups = {
+          cached = {
+            type = "cache";
+            resolvers = [ "dedup" ];
+          };
+
+          dedup = {
+            type = "request-dedup";
+            resolvers = [ "nextdns" ];
+          };
+        };
+
+        listeners.local-udp = {
+          address = "127.0.0.1:53";
+          protocol = "udp";
+          resolver = "cached";
+        };
+        listeners.local-tcp = {
+          address = "127.0.0.1:53";
+          protocol = "tcp";
+          resolver = "cached";
+        };
+      };
+    };
   };
 
   systemd.network = {
@@ -54,15 +93,9 @@
   };
 
   sops = {
-    templates.resolved = {
-      content = ''
-        [Resolve]
-        DNS=45.90.28.0#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
-        FallbackDNS=2a07:a8c0::#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
-        DNS=45.90.30.0#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
-        FallbackDNS=2a07:a8c1::#${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io
-      '';
-      path = "/etc/systemd/resolved.conf.d/dns.conf";
+    templates.routedns = {
+      file = (pkgs.formats.toml { }).generate "routedns.toml" config.services.routedns.settings;
+      path = "/etc/routedns.toml";
       mode = "0444";
 
     };
