@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   programs.zsh = {
     enable = true;
@@ -41,31 +46,33 @@
         export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.lib.getExe pkgs.bat} --language=help --color=always -p'"
       '';
 
-    initExtraFirst = "${pkgs.lib.getExe config.programs.fastfetch.package}";
+    initContent = lib.mkMerge [
+      (lib.mkBefore "${pkgs.lib.getExe config.programs.fastfetch.package}")
 
-    initExtraBeforeCompInit = # sh
-      ''
-        zstyle ':completion:*' auto-description '+%d'
-        zstyle ':completion:*' completer _oldlist _expand _expand_alias _complete _ignored _correct _approximate _prefix
-        zstyle ':completion:*' file-sort name
-        # zstyle ':completion:*' group-name ""
-        zstyle ':completion:*' ignore-parents parent pwd
-        zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
-        zstyle ':completion:*' matcher-list "" 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' '+l:|=* r:|=*'
-        zstyle ':completion:*' menu select
-        zstyle ':completion:*' original true
-        zstyle ':completion:*' format ' %d'
+      (lib.mkOrder 550 # sh
+        ''
+          zstyle ':completion:*' auto-description '+%d'
+          zstyle ':completion:*' completer _oldlist _expand _expand_alias _complete _ignored _correct _approximate _prefix
+          zstyle ':completion:*' file-sort name
+          # zstyle ':completion:*' group-name ""
+          zstyle ':completion:*' ignore-parents parent pwd
+          zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+          zstyle ':completion:*' matcher-list "" 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' '+l:|=* r:|=*'
+          zstyle ':completion:*' menu select
+          zstyle ':completion:*' original true
+          zstyle ':completion:*' format ' %d'
 
-        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
-        zstyle ':completion:*' rehash true                              # automatically find new executables in path
+          zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
+          zstyle ':completion:*' rehash true                              # automatically find new executables in path
 
-        # Speed up completions
-        zstyle ':completion:*' accept-exact '*(N)'
-        zstyle ':completion:*' use-cache on
-        zstyle ':completion:*' cache-path ${config.xdg.cacheHome}/zsh
-      '';
+          # Speed up completions
+          zstyle ':completion:*' accept-exact '*(N)'
+          zstyle ':completion:*' use-cache on
+          zstyle ':completion:*' cache-path ${config.xdg.cacheHome}/zsh
+        ''
+      )
 
-    initExtra = # sh
+      # sh
       ''
         source ~/.config/sh/functions.sh
         zle -N lfcd
@@ -103,6 +110,7 @@
         bindkey  "^[[3~"  delete-char
 
         autoload -U colors && colors # Load colors
-      '';
+      ''
+    ];
   };
 }
