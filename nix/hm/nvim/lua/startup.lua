@@ -4,11 +4,13 @@ require("keybinds")
 
 require("lazy").setup("plugins", {
   defaults = { lazy = true },
-  install = { colorscheme = { "catppuccin" } },
+  install = { colorscheme = { "catppuccin" }, missing = false },
   lockfile = nil,
   rocks = { enabled = false },
   performance = {
+    reset_packpath = false,
     rtp = {
+      reset = false,
       disabled_plugins = {
         "tohtml",
         "gzip",

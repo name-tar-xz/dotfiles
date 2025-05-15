@@ -17,7 +17,10 @@
     withPython3 = false;
     withRuby = false;
 
-    plugins = with pkgs.vimPlugins; [ lazy-nvim ];
+    plugins = with pkgs.vimPlugins; [
+      lazy-nvim
+      nvim-lspconfig
+    ];
 
     extraLuaConfig =
       with pkgs.vimPlugins; # lua
@@ -38,7 +41,6 @@
           blink = "${blink-cmp}",
 
           -- lsp.lua
-          lspconfig = "${nvim-lspconfig}",
           lint = "${nvim-lint}",
           conform = "${conform-nvim}",
           trouble = "${trouble-nvim}",

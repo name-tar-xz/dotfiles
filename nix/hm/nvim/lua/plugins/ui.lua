@@ -11,7 +11,7 @@ return {
         mode = { "n", "v" },
         { "<leader>f", group = "Find", icon = "" },
         { "<leader>g", group = "Git", icon = "󰊢" },
-        { "<leader>l", group = "LSP", icon = "" },
+        { "gr", group = "LSP", icon = "" },
         { "<leader>p", group = "Packages", icon = "󰏖" },
         { "<leader>x", desc = "Trouble", icon = "󱖫" },
         { "<leader>u", desc = "UI", icon = "" },

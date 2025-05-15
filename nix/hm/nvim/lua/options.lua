@@ -59,6 +59,23 @@ vim.o.writebackup = false -- Disable making a backup before overwriting a file
 
 vim.lsp.inlay_hint.enable(true)
 
+vim.lsp.enable({
+  "arduino_language_server",
+  "basedpyright",
+  "biome",
+  "cssls",
+  "gopls",
+  "html",
+  "jsonls",
+  "lua_ls",
+  "nixd",
+  "ruff",
+  "tailwindcss",
+  "taplo",
+  "typos_lsp",
+  "vtsls",
+})
+
 vim.diagnostic.config({
   severity_sort = true,
   virtual_text = true,
