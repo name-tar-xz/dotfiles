@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     ani-cli
+    ani-skip
     aria
   ];
   programs = {
@@ -10,11 +11,11 @@
       scripts = with pkgs.mpvScripts; [
         autodeint
         mpris
-        sponsorblock
+        pkgs.ani-skip
       ];
       config = {
         hwdec = "vaapi,auto-safe";
-        vo = "gpu,auto";
+        vo = "gpu-next,gpu,auto";
         ao = "pipewire,";
         gpu-context = "wayland";
         deband = true;

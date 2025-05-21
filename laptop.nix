@@ -67,6 +67,10 @@
       (final: prev: {
         firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
 
+        ani-skip = prev.ani-skip.overrideAttrs (old: {
+          passthru.scriptName = "skip";
+        });
+
         retroarch = prev.retroarch.withCores (
           cores: with cores; [
             gambatte
