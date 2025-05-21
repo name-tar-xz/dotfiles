@@ -43,15 +43,7 @@
 
   console.earlySetup = true;
 
-  networking = {
-    hostName = "laptop";
-    useNetworkd = true;
-    wireless = {
-      enable = true;
-      allowAuxiliaryImperativeNetworks = true;
-      userControlled.enable = true;
-    };
-  };
+  networking.hostName = "laptop";
 
   home-manager = {
     useGlobalPkgs = true;

@@ -14,10 +14,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos-server;
 
-  networking = {
-    hostName = "server";
-    networkmanager.enable = true;
-  };
+  networking.hostName = "server";
 
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjfC5kank8ZpPF5Jqq/Z8vev0oryX2nnzcPK4IYj38O git.3myp3@slmail.me"

@@ -1,8 +1,11 @@
 { pkgs, config, ... }:
 {
-  boot.kernel.sysctl = {
-    "net.core.rmem_max" = 8388608;
-    "net.core.wmem_max" = 8388608;
+  boot = {
+    kernel.sysctl = {
+      "net.core.rmem_max" = 8388608;
+      "net.core.wmem_max" = 8388608;
+    };
+    extraModprobeConfig = "options cfg80211 ieee80211_regdom=IN";
   };
 
   services = {
@@ -27,6 +30,16 @@
 
           dedup = {
             type = "request-dedup";
+            resolvers = [ "minimize" ];
+          };
+
+          minimize = {
+            type = "response-minimize";
+            resolvers = [ "collapse" ];
+          };
+
+          collapse = {
+            type = "response-collapse";
             resolvers = [ "nextdns" ];
           };
         };
@@ -47,7 +60,7 @@
 
   systemd.network = {
     wait-online.enable = false;
-    links."30-mtu" = {
+    links."30-wlan" = {
       matchConfig.Type = "wlan";
       linkConfig = {
         MTUBytes = 1492;
@@ -58,6 +71,18 @@
   };
 
   networking = {
+    useNetworkd = true;
+    wireless = {
+      enable = true;
+      allowAuxiliaryImperativeNetworks = true;
+      userControlled.enable = true;
+      extraConfig = ''
+        country=IN
+        p2p_disabled=1
+        mac_addr=1
+      '';
+    };
+
     firewall = {
       enable = false;
       allowedTCPPorts = [
