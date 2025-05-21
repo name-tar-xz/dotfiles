@@ -40,8 +40,8 @@
     enable = true;
     platformTheme.name = "qtct";
     style.package = with pkgs; [
-      libsForQt5.lightly
-      kdePackages.breeze
+      darkly
+      darkly-qt5
     ];
   };
 

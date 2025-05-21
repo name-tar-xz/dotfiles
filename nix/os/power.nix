@@ -51,20 +51,13 @@
         # USB autosuspend
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
         ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{power/autosuspend}="60"
-
-        # HDD
-        ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
-
-        # SSD
-        ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
-
-        # NVMe SSD
-        ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="none"
-
-        # Audio Latency
-        KERNEL=="rtc0", GROUP="audio"
-        KERNEL=="hpet", GROUP="audio"
       '';
+  };
+
+  hardware.block = {
+    defaultScheduler = "mq-deadline";
+    defaultSchedulerRotational = "bfq";
+    scheduler."nvme[0-9]*" = "none";
   };
 
   powerManagement.scsiLinkPolicy = "med_power_with_dipm";

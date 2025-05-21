@@ -62,7 +62,7 @@
     ];
 
     sessionVariables = {
-      FLAKE = "${config.xdg.configHome}/nixos";
+      NH_FLAKE = "${config.xdg.configHome}/nixos";
 
       BROWSER = "firefox";
       SUDO_EDITOR = "nvim";
@@ -83,7 +83,7 @@
       NODE_REPL_HISTORY = "${config.xdg.dataHome}/node_repl_history";
       STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
       NVM_DIR = "${config.xdg.dataHome}/nvm";
-      ANDROID_HOME = "${config.xdg.dataHome}/android";
+      ANDROID_USER_HOME = "${config.xdg.dataHome}/android";
       PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
       PARALLEL_HOME = "${config.xdg.configHome}/parallel";
       GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
@@ -130,7 +130,7 @@
       cat = "bat";
       nohup = "command rm nohup.out;nohup";
 
-      update = "nix flake update --flake ${config.home.sessionVariables.FLAKE} --commit-lock-file; nh os boot";
+      update = "nix flake update --flake ${config.home.sessionVariables.NH_FLAKE} --commit-lock-file; nh os boot";
       switch = "nh os switch";
       fast = "nh os test";
     };

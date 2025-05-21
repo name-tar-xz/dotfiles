@@ -14,7 +14,6 @@
     "net.core.netdev_max_backlog" = 4096;
     "net.ipv4.tcp_ecn" = 1;
     "net.ipv4.tcp_slow_start_after_idle" = 0;
-    "net.ipv4.tcp_rfc1337" = 1;
     "fs.file-max" = 2097152;
     "kernel.core_pattern" = "/dev/null";
     "kernel.split_lock_mitigate" = 0;

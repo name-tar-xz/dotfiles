@@ -12,10 +12,7 @@
     ./nix/os/common.nix
   ];
 
-  boot = {
-    kernelPackages = pkgs.linuxPackages_cachyos-server;
-    kernelParams = [ "mitigations=off" ];
-  };
+  boot.kernelPackages = pkgs.linuxPackages_cachyos-server;
 
   networking = {
     hostName = "server";
