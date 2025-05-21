@@ -25,7 +25,6 @@ vim.keymap.set("n", "<leader>pp", function() require("lazy").profile() end, { de
 vim.keymap.set("n", "grf", function() require("conform").format() end, { desc = "Format" })
 
 -- Clipboard
-vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 

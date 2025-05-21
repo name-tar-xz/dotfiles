@@ -78,19 +78,21 @@ return {
     dir = P.mini_ai,
     event = "VeryLazy",
     opts = function()
-      local tss = require("mini.ai").gen_spec.treesitter
+      local spec = require("mini.ai").gen_spec
+      local tss = spec.treesitter
 
       return {
         custom_textobjects = {
-          F = tss({ a = "@function.outer", i = "@function.inner" }),
+          f = tss({ a = "@function.outer", i = "@function.inner" }),
+          u = spec.function_call(), -- u for "Usage"
+          U = spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
           -- ["?"] = tss({ a = "@conditional.outer", i = "@conditional.inner" }),
           l = tss({ a = "@loop.outer", i = "@loop.inner" }),
           c = tss({ a = "@class.outer", i = "@class.inner" }),
           a = tss({ a = "@parameter.outer", i = "@parameter.inner" }),
           k = tss({ a = "@block.outer", i = "@block.inner" }),
 
-          -- Whole Buffer
-          g = function()
+          g = function() -- Whole Buffer
             local from = { line = 1, col = 1 }
             local to = {
               line = vim.fn.line("$"),
@@ -98,6 +100,13 @@ return {
             }
             return { from = from, to = to }
           end,
+
+          o = tss({ -- code block
+            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+            i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+          }),
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+          d = { "%f[%d]%d+" }, -- digits
 
           S = { { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" }, "^().*()$" },
         },

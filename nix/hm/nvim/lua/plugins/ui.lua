@@ -70,9 +70,10 @@ return {
     },
   },
   {
-    "catgoose/nvim-colorizer.lua",
-    dir = P.colorizer,
+    "brenoprata10/nvim-highlight-colors",
+    dir = P.highlight_colors,
     event = "BufReadPre",
-    opts = { user_default_options = { names = false, css = true, tailwind = true } },
+    cmd = "HighlightColors",
+    opts = { enable_named_colors = false },
   },
 }

@@ -65,13 +65,6 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       formatters_by_ft = {
-        -- svelte = { { "prettier", "prettierd" }, "rustywind" },
-        -- css = { { "prettier", "prettierd" }, "rustywind" },
-        -- html = { { "prettier", "prettierd" }, "rustywind" },
-        -- yaml = { { "prettier", "prettierd" } },
-        -- markdown = { { "prettier", "prettierd" } },
-        -- graphql = { { "prettier", "prettierd" } },
-
         sh = { "shfmt" },
         bash = { "shfmt" },
         zsh = { "shfmt" },

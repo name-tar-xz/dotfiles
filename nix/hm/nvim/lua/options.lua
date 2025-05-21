@@ -79,7 +79,6 @@ vim.lsp.enable({
 vim.diagnostic.config({
   severity_sort = true,
   virtual_text = true,
-  virtual_lines = { current_line = true },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = " ",
@@ -87,12 +86,11 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = " ",
       [vim.diagnostic.severity.HINT] = " ",
     },
-    -- text = { "", "󰌺", "", "" },
   },
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking text",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-  callback = function() vim.highlight.on_yank() end,
+  callback = function() vim.hl.on_yank() end,
 })

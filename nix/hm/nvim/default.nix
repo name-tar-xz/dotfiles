@@ -59,7 +59,6 @@
           treesitter = "${nvim-treesitter}",
             treesitter_textobjects = "${nvim-treesitter-textobjects}",
             treesitter_context = "${nvim-treesitter-context}",
-            ts_context_commentstring = "${nvim-ts-context-commentstring}",
             matchup = "${vim-matchup}",
           treesj = "${treesj}",
 
@@ -71,7 +70,7 @@
           mini_files = "${mini-files}",
 
           gitsigns = "${gitsigns-nvim}",
-          colorizer = "${nvim-colorizer-lua}",
+          highlight_colors = "${nvim-highlight-colors}",
         }
         require("startup")
         vim.opt.rtp:append("${
@@ -101,7 +100,6 @@
                   markdown
                   markdown_inline
                   nix
-                  norg
                   python
                   regex
                   rust
