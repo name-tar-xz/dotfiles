@@ -182,7 +182,7 @@
         "float, title:^(Volume Control)$"
         "float, title:^(Authentication Required)$"
         "float, title:^(Bluetooth Devices)$"
-        "float, title:^(iwgtk)$"
+        "float, title:^(wpa_gui)$"
         "float, title:^(dconf Editor)$"
         "float, class:zoom"
 

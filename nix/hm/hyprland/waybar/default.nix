@@ -207,7 +207,7 @@
           ];
           format-wifi = "{icon} {bandwidthDownBytes}";
           interval = 1;
-          on-click = "iwgtk";
+          on-click = "wpa_gui";
           tooltip-format = "{essid} ({frequency} MHz) {signalStrength}%\n⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}";
         };
         privacy = {

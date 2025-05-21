@@ -46,15 +46,10 @@
   networking = {
     hostName = "laptop";
     useNetworkd = true;
-    wireless.iwd = {
+    wireless = {
       enable = true;
-      settings = {
-        General.AddressRandomization = "network";
-        Settings = {
-          AutoConnect = true;
-          AlwaysRandomizeAddress = true;
-        };
-      };
+      allowAuxiliaryImperativeNetworks = true;
+      userControlled.enable = true;
     };
   };
 

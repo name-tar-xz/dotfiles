@@ -52,6 +52,7 @@
       linkConfig = {
         MTUBytes = 1492;
         TransmitQueueLength = 2000;
+        MACAddressPolicy = "random";
       };
     };
   };
