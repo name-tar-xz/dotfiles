@@ -10,6 +10,7 @@
     ./minimal.nix
     ./syncthing.nix
     ./network.nix
+    ./time.nix
     ./sysctl.nix
   ];
 
@@ -34,14 +35,6 @@
       "udev.log_level=3"
     ];
   };
-
-  # Set your time zone.
-  time = {
-    timeZone = "Asia/Kolkata";
-    hardwareClockInLocalTime = true;
-  };
-
-  i18n.defaultLocale = "en_US.UTF-8";
 
   users = {
     mutableUsers = false;
