@@ -117,14 +117,9 @@
 
   security = {
     sudo.enable = false;
-    doas = {
+    sudo-rs = {
       enable = true;
-      extraRules = [
-        {
-          groups = [ "wheel" ];
-          persist = true;
-        }
-      ];
+      execWheelOnly = true;
     };
   };
 

@@ -97,11 +97,6 @@
       rb = "reboot";
 
       sudo = "sudo ";
-      doas = "doas ";
-      ds = "doas ";
-      su = "doas -s";
-      sudoedit = "doasedit";
-      de = "doasedit";
       wget = "wget -c --hsts-file='${config.xdg.dataHome}/wget-hsts'";
       adb = "HOME=${config.xdg.dataHome}/android adb";
       ".." = "cd ..";

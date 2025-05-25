@@ -4,7 +4,6 @@
 
   home.packages = with pkgs; [
     comma
-    doas-sudo-shim
     hyperfine
     jq
     onefetch
