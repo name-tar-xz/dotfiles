@@ -5,14 +5,14 @@
     settings =
       let
         font = "sans";
-        fc = "rgb(205,214,244)";
+        fc = "rgb(217,225,239)";
       in
       {
         background = [
           {
-            path = "/home/tarxz/Pictures/Wallpaper/the_neon_shallows_by_leikoi_ddm6tx0.png";
-            blur_passes = 3;
-            blur_size = 8;
+            path = "${./walls/windows-error.jpg}";
+            blur_passes = 0;
+            blur_size = 0;
           }
         ];
 
@@ -34,9 +34,9 @@
             font_size = "112";
             font_family = font;
             color = fc;
-            position = "0, 0";
+            position = "0, 124";
             text_align = "center";
-            valign = "center";
+            valign = "bottom";
             halign = "center";
           }
           {
@@ -44,9 +44,9 @@
             font_size = 16;
             font_family = font;
             color = fc;
-            position = "0, -96";
+            position = "0, 116";
             text_align = "center";
-            valign = "center";
+            valign = "bottom";
             halign = "center";
           }
         ];

@@ -28,6 +28,7 @@
       };
       difftool.prompt = false;
     };
+    lfs.enable = true;
     delta = {
       enable = true;
       options = {

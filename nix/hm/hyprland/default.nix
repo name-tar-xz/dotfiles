@@ -59,7 +59,7 @@
     systemd.enable = false;
     settings = {
       exec-once = [
-        "${pkgs.lib.getExe pkgs.swaybg} -i ~/Pictures/Wallpaper/the_neon_shallows_by_leikoi_ddm6tx0.png -m fill &"
+        "${pkgs.lib.getExe pkgs.swaybg} -i ${./walls/the_neon_shallows_by_leikoi.png} -m fill &"
         "[workspace special:1 silent] kitty -1"
       ];
 

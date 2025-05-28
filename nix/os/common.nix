@@ -69,11 +69,18 @@
   };
 
   environment = {
-    systemPackages = with pkgs; [ git ];
     binsh = "${pkgs.lib.getExe pkgs.dash}";
   };
 
   programs = {
+    git = {
+      enable = true;
+      lfs = {
+        enable = true;
+        enablePureSSHTransfer = true;
+      };
+    };
+
     ssh = {
       package = pkgs.openssh_hpn;
       ciphers = [
