@@ -52,6 +52,14 @@
 
   system.replaceDependencies.replacements = [
     {
+      oldDependency = pkgs.rofi;
+      newDependency = (
+        pkgs.rofi-wayland.overrideAttrs (oldAttrs: {
+          name = "rofi-${pkgs.rofi-unwrapped.version}";
+        })
+      );
+    }
+    {
       oldDependency = pkgs.networkmanager;
       newDependency = pkgs.runCommand "networkmanager-${pkgs.networkmanager.version}" { } "mkdir -p $out";
     }
@@ -63,6 +71,10 @@
 
       ani-skip = prev.ani-skip.overrideAttrs (old: {
         passthru.scriptName = "skip";
+      });
+
+      rofi-systemd = prev.rofi-systemd.overrideAttrs (old: {
+        installPhase = old.installPhase + "sed 's/sudo //g' -i $out/bin/rofi-systemd";
       });
 
       retroarch = prev.retroarch.withCores (

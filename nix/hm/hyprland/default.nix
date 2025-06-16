@@ -251,6 +251,7 @@
         # Launcher
         "$mod, SPACE, exec, pkill rofi||rofi -show drun"
         "$mod, R, exec, pkill rofi||rofi -show run -no-sidebar-mode"
+        "$mod, S, exec, pkill rofi||rofi-systemd"
         "$mod ALT, B, exec, pkill rofi||rofi-bluetooth"
         "$mod, E, exec, pkill rofi||rofi -show filebrowser -modes filebrowser -no-sidebar-mode"
         "$mod, escape, exec, pkill rofi||rofi -show p -modes p:rofi-power-menu -no-sidebar-mode"
