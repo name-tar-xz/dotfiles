@@ -16,6 +16,7 @@ user_pref("dom.popup_allowed_events", "click dblclick mousedown pointerdown");
 user_pref("browser.pagethumbnails.capturing_disabled", true);
 user_pref("network.http.referer.XOriginPolicy", 1);
 user_pref("browser.search.separatePrivateDefault", false);
+user_pref("layout.frame_rate", 90)
 
 // Other tweaks
 user_pref("browser.toolbars.bookmarks.visibility", "newtab");
@@ -29,7 +30,6 @@ user_pref("nglayout.initialpaint.delay", 1000); // for darkreader
 user_pref("gfx.webrender.all", true); // enables WR + additional features
 user_pref("gfx.webrender.precache-shaders", true); // longer initial startup time
 user_pref("gfx.webrender.compositor", true); // DEFAULT WINDOWS macOS
-user_pref("gfx.webrender.compositor.force-enabled", true); // enforce
 user_pref("gfx.webrender.program-binary-disk", true);
 
 user_pref("gfx.canvas.accelerated", true); // DEFAULT macOS LINUX [FF110]; not compatible with WINDOWS integrated GPUs
@@ -38,19 +38,15 @@ user_pref("gfx.canvas.accelerated.cache-size", 1024); // default=256; alt=1024
 user_pref("gfx.content.skia-font-cache-size", 20); // default=5; Chrome=20
 
 user_pref("layers.gpu-process.enabled", true); // DEFAULT WINDOWS
-user_pref("layers.gpu-process.force-enabled", true); // enforce
 user_pref("layers.mlgpu.enabled", true); // LINUX
 user_pref("media.hardware-video-decoding.enabled", true); // DEFAULT WINDOWS macOS
-user_pref("media.hardware-video-decoding.force-enabled", true); // enforce
 user_pref("media.gpu-process-decoder", true); // DEFAULT WINDOWS
 user_pref("media.ffmpeg.vaapi.enabled", true); // LINUX
 
 user_pref("media.av1.enabled", true);
 
 user_pref("gfx.webrender.dcomp-video-hw-overlay-win", true); // DEFAULT
-user_pref("gfx.webrender.dcomp-video-hw-overlay-win-force-enabled", true); // enforce
 user_pref("gfx.webrender.dcomp-video-sw-overlay-win", true); // DEFAULT
-user_pref("gfx.webrender.dcomp-video-sw-overlay-win-force-enabled", true); // enforce
 
 user_pref("browser.cache.disk.enable", true);
 user_pref("browser.cache.jsbc_compression_level", 3);

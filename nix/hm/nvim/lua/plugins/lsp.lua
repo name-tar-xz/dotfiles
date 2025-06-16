@@ -74,6 +74,7 @@ return {
         arduino = { "astyle" },
         toml = { "taplo" },
         go = { "goimports", "gofumpt" },
+        ["*"] = { "injected" },
       },
       format_on_save = {
         lsp_fallback = true,

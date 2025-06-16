@@ -125,7 +125,7 @@
       cat = "bat";
       nohup = "command rm nohup.out;nohup";
 
-      update = "nix flake update --flake ${config.home.sessionVariables.NH_FLAKE} --commit-lock-file; nh os boot";
+      update = "nix flake update --flake ${config.home.sessionVariables.NH_FLAKE} --commit-lock-file && nh os boot";
       switch = "nh os switch";
       fast = "nh os test";
     };

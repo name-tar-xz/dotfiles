@@ -7,7 +7,11 @@
     ".mozilla/firefox/main/chrome/includes".source = ./chrome/includes;
   };
 
-  services.psd.enable = true;
+  services.psd = {
+    enable = true;
+    browsers = [ "firefox" ];
+    backupLimit = 3;
+  };
 
   programs.firefox = {
     enable = true;

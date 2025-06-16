@@ -26,10 +26,7 @@
       systemd.enable = true;
       includeDefaultModules = false;
     };
-    kernelParams = [
-      "nvme.noacpi=1"
-      "gather_data_sampling=off"
-    ];
+    kernelParams = [ "nvme.noacpi=1" ];
     supportedFilesystems = [ "bacachefs" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
 
@@ -53,42 +50,48 @@
     sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
   };
 
-  nixpkgs = {
-    overlays = [
-      (final: prev: {
-        firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
+  system.replaceDependencies.replacements = [
+    {
+      oldDependency = pkgs.networkmanager;
+      newDependency = pkgs.runCommand "networkmanager-${pkgs.networkmanager.version}" { } "mkdir -p $out";
+    }
+  ];
 
-        ani-skip = prev.ani-skip.overrideAttrs (old: {
-          passthru.scriptName = "skip";
-        });
+  nixpkgs.overlays = [
+    (final: prev: {
+      firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
 
-        retroarch = prev.retroarch.withCores (
-          cores: with cores; [
-            gambatte
-            mgba
-            melonds
-            picodrive
-            pcsx-rearmed
-            pcsx2
-            ppsspp
-          ]
-        );
+      ani-skip = prev.ani-skip.overrideAttrs (old: {
+        passthru.scriptName = "skip";
+      });
 
-        speechd = prev.speechd.override {
-          withLibao = false;
-          withPulse = false;
-          withAlsa = false;
-          withOss = false;
-          withFlite = false;
-          withEspeak = false;
-          withPico = false;
-          libsOnly = true;
-        };
-      })
-    ];
-  };
+      retroarch = prev.retroarch.withCores (
+        cores: with cores; [
+          gambatte
+          mgba
+          melonds
+          picodrive
+          pcsx-rearmed
+          pcsx2
+          ppsspp
+        ]
+      );
+
+      speechd = prev.speechd.override {
+        withLibao = false;
+        withPulse = false;
+        withAlsa = false;
+        withOss = false;
+        withFlite = false;
+        withEspeak = false;
+        withPico = false;
+        libsOnly = true;
+      };
+    })
+  ];
 
   programs = {
+    adb.enable = true;
     uwsm = {
       enable = true;
       waylandCompositors.hyprland = {
@@ -184,6 +187,13 @@
   security = {
     polkit.enable = true;
     pam.services.hyprlock = { };
+
+    wrappers.btop = {
+      owner = "root";
+      group = "root";
+      source = "${pkgs.btop}/bin/btop";
+      capabilities = "cap_perfmon=+ep";
+    };
 
     rtkit.enable = true;
   };

@@ -10,6 +10,7 @@
           "Symbols Nerd Font"
           "Iosevka Term"
         ];
+        emoji = [ "Noto Emoji" ];
       };
       includeUserConf = false;
       antialias = true;
@@ -54,6 +55,7 @@
       liberation_ttf
       noto-fonts
       noto-fonts-cjk-sans
+      noto-fonts-monochrome-emoji
     ];
   };
 }

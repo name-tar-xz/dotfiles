@@ -20,6 +20,44 @@
     plugins = with pkgs.vimPlugins; [
       lazy-nvim
       nvim-lspconfig
+
+      (nvim-treesitter.withPlugins (
+        p: with p; [
+          # c, lua, markdown, query, vim, vimdoc installed by default
+          arduino
+          bash
+          css
+          git_config
+          git_rebase
+          gitattributes
+          gitcommit
+          gitignore
+          go
+          html
+          java
+          javascript
+          jsdoc
+          json
+          json5
+          jsonc
+          luap
+          markdown
+          markdown_inline
+          nix
+          python
+          regex
+          rust
+          svelte
+          toml
+          typescript
+          udev
+          vim
+          vimdoc
+          vue
+          yaml
+          xml
+        ]
+      ))
     ];
 
     extraLuaConfig =
@@ -57,65 +95,22 @@
 
           -- ts.lua
           treesitter = "${nvim-treesitter}",
-            treesitter_textobjects = "${nvim-treesitter-textobjects}",
-            treesitter_context = "${nvim-treesitter-context}",
-            matchup = "${vim-matchup}",
+          treesitter_textobjects = "${nvim-treesitter-textobjects}",
+          treesitter_context = "${nvim-treesitter-context}",
+          matchup = "${vim-matchup}",
           treesj = "${treesj}",
 
           -- ui.lua
           which_key = "${which-key-nvim}",
 
           noice = "${noice-nvim}",
-            nui = "${nui-nvim}",
+          nui = "${nui-nvim}",
           mini_files = "${mini-files}",
 
           gitsigns = "${gitsigns-nvim}",
           highlight_colors = "${nvim-highlight-colors}",
         }
         require("startup")
-        vim.opt.rtp:append("${
-          pkgs.symlinkJoin {
-            name = "treesitter";
-            paths =
-              (nvim-treesitter.withPlugins (
-                p: with p; [
-                  # c, lua, markdown, query, vim, vimdoc installed by default
-                  arduino
-                  bash
-                  css
-                  git_config
-                  git_rebase
-                  gitattributes
-                  gitcommit
-                  gitignore
-                  go
-                  html
-                  java
-                  javascript
-                  jsdoc
-                  json
-                  json5
-                  jsonc
-                  luap
-                  markdown
-                  markdown_inline
-                  nix
-                  python
-                  regex
-                  rust
-                  svelte
-                  toml
-                  typescript
-                  udev
-                  vim
-                  vimdoc
-                  vue
-                  yaml
-                  xml
-                ]
-              )).dependencies;
-          }
-        }")
       '';
 
     extraPackages = with pkgs; [

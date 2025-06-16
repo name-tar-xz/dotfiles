@@ -63,11 +63,11 @@
         "[workspace special:1 silent] kitty -1"
       ];
 
-      monitor = ",highres,auto,1.25,bitdepth,10";
+      monitor = ",preferred,auto,1.25,vrr,2";
 
       input = {
         kb_layout = "us";
-        kb_options = "caps:escape";
+        kb_options = "caps:swapescape,compose:ins";
         repeat_delay = 300;
         repeat_rate = 30;
         follow_mouse = 1;

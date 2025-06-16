@@ -146,9 +146,6 @@
         proc_per_core = true;
         proc_filter_kernel = true;
 
-        cpu_graph_upper = "user";
-        cpu_graph_lower = "system";
-
         net_sync = false;
         net_auto = false;
         net_download = 96;

@@ -47,6 +47,7 @@
         "wheel"
         "docker"
         "video"
+        "adbusers"
       ];
       shell = pkgs.dash;
     };
@@ -55,7 +56,7 @@
   nixpkgs.config.allowUnfree = true;
 
   nix = {
-    package = pkgs.lix;
+    package = pkgs.lixPackageSets.latest.lix;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings = {
       use-xdg-base-directories = true;

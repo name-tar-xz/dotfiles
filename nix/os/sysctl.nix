@@ -38,5 +38,6 @@
     "vm.page_lock_unfairness" = 1;
 
     "net.core.default_qdisc" = "cake";
+    "vm.overcommit_memory" = 1;
   };
 }

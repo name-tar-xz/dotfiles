@@ -12,7 +12,6 @@ return {
         noice = true,
         blink_cmp = true,
         snacks = true,
-        fzf = true,
         native_lsp = {
           enabled = true,
           virtual_text = {
@@ -34,7 +33,6 @@ return {
         dropbar = { enabled = true },
         headlines = true,
         lsp_trouble = true,
-        aerial = true,
         which_key = true,
       },
       color_overrides = {

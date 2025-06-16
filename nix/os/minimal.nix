@@ -15,6 +15,8 @@
 
   system.disableInstallerTools = true;
 
+  programs.command-not-found.enable = false;
+
   xdg = {
     sounds.enable = false;
     autostart.enable = lib.mkForce false;
