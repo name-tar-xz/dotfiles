@@ -29,7 +29,6 @@
     kernelParams = [
       "nvme.noacpi=1"
       "gather_data_sampling=off"
-      "mem_sleep_default=deep"
     ];
     supportedFilesystems = [ "bacachefs" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
