@@ -17,7 +17,7 @@
         home-manager.follows = "home-manager";
         flake-schemas.follows = "";
         jovian.follows = "";
-        fenix.follows = "";
+        rust-overlay.follows = "";
       };
     };
     home-manager = {
