@@ -8,7 +8,6 @@
   imports = with inputs; [
     home-manager.nixosModules.home-manager
     chaotic.nixosModules.default
-    lanzaboote.nixosModules.lanzaboote
     catppuccin.nixosModules.catppuccin
     sops-nix.nixosModules.sops
 
@@ -31,9 +30,11 @@
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
 
     loader.systemd-boot.enable = lib.mkForce false;
-    lanzaboote = {
+    loader.limine = {
       enable = true;
-      pkiBundle = "/etc/secureboot";
+      secureBoot.enable = true;
+      style.wallpapers = [ ];
+      extraConfig = "quiet: yes";
     };
   };
 

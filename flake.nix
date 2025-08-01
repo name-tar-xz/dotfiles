@@ -28,14 +28,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lanzaboote = {
-      url = "https://flakehub.com/f/nix-community/lanzaboote/*.tar.gz";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "";
-        pre-commit-hooks-nix.follows = "";
-      };
-    };
 
     catppuccin = {
       url = "github:catppuccin/nix";

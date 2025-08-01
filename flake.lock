@@ -63,21 +63,6 @@
         "type": "github"
       }
     },
-    "crane": {
-      "locked": {
-        "lastModified": 1731098351,
-        "narHash": "sha256-HQkYvKvaLQqNa10KEFGgWHfMAbWBfFp+4cAgkut+NNE=",
-        "owner": "ipetkov",
-        "repo": "crane",
-        "rev": "ef80ead953c1b28316cc3f8613904edc2eb90c28",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ipetkov",
-        "repo": "crane",
-        "type": "github"
-      }
-    },
     "csshacks": {
       "flake": false,
       "locked": {
@@ -95,27 +80,6 @@
       }
     },
     "flake-parts": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "lanzaboote",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1730504689,
-        "narHash": "sha256-hgmguH29K2fvs9szpq2r3pz2/8cJd2LPS+b4tfNFCwE=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "506278e768c2a08bec68eb62932193e341f55c90",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
           "neovim-nightly-overlay",
@@ -156,34 +120,10 @@
         "type": "github"
       }
     },
-    "lanzaboote": {
-      "inputs": {
-        "crane": "crane",
-        "flake-compat": [],
-        "flake-parts": "flake-parts",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "pre-commit-hooks-nix": [],
-        "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "lastModified": 1737639419,
-        "narHash": "sha256-AEEDktApTEZ5PZXNDkry2YV2k6t0dTgLPEmAZbnigXU=",
-        "rev": "a65905a09e2c43ff63be8c0e86a93712361f871e",
-        "revCount": 791,
-        "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/nix-community/lanzaboote/0.4.2/01949372-110f-7d80-bfd1-fa6214820f8b/source.tar.gz?rev=a65905a09e2c43ff63be8c0e86a93712361f871e&revCount=791"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://flakehub.com/f/nix-community/lanzaboote/%2A.tar.gz"
-      }
-    },
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-compat": [],
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts",
         "git-hooks": [],
         "hercules-ci-effects": [],
         "neovim-src": "neovim-src",
@@ -245,31 +185,9 @@
         "chaotic": "chaotic",
         "csshacks": "csshacks",
         "home-manager": "home-manager",
-        "lanzaboote": "lanzaboote",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs",
         "sops-nix": "sops-nix"
-      }
-    },
-    "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "lanzaboote",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1731897198,
-        "narHash": "sha256-Ou7vLETSKwmE/HRQz4cImXXJBr/k9gp4J4z/PF8LzTE=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "0be641045af6d8666c11c2c40e45ffc9667839b5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
       }
     },
     "sops-nix": {
