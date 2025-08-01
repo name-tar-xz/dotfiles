@@ -12,6 +12,7 @@
       cursor_underline_thickness = 2;
       cursor_blink_interval = -1;
       cursor_stop_blinking_after = 0;
+      cursor_trail = 1;
 
       scrollback_lines = -1;
       scrollback_pager = config.home.sessionVariables.PAGER;

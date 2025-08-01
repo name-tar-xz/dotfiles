@@ -113,14 +113,10 @@
     journald.extraConfig = "SystemMaxUse=100M";
   };
 
-  systemd = {
-    enableCgroupAccounting = true;
-
-    extraConfig = ''
-      DefaultTimeoutStopSec=10s
-      DefaultTimeoutStartSec=15s
-      DefaultLimitNOFILE=2048:2097152
-    '';
+  systemd.settings.Manager = {
+    DefaultTimeoutStopSec = "10s";
+    DefaultTimeoutStartSec = "15s";
+    DefaultLimitNOFILE = "2048:2097152";
   };
 
   security = {

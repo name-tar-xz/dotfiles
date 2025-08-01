@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   pkgs,
   inputs,
   ...
@@ -56,8 +57,6 @@
 
       # Games
       retroarch
-      lutris
-      umu-launcher
       ludusavi
     ];
 
@@ -70,7 +69,8 @@
       VISUAL = "nvim";
       PAGER = "less";
 
-      NIXOS_OZONE_WL = "1";
+      NIXOS_OZONE_WL = 1;
+      PROTON_USE_NTSYNC = 1;
 
       KDEHOME = "${config.xdg.configHome}/kde";
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
@@ -134,6 +134,11 @@
 
   programs = {
     home-manager.enable = true;
+    lutris = {
+      enable = true;
+      steamPackage = osConfig.programs.steam.package;
+      protonPackages = [ pkgs.proton-ge-bin ];
+    };
     mangohud.enable = true;
 
     ssh = {

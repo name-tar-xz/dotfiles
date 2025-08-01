@@ -57,7 +57,7 @@
 
     less = {
       enable = true;
-      keys = ''
+      config = ''
         #env
         LESS = --RAW-CONTROL-CHARS --quit-if-one-screen --mouse --ignore-case --LONG-PROMPT --quit-on-intr --tilde
         LESSUTFCHARDEF = E000-F8FF:p,F0000-FFFFD:p

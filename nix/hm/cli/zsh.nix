@@ -7,7 +7,7 @@
 {
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
 
     enableCompletion = true;
     autosuggestion.enable = true;
@@ -43,7 +43,7 @@
         export LS_COLORS="$(${pkgs.lib.getExe pkgs.vivid} generate catppuccin-mocha)"
 
         export MANROFFOPT="-c"
-        export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.lib.getExe pkgs.bat} --language=help --color=always -p'"
+        export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.lib.getExe pkgs.bat} --language=man --color=always -p'"
       '';
 
     initContent = lib.mkMerge [
@@ -89,14 +89,14 @@
         zle -N ctrlz
 
         ## Options section
-        setopt correct                                                  # Auto correct mistakes
-        setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
-        setopt nocaseglob                                               # Case insensitive globbing
-        setopt rcexpandparam                                            # Array expansion with parameters
-        setopt nocheckjobs                                              # Don't warn about running processes when exiting
-        setopt numericglobsort                                          # Sort filenames numerically when it makes sense
-        setopt nobeep                                                   # No beep
-        setopt appendhistory                                            # Immediately append history instead of overwriting
+        setopt correct         # Auto correct mistakes
+        setopt extendedglob    # Extended globbing. Allows using regular expressions with *
+        setopt nocaseglob      # Case insensitive globbing
+        setopt rcexpandparam   # Array expansion with parameters
+        setopt nocheckjobs     # Don't warn about running processes when exiting
+        setopt numericglobsort # Sort filenames numerically when it makes sense
+        setopt nobeep          # No beep
+        setopt appendhistory   # Immediately append history instead of overwriting
         setopt auto_pushd
         setopt pushd_ignore_dups
         setopt pushdminus
@@ -105,9 +105,9 @@
 
         bindkey '^Z' ctrlz
         bindkey '^O' lfcd
-        bindkey  "^[[H"   beginning-of-line
-        bindkey  "^[[F"   end-of-line
-        bindkey  "^[[3~"  delete-char
+        bindkey "^[[H" beginning-of-line
+        bindkey "^[[F" end-of-line
+        bindkey "^[[3~" delete-char
 
         autoload -U colors && colors # Load colors
       ''

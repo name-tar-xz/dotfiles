@@ -3,7 +3,7 @@
   programs = {
     steam = {
       enable = true;
-      extraCompatPackages = [ pkgs.proton-ge-custom ];
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
     };
     gamemode = {
       enable = true;

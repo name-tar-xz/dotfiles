@@ -20,7 +20,7 @@
       disable-history = false;
       case-sensitive = false;
       sidebar-mode = true;
-      matching = "fuzzy";
+      matching = "normal";
       sort = true;
       sorting-method = "fzf";
       scroll-method = 1;

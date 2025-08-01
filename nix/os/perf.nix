@@ -14,11 +14,14 @@
   };
 
   services = {
+    udev.extraRules = ''KERNEL=="ntsync", MODE="0660", TAG+="uaccess"'';
+
     bpftune.enable = true;
 
     scx = {
       enable = true;
-      scheduler = "scx_bpfland";
+      scheduler = "scx_lavd";
+      extraArgs = [ "--autopower" ];
       package = pkgs.scx.rustscheds;
     };
 

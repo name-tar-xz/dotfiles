@@ -51,7 +51,11 @@
 
           trusted_domains = [ "server.tailf29b7.ts.net" ];
         };
-      config.adminpassFile = config.sops.secrets.nextcloudpass.path;
+      config = {
+        adminpassFile = config.sops.secrets.nextcloudpass.path;
+        dbtype = "sqlite";
+      };
+      database.createLocally = true;
     };
 
     ntfy-sh = {

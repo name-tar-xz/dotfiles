@@ -150,7 +150,7 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${lib.getExe pkgs.greetd.tuigreet} --time --user-menu";
+          command = "${lib.getExe pkgs.tuigreet} --time --user-menu";
           user = "greeter";
         };
       };

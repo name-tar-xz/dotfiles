@@ -36,6 +36,7 @@
     # Gaming
     "vm.compaction_proactiveness" = 0;
     "vm.page_lock_unfairness" = 1;
+    "net.ipv4.tcp_fin_timeout" = 5;
 
     "net.core.default_qdisc" = "cake";
     "vm.overcommit_memory" = 1;
