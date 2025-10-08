@@ -26,8 +26,8 @@
       includeDefaultModules = false;
     };
     kernelParams = [ "nvme.noacpi=1" ];
-    supportedFilesystems = [ "bacachefs" ];
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
+    supportedFilesystems = [ "btrfs" ];
 
     loader.systemd-boot.enable = lib.mkForce false;
     loader.limine = {

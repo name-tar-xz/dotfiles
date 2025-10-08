@@ -22,9 +22,33 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/a0d7f68d-2293-4ce5-a2af-fa54f2e71c7d";
-      fsType = "bcachefs";
+      device = "/dev/disk/by-uuid/a04d27cd-3f57-474c-bf20-2aea77c8126c";
+      fsType = "btrfs";
       options = [
+        "subvol=@"
+        "compress=zstd"
+        "lazytime"
+        "noatime"
+      ];
+    };
+
+    "/home" = {
+      device = "/dev/disk/by-uuid/a04d27cd-3f57-474c-bf20-2aea77c8126c";
+      fsType = "btrfs";
+      options = [
+        "subvol=@home"
+        "compress=zstd"
+        "lazytime"
+        "noatime"
+      ];
+    };
+
+    "/nix" = {
+      device = "/dev/disk/by-uuid/a04d27cd-3f57-474c-bf20-2aea77c8126c";
+      fsType = "btrfs";
+      options = [
+        "subvol=@nix"
+        "compress=zstd"
         "lazytime"
         "noatime"
       ];
