@@ -1,7 +1,6 @@
 return {
   {
     "folke/which-key.nvim",
-    dir = P.which_key,
     event = "VeryLazy",
     opts = {
       icons = { group = "" },
@@ -28,7 +27,6 @@ return {
   },
   {
     "folke/noice.nvim",
-    dir = P.noice,
     event = "VeryLazy",
     opts = {
       lsp = {
@@ -45,11 +43,10 @@ return {
         lsp_doc_border = false, -- add a border to hover docs and signature help
       },
     },
-    dependencies = { "MunifTanjim/nui.nvim", dir = P.nui },
+    dependencies = { "MunifTanjim/nui.nvim" },
   },
   {
     "lewis6991/gitsigns.nvim",
-    dir = P.gitsigns,
     event = "VeryLazy",
     cond = not vim.o.diff,
     opts = {
@@ -71,7 +68,6 @@ return {
   },
   {
     "brenoprata10/nvim-highlight-colors",
-    dir = P.highlight_colors,
     event = "BufReadPre",
     cmd = "HighlightColors",
     opts = { enable_named_colors = false },

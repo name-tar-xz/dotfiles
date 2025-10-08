@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 {
-
   xdg.configFile = {
     "nixos/nix/hm/nvim/.runtime".source = "${config.programs.neovim.finalPackage}/share/nvim/runtime";
 
@@ -20,6 +19,52 @@
     plugins = with pkgs.vimPlugins; [
       lazy-nvim
       nvim-lspconfig
+
+      # init.lua
+      catppuccin-nvim
+      snacks-nvim
+      dial-nvim
+
+      # bars.lua
+      dropbar-nvim
+      heirline-nvim
+      mini-icons
+
+      # cmp.lua
+      friendly-snippets
+      blink-cmp
+
+      # lsp.lua
+      nvim-lint
+      conform-nvim
+      trouble-nvim
+
+      # mini.lua
+      mini-move
+      mini-surround
+      mini-ai
+      mini-bracketed
+
+      # move.lua
+      flash-nvim
+      nvim-spider
+
+      # ts.lua
+      nvim-treesitter
+      nvim-treesitter-textobjects
+      nvim-treesitter-context
+      vim-matchup
+      treesj
+
+      # ui.lua
+      which-key-nvim
+
+      noice-nvim
+      nui-nvim
+      mini-files
+
+      gitsigns-nvim
+      nvim-highlight-colors
 
       (nvim-treesitter.withPlugins (
         p: with p; [
@@ -63,54 +108,33 @@
     extraLuaConfig =
       with pkgs.vimPlugins; # lua
       ''
-        P = {
-          -- init.lua
-          catppuccin = "${catppuccin-nvim}",
-          snacks = "${snacks-nvim}",
-          dial = "${dial-nvim}",
+        vim.loader.enable()
+        require("options")
+        require("keybinds")
 
-          -- bars.lua
-          dropbar = "${dropbar-nvim}",
-          heirline = "${heirline-nvim}",
-          mini_icons = "${mini-icons}",
-
-          -- cmp.lua
-          friendly_snippets = "${friendly-snippets}",
-          blink = "${blink-cmp}",
-
-          -- lsp.lua
-          lint = "${nvim-lint}",
-          conform = "${conform-nvim}",
-          trouble = "${trouble-nvim}",
-
-          -- mini.lua
-          mini_move = "${mini-move}",
-          mini_surround = "${mini-surround}",
-          mini_ai = "${mini-ai}",
-          mini_bracketed = "${mini-bracketed}",
-
-          -- move.lua
-          flash = "${flash-nvim}",
-          spider = "${nvim-spider}",
-
-          -- ts.lua
-          treesitter = "${nvim-treesitter}",
-          treesitter_textobjects = "${nvim-treesitter-textobjects}",
-          treesitter_context = "${nvim-treesitter-context}",
-          matchup = "${vim-matchup}",
-          treesj = "${treesj}",
-
-          -- ui.lua
-          which_key = "${which-key-nvim}",
-
-          noice = "${noice-nvim}",
-          nui = "${nui-nvim}",
-          mini_files = "${mini-files}",
-
-          gitsigns = "${gitsigns-nvim}",
-          highlight_colors = "${nvim-highlight-colors}",
-        }
-        require("startup")
+        require("lazy").setup("plugins", {
+          defaults = { lazy = true },
+          install = { colorscheme = { "catppuccin" }, missing = false },
+          lockfile = nil,
+          rocks = { enabled = false },
+          dev = { path = "${pkgs.vimUtils.packDir config.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start", patterns = { "" } },
+          performance = {
+            reset_packpath = false,
+            rtp = {
+              reset = false,
+              disabled_plugins = {
+                "tohtml",
+                "gzip",
+                "zipPlugin",
+                "matchit",
+                "netrwPlugin",
+                "tarPlugin",
+                "tutor",
+              },
+            },
+          },
+          change_detection = { notify = false },
+        })
       '';
 
     extraPackages = with pkgs; [

@@ -1,7 +1,6 @@
 return {
   {
     "Bekaboo/dropbar.nvim",
-    dir = P.dropbar,
     event = "BufEnter",
     opts = {
       icons = {
@@ -11,9 +10,7 @@ return {
   },
   {
     "rebelot/heirline.nvim",
-    dir = P.heirline,
     dependencies = {
-      dir = P.mini_icons,
       "nvim-mini/mini.icons",
       config = function()
         require("mini.icons").setup({ extension = { css = { glyph = "" } } })

@@ -1,13 +1,11 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    dir = P.treesitter,
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-textobjects", dir = P.treesitter_textobjects },
-      { "nvim-treesitter/nvim-treesitter-context", dir = P.treesitter_context, opts = { max_lines = 3 } },
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "nvim-treesitter/nvim-treesitter-context", opts = { max_lines = 3 } },
       {
         "andymass/vim-matchup",
-        dir = P.matchup,
         config = function()
           vim.g.matchup_matchparen_offscreen = { method = "popup", syntax_hl = 1 }
           vim.g.matchup_transmute_enabled = 1
@@ -61,7 +59,6 @@ return {
   },
   {
     "Wansmer/treesj",
-    dir = P.treesj,
     keys = { { "gS", function() require("treesj").toggle() end, desc = "Treesitter Join" } },
     cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
     opts = { use_default_keymaps = false, max_join_length = 9999 },

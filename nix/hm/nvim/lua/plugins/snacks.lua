@@ -1,7 +1,6 @@
 ---@diagnostic disable: undefined-global
 return {
   "folke/snacks.nvim",
-  dir = P.snacks,
   priority = 1000,
   lazy = false,
 

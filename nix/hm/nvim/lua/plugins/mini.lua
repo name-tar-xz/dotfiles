@@ -1,6 +1,5 @@
 return {
   {
-    dir = P.mini_move,
     "nvim-mini/mini.move",
     keys = {
       { "<A-h>", mode = "n", desc = "Move line left" },
@@ -26,7 +25,6 @@ return {
     },
   },
   {
-    dir = P.mini_surround,
     "nvim-mini/mini.surround",
     keys = { { "gz", desc = "Surround" } },
     opts = {
@@ -44,7 +42,6 @@ return {
     },
   },
   {
-    dir = P.mini_files,
     "nvim-mini/mini.files",
     event = { "VimEnter */*,.*", "BufNew */*,.*" },
     keys = {
@@ -74,7 +71,6 @@ return {
     end,
   },
   {
-    dir = P.mini_ai,
     "nvim-mini/mini.ai",
     event = "VeryLazy",
     opts = function()
@@ -115,7 +111,6 @@ return {
     end,
   },
   {
-    dir = P.mini_bracketed,
     "nvim-mini/mini.bracketed",
     event = "VeryLazy",
     opts = {},

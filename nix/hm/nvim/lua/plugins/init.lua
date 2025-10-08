@@ -1,10 +1,9 @@
 return {
   {
     "catppuccin/nvim",
-    dir = P.catppuccin,
     name = "catppuccin",
     priority = 1000,
-    opts = {
+    config = require("catppuccin").setup({
       kitty = false,
       integrations = {
         treesitter_context = true,
@@ -56,12 +55,11 @@ return {
           }
         end,
       },
-    },
+    }),
     init = function() vim.cmd.colorscheme("catppuccin") end,
   },
   {
     "monaqa/dial.nvim",
-    dir = P.dial,
     keys = {
       { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
       { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },

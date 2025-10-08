@@ -1,8 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
-    dir = P.blink,
-    dependencies = { "rafamadriz/friendly-snippets", dir = P.friendly_snippets },
+    dependencies = { "rafamadriz/friendly-snippets" },
     event = { "InsertEnter", "CmdlineEnter" },
 
     opts = {

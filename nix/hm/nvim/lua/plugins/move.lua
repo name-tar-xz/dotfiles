@@ -1,7 +1,6 @@
 return {
   {
     "folke/flash.nvim",
-    dir = P.flash,
     event = "VeryLazy",
     opts = {
       jump = { autojump = true },
@@ -18,7 +17,6 @@ return {
   },
   {
     "chrisgrieser/nvim-spider",
-    dir = P.spider,
     keys = {
       { "w", function() require("spider").motion("w") end, mode = { "n", "x", "o" } },
       { "e", function() require("spider").motion("e") end, mode = { "n", "x", "o" } },

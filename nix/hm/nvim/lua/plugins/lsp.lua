@@ -1,7 +1,6 @@
 return {
   {
     "mfussenegger/nvim-lint",
-    dir = P.lint,
     cond = not vim.o.diff,
     main = "lint",
     event = { "BufReadPre", "BufNewFile" },
@@ -61,7 +60,6 @@ return {
   },
   {
     "stevearc/conform.nvim",
-    dir = P.conform,
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       formatters_by_ft = {
@@ -86,7 +84,6 @@ return {
   },
   {
     "folke/trouble.nvim",
-    dir = P.trouble,
     cmd = { "Trouble" },
     keys = {
       { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics" },
