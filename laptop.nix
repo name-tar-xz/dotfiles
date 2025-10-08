@@ -14,6 +14,7 @@
     ./nix/os/laptop-hardware.nix
     ./nix/os/common.nix
 
+    ./nix/os/intel.nix
     ./nix/os/nvidia.nix
     ./nix/os/games.nix
     ./nix/os/perf.nix
@@ -208,16 +209,7 @@
   hardware = {
     firmware = [ pkgs.linux-firmware ];
     enableRedistributableFirmware = false;
-    cpu.intel.updateMicrocode = true;
-
-    graphics = {
-      enable = true;
-      extraPackages = with pkgs; [
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        vpl-gpu-rt
-      ];
-      enable32Bit = true;
-    };
+    graphics.enable32Bit = true;
 
     bluetooth = {
       enable = true;
