@@ -96,7 +96,7 @@
       ssn = "shutdown now";
       rb = "reboot";
 
-      sudo = "sudo ";
+      sudo = "run0 ";
       wget = "wget -c --hsts-file='${config.xdg.dataHome}/wget-hsts'";
       adb = "HOME=${config.xdg.dataHome}/android adb";
       ".." = "cd ..";

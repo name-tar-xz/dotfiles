@@ -34,6 +34,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    run0-sudo-shim = {
+      url = "github:lordgrimmauld/run0-sudo-shim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-github-actions.follows = "";
+      inputs.treefmt-nix.follows = "";
+    };
+
     nvim-treesitter-main = {
       url = "github:iofq/nvim-treesitter-main";
       inputs.nixpkgs.follows = "nixpkgs";

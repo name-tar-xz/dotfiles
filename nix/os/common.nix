@@ -12,6 +12,7 @@
     ./network.nix
     ./time.nix
     ./sysctl.nix
+    inputs.run0-sudo-shim.nixosModules.default
   ];
 
   boot = {
@@ -71,6 +72,7 @@
 
   environment = {
     binsh = "${pkgs.lib.getExe pkgs.dash}";
+    systemPackages = [ pkgs.run0-sudo-shim ];
   };
 
   programs = {
@@ -119,13 +121,7 @@
     DefaultLimitNOFILE = "2048:2097152";
   };
 
-  security = {
-    sudo.enable = false;
-    sudo-rs = {
-      enable = true;
-      execWheelOnly = true;
-    };
-  };
+  security.sudo.enable = false;
 
   sops = {
     defaultSopsFile = ../secrets.yaml;
