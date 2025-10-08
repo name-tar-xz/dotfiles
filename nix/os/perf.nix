@@ -8,7 +8,28 @@
       "clocksource=tsc"
     ];
 
-    kernel.sysctl."vm.swappiness" = 180;
+    kernel = {
+      sysctl."vm.swappiness" = 180;
+      sysfs.kernel.mm = {
+        transparent_hugepage = {
+          enabled = "always";
+          defrag = "defer+madvise";
+          shmem_enabled = "advise";
+
+          khugepaged = {
+            scan_sleep_millisecs = 30000;
+            max_ptes_none = 409;
+          };
+        };
+
+        ksm = {
+          pages_to_scan = 1000;
+          sleep_millisecs = 4000;
+        };
+
+        lru_gen.enabled = 5;
+      };
+    };
 
     kernelModules = [ "ntsync" ];
   };
@@ -38,13 +59,6 @@
   };
 
   systemd.tmpfiles.rules = [
-    "w! /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"
-    "w! /sys/kernel/mm/transparent_hugepage/shmem_enabled - - - - advise"
-    "w! /sys/kernel/mm/lru_gen/enabled - - - - 5"
-    "w! /sys/kernel/mm/transparent_hugepage/khugepaged/scan_sleep_millisecs - - - - 30000"
-    "w! /sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none - - - - 409"
-    "w! /sys/kernel/mm/ksm/pages_to_scan - - - - 1000"
-    "w! /sys/kernel/mm/ksm/sleep_millisecs - - - - 4000"
     "w! /sys/class/rtc/rtc0/max_user_freq - - - - 3072"
   ];
 

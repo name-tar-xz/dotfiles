@@ -15,7 +15,6 @@
     "thunderbolt"
     "vmd"
     "nvme"
-    "rtsx_usb_sdmmc"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];

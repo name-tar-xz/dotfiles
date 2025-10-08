@@ -1,7 +1,7 @@
 return {
   {
-    "echasnovski/mini.move",
     dir = P.mini_move,
+    "nvim-mini/mini.move",
     keys = {
       { "<A-h>", mode = "n", desc = "Move line left" },
       { "<A-j>", mode = "n", desc = "Move line down" },
@@ -26,8 +26,8 @@ return {
     },
   },
   {
-    "echasnovski/mini.surround",
     dir = P.mini_surround,
+    "nvim-mini/mini.surround",
     keys = { { "gz", desc = "Surround" } },
     opts = {
       mappings = {
@@ -44,8 +44,8 @@ return {
     },
   },
   {
-    "echasnovski/mini.files",
     dir = P.mini_files,
+    "nvim-mini/mini.files",
     event = { "VimEnter */*,.*", "BufNew */*,.*" },
     keys = {
       {
@@ -74,14 +74,15 @@ return {
     end,
   },
   {
-    "echasnovski/mini.ai",
     dir = P.mini_ai,
+    "nvim-mini/mini.ai",
     event = "VeryLazy",
     opts = function()
       local spec = require("mini.ai").gen_spec
       local tss = spec.treesitter
 
       return {
+        mappings = { around_next = "at", inside_next = "it", around_last = "aT", inside_last = "iT" },
         custom_textobjects = {
           f = tss({ a = "@function.outer", i = "@function.inner" }),
           u = spec.function_call(), -- u for "Usage"
@@ -114,8 +115,8 @@ return {
     end,
   },
   {
-    "echasnovski/mini.bracketed",
     dir = P.mini_bracketed,
+    "nvim-mini/mini.bracketed",
     event = "VeryLazy",
     opts = {},
   },

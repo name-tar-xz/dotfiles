@@ -144,8 +144,10 @@
     ssh = {
       enable = true;
       package = pkgs.openssh_hpn;
-      controlMaster = "auto";
-      controlPersist = "yes";
+      matchBlocks."*" = {
+        controlMaster = "auto";
+        controlPersist = "yes";
+      };
       extraConfig = "Ciphers aes128-gcm@openssh.com,aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr";
     };
     gpg = {

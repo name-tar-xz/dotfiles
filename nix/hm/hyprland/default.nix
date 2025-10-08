@@ -81,9 +81,7 @@
         accel_profile = "adaptive";
       };
       gestures = {
-        workspace_swipe = true;
-        workspace_swipe_create_new = true;
-        workspace_swipe_forever = false;
+        gesture = "3, horizontal, workspace";
       };
 
       general = {
@@ -145,7 +143,7 @@
 
       xwayland.force_zero_scaling = true;
 
-      animations.first_launch_animation = false;
+      animation = [ "monitorAdded, 0" ];
 
       dwindle = {
         pseudotile = true;

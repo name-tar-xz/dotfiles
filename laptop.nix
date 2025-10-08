@@ -53,14 +53,6 @@
 
   system.replaceDependencies.replacements = [
     {
-      oldDependency = pkgs.rofi;
-      newDependency = (
-        pkgs.rofi-wayland.overrideAttrs (oldAttrs: {
-          name = "rofi-${pkgs.rofi-unwrapped.version}";
-        })
-      );
-    }
-    {
       oldDependency = pkgs.networkmanager;
       newDependency = pkgs.runCommand "networkmanager-${pkgs.networkmanager.version}" { } "mkdir -p $out";
     }

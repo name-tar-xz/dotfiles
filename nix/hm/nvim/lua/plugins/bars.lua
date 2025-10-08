@@ -13,8 +13,8 @@ return {
     "rebelot/heirline.nvim",
     dir = P.heirline,
     dependencies = {
-      "echasnovski/mini.icons",
       dir = P.mini_icons,
+      "nvim-mini/mini.icons",
       config = function()
         require("mini.icons").setup({ extension = { css = { glyph = "" } } })
         ---@diagnostic disable-next-line: undefined-global
