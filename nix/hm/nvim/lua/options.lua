@@ -15,9 +15,8 @@ vim.o.cursorline = true -- Highlight the text line of the cursor
 vim.o.expandtab = true -- Enable the use of space in tab
 vim.o.fileencoding = "utf-8" -- File content encoding for the buffer
 vim.o.foldcolumn = "0"
-vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldlevel = 99
-vim.o.foldmethod = "expr"
+vim.o.foldmethod = "indent"
 vim.o.foldtext = ""
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 vim.o.history = 100 -- Number of commands to remember in a history table
@@ -93,4 +92,18 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking text",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
   callback = function() vim.hl.on_yank() end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = vim
+    .iter(vim.api.nvim_get_runtime_file("parser/*.so", true))
+    :map(function(v) return vim.treesitter.language.get_filetypes(v:match("([^/]+)%.so$")) end)
+    :flatten()
+    :totable(),
+  callback = function()
+    vim.treesitter.start()
+    vim.o.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.o.foldmethod = "expr"
+  end,
 })

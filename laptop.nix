@@ -60,6 +60,7 @@
   ];
 
   nixpkgs.overlays = [
+    inputs.nvim-treesitter-main.overlays.default
     (final: prev: {
       firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
 

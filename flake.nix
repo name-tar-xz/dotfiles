@@ -33,6 +33,12 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvim-treesitter-main = {
+      url = "github:iofq/nvim-treesitter-main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     /*
       ags = {
         url = "github:Aylur/ags";
