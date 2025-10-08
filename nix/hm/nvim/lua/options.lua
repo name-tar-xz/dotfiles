@@ -1,3 +1,5 @@
+require("vim._extui").enable({ enable = true })
+
 vim.opt.backspace:append("nostop") -- don't stop backspace at insert
 vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heutistic"] = true }) -- enable linematch diff algorithm
 vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "" })

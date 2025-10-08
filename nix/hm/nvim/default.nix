@@ -59,7 +59,6 @@
       # ui.lua
       which-key-nvim
 
-      noice-nvim
       nui-nvim
       mini-files
 
