@@ -46,10 +46,4 @@ return {
       { "<leader>gs", ":Gitsigns stage_hunk<CR>", desc = "Stage Git hunk", mode = { "n", "v" } },
     },
   },
-  {
-    "brenoprata10/nvim-highlight-colors",
-    event = "BufReadPre",
-    cmd = "HighlightColors",
-    opts = { enable_named_colors = false },
-  },
 }

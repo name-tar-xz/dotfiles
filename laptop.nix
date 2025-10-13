@@ -30,12 +30,17 @@
     kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
     supportedFilesystems = [ "btrfs" ];
 
-    loader.systemd-boot.enable = lib.mkForce false;
-    loader.limine = {
-      enable = true;
-      secureBoot.enable = true;
-      style.wallpapers = [ ];
-      extraConfig = "quiet: yes";
+    loader = {
+      systemd-boot.enable = lib.mkForce false;
+      limine = {
+        enable = true;
+        secureBoot.enable = true;
+        style.wallpapers = [ ];
+        extraConfig = ''
+          timeout: 1
+          quiet: yes
+        '';
+      };
     };
   };
 

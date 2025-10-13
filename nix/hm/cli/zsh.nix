@@ -38,6 +38,22 @@
 
     historySubstringSearch.enable = true;
 
+    setOptions = [
+      "correct" # Auto correct mistakes
+      "extendedglob" # Extended globbing. Allows using regular expressions with *
+      "nocaseglob" # Case insensitive globbing
+      "rcexpandparam" # Array expansion with parameters
+      "nocheckjobs" # Don't warn about running processes when exiting
+      "numericglobsort" # Sort filenames numerically when it makes sense
+      "nobeep" # No beep
+      "appendhistory" # Immediately append history instead of overwriting
+      "auto_pushd"
+      "pushd_ignore_dups"
+      "pushdminus"
+      "globdots"
+      "interactive_comments"
+    ];
+
     envExtra = # sh
       ''
         export LS_COLORS="$(${pkgs.lib.getExe pkgs.vivid} generate catppuccin-mocha)"
@@ -87,21 +103,6 @@
           fi
         }
         zle -N ctrlz
-
-        ## Options section
-        setopt correct         # Auto correct mistakes
-        setopt extendedglob    # Extended globbing. Allows using regular expressions with *
-        setopt nocaseglob      # Case insensitive globbing
-        setopt rcexpandparam   # Array expansion with parameters
-        setopt nocheckjobs     # Don't warn about running processes when exiting
-        setopt numericglobsort # Sort filenames numerically when it makes sense
-        setopt nobeep          # No beep
-        setopt appendhistory   # Immediately append history instead of overwriting
-        setopt auto_pushd
-        setopt pushd_ignore_dups
-        setopt pushdminus
-        setopt globdots
-        setopt interactive_comments
 
         bindkey '^Z' ctrlz
         bindkey '^O' lfcd

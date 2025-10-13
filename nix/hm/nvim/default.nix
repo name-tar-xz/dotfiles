@@ -49,22 +49,18 @@
       flash-nvim
       nvim-spider
 
+      # ui.lua
+      which-key-nvim
+      nui-nvim
+      mini-files
+      gitsigns-nvim
+      nvim-highlight-colors
+
       # ts.lua
-      nvim-treesitter
       nvim-treesitter-textobjects
       nvim-treesitter-context
       vim-matchup
       treesj
-
-      # ui.lua
-      which-key-nvim
-
-      nui-nvim
-      mini-files
-
-      gitsigns-nvim
-      nvim-highlight-colors
-
       (nvim-treesitter.withPlugins (
         p: with p; [
           # c, lua, markdown, query, vim, vimdoc installed by default
@@ -147,7 +143,7 @@
       astyle
       ## Nix
       nixd
-      nixfmt-rfc-style
+      nixfmt
       ## Shell
       shfmt
       shellcheck

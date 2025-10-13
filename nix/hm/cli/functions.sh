@@ -1,15 +1,4 @@
 #!/bin/sh
-#install package from repo
-inrp() {
-  pacman -S "$(pacman -Slq "$1" | fzf --preview "pacman -Si $1/{}")"
-}
-inlcl() {
-  pacman -Qq | fzf --preview "pacman -Qi {}"
-}
-pkgse() {
-  pacman -S "$(pacman -Ssq "$1" | fzf --preview "pacman -Si {}")"
-}
-
 extract() {
   if [ -z "$1" ]; then
     # display usage if no parameters given
@@ -19,18 +8,14 @@ extract() {
     for n in "$@"; do
       if [ -f "$n" ]; then
         case "${n%,}" in
-        *.cbt | *.tar.bz2 | *.tar.gz | *.tar.xz | *.tbz2 | *.tgz | *.txz | *.tar)
-          tar xvf "$n"
-          ;;
+        *.cbt | *.tar.bz2 | *.tar.gz | *.tar.xz | *.tbz2 | *.tgz | *.txz | *.tar) tar xvf "$n" ;;
         *.lzma) unlzma ./"$n" ;;
         *.bz2) bunzip2 ./"$n" ;;
         *.cbr | *.rar) unrar x -ad ./"$n" || unrar-free x -ad ./"$n" ;;
         *.gz) gunzip ./"$n" ;;
         *.cbz | *.epub | *.zip) unzip ./"$n" ;;
         *.z) uncompress ./"$n" ;;
-        *.7z | *.arj | *.cab | *.cb7 | *.chm | *.deb | *.dmg | *.iso | *.lzh | *.msi | *.pkg | *.rpm | *.udf | *.wim | *.xar)
-          7z x ./"$n"
-          ;;
+        *.7z | *.arj | *.cab | *.cb7 | *.chm | *.deb | *.dmg | *.iso | *.lzh | *.msi | *.pkg | *.rpm | *.udf | *.wim | *.xar) 7z x ./"$n" ;;
         *.xz) unxz ./"$n" ;;
         *.exe) cabextract ./"$n" ;;
         *.cpio) cpio -id <./"$n" ;;
