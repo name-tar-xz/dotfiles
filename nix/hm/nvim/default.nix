@@ -3,7 +3,6 @@
   xdg.configFile = {
     "nixos/nix/hm/nvim/.runtime".source = "${config.programs.neovim.finalPackage}/share/nvim/runtime";
 
-    "nvim/lua".source = ./lua;
     "nvim/after".source = ./after;
     "nvim/plugin".source = ./plugin;
   };
@@ -18,7 +17,6 @@
     withRuby = false;
 
     plugins = with pkgs.vimPlugins; [
-      lazy-nvim
       nvim-lspconfig
 
       # init.lua
@@ -98,36 +96,6 @@
         ]
       ))
     ];
-
-    extraLuaConfig =
-      with pkgs.vimPlugins; # lua
-      ''
-        vim.loader.enable()
-
-        require("lazy").setup("plugins", {
-          defaults = { lazy = true },
-          install = { colorscheme = { "catppuccin" }, missing = false },
-          lockfile = nil,
-          rocks = { enabled = false },
-          dev = { path = "${pkgs.vimUtils.packDir config.programs.neovim.finalPackage.passthru.packpathDirs}/pack/myNeovimPackages/start", patterns = { "" } },
-          performance = {
-            reset_packpath = false,
-            rtp = {
-              reset = false,
-              disabled_plugins = {
-                "tohtml",
-                "gzip",
-                "zipPlugin",
-                "matchit",
-                "netrwPlugin",
-                "tarPlugin",
-                "tutor",
-              },
-            },
-          },
-          change_detection = { notify = false },
-        })
-      '';
 
     extraPackages = with pkgs; [
       # Formatter, LSP, Linters

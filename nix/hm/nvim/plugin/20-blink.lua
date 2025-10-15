@@ -1,9 +1,7 @@
-return {
-  {
-    "saghen/blink.cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
-
-    opts = {
+vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
+  once = true,
+  callback = function()
+    require("blink.cmp").setup({
       appearance = { nerd_font_variant = "mono" },
 
       cmdline = { completion = { menu = { auto_show = true } } },
@@ -28,6 +26,6 @@ return {
       },
 
       signature = { enabled = true },
-    },
-  },
-}
+    })
+  end,
+})

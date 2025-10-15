@@ -1,6 +1,14 @@
 vim.loader.enable()
 require("vim._extui").enable({ enable = true })
 
+vim.g.loaded_2html_plugin = true
+vim.g.loaded_gzip = 1
+vim.g.loaded_matchit = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_tutor_mode_plugin = 1
+vim.g.loaded_zipPlugin = 1
+
 vim.opt.backspace:append("nostop") -- don't stop backspace at insert
 vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heutistic"] = true }) -- enable linematch diff algorithm
 vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "" })
