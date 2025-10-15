@@ -5,6 +5,7 @@
 
     "nvim/lua".source = ./lua;
     "nvim/after".source = ./after;
+    "nvim/plugin".source = ./plugin;
   };
 
   programs.neovim = {
@@ -102,8 +103,6 @@
       with pkgs.vimPlugins; # lua
       ''
         vim.loader.enable()
-        require("options")
-        require("keybinds")
 
         require("lazy").setup("plugins", {
           defaults = { lazy = true },

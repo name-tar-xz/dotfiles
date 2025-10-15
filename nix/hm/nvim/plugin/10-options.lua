@@ -1,3 +1,4 @@
+vim.loader.enable()
 require("vim._extui").enable({ enable = true })
 
 vim.opt.backspace:append("nostop") -- don't stop backspace at insert
