@@ -1,13 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
   "runtime.version": "LuaJIT",
-  "diagnostics.globals": [
-    "vim"
-  ],
+  "diagnostics.globals": ["vim"],
   "workspace": {
     "checkThirdParty": false,
-    "library": [
-      ".runtime"
-    ]
+    "ignoreSubmodules": true,
+    "library": [".runtime"]
   }
 }

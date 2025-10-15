@@ -15,14 +15,4 @@ return {
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },
-  {
-    "chrisgrieser/nvim-spider",
-    keys = {
-      { "w", function() require("spider").motion("w") end, mode = { "n", "x", "o" } },
-      { "e", function() require("spider").motion("e") end, mode = { "n", "x", "o" } },
-      { "b", function() require("spider").motion("b") end, mode = { "n", "x", "o" } },
-      { "ge", function() require("spider").motion("ge") end, mode = { "n", "x", "o" } },
-    },
-    opts = {},
-  },
 }

@@ -82,7 +82,7 @@ return {
         -- Same goes for the highlight. Now the background will change according to the current mode.
         hl = function(self)
           local mode = self.mode:sub(1, 1) -- get only the first mode character
-          return { bg = self.mode_colors[mode], fg = "bright_bg", bold = true }
+          return { bg = self.mode_colors[mode], bold = true }
         end,
         -- Re-evaluate the component only on ModeChanged event!
         -- Also allows the statusline to be re-evaluated when entering operator-pending mode
@@ -102,7 +102,7 @@ return {
         end,
 
         provider = function(self) return " " .. self.status_dict.head .. "  " end,
-        hl = { bold = true, fg = "purple", bg = "bright_bg" },
+        hl = { bold = true, fg = "purple" },
       }
 
       local FileIcon = {
@@ -112,7 +112,7 @@ return {
           self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
         end,
         provider = function(self) return self.icon and (self.icon .. " ") end,
-        hl = function(self) return { fg = self.icon_color, bg = "bright_bg" } end,
+        hl = function(self) return { fg = self.icon_color } end,
       }
 
       local FileType = {
@@ -132,11 +132,10 @@ return {
           local i = math.floor((math.log(fsize) / math.log(1024)))
           return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
         end,
-        hl = { fg = "orange", bg = "bright_bg" },
+        hl = { fg = "orange" },
       }
 
       local FileFlags = {
-        hl = { bg = "bright_bg" },
         {
           condition = function() return vim.bo.modified end,
           provider = " ",
@@ -150,7 +149,6 @@ return {
       }
 
       local Diagnostics = {
-
         condition = conditions.has_diagnostics,
 
         static = {
@@ -174,19 +172,19 @@ return {
             -- 0 is just another output, we can decide to print it or not!
             return self.errors > 0 and (" " .. self.error_icon .. self.errors)
           end,
-          hl = { bg = "bright_bg", fg = "red" },
+          hl = { fg = "red" },
         },
         {
           provider = function(self) return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings) end,
-          hl = { bg = "bright_bg", fg = "yellow" },
+          hl = { fg = "yellow" },
         },
         {
           provider = function(self) return self.info > 0 and (" " .. self.info_icon .. self.info) end,
-          hl = { bg = "bright_bg", fg = "azure" },
+          hl = { fg = "azure" },
         },
         {
           provider = function(self) return self.hints > 0 and (" " .. self.hint_icon .. self.hints) end,
-          hl = { bg = "bright_bg", fg = "teal" },
+          hl = { fg = "teal" },
         },
       }
 
@@ -198,7 +196,7 @@ return {
           self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
         end,
 
-        hl = { fg = "orange", bg = "bright_bg" },
+        hl = { fg = "orange" },
         {
           provider = function(self)
             local count = self.status_dict.added or 0
@@ -267,12 +265,12 @@ return {
         {
           provider = function()
             local names = {}
-            for i, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+            for _, server in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
               table.insert(names, server.name)
             end
             return " " .. table.concat(names, " ")
           end,
-          hl = { fg = "green", bg = "bright_bg" },
+          hl = { fg = "green" },
         },
       }
 
@@ -296,7 +294,7 @@ return {
           local i = math.floor((curr_line - 1) / lines * #self.sbar) + 1
           return string.rep(self.sbar[i], 2)
         end,
-        hl = { fg = "light_blue", bg = "bright_bg" },
+        hl = { fg = "light_blue" },
       }
 
       require("heirline").setup({
@@ -321,6 +319,8 @@ return {
 
           Align,
           Space(2),
+          LSPProgress,
+          Space(1),
           LSPActive,
           { condition = conditions.lsp_attached, Space(2) },
           Ruler,
@@ -328,6 +328,7 @@ return {
           ScrollBar,
           Space(2),
           ViMode,
+          hl = { bg = "bright_bg" },
         },
         -- winbar = WinBar,
         -- tabline = TabLine,

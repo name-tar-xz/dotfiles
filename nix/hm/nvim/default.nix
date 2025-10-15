@@ -37,7 +37,6 @@
       # lsp.lua
       nvim-lint
       conform-nvim
-      trouble-nvim
 
       # mini.lua
       mini-move
@@ -47,7 +46,6 @@
 
       # move.lua
       flash-nvim
-      nvim-spider
 
       # ui.lua
       which-key-nvim

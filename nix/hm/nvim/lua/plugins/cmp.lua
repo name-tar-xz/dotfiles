@@ -1,7 +1,6 @@
 return {
   {
     "saghen/blink.cmp",
-    dependencies = { "rafamadriz/friendly-snippets" },
     event = { "InsertEnter", "CmdlineEnter" },
 
     opts = {
@@ -19,7 +18,7 @@ return {
 
         menu = {
           border = "rounded",
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+          winhighlight = "Normal:Pmenu,FloatBorder:PmenuBorder,CursorLine:PmenuSel,Search:None",
           draw = { treesitter = { "lsp" } },
         },
 
