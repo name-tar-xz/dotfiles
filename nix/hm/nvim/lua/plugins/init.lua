@@ -5,35 +5,32 @@ return {
     priority = 1000,
     config = require("catppuccin").setup({
       kitty = false,
+      float = { solid = true },
+      default_integrations = false,
+
       integrations = {
-        treesitter_context = true,
-        mini = { enabled = true, indentscope_color = "blue" },
-        noice = true,
-        blink_cmp = true,
-        snacks = true,
-        native_lsp = {
-          enabled = true,
-          virtual_text = {
-            errors = { "italic" },
-            hints = { "italic" },
-            warnings = { "italic" },
-            information = { "italic" },
-          },
-          underlines = {
-            errors = { "undercurl" },
-            hints = { "undercurl" },
-            warnings = { "undercurl" },
-            information = { "undercurl" },
-          },
-          inlay_hints = {
-            background = false,
-          },
-        },
-        dropbar = { enabled = true },
-        headlines = true,
+        blink_cmp = { enabled = true, style = "bordered" },
+        dropbar = true,
+        flash = true,
+        gitsigns = true,
         lsp_trouble = true,
+        mini = true,
+        snacks = true,
+        treesitter_context = true,
         which_key = true,
       },
+
+      lsp_styles = {
+        underlines = {
+          errors = { "undercurl" },
+          hints = { "undercurl" },
+          warnings = { "undercurl" },
+          information = { "undercurl" },
+          ok = { "undercurl" },
+        },
+        inlay_hints = { background = false },
+      },
+
       color_overrides = {
         mocha = {
           base = "#000000",
@@ -41,17 +38,17 @@ return {
           crust = "#020202",
         },
       },
+
       highlight_overrides = {
         all = function(colors)
           return {
             Normal = { bg = "NONE" },
             NormalNC = { bg = "NONE" },
-            Visual = { bg = colors.surface0, style = nil },
+            Visual = { style = {} },
             Folded = { bg = colors.mantle },
-            TreesitterContextBottom = { style = nil },
-            SnacksPickerBorder = { bg = colors.mantle, fg = colors.mantle },
-            SnacksPickerInputBorder = { bg = colors.mantle, fg = colors.blue },
-            SnacksPickerTitle = { link = "IncSearch" },
+            TreesitterContextBottom = { style = {} },
+            PmenuBorder = { bg = colors.mantle, fg = colors.blue },
+            SnacksPickerInputBorder = { link = "PmenuBorder" },
           }
         end,
       },
