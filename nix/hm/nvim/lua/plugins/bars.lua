@@ -34,6 +34,7 @@ return {
         teal = utils.get_highlight("MiniIconsCyan").fg,
 
         bright_bg = utils.get_highlight("NormalFloat").bg,
+        dark_fg = utils.get_highlight("LineNr").fg,
         light_blue = utils.get_highlight("Operator").fg,
       }
 
@@ -241,6 +242,20 @@ return {
         update = {
           "RecordingEnter",
           "RecordingLeave",
+        },
+      }
+
+      local LSPProgress = {
+        condition = conditions.lsp_attached,
+        update = { "LspProgress", callback = vim.schedule_wrap(function() vim.cmd("redrawstatus") end) },
+        {
+          provider = function()
+            local val = vim.lsp.status()
+            if val ~= "" then
+              return "[" .. val .. "]"
+            end
+          end,
+          hl = { fg = "dark_fg", italic = true },
         },
       }
 
