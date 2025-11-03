@@ -32,10 +32,13 @@
       enable = true;
       extraOptions = [
         "-a"
+        "--color-scale"
+        "--color-scale-mode=fixed"
+        "--follow-symlinks"
+        "--git"
         "--group-directories-first"
         "--icons=auto"
         "--smart-group"
-        "--git"
       ];
     };
 
@@ -57,9 +60,18 @@
 
     less = {
       enable = true;
+      options = {
+        LONG-PROMPT = true;
+        RAW-CONTROL-CHARS = true;
+        ignore-case = true;
+        mouse = true;
+        quiet = true;
+        quit-if-one-screen = true;
+        quit-on-intr = true;
+        tilde = true;
+      };
       config = ''
         #env
-        LESS = --RAW-CONTROL-CHARS --quit-if-one-screen --mouse --ignore-case --LONG-PROMPT --quit-on-intr --tilde
         LESSUTFCHARDEF = E000-F8FF:p,F0000-FFFFD:p
         LESSHISTFILE = ${config.xdg.cacheHome}/less/history
       '';

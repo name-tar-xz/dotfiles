@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     ani-cli
     ani-skip
-    aria
+    aria2
   ];
   programs = {
     mpv = {

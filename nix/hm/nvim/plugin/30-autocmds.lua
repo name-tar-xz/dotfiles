@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("CursorHold", {
   group = vim.api.nvim_create_augroup("diagnostic", { clear = true }),
-  callback = function() vim.diagnostic.open_float({ scope = "cursor", focus_id = "no" }) end,
+  callback = function() vim.diagnostic.open_float({ scope = "cursor", focusable = false }) end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {

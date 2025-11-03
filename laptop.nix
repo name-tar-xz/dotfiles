@@ -177,8 +177,8 @@
 
   systemd = {
     sockets.rfkill.enable = false;
+    suppressedSystemUnits = [ "systemd-backlight@.service" ];
     services = {
-      "systemd-backlight@".enable = false;
       "mount-pstore".enable = false;
       audit.enable = false;
       rfkill.enable = false;

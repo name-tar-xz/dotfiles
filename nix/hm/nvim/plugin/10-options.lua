@@ -1,7 +1,7 @@
 vim.loader.enable()
 require("vim._extui").enable({ enable = true })
 
-vim.g.loaded_2html_plugin = true
+vim.g.loaded_2html_plugin = 1
 vim.g.loaded_gzip = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_netrw = 1
@@ -111,6 +111,7 @@ vim.diagnostic.config({
     scope = "cursor",
     severity_sort = true,
     source = false,
+    focusable = false,
   },
   jump = { on_jump = function() vim.diagnostic.open_float({ scope = "cursor" }) end },
   signs = {

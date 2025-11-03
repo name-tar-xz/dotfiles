@@ -1,36 +1,44 @@
 { config, ... }:
 {
-  programs.git = {
-    enable = true;
-    userName = "tarzst";
-    userEmail = "git.3myp3@slmail.me";
-    signing = {
-      key = "DA1AE234F1953A10F6078E9B9E604C53FBEFE1D9";
-      signByDefault = true;
-    };
-    aliases = {
-      lg = "log --graph";
-      history = "log -p";
-    };
-    extraConfig = {
-      log = {
-        decorate = true;
-        initialDecorationSet = "all";
-        date = "human";
+  programs = {
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "tarzst";
+          email = "git.3myp3@slmail.me";
+          signingKey = "DA1AE234F1953A10F6078E9B9E604C53FBEFE1D9";
+        };
+
+        commit.gpgSign = true;
+        tag.gpgSign = true;
+
+        alias = {
+          lg = "log --graph";
+          history = "log -p";
+        };
+
+        log = {
+          decorate = true;
+          initialDecorationSet = "all";
+          date = "human";
+        };
+
+        init.defaultBranch = "master";
+        merge.conflictstyle = "diff3";
+
+        diff = {
+          tool = "vimdiff";
+          colorMoved = "default";
+        };
+        difftool.prompt = false;
       };
 
-      init.defaultBranch = "master";
-      merge.conflictstyle = "diff3";
-
-      diff = {
-        tool = "vimdiff";
-        colorMoved = "default";
-      };
-      difftool.prompt = false;
+      lfs.enable = true;
     };
-    lfs.enable = true;
     delta = {
       enable = true;
+      enableGitIntegration = true;
       options = {
         navigate = true;
         features = "decorations";
