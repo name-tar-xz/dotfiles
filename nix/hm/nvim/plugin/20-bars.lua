@@ -1,11 +1,7 @@
-vim.api.nvim_create_autocmd("UIEnter", {
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   once = true,
   callback = function()
     require("dropbar").setup({ icons = { ui = { bar = { separator = "  ", extends = "…" }, menu = { separator = "", indicator = " " } } } })
-
-    require("mini.icons").setup({ extension = { css = { glyph = "" } } })
-    ---@diagnostic disable-next-line: undefined-global
-    MiniIcons.mock_nvim_web_devicons()
 
     local conditions = require("heirline.conditions")
     local utils = require("heirline.utils")
@@ -315,7 +311,7 @@ vim.api.nvim_create_autocmd("UIEnter", {
         ScrollBar,
         Space(2),
         ViMode,
-        hl = { bg = "bright_bg" },
+        hl = { bg = colors.bright_bg },
       },
       -- winbar = WinBar,
       -- tabline = TabLine,

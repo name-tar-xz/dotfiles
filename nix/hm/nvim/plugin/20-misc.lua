@@ -1,4 +1,4 @@
-vim.api.nvim_create_autocmd("UIEnter", {
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   once = true,
   callback = function()
     vim.cmd.packadd("nvim.undotree")
@@ -20,10 +20,12 @@ vim.api.nvim_create_autocmd("UIEnter", {
 
     require("flash").setup({
       jump = { autojump = true },
-      modes = { char = { jump_labels = true } },
+      modes = { char = { jump_labels = true }, search = { enabled = true } },
       prompt = { enabled = false },
     })
 
     require("treesj").setup({ use_default_keymaps = false, max_join_length = 9999 })
+
+    require("treesitter-context").setup({ max_lines = 3 })
   end,
 })

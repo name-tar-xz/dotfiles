@@ -1,4 +1,4 @@
-vim.api.nvim_create_autocmd("UIEnter", {
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   once = true,
   callback = function()
     require("mini.move").setup()
@@ -52,4 +52,19 @@ vim.api.nvim_create_autocmd("UIEnter", {
       },
     })
   end,
+})
+
+vim.schedule(function()
+  require("mini.files").setup({
+    windows = {
+      preview = true,
+      width_preview = 50,
+    },
+  })
+end)
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "MiniFilesActionRename",
+  group = vim.api.nvim_create_augroup("rename", { clear = true }),
+  callback = function(event) require("snacks").rename.on_rename_file(event.data.from, event.data.to) end,
 })
