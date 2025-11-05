@@ -1,5 +1,6 @@
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
   once = true,
+  group = vim.api.nvim_create_augroup("lint-format", { clear = true }),
   callback = function()
     if not vim.o.diff then
       require("lint").linters_by_ft = {

@@ -1,5 +1,6 @@
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   once = true,
+  group = vim.api.nvim_create_augroup("misc", { clear = true }),
   callback = function()
     vim.cmd.packadd("nvim.undotree")
     vim.cmd.packadd("vim-matchup")

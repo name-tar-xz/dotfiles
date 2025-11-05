@@ -1,5 +1,6 @@
 vim.api.nvim_create_autocmd("UIEnter", {
   once = true,
+  group = vim.api.nvim_create_augroup("icons", { clear = true }),
   callback = function()
     require("mini.icons").setup({ extension = { css = { glyph = "" } } })
     ---@diagnostic disable-next-line: undefined-global

@@ -1,5 +1,6 @@
 vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
   once = true,
+  group = vim.api.nvim_create_augroup("cmp", { clear = true }),
   callback = function()
     require("blink.cmp").setup({
       appearance = { nerd_font_variant = "mono" },

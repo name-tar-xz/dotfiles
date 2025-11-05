@@ -1,5 +1,6 @@
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   once = true,
+  group = vim.api.nvim_create_augroup("bars", { clear = true }),
   callback = function()
     require("dropbar").setup({ icons = { ui = { bar = { separator = "  ", extends = "…" }, menu = { separator = "", indicator = " " } } } })
 
