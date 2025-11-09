@@ -8,13 +8,9 @@
   imports = with inputs; [
     chaotic.nixosModules.default
     sops-nix.nixosModules.sops
-    ./nix/os
-    ./nix/os/server-hardware.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos-server;
-
-  networking.hostName = "server";
 
   users.users.root.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDjfC5kank8ZpPF5Jqq/Z8vev0oryX2nnzcPK4IYj38O git.3myp3@slmail.me"

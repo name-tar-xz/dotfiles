@@ -84,13 +84,19 @@
 
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs system; };
-          modules = [ ./laptop.nix ];
+          specialArgs = {
+            inherit inputs system;
+            hostname = "laptop";
+          };
+          modules = [ ./nix/os ];
         };
 
         server = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs system; };
-          modules = [ ./server.nix ];
+          specialArgs = {
+            inherit inputs system;
+            hostname = "server";
+          };
+          modules = [ ./nix/os ];
         };
       };
     };

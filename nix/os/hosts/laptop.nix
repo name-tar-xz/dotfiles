@@ -11,14 +11,11 @@
     catppuccin.nixosModules.catppuccin
     sops-nix.nixosModules.sops
 
-    ./nix/os
-    ./nix/os/laptop-hardware.nix
-
-    ./nix/os/intel.nix
-    ./nix/os/nvidia.nix
-    ./nix/os/games.nix
-    ./nix/os/perf.nix
-    ./nix/os/fonts.nix
+    ../intel.nix
+    ../nvidia.nix
+    ../games.nix
+    ../perf.nix
+    ../fonts.nix
   ];
 
   boot = {
@@ -46,13 +43,11 @@
 
   console.earlySetup = true;
 
-  networking.hostName = "laptop";
-
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bak";
-    users.tarxz = import ./home.nix;
+    users.tarxz = import ../../hm;
     extraSpecialArgs = { inherit inputs; };
     sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
   };

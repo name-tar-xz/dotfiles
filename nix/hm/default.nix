@@ -9,16 +9,16 @@
   imports = [
     inputs.catppuccin.homeModules.catppuccin
 
-    ./nix/hm/hyprland
-    ./nix/hm/theme
-    ./nix/hm/rofi
+    ./hyprland
+    ./theme
+    ./rofi
 
-    ./nix/hm/browser
-    ./nix/hm/kitty.nix
-    ./nix/hm/mpv.nix
+    ./browser
+    ./kitty.nix
+    ./mpv.nix
 
-    ./nix/hm/cli
-    ./nix/hm/nvim
+    ./cli
+    ./nvim
   ];
 
   catppuccin = {
@@ -37,8 +37,8 @@
         hash = "sha256-c0orDQO4hedh+xaNrovC0geh5iq2K+e+PZIL5abxnIk=";
       };
 
-      "npm/npmrc".source = ./nix/hm/config/npm/npmrc;
-      "python/pythonrc".source = ./nix/hm/config/python/pythonrc.py;
+      "npm/npmrc".source = ./config/npm/npmrc;
+      "python/pythonrc".source = ./config/python/pythonrc.py;
     };
   };
 
@@ -168,7 +168,7 @@
   };
 
   sops = {
-    defaultSopsFile = ./nix/secrets.yaml;
+    defaultSopsFile = ../secrets.yaml;
     age.keyFile = "/var/lib/age.txt";
 
     secrets.ssh.path = "/home/tarxz/.ssh/id_ed25519";

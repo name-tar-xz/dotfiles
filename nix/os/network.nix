@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  hostname,
+  ...
+}:
 {
   boot = {
     kernel.sysctl = {
@@ -71,6 +76,7 @@
   };
 
   networking = {
+    hostName = hostname;
     useNetworkd = true;
     wireless = {
       enable = true;

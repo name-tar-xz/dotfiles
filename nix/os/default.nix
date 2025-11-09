@@ -2,6 +2,7 @@
   config,
   pkgs,
   inputs,
+  hostname,
   ...
 }:
 {
@@ -13,6 +14,9 @@
     ./time.nix
     ./sysctl.nix
     inputs.run0-sudo-shim.nixosModules.default
+
+    ./hosts/${hostname}-hardware.nix
+    ./hosts/${hostname}.nix
   ];
 
   boot = {
