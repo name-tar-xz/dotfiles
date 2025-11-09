@@ -61,8 +61,6 @@
     ];
 
     sessionVariables = {
-      NH_FLAKE = "${config.xdg.configHome}/nixos";
-
       BROWSER = "firefox";
       SUDO_EDITOR = "nvim";
       EDITOR = "nvim";
@@ -124,10 +122,6 @@
       db = "dotbare";
       cat = "bat";
       nohup = "command rm nohup.out;nohup";
-
-      update = "nix flake update --flake ${config.home.sessionVariables.NH_FLAKE} --commit-lock-file && nh os boot";
-      switch = "nh os switch";
-      fast = "nh os test";
     };
     sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
   };

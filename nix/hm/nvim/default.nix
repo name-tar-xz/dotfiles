@@ -77,6 +77,7 @@
           json
           json5
           jsonc
+          just
           luap
           markdown
           markdown_inline

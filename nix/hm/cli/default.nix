@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     comma
     hyperfine
+    just
     jq
     onefetch
 
@@ -54,6 +55,7 @@
           "*.rasi:CSS"
           "*.jsonc:JSON"
           "*.norg:orgmode"
+          "justfile:make"
         ];
       };
     };
