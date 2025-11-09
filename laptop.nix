@@ -176,12 +176,10 @@
   };
 
   systemd = {
-    sockets.rfkill.enable = false;
+    enableEmergencyMode = false;
     suppressedSystemUnits = [ "systemd-backlight@.service" ];
     services = {
-      "mount-pstore".enable = false;
       audit.enable = false;
-      rfkill.enable = false;
 
       pci-latency = {
         enable = true;
@@ -197,9 +195,26 @@
     };
   };
 
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+    config = {
+      common.default = [ "gtk" ];
+      hyprland.default = [
+        "hyprland"
+        "gtk"
+      ];
+    };
+  };
+
   security = {
     polkit.enable = true;
     pam.services.hyprlock = { };
+    loginDefs.settings.UMASK = "022";
 
     wrappers.btop = {
       owner = "root";

@@ -16,7 +16,11 @@
   ];
 
   boot = {
-    tmp.useTmpfs = true;
+    kexec.enable = false;
+    tmp = {
+      useTmpfs = true;
+      tmpfsHugeMemoryPages = "within_size";
+    };
     loader = {
       timeout = 0;
       efi.canTouchEfiVariables = true;

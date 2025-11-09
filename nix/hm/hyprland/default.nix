@@ -36,21 +36,6 @@
     };
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
-    config = {
-      common.default = [ "gtk" ];
-      hyprland.default = [
-        "hyprland"
-        "gtk"
-      ];
-    };
-  };
-
   services.cliphist.enable = true;
 
   wayland.windowManager.hyprland = {
@@ -63,7 +48,7 @@
         "[workspace special:1 silent] kitty -1"
       ];
 
-      monitor = ",preferred,auto,1.25,vrr,2";
+      monitor = ",preferred,auto,1.25,vrr,2,cm,auto";
 
       input = {
         kb_layout = "us";

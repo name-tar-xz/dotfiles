@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   boot.enableContainers = false;
+  appstream.enable = false;
 
   environment = {
     defaultPackages = [ ];
@@ -11,6 +12,7 @@
     nixos.enable = false;
     info.enable = false;
     doc.enable = false;
+    man.man-db.enable = false;
   };
 
   system.disableInstallerTools = true;
