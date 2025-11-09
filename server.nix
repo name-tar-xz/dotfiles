@@ -8,8 +8,8 @@
   imports = with inputs; [
     chaotic.nixosModules.default
     sops-nix.nixosModules.sops
+    ./nix/os
     ./nix/os/server-hardware.nix
-    ./nix/os/common.nix
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos-server;

@@ -11,8 +11,8 @@
     catppuccin.nixosModules.catppuccin
     sops-nix.nixosModules.sops
 
+    ./nix/os
     ./nix/os/laptop-hardware.nix
-    ./nix/os/common.nix
 
     ./nix/os/intel.nix
     ./nix/os/nvidia.nix
