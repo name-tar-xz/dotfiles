@@ -12,6 +12,8 @@
 
         commit.gpgSign = true;
         tag.gpgSign = true;
+        advice.statusHints = false;
+        help.autocorrect = 1;
 
         alias = {
           lg = "log --graph";
@@ -26,11 +28,19 @@
 
         init.defaultBranch = "master";
         merge.conflictstyle = "diff3";
+        status.showStash = true;
+
+        rebase = {
+          autoStash = true;
+          abbreviateCommands = true;
+        };
 
         diff = {
           tool = "vimdiff";
           colorMoved = "default";
+          renames = true;
         };
+
         difftool.prompt = false;
       };
 

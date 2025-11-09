@@ -126,8 +126,21 @@
     lazygit = {
       enable = true;
       settings = {
-        git.paging.pager = "delta --dark --paging=never";
+        notARepository = "skip";
+        update.method = "never";
+        git = {
+          pagers = [ { pager = "delta --dark --paging=never"; } ];
+          autoFetch = false;
+          autoRefresh = false;
+          overrideGpg = true;
+        };
         gui = {
+          showDivergenceFromBaseBranch = "arrowAndNumber";
+          showNumstatInFilesView = true;
+          statusPanelView = "allBranchesLog";
+          showCommandLog = false;
+          showBottomLine = false;
+          scrollPastBottom = false;
           showIcons = true;
           nerdFontsVersion = "3";
           theme = {
