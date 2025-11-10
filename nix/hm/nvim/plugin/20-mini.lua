@@ -3,7 +3,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   group = vim.api.nvim_create_augroup("mini", { clear = true }),
   callback = function()
     require("mini.move").setup()
-    require("mini.bracketed").setup()
 
     require("mini.surround").setup({
       mappings = {
@@ -55,14 +54,17 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   end,
 })
 
-vim.schedule(function()
-  require("mini.files").setup({
-    windows = {
-      preview = true,
-      width_preview = 50,
-    },
-  })
-end)
+vim.schedule(
+  function()
+    require("mini.files").setup({
+      windows = {
+        preview = true,
+        width_preview = 50,
+      },
+      mappings = { synchronize = "<leader>w" },
+    })
+  end
+)
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "MiniFilesActionRename",

@@ -41,7 +41,6 @@
       mini-move
       mini-surround
       mini-ai
-      mini-bracketed
 
       # move.lua
       flash-nvim

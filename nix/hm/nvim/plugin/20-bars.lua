@@ -1,25 +1,24 @@
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
+vim.api.nvim_create_autocmd("BufEnter", {
   once = true,
   group = vim.api.nvim_create_augroup("bars", { clear = true }),
   callback = function()
     require("dropbar").setup({ icons = { ui = { bar = { separator = "  ", extends = "…" }, menu = { separator = "", indicator = " " } } } })
 
-    local conditions = require("heirline.conditions")
-    local utils = require("heirline.utils")
+    local conditions, get_hl = require("heirline.conditions"), require("heirline.utils").get_highlight
 
     local colors = {
-      red = utils.get_highlight("MiniIconsRed").fg,
-      green = utils.get_highlight("MiniIconsGreen").fg,
-      purple = utils.get_highlight("MiniIconsPurple").fg,
-      yellow = utils.get_highlight("MiniIconsYellow").fg,
-      orange = utils.get_highlight("MiniIconsOrange").fg,
-      azure = utils.get_highlight("MiniIconsAzure").fg,
-      blue = utils.get_highlight("MiniIconsBlue").fg,
-      teal = utils.get_highlight("MiniIconsCyan").fg,
+      red = get_hl("MiniIconsRed").fg,
+      green = get_hl("MiniIconsGreen").fg,
+      purple = get_hl("MiniIconsPurple").fg,
+      yellow = get_hl("MiniIconsYellow").fg,
+      orange = get_hl("MiniIconsOrange").fg,
+      azure = get_hl("MiniIconsAzure").fg,
+      blue = get_hl("MiniIconsBlue").fg,
+      teal = get_hl("MiniIconsCyan").fg,
 
-      bright_bg = utils.get_highlight("NormalFloat").bg,
-      dark_fg = utils.get_highlight("LineNr").fg,
-      light_blue = utils.get_highlight("Operator").fg,
+      bright_bg = get_hl("NormalFloat").bg,
+      dark_fg = get_hl("LineNr").fg,
+      light_blue = get_hl("Operator").fg,
     }
 
     local Align = { provider = "%=" }
@@ -143,33 +142,19 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
       },
 
       init = function(self)
-        self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-        self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-        self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-        self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+        local count = vim.diagnostic.count(0)
+        self.errors = count[vim.diagnostic.severity.ERROR]
+        self.warnings = count[vim.diagnostic.severity.WARN]
+        self.hints = count[vim.diagnostic.severity.HINT]
+        self.info = count[vim.diagnostic.severity.INFO]
       end,
 
       update = { "DiagnosticChanged", "BufEnter" },
 
-      {
-        provider = function(self)
-          -- 0 is just another output, we can decide to print it or not!
-          return self.errors > 0 and (" " .. self.error_icon .. self.errors)
-        end,
-        hl = { fg = "red" },
-      },
-      {
-        provider = function(self) return self.warnings > 0 and (" " .. self.warn_icon .. self.warnings) end,
-        hl = { fg = "yellow" },
-      },
-      {
-        provider = function(self) return self.info > 0 and (" " .. self.info_icon .. self.info) end,
-        hl = { fg = "azure" },
-      },
-      {
-        provider = function(self) return self.hints > 0 and (" " .. self.hint_icon .. self.hints) end,
-        hl = { fg = "teal" },
-      },
+      { provider = function(self) return self.errors and (" " .. self.error_icon .. self.errors) end, hl = { fg = "red" } },
+      { provider = function(self) return self.warnings and (" " .. self.warn_icon .. self.warnings) end, hl = { fg = "yellow" } },
+      { provider = function(self) return self.info and (" " .. self.info_icon .. self.info) end, hl = { fg = "azure" } },
+      { provider = function(self) return self.hints and (" " .. self.hint_icon .. self.hints) end, hl = { fg = "teal" } },
     }
 
     local GitChange = {

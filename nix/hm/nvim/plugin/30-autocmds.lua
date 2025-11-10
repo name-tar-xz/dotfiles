@@ -9,13 +9,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 vim.api.nvim_create_autocmd("LspProgress", {
-  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-  callback = function(ev)
+  callback = function(args)
     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-    vim.notify(vim.lsp.status(), "info", {
+    vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
       id = "lsp_progress",
       title = "LSP Progress",
-      opts = function(notif) notif.icon = ev.data.params.value.kind == "end" and " " or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1] end,
+      opts = function(notif) notif.icon = args.data.params.value.kind == "end" and " " or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1] end,
     })
   end,
 })
@@ -29,9 +28,9 @@ vim.api.nvim_create_autocmd("FileType", {
     :totable(),
   callback = function()
     vim.treesitter.start()
-    vim.o.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    vim.o.foldmethod = "expr"
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.wo.foldmethod = "expr"
   end,
 })
 
@@ -50,14 +49,14 @@ vim.api.nvim_create_autocmd("FileType", {
     "qf",
     "tsplayground",
   },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
+  callback = function(args)
+    vim.bo[args.buf].buflisted = false
     vim.schedule(function()
       vim.keymap.set("n", "q", function()
         vim.cmd("close")
-        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+        pcall(vim.api.nvim_buf_delete, args.buf, { force = true })
       end, {
-        buffer = event.buf,
+        buffer = args.buf,
         silent = true,
         desc = "Quit buffer",
       })

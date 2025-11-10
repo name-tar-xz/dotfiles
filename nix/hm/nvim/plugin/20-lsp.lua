@@ -31,10 +31,18 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         arduino = { "astyle" },
         toml = { "taplo" },
         go = { "goimports", "gofumpt" },
+
+        ["_"] = { lsp_format = "prefer" },
         ["*"] = { "injected" },
       },
+
+      default_format_opts = {
+        lsp_format = "fallback",
+        async = true,
+        quiet = true,
+      },
+
       format_on_save = {
-        lsp_fallback = true,
         async = false,
         quiet = true,
         timeout_ms = 500,

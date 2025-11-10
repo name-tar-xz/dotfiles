@@ -131,7 +131,7 @@ vim.keymap.set("n", "gri", function() Snacks.picker.lsp_implementations() end, {
 vim.keymap.set("n", "gry", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" })
 vim.keymap.set("n", "grN", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
 
-if vim.o.scrolloff ~= 999 then
+if vim.o.scrolloff ~= 1e3 then
   vim.keymap.set("n", "<C-D>", "<C-D>zz")
   vim.keymap.set("n", "<C-U>", "<C-U>zz")
   vim.keymap.set("n", "n", "nzz")

@@ -3,7 +3,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   group = vim.api.nvim_create_augroup("misc", { clear = true }),
   callback = function()
     vim.cmd.packadd("nvim.undotree")
-    vim.cmd.packadd("vim-matchup")
+
     vim.g.matchup_matchparen_offscreen = { method = "popup", syntax_hl = 1, border = "none" }
     vim.g.matchup_transmute_enabled = 1
 
@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
       prompt = { enabled = false },
     })
 
-    require("treesj").setup({ use_default_keymaps = false, max_join_length = 9999 })
+    require("treesj").setup({ use_default_keymaps = false, max_join_length = math.huge })
 
     require("treesitter-context").setup({ max_lines = 3 })
   end,

@@ -12,6 +12,7 @@ vim.g.loaded_zipPlugin = 1
 vim.opt.backspace:append("nostop") -- don't stop backspace at insert
 vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heutistic"] = true }) -- enable linematch diff algorithm
 vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "" })
+vim.opt.formatoptions:append({ c = false, ["/"] = true, n = true, p = true })
 vim.opt.shortmess:append({ s = true, I = true, a = true, W = true, A = true, S = true }) -- disable search count wrap and startup messages
 vim.opt.viewoptions:remove("curdir") -- disable saving current directory with views
 vim.opt.completeopt = { "menu", "menuone", "popup", "noinsert", "fuzzy" } -- Options for insert mode completion
@@ -34,11 +35,11 @@ vim.o.cursorline = true -- Highlight the text line of the cursor
 vim.o.expandtab = true -- Enable the use of space in tab
 vim.o.fileencoding = "utf-8" -- File content encoding for the buffer
 vim.o.foldcolumn = "0"
-vim.o.foldlevel = 99
+vim.o.foldlevel = 1e2
 vim.o.foldmethod = "indent"
 vim.o.foldtext = ""
 vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-vim.o.history = 100 -- Number of commands to remember in a history table
+vim.o.history = 1e3 -- Number of commands to remember in a history table
 vim.o.hlsearch = true
 vim.o.ignorecase = true -- Case insensitive searching
 vim.o.inccommand = "split"
@@ -53,7 +54,7 @@ vim.o.preserveindent = true -- Preserve indent structure as much as possible
 vim.o.pumheight = 10 -- Height of the pop up menu
 vim.o.relativenumber = true -- Show relative numberline
 vim.o.ruler = false
-vim.o.scrolloff = 999 -- Number of lines to keep above and below the cursor
+vim.o.scrolloff = 1e3 -- Number of lines to keep above and below the cursor
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
 vim.o.shell = "/usr/bin/env zsh"
 vim.o.shiftround = true
@@ -75,7 +76,7 @@ vim.o.timeoutlen = 300 -- Length of time to wait for a mapped sequence
 vim.o.title = true
 vim.o.titlestring = " %t"
 vim.o.undofile = true -- Enable persistent undo
-vim.o.undolevels = 10000
+vim.o.undolevels = 1e5
 vim.o.updatetime = 200 -- Length of time to wait before triggering the plugin
 vim.o.virtualedit = "block"
 vim.o.winborder = "solid"
