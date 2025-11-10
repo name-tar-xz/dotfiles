@@ -73,18 +73,6 @@
         installPhase = old.installPhase + "sed 's/sudo //g' -i $out/bin/rofi-systemd";
       });
 
-      retroarch = prev.retroarch.withCores (
-        cores: with cores; [
-          gambatte
-          mgba
-          melonds
-          picodrive
-          pcsx-rearmed
-          pcsx2
-          ppsspp
-        ]
-      );
-
       speechd = prev.speechd.override {
         withLibao = false;
         withPulse = false;
