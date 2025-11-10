@@ -7,6 +7,7 @@
 }:
 {
   imports = [
+    ./harden.nix
     ./minimal.nix
     ./network.nix
     ./power.nix
@@ -21,7 +22,6 @@
   ];
 
   boot = {
-    kexec.enable = false;
     tmp = {
       useTmpfs = true;
       tmpfsHugeMemoryPages = "within_size";

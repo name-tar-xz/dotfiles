@@ -9,7 +9,6 @@
     "kernel.nmi_watchdog" = 0;
     "kernel.unprivileged_userns_clone" = 1;
     "kernel.printk" = "3 3 3 3";
-    "kernel.kptr_restrict" = 2;
     "kernel.kexec_load_disabled" = 1;
     "net.core.netdev_max_backlog" = 4096;
     "net.ipv4.tcp_ecn" = 1;
@@ -25,14 +24,6 @@
     "kernel.unprivileged_bpf_disabled" = 1;
     "net.core.busy_poll" = 50;
     "net.core.busy_read" = 50;
-    "net.ipv4.conf.all.accept_redirects" = 0;
-    "net.ipv6.conf.all.accept_redirects" = 0;
-    "net.ipv4.conf.all.secure_redirects" = 0;
-    "net.ipv4.conf.all.send_redirects" = 0;
-    "net.ipv4.conf.default.accept_redirects" = 0;
-    "net.ipv6.conf.default.accept_redirects" = 0;
-    "net.ipv4.conf.default.secure_redirects" = 0;
-    "net.ipv4.conf.default.send_redirects" = 0;
     # Gaming
     "vm.compaction_proactiveness" = 0;
     "vm.page_lock_unfairness" = 1;
