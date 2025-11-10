@@ -79,16 +79,21 @@
 
   networking = {
     hostName = hostname;
+
     useNetworkd = true;
-    wireless = {
+    resolvconf.enable = false;
+
+    wireless.iwd = {
       enable = true;
-      allowAuxiliaryImperativeNetworks = true;
-      userControlled.enable = true;
-      extraConfig = ''
-        country=IN
-        p2p_disabled=1
-        mac_addr=1
-      '';
+      settings = {
+        General = {
+          AddressRandomization = "network";
+          DisableANQP = false;
+          Country = "IN";
+        };
+        Network.NameResolvingService = "none";
+        Scan.DisablePeriodicScan = true;
+      };
     };
 
     firewall = {

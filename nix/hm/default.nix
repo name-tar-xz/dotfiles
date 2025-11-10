@@ -47,7 +47,7 @@
     homeDirectory = "/home/tarxz";
     packages = with pkgs; [
       sops
-      wpa_supplicant_gui # Wifi
+      iwgtk # Wifi
       overskride # Bluetooth
       # Audio
       qpwgraph
