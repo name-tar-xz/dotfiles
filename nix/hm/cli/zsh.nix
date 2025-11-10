@@ -47,8 +47,6 @@
 
     envExtra = # sh
       ''
-        export LS_COLORS="$(${pkgs.lib.getExe pkgs.vivid} generate catppuccin-mocha)"
-
         export MANROFFOPT="-c"
         export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.lib.getExe pkgs.bat} --language=man --color=always -p'"
       '';

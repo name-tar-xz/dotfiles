@@ -108,7 +108,6 @@
       cp = "cp -i";
       mv = "mv -i";
       diff = "delta";
-      cd = "z";
       getenv = "printenv|rg -i";
       clear = "clear -T xterm";
       cls = "clear -T xterm";

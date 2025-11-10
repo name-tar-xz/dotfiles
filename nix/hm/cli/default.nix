@@ -32,6 +32,12 @@
   };
 
   programs = {
+    vivid = {
+      enable = true;
+      activeTheme = "catppuccin-mocha";
+      enableZshIntegration = true;
+    };
+
     eza = {
       enable = true;
       extraOptions = [
@@ -70,6 +76,7 @@
         RAW-CONTROL-CHARS = true;
         ignore-case = true;
         mouse = true;
+        no-vbell = true;
         quiet = true;
         quit-if-one-screen = true;
         quit-on-intr = true;
@@ -123,6 +130,10 @@
 
     zoxide = {
       enable = true;
+      options = [
+        "--cmd"
+        "cd"
+      ];
       enableZshIntegration = true;
     };
 
