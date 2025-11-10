@@ -227,20 +227,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
       },
     }
 
-    local LSPProgress = {
-      condition = conditions.lsp_attached,
-      update = { "LspProgress", callback = vim.schedule_wrap(function() vim.cmd("redrawstatus") end) },
-      {
-        provider = function()
-          local val = vim.lsp.status()
-          if val ~= "" then
-            return "[" .. val .. "]"
-          end
-        end,
-        hl = { fg = "dark_fg", italic = true },
-      },
-    }
-
     local LSPActive = {
       condition = conditions.lsp_attached,
       update = { "LspAttach", "LspDetach" },
@@ -303,8 +289,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
 
         Align,
         Space(2),
-        LSPProgress,
-        Space(1),
         LSPActive,
         { condition = conditions.lsp_attached, Space(2) },
         Ruler,
