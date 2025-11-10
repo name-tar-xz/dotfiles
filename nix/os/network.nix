@@ -49,15 +49,17 @@
           };
         };
 
-        listeners.local-udp = {
-          address = "127.0.0.1:53";
-          protocol = "udp";
-          resolver = "cached";
-        };
-        listeners.local-tcp = {
-          address = "127.0.0.1:53";
-          protocol = "tcp";
-          resolver = "cached";
+        listeners = {
+          local-udp = {
+            address = "127.0.0.1:53";
+            protocol = "udp";
+            resolver = "cached";
+          };
+          local-tcp = {
+            address = "127.0.0.1:53";
+            protocol = "tcp";
+            resolver = "cached";
+          };
         };
       };
     };
@@ -129,7 +131,6 @@
       file = (pkgs.formats.toml { }).generate "routedns.toml" config.services.routedns.settings;
       path = "/etc/routedns.toml";
       mode = "0444";
-
     };
     secrets.nextdns.mode = "0444";
   };

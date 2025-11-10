@@ -17,6 +17,8 @@
 
   system.disableInstallerTools = true;
 
+  services.userborn.enable = true;
+
   programs.command-not-found.enable = false;
 
   xdg = {

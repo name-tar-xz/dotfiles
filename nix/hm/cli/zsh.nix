@@ -90,7 +90,7 @@
 
       # sh
       ''
-        source ~/.config/sh/functions.sh
+        source ${./functions.sh}
         zle -N lfcd
 
         ctrlz() {

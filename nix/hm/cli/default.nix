@@ -1,7 +1,5 @@
 { pkgs, config, ... }:
 {
-  xdg.configFile."sh/functions.sh".source = ./functions.sh;
-
   home.packages = with pkgs; [
     comma
     hyperfine

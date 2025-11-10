@@ -36,9 +36,11 @@
 
     run0-sudo-shim = {
       url = "github:lordgrimmauld/run0-sudo-shim";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nix-github-actions.follows = "";
-      inputs.treefmt-nix.follows = "";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix-github-actions.follows = "";
+        treefmt-nix.follows = "";
+      };
     };
 
     neovim-nightly-overlay = {

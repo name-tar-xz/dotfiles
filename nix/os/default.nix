@@ -7,12 +7,13 @@
 }:
 {
   imports = [
-    ./power.nix
     ./minimal.nix
-    ./syncthing.nix
     ./network.nix
-    ./time.nix
+    ./power.nix
+    ./syncthing.nix
     ./sysctl.nix
+    ./time.nix
+
     inputs.run0-sudo-shim.nixosModules.default
 
     ./hosts/${hostname}-hardware.nix
@@ -114,7 +115,6 @@
   };
 
   services = {
-    userborn.enable = true;
     tailscale = {
       enable = true;
       authKeyFile = config.sops.secrets.tailscale.path;
