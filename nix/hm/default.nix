@@ -21,10 +21,7 @@
     ./nvim
   ];
 
-  catppuccin = {
-    flavor = "mocha";
-    btop.enable = true;
-  };
+  catppuccin.flavor = "mocha";
 
   xdg = {
     enable = true;

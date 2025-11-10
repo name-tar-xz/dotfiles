@@ -5,6 +5,8 @@
   ...
 }:
 {
+  catppuccin.zsh-syntax-highlighting.enable = true;
+
   programs.zsh = {
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
@@ -23,18 +25,7 @@
       ignoreAllDups = true;
     };
 
-    syntaxHighlighting = {
-      enable = true;
-      highlighters = [
-        "main"
-        "brackets"
-      ];
-      styles = {
-        path = "fg=magenta,underline";
-        single-hyphen-option = "fg=cyan";
-        double-hyphen-option = "fg=cyan";
-      };
-    };
+    syntaxHighlighting.enable = true; # overwriting highlighters in initContent to work around catppuccin
 
     historySubstringSearch.enable = true;
 
@@ -112,6 +103,8 @@
 
         autoload -U colors && colors # Load colors
       ''
+
+      (lib.mkAfter "ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)")
     ];
   };
 }
