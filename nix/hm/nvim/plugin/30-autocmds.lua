@@ -5,7 +5,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("lsp", { clear = true }),
-  callback = function() vim.lsp.inlay_hint.enable(true) end,
+  callback = function(args)
+    vim.lsp.inlay_hint.enable(true)
+
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client:supports_method("textDocument/codeLens") then
+      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        buffer = args.buf,
+        callback = vim.lsp.codelens.refresh,
+      })
+    end
+  end,
 })
 
 vim.api.nvim_create_autocmd("LspProgress", {

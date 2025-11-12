@@ -1,14 +1,13 @@
 return {
   settings = {
     Lua = {
-      completion = {
-        callSnippet = "Replace",
-      },
+      completion = { callSnippet = "Replace" },
+      codeLens = { enable = true },
+      format = { enable = false },
       hint = {
         enable = true,
         setType = false,
         paramType = true,
-        paramName = "Disable",
         semicolon = "Disable",
         arrayIndex = "Disable",
       },
