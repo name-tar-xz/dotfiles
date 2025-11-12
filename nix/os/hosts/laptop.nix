@@ -163,18 +163,6 @@
     suppressedSystemUnits = [ "systemd-backlight@.service" ];
     services = {
       audit.enable = false;
-
-      pci-latency = {
-        enable = true;
-        description = "PCI Latency";
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig.Type = "oneshot";
-        script = ''
-          ${lib.getExe' pkgs.pciutils "setpci"} -v -s '*:*' latency_timer=20
-          ${lib.getExe' pkgs.pciutils "setpci"} -v -s '0:0' latency_timer=0
-          ${lib.getExe' pkgs.pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
-        '';
-      };
     };
   };
 

@@ -10,9 +10,8 @@
     ./harden.nix
     ./minimal.nix
     ./network.nix
-    ./power.nix
+    ./perf.nix
     ./syncthing.nix
-    ./sysctl.nix
     ./time.nix
 
     inputs.run0-sudo-shim.nixosModules.default
