@@ -21,6 +21,8 @@
       sysctl = {
         "dev.hpet.max-user-freq" = 3072;
         "fs.file-max" = 2097152;
+        "fs.inotify.max_user_instances" = 8192;
+        "fs.inotify.max_user_watches" = 524288;
         "kernel.core_pattern" = "/dev/null";
         "kernel.kexec_load_disabled" = 1;
         "kernel.nmi_watchdog" = 0;
@@ -36,8 +38,8 @@
         "net.ipv4.tcp_fin_timeout" = 5;
         "net.ipv4.tcp_slow_start_after_idle" = 0;
         "vm.compaction_proactiveness" = 0;
-        "vm.dirty_background_ratio" = 20;
-        "vm.dirty_ratio" = 50;
+        "vm.dirty_background_bytes" = 67108864;
+        "vm.dirty_bytes" = 268435456;
         "vm.dirty_writeback_centisecs" = 1500;
         "vm.extfrag_threshold" = 100;
         "vm.max_map_count" = 2147483642;
@@ -46,6 +48,8 @@
         "vm.page_lock_unfairness" = 1;
         "vm.swappiness" = 180;
         "vm.vfs_cache_pressure" = 50;
+        "vm.watermark_boost_factor" = 0;
+        "vm.watermark_scale_factor" = 125;
       };
 
       sysfs = {
@@ -78,8 +82,9 @@
   services = {
     udev.extraRules = # udev
       ''
+        SUBSYSTEM=="block", ACTION=="add|change", TEST=="queue/nr_requests", KERNEL=="nvme[0-9]*", ATTR{queue/nr_requests}="2048"
+
         # CachyOS
-        KERNEL=="ntsync", MODE="0660", TAG+="uaccess"
         # PCI runtime power management
         ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
 
@@ -161,9 +166,9 @@
   };
 
   hardware.block = {
-    defaultScheduler = "mq-deadline";
-    defaultSchedulerRotational = "bfq";
-    scheduler."nvme[0-9]*" = "none";
+    defaultScheduler = "adios";
+    defaultSchedulerRotational = "adios";
+    scheduler."nvme[0-9]*" = "adios";
   };
 
   zramSwap = {

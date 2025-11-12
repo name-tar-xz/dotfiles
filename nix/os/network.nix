@@ -63,19 +63,11 @@
         };
       };
     };
+
+    udev.extraRules = /* udev */ ''ACTION=="add", SUBSYSTEM=="net", KERNEL=="wl*", ATTR{mtu}="1492", ATTR{tx_queue_len}="2000"'';
   };
 
-  systemd.network = {
-    wait-online.enable = false;
-    links."30-wlan" = {
-      matchConfig.Type = "wlan";
-      linkConfig = {
-        MTUBytes = 1492;
-        TransmitQueueLength = 2000;
-        MACAddressPolicy = "random";
-      };
-    };
-  };
+  systemd.network.wait-online.enable = false;
 
   networking = {
     hostName = hostname;
