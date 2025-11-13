@@ -59,5 +59,19 @@
     protectKernelImage = true;
     lockKernelModules = true;
     loginDefs.settings.UMASK = "022";
+    pam.loginLimits = [
+      {
+        domain = "*";
+        type = "hard";
+        item = "core";
+        value = 0;
+      }
+      {
+        domain = "*";
+        type = "soft";
+        item = "core";
+        value = 0;
+      }
+    ];
   };
 }
