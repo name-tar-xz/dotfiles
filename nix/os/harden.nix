@@ -53,8 +53,11 @@
     };
   };
 
+  systemd.settings.Manager.DumpCore = false;
+
   security = {
     protectKernelImage = true;
     lockKernelModules = true;
+    loginDefs.settings.UMASK = "022";
   };
 }

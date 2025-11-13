@@ -153,16 +153,19 @@
     };
   };
 
-  systemd.services.pci-latency = {
-    enable = true;
-    description = "PCI Latency";
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "oneshot";
-    script = ''
-      ${lib.getExe' pkgs.pciutils "setpci"} -v -s '*:*' latency_timer=20
-      ${lib.getExe' pkgs.pciutils "setpci"} -v -s '0:0' latency_timer=0
-      ${lib.getExe' pkgs.pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
-    '';
+  systemd = {
+    settings.Manager.DefaultLimitNOFILE = "2048:2097152";
+    services.pci-latency = {
+      enable = true;
+      description = "PCI Latency";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        ${lib.getExe' pkgs.pciutils "setpci"} -v -s '*:*' latency_timer=20
+        ${lib.getExe' pkgs.pciutils "setpci"} -v -s '0:0' latency_timer=0
+        ${lib.getExe' pkgs.pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
+      '';
+    };
   };
 
   hardware.block = {

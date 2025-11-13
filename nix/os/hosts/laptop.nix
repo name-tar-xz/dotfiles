@@ -185,7 +185,6 @@
   security = {
     polkit.enable = true;
     pam.services.hyprlock = { };
-    loginDefs.settings.UMASK = "022";
 
     wrappers.btop = {
       owner = "root";

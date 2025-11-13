@@ -125,7 +125,6 @@
   systemd.settings.Manager = {
     DefaultTimeoutStopSec = "10s";
     DefaultTimeoutStartSec = "15s";
-    DefaultLimitNOFILE = "2048:2097152";
   };
 
   security.sudo.enable = false;
