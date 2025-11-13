@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   time = {
     timeZone = "Asia/Kolkata";
@@ -12,13 +12,25 @@
     chrony = {
       enable = true;
       enableNTS = true;
+      extraFlags = [ "-F1" ];
+      extraConfig = ''
+        minsources 3
+        authselectmode prefer
+        dscp 46
+        leapseclist ${pkgs.tzdata}/share/zoneinfo/leap-seconds.list
+        makestep 1.0 3
+        cmdport 0
+        noclientlog
+      ''; # https://github.com/GrapheneOS/infrastructure/blob/main/etc/chrony.conf
     };
   };
 
   networking.timeServers = [
-    "1.ntp.ubuntu.com"
-    "2.ntp.ubuntu.com"
-    "3.ntp.ubuntu.com"
-    "4.ntp.ubuntu.com"
+    "time.cloudflare.com"
+    "ntppool1.time.nl"
+    "nts.netnod.se"
+    "ptbtime1.ptb.de"
+    "time.dfm.dk"
+    "time.cifelli.xyz"
   ];
 }
