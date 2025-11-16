@@ -10,7 +10,7 @@
       {
         background = [
           {
-            path = "${./walls/windows-error.jpg}";
+            path = "${./.walls/windows-error.jpg}";
             blur_passes = 0;
             blur_size = 0;
           }
