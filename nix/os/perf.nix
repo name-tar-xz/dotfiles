@@ -65,10 +65,7 @@
             };
           };
 
-          ksm = {
-            pages_to_scan = 1000;
-            sleep_millisecs = 4000;
-          };
+          ksm.pages_to_scan = 1000;
 
           lru_gen.enabled = 5;
         };
@@ -155,16 +152,21 @@
 
   systemd = {
     settings.Manager.DefaultLimitNOFILE = "2048:2097152";
-    services.pci-latency = {
-      enable = true;
-      description = "PCI Latency";
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig.Type = "oneshot";
-      script = ''
-        ${lib.getExe' pkgs.pciutils "setpci"} -v -s '*:*' latency_timer=20
-        ${lib.getExe' pkgs.pciutils "setpci"} -v -s '0:0' latency_timer=0
-        ${lib.getExe' pkgs.pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
-      '';
+    services = {
+      "getty@".serviceConfig.MemoryKSM = true;
+      "user@".serviceConfig.MemoryKSM = true;
+
+      pci-latency = {
+        enable = true;
+        description = "PCI Latency";
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig.Type = "oneshot";
+        script = ''
+          ${lib.getExe' pkgs.pciutils "setpci"} -v -s '*:*' latency_timer=20
+          ${lib.getExe' pkgs.pciutils "setpci"} -v -s '0:0' latency_timer=0
+          ${lib.getExe' pkgs.pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
+        '';
+      };
     };
   };
 
@@ -183,10 +185,17 @@
     }
   ];
 
-  hardware.block = {
-    defaultScheduler = "adios";
-    defaultSchedulerRotational = "adios";
-    scheduler."nvme[0-9]*" = "adios";
+  hardware = {
+    block = {
+      defaultScheduler = "adios";
+      defaultSchedulerRotational = "adios";
+      scheduler."nvme[0-9]*" = "adios";
+    };
+
+    ksm = {
+      enable = true;
+      sleep = 4000;
+    };
   };
 
   zramSwap = {
