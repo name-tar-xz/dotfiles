@@ -41,6 +41,23 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
     vim.wo.foldmethod = "expr"
+
+    require("treesitter-context").setup({ max_lines = 3 })
+
+    vim.keymap.set({ "n", "x", "o" }, "]m", function() require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects") end)
+    vim.keymap.set({ "n", "x", "o" }, "]M", function() require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects") end)
+    vim.keymap.set({ "n", "x", "o" }, "[m", function() require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects") end)
+    vim.keymap.set({ "n", "x", "o" }, "[M", function() require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects") end)
+
+    vim.keymap.set({ "n", "x", "o" }, "]p", function() require("nvim-treesitter-textobjects.move").goto_next_start("@parameter.inner", "textobjects") end)
+    vim.keymap.set({ "n", "x", "o" }, "]P", function() require("nvim-treesitter-textobjects.move").goto_next_end("@parameter.inner", "textobjects") end)
+    vim.keymap.set({ "n", "x", "o" }, "[p", function() require("nvim-treesitter-textobjects.move").goto_previous_start("@parameter.inner", "textobjects") end)
+    vim.keymap.set({ "n", "x", "o" }, "[P", function() require("nvim-treesitter-textobjects.move").goto_previous_end("@parameter.inner", "textobjects") end)
+
+    vim.keymap.set({ "n", "x", "o" }, "]z", function() require("nvim-treesitter-textobjects.move").goto_next_start("@fold", "folds") end)
+    vim.keymap.set({ "n", "x", "o" }, "]Z", function() require("nvim-treesitter-textobjects.move").goto_next_end("@fold", "folds") end)
+    vim.keymap.set({ "n", "x", "o" }, "[z", function() require("nvim-treesitter-textobjects.move").goto_previous_start("@fold", "folds") end)
+    vim.keymap.set({ "n", "x", "o" }, "[Z", function() require("nvim-treesitter-textobjects.move").goto_previous_end("@fold", "folds") end)
   end,
 })
 

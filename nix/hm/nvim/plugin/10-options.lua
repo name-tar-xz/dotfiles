@@ -9,6 +9,9 @@ vim.g.loaded_tarPlugin = 1
 vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_zipPlugin = 1
 
+vim.g.mapleader = vim.keycode("<Space>") -- Set <Space> as the <Leader> key
+vim.g.maplocalleader = vim.keycode("<Space>")
+
 vim.opt.backspace:append("nostop") -- don't stop backspace at insert
 vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heutistic"] = true }) -- enable linematch diff algorithm
 vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "" })

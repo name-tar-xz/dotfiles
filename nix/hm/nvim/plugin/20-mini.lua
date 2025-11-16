@@ -54,17 +54,21 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
   end,
 })
 
-vim.schedule(
-  function()
-    require("mini.files").setup({
-      windows = {
-        preview = true,
-        width_preview = 50,
-      },
-      mappings = { synchronize = "<leader>w" },
-    })
-  end
-)
+vim.schedule(function()
+  require("mini.files").setup({
+    windows = {
+      preview = true,
+      width_preview = 50,
+    },
+    mappings = { synchronize = "<leader>w" },
+  })
+
+  vim.keymap.set("n", "<leader>e", function()
+    if not require("mini.files").close() then
+      require("mini.files").open()
+    end
+  end, { desc = "Open mini.files" })
+end)
 
 vim.api.nvim_create_autocmd("User", {
   pattern = "MiniFilesActionRename",
