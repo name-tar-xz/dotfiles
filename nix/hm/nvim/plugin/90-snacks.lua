@@ -10,9 +10,9 @@ require("snacks").setup({
     style = "minimal",
     top_down = false,
     icons = {
-      error = vim.diagnostic.config().signs.text[1],
-      warn = vim.diagnostic.config().signs.text[2],
-      info = vim.diagnostic.config().signs.text[3],
+      error = " ",
+      warn = " ",
+      info = " ",
     },
   },
 
@@ -26,10 +26,10 @@ require("snacks").setup({
     previewers = { git = { native = true } },
     icons = {
       diagnostics = {
-        Error = vim.diagnostic.config().signs.text[1],
-        Warn = vim.diagnostic.config().signs.text[2],
-        Hint = vim.diagnostic.config().signs.text[3],
-        Info = vim.diagnostic.config().signs.text[4],
+        Error = " ",
+        Warn = " ",
+        Info = " ",
+        Hint = " ",
       },
     },
 

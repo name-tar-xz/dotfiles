@@ -86,50 +86,52 @@ vim.o.winborder = "solid"
 vim.o.wrap = false -- Disable wrapping of lines longer than the width of window
 vim.o.writebackup = false -- Disable making a backup before overwriting a file
 
-vim.lsp.enable({
-  "arduino_language_server",
-  "basedpyright",
-  "biome",
-  "cssls",
-  "gopls",
-  "html",
-  "jsonls",
-  "lua_ls",
-  "nixd",
-  "ruff",
-  "tailwindcss",
-  "taplo",
-  "typos_lsp",
-  "vtsls",
-})
+vim.schedule(function()
+  vim.lsp.enable({
+    "arduino_language_server",
+    "basedpyright",
+    "biome",
+    "cssls",
+    "gopls",
+    "html",
+    "jsonls",
+    "lua_ls",
+    "nixd",
+    "ruff",
+    "tailwindcss",
+    "taplo",
+    "typos_lsp",
+    "vtsls",
+  })
 
-vim.diagnostic.config({
-  severity_sort = true,
-  virtual_text = {
-    source = false,
-    hl_mode = "combine",
-    virt_text_pos = "eol",
-  },
-  float = {
-    header = "",
-    scope = "cursor",
+  vim.diagnostic.config({
     severity_sort = true,
-    source = false,
-    focusable = false,
-  },
-  jump = { on_jump = function() vim.diagnostic.open_float({ scope = "cursor" }) end },
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = " ",
-      [vim.diagnostic.severity.WARN] = " ",
-      [vim.diagnostic.severity.INFO] = " ",
-      [vim.diagnostic.severity.HINT] = " ",
+    virtual_text = {
+      source = false,
+      hl_mode = "combine",
+      virt_text_pos = "eol",
     },
-    numhl = {
-      [vim.diagnostic.severity.ERROR] = "DiagnosticError",
-      [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
-      [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
-      [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+    float = {
+      header = "",
+      scope = "cursor",
+      severity_sort = true,
+      source = false,
+      focusable = false,
     },
-  },
-})
+    jump = { on_jump = function() vim.diagnostic.open_float({ scope = "cursor" }) end },
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = " ",
+        [vim.diagnostic.severity.WARN] = " ",
+        [vim.diagnostic.severity.INFO] = " ",
+        [vim.diagnostic.severity.HINT] = " ",
+      },
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = "DiagnosticError",
+        [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
+        [vim.diagnostic.severity.INFO] = "DiagnosticInfo",
+        [vim.diagnostic.severity.HINT] = "DiagnosticHint",
+      },
+    },
+  })
+end)

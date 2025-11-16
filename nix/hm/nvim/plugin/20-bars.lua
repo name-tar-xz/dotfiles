@@ -135,10 +135,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
       condition = conditions.has_diagnostics,
 
       static = {
-        error_icon = vim.diagnostic.config().signs.text[1],
-        warn_icon = vim.diagnostic.config().signs.text[2],
-        info_icon = vim.diagnostic.config().signs.text[3],
-        hint_icon = vim.diagnostic.config().signs.text[4],
+        error_icon = " ",
+        warn_icon = " ",
+        info_icon = " ",
+        hint_icon = " ",
       },
 
       init = function(self)
