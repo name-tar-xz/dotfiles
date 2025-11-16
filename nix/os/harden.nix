@@ -36,6 +36,7 @@
     kernel.sysctl = {
       "kernel.kptr_restrict" = 2;
       "kernel.ftrace_enabled" = false;
+      "kernel.sysrq" = 0;
 
       "net.ipv4.conf.all.accept_redirects" = 0;
       "net.ipv6.conf.all.accept_redirects" = 0;
@@ -50,6 +51,10 @@
       "net.ipv4.conf.all.rp_filter" = 1;
       "net.ipv4.conf.default.log_martians" = true;
       "net.ipv4.conf.default.rp_filter" = 1;
+
+      "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
+      "net.ipv4.conf.all.accept_source_route" = 0;
+      "net.ipv6.conf.all.accept_source_route" = 0;
     };
   };
 

@@ -17,7 +17,10 @@
 
   system.disableInstallerTools = true;
 
-  services.userborn.enable = true;
+  services = {
+    userborn.enable = true;
+    speechd.enable = false;
+  };
 
   programs.command-not-found.enable = false;
 

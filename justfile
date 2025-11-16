@@ -1,6 +1,7 @@
 set quiet := true
 
 alias up := update
+alias sw := switch
 
 export NH_FLAKE := justfile_directory()
 

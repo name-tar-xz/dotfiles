@@ -63,7 +63,12 @@
     inputs.neovim-nightly-overlay.overlays.default
     inputs.nvim-treesitter-main.overlays.default
     (final: prev: {
-      firefox = prev.firefox.override { cfg.speechSynthesisSupport = false; };
+      firefox = prev.firefox.override {
+        cfg = {
+          speechSynthesisSupport = false;
+          pipewireSupport = true;
+        };
+      };
 
       ani-skip = prev.ani-skip.overrideAttrs (old: {
         passthru.scriptName = "skip";
@@ -97,12 +102,6 @@
       };
     };
 
-    zsh = {
-      enable = true;
-      enableLsColors = false;
-      enableGlobalCompInit = false;
-      promptInit = "";
-    };
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -147,7 +146,7 @@
     };
 
     udisks2.enable = true;
-    fstrim.enable = false;
+    fstrim.enable = true;
 
     pipewire = {
       enable = true;
@@ -161,9 +160,7 @@
   systemd = {
     enableEmergencyMode = false;
     suppressedSystemUnits = [ "systemd-backlight@.service" ];
-    services = {
-      audit.enable = false;
-    };
+    services.audit.enable = false;
   };
 
   xdg.portal = {

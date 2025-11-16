@@ -162,10 +162,12 @@
     udiskie = {
       enable = true;
       settings = {
-        device_config = {
-          "- is_loop" = true;
-          ignore = true;
-        };
+        device_config = [
+          {
+            is_loop = true;
+            ignore = true;
+          }
+        ];
       };
     };
   };

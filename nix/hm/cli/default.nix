@@ -4,14 +4,13 @@
     comma
     hyperfine
     just
-    jq
+    jaq
     onefetch
 
     ## File Management
     rmtrash
     trash-cli
 
-    bash-completion
     zsh-completions
   ];
 
@@ -91,6 +90,10 @@
 
     fd = {
       enable = true;
+      extraOptions = [
+        "--follow"
+        "--prune"
+      ];
       ignores = [
         "Games"
         "Public/cfg"

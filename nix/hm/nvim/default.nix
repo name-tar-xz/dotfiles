@@ -109,6 +109,7 @@
       ## Nix
       nixd
       nixfmt
+      statix
       ## Shell
       shfmt
       shellcheck

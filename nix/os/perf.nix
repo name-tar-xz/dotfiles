@@ -33,7 +33,7 @@
         "net.core.busy_poll" = 50;
         "net.core.busy_read" = 50;
         "net.core.default_qdisc" = "cake";
-        "net.core.netdev_max_backlog" = 4096;
+        "net.ipv4.tcp_congestion_control" = "bbr";
         "net.ipv4.tcp_ecn" = 1;
         "net.ipv4.tcp_fin_timeout" = 5;
         "net.ipv4.tcp_slow_start_after_idle" = 0;

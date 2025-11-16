@@ -5,13 +5,7 @@
   ...
 }:
 {
-  boot = {
-    kernel.sysctl = {
-      "net.core.rmem_max" = 8388608;
-      "net.core.wmem_max" = 8388608;
-    };
-    extraModprobeConfig = "options cfg80211 ieee80211_regdom=IN";
-  };
+  boot.extraModprobeConfig = "options cfg80211 ieee80211_regdom=IN";
 
   services = {
     resolved.enable = false;

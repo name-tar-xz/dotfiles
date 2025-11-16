@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   hostname,
   ...
@@ -41,7 +42,7 @@
     kernelParams = [
       "quiet"
       "systemd.show_status=auto"
-      "udev.log_level=3"
+      "rd.udev.log_level=3"
     ];
   };
 
@@ -66,7 +67,10 @@
 
   nix = {
     package = pkgs.lixPackageSets.latest.lix;
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    registry = lib.mapAttrs (_: v: { flake = v; }) (
+      lib.filterAttrs (_: v: lib.isType "flake" v) inputs
+    );
+    nixPath = lib.mapAttrsToList (k: _: "${k}=flake:${k}") config.nix.registry;
     settings = {
       use-xdg-base-directories = true;
       experimental-features = [
@@ -81,6 +85,7 @@
   environment = {
     binsh = "${pkgs.lib.getExe pkgs.dash}";
     systemPackages = [ pkgs.run0-sudo-shim ];
+    pathsToLink = [ "/share/zsh" ];
   };
 
   programs = {
