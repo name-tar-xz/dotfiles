@@ -53,14 +53,12 @@
 
     theme = {
       name = "catppuccin-mocha-mauve-compact+black";
-      package = (
-        pkgs.catppuccin-gtk.override {
+      package = pkgs.catppuccin-gtk.override {
           accents = [ "mauve" ];
           size = "compact";
           tweaks = [ "black" ];
           variant = "mocha";
-        }
-      );
+        };
     };
     font.name = "Noto Sans";
     iconTheme = {

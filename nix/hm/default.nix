@@ -173,7 +173,7 @@
   };
 
   systemd.user = {
-    sessionVariables = config.home.sessionVariables;
+    inherit (config.home) sessionVariables;
     startServices = true;
   };
 

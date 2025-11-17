@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   home.file.".mozilla/managed-storage/uBlock0@raymondhill.net.json".text = builtins.toJSON {
     data = {

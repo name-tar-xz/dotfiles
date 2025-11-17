@@ -1,4 +1,4 @@
-{ ... }:
+_:
 {
   services.playerctld.enable = true;
   systemd.user.services.waybar.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";

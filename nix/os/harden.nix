@@ -1,5 +1,4 @@
-{ ... }:
-{
+_: {
   boot = {
     kexec.enable = false;
     blacklistedKernelModules = [

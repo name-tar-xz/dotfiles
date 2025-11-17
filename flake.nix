@@ -79,7 +79,7 @@
   outputs =
     { nixpkgs, ... }@inputs:
     let
-      system = nixpkgs.system;
+      inherit (nixpkgs) system;
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;

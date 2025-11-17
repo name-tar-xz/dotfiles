@@ -62,7 +62,7 @@
   nixpkgs.overlays = [
     inputs.neovim-nightly-overlay.overlays.default
     inputs.nvim-treesitter-main.overlays.default
-    (final: prev: {
+    (_: prev: {
       firefox = prev.firefox.override {
         cfg = {
           speechSynthesisSupport = false;
@@ -70,9 +70,7 @@
         };
       };
 
-      ani-skip = prev.ani-skip.overrideAttrs (old: {
-        passthru.scriptName = "skip";
-      });
+      ani-skip = prev.ani-skip.overrideAttrs { passthru.scriptName = "skip"; };
 
       rofi-systemd = prev.rofi-systemd.overrideAttrs (old: {
         installPhase = old.installPhase + "sed 's/sudo //g' -i $out/bin/rofi-systemd";
