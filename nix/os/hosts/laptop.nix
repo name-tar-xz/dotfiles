@@ -11,6 +11,7 @@
     catppuccin.nixosModules.catppuccin
     sops-nix.nixosModules.sops
 
+    ../audio.nix
     ../intel.nix
     ../nvidia.nix
     ../games.nix
@@ -145,14 +146,6 @@
 
     udisks2.enable = true;
     fstrim.enable = true;
-
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
-    };
   };
 
   systemd = {
