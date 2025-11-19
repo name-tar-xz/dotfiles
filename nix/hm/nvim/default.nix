@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 {
   xdg.configFile = {
-    "nixos/nix/hm/nvim/.runtime".source = "${config.programs.neovim.finalPackage}/share/nvim/runtime";
-
     "nvim/after".source = ./after;
     "nvim/plugin".source = ./plugin;
   };
