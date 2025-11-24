@@ -41,7 +41,7 @@
 
   home = {
     username = "tarxz";
-    homeDirectory = "/home/tarxz";
+    homeDirectory = "/home/${config.home.username}";
     packages = with pkgs; [
       sops
       iwgtk # Wifi
@@ -181,7 +181,7 @@
     defaultSopsFile = ../secrets.yaml;
     age.keyFile = "/var/lib/age.txt";
 
-    secrets.ssh.path = "/home/tarxz/.ssh/id_ed25519";
+    secrets.ssh.path = "${config.home.homeDirectory}/.ssh/id_ed25519";
   };
 
   home.stateVersion = "23.11";

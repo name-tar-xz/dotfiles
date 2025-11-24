@@ -21,5 +21,5 @@ repl:
   nh os repl
 
 update:
-  nix flake update --flake /home/tarxz/.config/nixos --commit-lock-file
+  nix flake update --flake $NH_FLAKE --commit-lock-file
   nh os boot
