@@ -54,6 +54,17 @@
       ];
     };
 
+    "/var" = {
+      device = "/dev/disk/by-uuid/a04d27cd-3f57-474c-bf20-2aea77c8126c";
+      fsType = "btrfs";
+      options = [
+        "subvol=@var"
+        "compress=zstd"
+        "lazytime"
+        "noatime"
+      ];
+    };
+
     "/boot" = {
       device = "/dev/disk/by-uuid/A196-CF80";
       fsType = "vfat";

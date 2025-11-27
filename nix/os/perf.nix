@@ -67,7 +67,7 @@
 
           ksm.pages_to_scan = 1000;
 
-          lru_gen.enabled = 5;
+          lru_gen.enabled = 7;
         };
         class.rtc.rtc0.max_user_freq = 3072;
       };

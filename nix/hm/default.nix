@@ -42,6 +42,9 @@
   home = {
     username = "tarxz";
     homeDirectory = "/home/${config.home.username}";
+    preferXdgDirectories = true;
+    shell.enableZshIntegration = true;
+
     packages = with pkgs; [
       sops
       iwgtk # Wifi
@@ -57,9 +60,6 @@
 
     sessionVariables = {
       BROWSER = "firefox";
-      SUDO_EDITOR = "nvim";
-      EDITOR = "nvim";
-      VISUAL = "nvim";
       PAGER = "less";
 
       NIXOS_OZONE_WL = 1;
@@ -89,7 +89,7 @@
       ssn = "shutdown now";
       rb = "reboot";
 
-      sudo = "run0 ";
+      sudo = "sudo ";
       wget = "wget -c --hsts-file='${config.xdg.dataHome}/wget-hsts'";
       adb = "HOME=${config.xdg.dataHome}/android adb";
       ".." = "cd ..";

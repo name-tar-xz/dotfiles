@@ -24,8 +24,11 @@
       systemd.enable = true;
       includeDefaultModules = false;
     };
-    kernelParams = [ "nvme.noacpi=1" ];
-    kernelPackages = pkgs.linuxPackages_cachyos-lto; # lqx xanmod xanmod_latest xanmod_stable zen
+    kernelParams = [
+      "nvme.noacpi=1"
+      "plymouth.use-simpledrm"
+    ];
+    kernelPackages = pkgs.linuxPackages_cachyos; # lqx xanmod xanmod_latest xanmod_stable zen
     supportedFilesystems = [ "btrfs" ];
 
     loader = {
