@@ -20,32 +20,31 @@
         autohint = false;
         style = "full";
       };
-      localConf = # xml
-        ''
-          <?xml version="1.0"?>
-          <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
-          <fontconfig>
-            <match target="font">
-              <test name="family">
-                <string>Inter</string>
-              </test>
-              <edit name="fontfeatures" mode="assign_replace">
-                <string>tnum</string>
-                <string>frac</string>
-                <string>ss04</string>
-              </edit>
-            </match>
+      localConf = /* xml */ ''
+        <?xml version="1.0"?>
+        <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
+        <fontconfig>
+          <match target="font">
+            <test name="family">
+              <string>Inter</string>
+            </test>
+            <edit name="fontfeatures" mode="assign_replace">
+              <string>tnum</string>
+              <string>frac</string>
+              <string>ss04</string>
+            </edit>
+          </match>
 
-            <match target="font">
-              <test name="family">
-                <string>Iosevka Term</string>
-              </test>
-              <edit name="fontfeatures" mode="append">
-                <string>dlig</string>
-              </edit>
-            </match>
-          </fontconfig>
-        '';
+          <match target="font">
+            <test name="family">
+              <string>Iosevka Term</string>
+            </test>
+            <edit name="fontfeatures" mode="append">
+              <string>dlig</string>
+            </edit>
+          </match>
+        </fontconfig>
+      '';
     };
     packages = with pkgs; [
       nerd-fonts.symbols-only

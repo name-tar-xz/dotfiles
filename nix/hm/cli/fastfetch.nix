@@ -1,5 +1,4 @@
-_:
-{
+_: {
   programs.fastfetch = {
     enable = true;
     settings = {

@@ -1,5 +1,4 @@
-_:
-{
+_: {
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
@@ -19,40 +18,35 @@ _:
         laptop.id = "Z2NATQ7-GOXCMGJ-EJD6VEJ-GLDAZRD-VJU2RMX-AVGB72V-AJZOFUI-WVJUXAM";
       };
 
-      folders = {
-        ROMS = {
-          path = "~/Games/ROMS";
-          devices = [
+      folders =
+        let
+          dev = [
             "F13"
             "laptop"
           ];
-          versioning.type = "simple";
+        in
+        {
+          ROMS = {
+            path = "~/Games/ROMS";
+            devices = dev;
+            versioning.type = "simple";
+          };
+          Saves = {
+            path = "~/.config/retroarch/saves";
+            devices = dev;
+            versioning.type = "simple";
+          };
+          States = {
+            path = "~/.config/retroarch/states";
+            devices = dev;
+            versioning.type = "simple";
+          };
+          Previews = {
+            path = "~/.config/retroarch/state-previews";
+            devices = dev;
+            versioning.type = "simple";
+          };
         };
-        Saves = {
-          path = "~/.config/retroarch/saves";
-          devices = [
-            "F13"
-            "laptop"
-          ];
-          versioning.type = "simple";
-        };
-        States = {
-          path = "~/.config/retroarch/states";
-          devices = [
-            "F13"
-            "laptop"
-          ];
-          versioning.type = "simple";
-        };
-        Previews = {
-          path = "~/.config/retroarch/state-previews";
-          devices = [
-            "F13"
-            "laptop"
-          ];
-          versioning.type = "simple";
-        };
-      };
     };
   };
 }

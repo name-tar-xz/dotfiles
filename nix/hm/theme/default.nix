@@ -33,7 +33,8 @@
           rev = "7a51aa173c7069f113ca9dbe27a7600d41aa9a96";
           hash = "sha256-WhmZXPe/XQ1ZuVZHTRqB0+yvluUJRGAYWb5vhePFdn8=";
         }
-      } $out/share/icons/Nero'';
+      } $out/share/icons/Nero
+    '';
   };
 
   qt = {
@@ -54,11 +55,11 @@
     theme = {
       name = "catppuccin-mocha-mauve-compact+black";
       package = pkgs.catppuccin-gtk.override {
-          accents = [ "mauve" ];
-          size = "compact";
-          tweaks = [ "black" ];
-          variant = "mocha";
-        };
+        accents = [ "mauve" ];
+        size = "compact";
+        tweaks = [ "black" ];
+        variant = "mocha";
+      };
     };
     font.name = "Noto Sans";
     iconTheme = {

@@ -77,18 +77,17 @@
   };
 
   services = {
-    udev.extraRules = # udev
-      ''
-        SUBSYSTEM=="block", ACTION=="add|change", TEST=="queue/nr_requests", KERNEL=="nvme[0-9]*", ATTR{queue/nr_requests}="2048"
+    udev.extraRules = /* udev */ ''
+      SUBSYSTEM=="block", ACTION=="add|change", TEST=="queue/nr_requests", KERNEL=="nvme[0-9]*", ATTR{queue/nr_requests}="2048"
 
-        # CachyOS
-        # PCI runtime power management
-        ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
+      # CachyOS
+      # PCI runtime power management
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
 
-        # USB autosuspend
-        ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
-        ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{power/autosuspend}="60"
-      '';
+      # USB autosuspend
+      ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
+      ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend", ATTR{power/autosuspend}="60"
+    '';
 
     bpftune.enable = true;
 
