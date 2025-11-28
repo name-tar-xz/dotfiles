@@ -8,7 +8,7 @@
 @import "csshacks/chrome/overlay_tab_audio_icons.css";
 @import "csshacks/chrome/iconized_main_menu.css";
 
-@import "includes/cleaner_extensions_menu.css";
+@import "csshacks/chrome/compact_extensions_panel.css";
 
 /** Add your custom styles below **********************************************/
 * {
