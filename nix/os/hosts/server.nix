@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   inputs,
   ...
@@ -24,13 +23,13 @@
     logind.lidSwitch = "ignore";
     fstrim.enable = true;
 
-    nextcloud = {
+    nextcloud = rec {
       enable = true;
       configureRedis = true;
       package = pkgs.nextcloud30;
       hostName = "127.0.0.1";
       extraApps = {
-        inherit (config.services.nextcloud.package.packages.apps) phonetrack;
+        inherit (package.packages.apps) phonetrack;
       };
       settings =
         let

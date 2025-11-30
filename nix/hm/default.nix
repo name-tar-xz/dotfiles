@@ -39,9 +39,9 @@
     };
   };
 
-  home = {
+  home = rec {
     username = "tarxz";
-    homeDirectory = "/home/${config.home.username}";
+    homeDirectory = "/home/${username}";
     preferXdgDirectories = true;
     shell.enableZshIntegration = true;
 

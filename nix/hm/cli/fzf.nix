@@ -15,7 +15,7 @@
       ];
     };
 
-    fzf = {
+    fzf = rec {
       enable = true;
       defaultCommand = "fd --type file -LH --color=always --max-depth=3";
 
@@ -31,7 +31,7 @@
         "--bind='ctrl-u:preview-page-up'"
         "--bind='ctrl-d:preview-page-down'"
         "--preview-window 'right,border-left,<60(down,border)'"
-        "--bind 'ctrl-r:reload(${config.programs.fzf.defaultCommand})'"
+        "--bind 'ctrl-r:reload(${defaultCommand})'"
       ];
 
       colors = {

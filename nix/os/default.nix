@@ -65,12 +65,12 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nix = {
+  nix = rec {
     package = pkgs.lixPackageSets.latest.lix;
     registry = lib.mapAttrs (_: v: { flake = v; }) (
       lib.filterAttrs (_: v: lib.isType "flake" v) inputs
     );
-    nixPath = lib.mapAttrsToList (k: _: "${k}=flake:${k}") config.nix.registry;
+    nixPath = lib.mapAttrsToList (k: _: "${k}=flake:${k}") registry;
     settings = {
       use-xdg-base-directories = true;
       experimental-features = [

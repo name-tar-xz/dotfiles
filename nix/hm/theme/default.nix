@@ -46,11 +46,11 @@
     ];
   };
 
-  gtk = {
+  gtk = rec {
     enable = true;
     colorScheme = "dark";
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-    gtk3.extraCss = builtins.readFile "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-3.0/gtk.css";
+    gtk3.extraCss = builtins.readFile "${theme.package}/share/themes/${theme.name}/gtk-3.0/gtk.css";
 
     theme = {
       name = "catppuccin-mocha-mauve-compact+black";
