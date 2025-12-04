@@ -114,7 +114,7 @@ vim.schedule(function()
   vim.keymap.set("n", "<leader>fs", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 
   vim.keymap.set("n", "<leader>fw", function() Snacks.picker.grep() end, { desc = "Grep" })
-  vim.keymap.set({ "n", "v" }, "<leader>f.", function() Snacks.picker.grep_word() end, { desc = "Visual selection or word" })
+  vim.keymap.set({ "n", "x" }, "<leader>f.", function() Snacks.picker.grep_word() end, { desc = "Visual selection or word" })
   vim.keymap.set("n", "<leader>/", function() Snacks.picker.lines() end, { desc = "Buffer Lines" })
 
   vim.keymap.set("n", "<leader>fu", function() Snacks.picker.undo() end, { desc = "Find Undo" })

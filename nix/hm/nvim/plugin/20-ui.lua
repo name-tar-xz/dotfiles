@@ -14,7 +14,7 @@ vim.schedule(function()
     disable = { filetypes = { "TelescopePrompt" } },
 
     spec = {
-      mode = { "n", "v" },
+      mode = { "n", "x" },
       { "<leader>f", group = "Find", icon = "" },
       { "<leader>g", group = "Git", icon = "󰊢" },
       { "gr", group = "LSP", icon = "" },
@@ -49,7 +49,7 @@ vim.schedule(function()
 
     vim.keymap.set("n", "<leader>gh", function() require("gitsigns").reset_hunk() end, { desc = "Reset Git hunk" })
     vim.keymap.set("n", "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage Git hunk" })
-    vim.keymap.set("v", "<leader>gh", function() require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset Git hunk" })
-    vim.keymap.set("v", "<leader>gs", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage Git hunk" })
+    vim.keymap.set("x", "<leader>gh", function() require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset Git hunk" })
+    vim.keymap.set("x", "<leader>gs", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage Git hunk" })
   end
 end)

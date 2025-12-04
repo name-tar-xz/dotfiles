@@ -23,10 +23,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
     vim.keymap.set("n", "<C-x>", function() return require("dial.map").dec_normal() end, { expr = true, desc = "Decrement" })
     vim.keymap.set("n", "g<C-a>", function() return require("dial.map").inc_gnormal() end, { expr = true, desc = "Increment" })
     vim.keymap.set("n", "g<C-x>", function() return require("dial.map").dec_gnormal() end, { expr = true, desc = "Decrement" })
-    vim.keymap.set("v", "<C-a>", function() return require("dial.map").inc_visual() end, { expr = true, desc = "Increment" })
-    vim.keymap.set("v", "<C-x>", function() return require("dial.map").dec_visual() end, { expr = true, desc = "Decrement" })
-    vim.keymap.set("v", "g<C-a>", function() return require("dial.map").inc_gvisual() end, { expr = true, desc = "Increment" })
-    vim.keymap.set("v", "g<C-x>", function() return require("dial.map").dec_gvisual() end, { expr = true, desc = "Decrement" })
+    vim.keymap.set("x", "<C-a>", function() return require("dial.map").inc_visual() end, { expr = true, desc = "Increment" })
+    vim.keymap.set("x", "<C-x>", function() return require("dial.map").dec_visual() end, { expr = true, desc = "Decrement" })
+    vim.keymap.set("x", "g<C-a>", function() return require("dial.map").inc_gvisual() end, { expr = true, desc = "Increment" })
+    vim.keymap.set("x", "g<C-x>", function() return require("dial.map").dec_gvisual() end, { expr = true, desc = "Decrement" })
 
     require("flash").setup({
       jump = { autojump = true },

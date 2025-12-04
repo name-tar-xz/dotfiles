@@ -4,8 +4,8 @@ vim.schedule(function()
   vim.keymap.set("n", "[a", "<cmd>tabprevious<CR>")
   vim.keymap.set("n", "[A", "<cmd>tabfirst<CR>")
 
-  vim.keymap.set({ "n", "v", "o" }, ";", ":")
-  vim.keymap.set({ "n", "v", "o" }, ":", ";")
+  vim.keymap.set({ "n", "x", "o" }, ";", ":")
+  vim.keymap.set({ "n", "x", "o" }, ":", ";")
 
   vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -18,9 +18,9 @@ vim.schedule(function()
   vim.keymap.set("n", "\\", "<cmd>split<CR>", { desc = "Horizontal Split" })
 
   -- Clipboard
-  vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+  vim.keymap.set({ "n", "x" }, "<leader>y", [["+y]])
   vim.keymap.set("n", "<leader>Y", [["+Y]])
-  vim.keymap.set({ "n", "v" }, "x", [["_x]])
+  vim.keymap.set({ "n", "x" }, "x", [["_x]])
 
   vim.keymap.set("n", "Q", "<nop>")
 
