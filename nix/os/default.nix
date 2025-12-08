@@ -66,19 +66,31 @@
   nixpkgs.config.allowUnfree = true;
 
   nix = rec {
+    channel.enable = false;
     package = pkgs.lixPackageSets.latest.lix;
+
     registry = lib.mapAttrs (_: v: { flake = v; }) (
       lib.filterAttrs (_: v: lib.isType "flake" v) inputs
     );
     nixPath = lib.mapAttrsToList (k: _: "${k}=flake:${k}") registry;
+
+    daemonCPUSchedPolicy = "batch";
+    daemonIOSchedClass = "idle";
+
     settings = {
       use-xdg-base-directories = true;
+      auto-optimise-store = true;
+      warn-dirty = false;
+
       experimental-features = [
         "nix-command"
         "flakes"
       ];
-      auto-optimise-store = true;
+
+      allowed-users = [ "@wheel" ];
       trusted-users = [ "@wheel" ];
+
+      nix-path = nixPath;
     };
   };
 
