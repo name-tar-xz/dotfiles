@@ -97,17 +97,7 @@
       };
     };
 
-    ssh = {
-      package = pkgs.openssh_hpn;
-      ciphers = [
-        "aes128-gcm@openssh.com"
-        "aes256-gcm@openssh.com"
-        "chacha20-poly1305@openssh.com"
-        "aes256-ctr"
-        "aes192-ctr"
-        "aes128-ctr"
-      ];
-    };
+    ssh.package = pkgs.openssh_hpn;
 
     nh = {
       enable = true;
