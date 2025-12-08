@@ -25,7 +25,8 @@
           "dts-hd"
           "truehd"
         ];
-        sub-font = "monospace";
+        sub-font = "serif";
+        osd-font = "monospace";
         cache = true;
         speed = 2;
         volume-max = 100;

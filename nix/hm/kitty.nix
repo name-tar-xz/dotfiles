@@ -16,6 +16,7 @@
 
       scrollback_lines = -1;
       scrollback_pager = config.home.sessionVariables.PAGER;
+      scrollbar_interactive = false;
 
       mouse_hide_wait = 0;
       url_style = "straight";

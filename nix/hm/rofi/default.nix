@@ -14,7 +14,7 @@
       fixed-num-lines = false;
       show-icons = true;
       terminal = "kitty";
-      run-shell-command = "{terminal} -e bash -c {cmd}";
+      run-shell-command = "{terminal} -e sh -c {cmd}";
       drun-url-launcher = "xdg-open";
       disable-history = false;
       case-sensitive = false;

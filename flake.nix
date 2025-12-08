@@ -4,11 +4,13 @@
   nixConfig = {
     extra-substituters = [
       "https://lanzaboote.cachix.org"
+      "https://nix-community.cachix.org"
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
     ];
     extra-trusted-public-keys = [
       "lanzaboote.cachix.org-1:Nt9//zGmqkg1k5iu+B3bkj3OmHKjSw9pvf3faffLLNk="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];

@@ -17,7 +17,7 @@
 
         alias = {
           lg = "log --graph";
-          history = "log -p";
+          hist = "log -p";
         };
 
         log = {

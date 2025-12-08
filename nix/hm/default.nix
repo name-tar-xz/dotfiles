@@ -69,7 +69,6 @@
       CARGO_HOME = "${config.xdg.dataHome}/cargo";
       CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
       GOPATH = "${config.xdg.dataHome}/go";
-      HISTFILE = "${config.xdg.stateHome}/bash/history";
       RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
       NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
       WINEPREFIX = "${config.xdg.dataHome}/wine";

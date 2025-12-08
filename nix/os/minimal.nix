@@ -22,7 +22,10 @@
     speechd.enable = false;
   };
 
-  programs.command-not-found.enable = false;
+  programs = {
+    command-not-found.enable = false;
+    bash.enable = false;
+  };
 
   xdg = {
     sounds.enable = false;

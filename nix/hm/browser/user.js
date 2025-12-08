@@ -16,7 +16,7 @@ user_pref("dom.popup_allowed_events", "click dblclick mousedown pointerdown");
 user_pref("browser.pagethumbnails.capturing_disabled", true);
 user_pref("network.http.referer.XOriginPolicy", 1);
 user_pref("browser.search.separatePrivateDefault", false);
-user_pref("layout.frame_rate", 90)
+user_pref("layout.frame_rate", 90);
 
 // Other tweaks
 user_pref("browser.toolbars.bookmarks.visibility", "newtab");

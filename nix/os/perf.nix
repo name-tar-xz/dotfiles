@@ -182,6 +182,18 @@
       item = "memlock";
       value = 2147484;
     }
+    {
+      domain = "@wheel";
+      type = "soft";
+      item = "nofile";
+      value = 524288;
+    }
+    {
+      domain = "@wheel";
+      type = "hard";
+      item = "nofile";
+      value = 1048576;
+    }
   ];
 
   hardware = {

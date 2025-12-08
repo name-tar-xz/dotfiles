@@ -4,7 +4,7 @@
     comma
     hyperfine
     just
-    jaq
+    jaq # https://github.com/01mf02/jaq/issues/314
     onefetch
 
     ## File Management
@@ -73,6 +73,7 @@
       options = {
         LONG-PROMPT = true;
         RAW-CONTROL-CHARS = true;
+        chop-long-lines = true;
         ignore-case = true;
         mouse = true;
         no-vbell = true;
@@ -96,12 +97,12 @@
       ];
       ignores = [
         "Games"
-        "Public/cfg"
         "*Cache*"
         "*cache*"
         "Templates"
         "node_modules"
         "nix/store"
+        ".git"
       ];
     };
 

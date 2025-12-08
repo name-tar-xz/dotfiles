@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+  config,
   ...
 }:
 {
@@ -95,11 +96,10 @@
   ];
 
   programs = {
-    adb.enable = true;
     uwsm = {
       enable = true;
       waylandCompositors.hyprland = {
-        binPath = "/etc/profiles/per-user/tarxz/bin/Hyprland";
+        binPath = lib.getExe config.home-manager.users.tarxz.wayland.windowManager.hyprland.finalPackage;
         comment = "Hyprland session managed by uwsm";
         prettyName = "Hyprland";
       };
@@ -133,6 +133,7 @@
     };
     greetd = {
       enable = true;
+      useTextGreeter = true;
       settings = {
         default_session = {
           command = "${lib.getExe pkgs.tuigreet} --time --user-menu";
@@ -161,9 +162,9 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
+    extraPortals = [
+      config.home-manager.users.tarxz.wayland.windowManager.hyprland.finalPortalPackage
+      pkgs.xdg-desktop-portal-gtk
     ];
     config = {
       common.default = [ "gtk" ];
@@ -181,7 +182,7 @@
     wrappers.btop = {
       owner = "root";
       group = "root";
-      source = "${pkgs.btop}/bin/btop";
+      source = pkgs.lib.getExe pkgs.btop;
       capabilities = "cap_perfmon=+ep";
     };
 
@@ -193,6 +194,7 @@
   hardware = {
     firmware = [ pkgs.linux-firmware ];
     enableRedistributableFirmware = false;
+    wirelessRegulatoryDatabase = true;
     graphics.enable32Bit = true;
 
     bluetooth = {
