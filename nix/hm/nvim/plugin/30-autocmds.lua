@@ -7,6 +7,14 @@ vim.schedule(function()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("lsp", { clear = true }),
     callback = function(args)
+      vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition" })
+      vim.keymap.set("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration" })
+      vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { nowait = true, desc = "References" })
+      vim.keymap.set("n", "gri", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation" })
+      vim.keymap.set("n", "grt", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto Type Definition" })
+      vim.keymap.set("n", "grN", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
+      vim.keymap.set("n", "gO", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
+
       vim.lsp.inlay_hint.enable(true)
 
       local client = vim.lsp.get_client_by_id(args.data.client_id)

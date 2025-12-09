@@ -111,7 +111,6 @@ vim.schedule(function()
 
   vim.keymap.set("n", "<leader>fd", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics" })
   vim.keymap.set("n", "<leader>fD", function() Snacks.picker.diagnostics() end, { desc = "Diagnostics" })
-  vim.keymap.set("n", "<leader>fs", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 
   vim.keymap.set("n", "<leader>fw", function() Snacks.picker.grep() end, { desc = "Grep" })
   vim.keymap.set({ "n", "x" }, "<leader>f.", function() Snacks.picker.grep_word() end, { desc = "Visual selection or word" })
@@ -139,11 +138,4 @@ vim.schedule(function()
   vim.keymap.set("n", "<leader>uC", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" })
 
   vim.keymap.set("n", "<leader>E", function() Snacks.picker.explorer() end, { desc = "Snacks Explorer" })
-
-  vim.keymap.set("n", "gd", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition" })
-  vim.keymap.set("n", "gD", function() Snacks.picker.lsp_declarations() end, { desc = "Goto Declaration" })
-  vim.keymap.set("n", "grr", function() Snacks.picker.lsp_references() end, { nowait = true, desc = "References" })
-  vim.keymap.set("n", "gri", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation" })
-  vim.keymap.set("n", "grt", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto T[y]pe Definition" })
-  vim.keymap.set("n", "grN", function() Snacks.rename.rename_file() end, { desc = "Rename File" })
 end)

@@ -131,28 +131,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
     local Diagnostics = {
       condition = conditions.has_diagnostics,
-
-      static = {
-        error_icon = " ",
-        warn_icon = " ",
-        info_icon = " ",
-        hint_icon = " ",
-      },
-
-      init = function(self)
-        local count = vim.diagnostic.count(0)
-        self.errors = count[vim.diagnostic.severity.ERROR]
-        self.warnings = count[vim.diagnostic.severity.WARN]
-        self.hints = count[vim.diagnostic.severity.HINT]
-        self.info = count[vim.diagnostic.severity.INFO]
-      end,
-
       update = { "DiagnosticChanged", "BufEnter" },
-
-      { provider = function(self) return self.errors and (" " .. self.error_icon .. self.errors) end, hl = { fg = "red" } },
-      { provider = function(self) return self.warnings and (" " .. self.warn_icon .. self.warnings) end, hl = { fg = "yellow" } },
-      { provider = function(self) return self.info and (" " .. self.info_icon .. self.info) end, hl = { fg = "azure" } },
-      { provider = function(self) return self.hints and (" " .. self.hint_icon .. self.hints) end, hl = { fg = "teal" } },
+      provider = function() return vim.diagnostic.status(0) end,
     }
 
     local GitChange = {

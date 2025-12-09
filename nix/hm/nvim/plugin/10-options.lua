@@ -105,28 +105,45 @@ vim.schedule(function()
     "vtsls",
   })
 
+  local diag = {
+    [vim.diagnostic.severity.ERROR] = " ",
+    [vim.diagnostic.severity.WARN] = " ",
+    [vim.diagnostic.severity.INFO] = " ",
+    [vim.diagnostic.severity.HINT] = " ",
+  }
+
   vim.diagnostic.config({
     severity_sort = true,
     virtual_text = {
       source = false,
       hl_mode = "combine",
       virt_text_pos = "eol",
+
+      prefix = function(d, i, total) return i == total and diag[d.severity] .. (total > 1 and " (" .. total .. ")" or "") or "" end,
+      format = function(d)
+        local short_src = {
+          ["Lua Diagnostics."] = "lua",
+          ["Lua Syntax Check."] = "lua",
+        }
+        return (short_src[d.source] or d.source) .. ": " .. (d.code and d.code or d.message)
+      end,
+      suffix = " ",
     },
+
     float = {
       header = "",
       scope = "cursor",
       severity_sort = true,
-      source = false,
+      source = "if_many",
       focusable = false,
+      prefix = function(d) return string.format(" %s ", diag[d.severity]), "Diagnostic" .. vim.diagnostic.severity[d.severity]:gsub("^%l", string.upper) end,
     },
+
     jump = { on_jump = function() vim.diagnostic.open_float({ scope = "cursor" }) end },
+
+    status = { text = diag },
     signs = {
-      text = {
-        [vim.diagnostic.severity.ERROR] = " ",
-        [vim.diagnostic.severity.WARN] = " ",
-        [vim.diagnostic.severity.INFO] = " ",
-        [vim.diagnostic.severity.HINT] = " ",
-      },
+      text = diag,
       numhl = {
         [vim.diagnostic.severity.ERROR] = "DiagnosticError",
         [vim.diagnostic.severity.WARN] = "DiagnosticWarn",
