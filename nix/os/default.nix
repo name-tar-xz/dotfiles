@@ -137,9 +137,19 @@
     journald.extraConfig = "SystemMaxUse=100M";
   };
 
-  systemd.settings.Manager = {
-    DefaultTimeoutStopSec = "10s";
-    DefaultTimeoutStartSec = "15s";
+  systemd = {
+    oomd = {
+      enable = true;
+      enableRootSlice = true;
+      enableSystemSlice = true;
+      enableUserSlices = true;
+      settings.OOM.DefaultMemoryPressureDurationSec = "20s";
+    };
+
+    settings.Manager = {
+      DefaultTimeoutStopSec = "10s";
+      DefaultTimeoutStartSec = "15s";
+    };
   };
 
   security.sudo.enable = false;
