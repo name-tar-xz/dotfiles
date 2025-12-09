@@ -53,11 +53,19 @@
       hashedPassword = "$y$j9T$988v1QRaUKdb9ce3TGIL5/$8/UFRFQ8bq7SQcUGUnnwxCW0RLg/It7hBD26m9J7AY5";
       isNormalUser = true;
       extraGroups = [
-        "networkmanager"
         "wheel"
-        "docker"
         "video"
+        "audio"
+      ]
+      ++ builtins.filter (group: builtins.hasAttr group config.users.groups) [
         "adbusers"
+        "disk"
+        "docker"
+        "flatpak"
+        "kvm"
+        "libvirtd"
+        "openrazer"
+        "podman"
       ];
       shell = pkgs.dash;
     };

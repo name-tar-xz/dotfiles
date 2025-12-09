@@ -38,6 +38,8 @@
 
   services.cliphist.enable = true;
 
+  xdg.portal.enable = pkgs.lib.mkForce false;
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
