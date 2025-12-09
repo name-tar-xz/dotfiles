@@ -64,9 +64,7 @@ vim.schedule(function()
   })
 
   vim.keymap.set("n", "<leader>e", function()
-    if not require("mini.files").close() then
-      require("mini.files").open()
-    end
+    if not require("mini.files").close() then require("mini.files").open() end
   end, { desc = "Open mini.files" })
 end)
 

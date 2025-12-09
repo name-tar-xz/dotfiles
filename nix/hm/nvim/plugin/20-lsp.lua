@@ -14,9 +14,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
         callback = function()
           local ft = vim.bo.filetype
-          if ft ~= "trouble" and ft ~= "undotree" and ft ~= "diff" then
-            require("lint").try_lint()
-          end
+          if ft ~= "trouble" and ft ~= "undotree" and ft ~= "diff" then require("lint").try_lint() end
         end,
       })
     end

@@ -109,9 +109,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
         local suffix = { "b", "k", "M", "G", "T", "P", "E" }
         local fsize = vim.fn.getfsize(vim.api.nvim_buf_get_name(0))
         fsize = (fsize < 0 and 0) or fsize
-        if fsize < 1024 then
-          return fsize .. suffix[1]
-        end
+        if fsize < 1024 then return fsize .. suffix[1] end
         local i = math.floor((math.log(fsize) / math.log(1024)))
         return string.format("%.2g%s", fsize / math.pow(1024, i), suffix[i + 1])
       end,
@@ -193,9 +191,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
       condition = function() return vim.v.hlsearch ~= 0 and vim.o.cmdheight == 0 end,
       init = function(self)
         local ok, search = pcall(vim.fn.searchcount)
-        if ok and search.total then
-          self.search = search
-        end
+        if ok and search.total then self.search = search end
       end,
       provider = function(self)
         local search = self.search
