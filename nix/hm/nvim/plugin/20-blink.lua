@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
         },
 
         menu = {
-          border = "rounded",
+          border = vim.o.pumborder,
           winhighlight = "Normal:Pmenu,FloatBorder:PmenuBorder,CursorLine:PmenuSel,Search:None",
           draw = { treesitter = { "lsp" } },
         },

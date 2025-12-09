@@ -42,8 +42,10 @@ require("catppuccin").setup({
         Visual = { style = {} },
         Folded = { bg = colors.mantle },
         TreesitterContextBottom = { style = {} },
-        PmenuBorder = { bg = colors.mantle, fg = colors.blue },
-        SnacksPickerInputBorder = { link = "PmenuBorder" },
+        FloatBorder = { bg = colors.mantle, fg = colors.blue },
+        SnacksInputNormal = { link = "NormalFloat" },
+        SnacksInputBorder = { link = "FloatBorder" },
+        SnacksInputTitle = { link = "SnacksPickerListTitle" },
       }
     end,
   },

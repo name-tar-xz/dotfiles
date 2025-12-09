@@ -11,10 +11,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePost" }, {
     local augend = require("dial.augend")
     require("dial.config").augends:register_group({
       default = {
-        augend.integer.alias.decimal,
+        augend.integer.alias.decimal_int,
         augend.integer.alias.hex,
         augend.date.alias["%Y/%m/%d"],
+        augend.date.alias["%Y-%m-%d"],
+        augend.date.alias["%H:%M"],
         augend.constant.alias.bool,
+        augend.constant.alias.Bool,
         augend.semver.alias.semver,
         augend.case.new({ types = { "camelCase", "PascalCase", "snake_case", "SCREAMING_SNAKE_CASE" } }),
       },

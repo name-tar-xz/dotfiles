@@ -18,6 +18,7 @@ vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heuti
 vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "" })
 vim.opt.formatoptions:append({ c = false, ["/"] = true, n = true, p = true })
 vim.opt.shortmess:append({ s = true, I = true, a = true, W = true, A = true, S = true }) -- disable search count wrap and startup messages
+vim.opt.iskeyword:append("-")
 vim.opt.viewoptions:remove("curdir") -- disable saving current directory with views
 vim.opt.completeopt = { "menu", "menuone", "popup", "noinsert", "fuzzy" } -- Options for insert mode completion
 vim.opt.cursorlineopt = { "screenline", "number" }
@@ -55,6 +56,7 @@ vim.o.mouse = "a" -- Enable mouse support
 vim.o.number = true -- Show numberline
 vim.o.numberwidth = 1
 vim.o.preserveindent = true -- Preserve indent structure as much as possible
+vim.o.pumborder = "rounded"
 vim.o.pumheight = 10 -- Height of the pop up menu
 vim.o.relativenumber = true -- Show relative numberline
 vim.o.ruler = false
