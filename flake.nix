@@ -2,22 +2,24 @@
   description = "Nix Flake";
 
   nixConfig = {
-    extra-substituters = [ "https://nyx.chaotic.cx/" ];
+    extra-substituters = [
+      "https://attic.xuyh0120.win/lantian"
+      "https://cache.garnix.io"
+    ];
     extra-trusted-public-keys = [
-      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
   };
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-        flake-schemas.follows = "";
-        jovian.follows = "";
-        rust-overlay.follows = "";
+        flake-compat.follows = "";
+        flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
       };
     };
     home-manager = {

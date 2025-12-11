@@ -7,7 +7,6 @@
 {
   imports = with inputs; [
     home-manager.nixosModules.home-manager
-    chaotic.nixosModules.default
     catppuccin.nixosModules.catppuccin
     sops-nix.nixosModules.sops
 
@@ -28,7 +27,7 @@
       "nvme.noacpi=1"
       "plymouth.use-simpledrm"
     ];
-    kernelPackages = pkgs.linuxPackages_cachyos; # lqx xanmod xanmod_latest xanmod_stable zen
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto; # lqx xanmod xanmod_latest xanmod_stable zen
     supportedFilesystems = [ "btrfs" ];
 
     loader = {
@@ -66,6 +65,9 @@
   nixpkgs.overlays = [
     inputs.neovim-nightly-overlay.overlays.default
     inputs.nvim-treesitter-main.overlays.default
+
+    inputs.nix-cachyos-kernel.overlays.default
+
     (_: prev: {
       firefox = prev.firefox.override {
         cfg = {
