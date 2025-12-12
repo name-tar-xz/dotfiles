@@ -8,6 +8,7 @@
   imports = with inputs; [
     home-manager.nixosModules.home-manager
     catppuccin.nixosModules.catppuccin
+    lanzaboote.nixosModules.lanzaboote
     sops-nix.nixosModules.sops
 
     ../audio.nix
@@ -30,16 +31,14 @@
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto; # lqx xanmod xanmod_latest xanmod_stable zen
     supportedFilesystems = [ "btrfs" ];
 
-    loader = {
-      systemd-boot.enable = lib.mkForce false;
-      limine = {
+    loader.systemd-boot.enable = lib.mkForce false;
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+      autoGenerateKeys.enable = true;
+      autoEnrollKeys = {
         enable = true;
-        secureBoot.enable = true;
-        style.wallpapers = [ ];
-        extraConfig = ''
-          timeout: 1
-          quiet: yes
-        '';
+        autoReboot = true;
       };
     };
   };

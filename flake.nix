@@ -3,10 +3,12 @@
 
   nixConfig = {
     extra-substituters = [
+      "https://lanzaboote.cachix.org"
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
     ];
     extra-trusted-public-keys = [
+      "lanzaboote.cachix.org-1:Nt9//zGmqkg1k5iu+B3bkj3OmHKjSw9pvf3faffLLNk="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
     ];
@@ -25,6 +27,13 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "https://flakehub.com/f/nix-community/lanzaboote/*.tar.gz";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit.follows = "";
+      };
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
