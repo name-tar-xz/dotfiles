@@ -99,10 +99,6 @@ vim.schedule(function()
 
   vim.keymap.set("n", "<leader>c", function() Snacks.bufdelete.delete() end, { desc = "Close buffer" })
 
-  vim.keymap.set("n", "<leader>gc", function() Snacks.picker.git_log() end, { desc = "Git Log" })
-  vim.keymap.set("n", "<leader>gS", function() Snacks.picker.git_status() end, { desc = "Git Status" })
-  vim.keymap.set("n", "<leader>gf", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
-
   vim.keymap.set("n", "<leader>f<CR>", function() Snacks.picker.resume() end, { desc = "Resume" })
 
   vim.keymap.set("n", "<leader>ff", function() Snacks.picker.files() end, { desc = "Find Files" })

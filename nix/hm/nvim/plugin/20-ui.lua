@@ -32,24 +32,31 @@ vim.schedule(function()
     },
   })
 
-  if not vim.o.diff then
-    require("gitsigns").setup({
-      numhl = false,
-      signcolumn = true,
-      signs_staged_enable = true,
-    })
+  local gs = require("gitsigns")
+  gs.setup({
+    numhl = false,
+    signcolumn = true,
+    signs_staged_enable = true,
+    on_attach = vim.schedule_wrap(function(bufnr)
+      local function set(mode, lhs, rhs, opts) vim.keymap.set(mode, lhs, rhs, vim.tbl_extend("force", opts, { buffer = bufnr })) end
 
-    vim.keymap.set("n", "]g", function() require("gitsigns").next_hunk() end, { desc = "Next Git hunk" })
-    vim.keymap.set("n", "[g", function() require("gitsigns").prev_hunk() end, { desc = "Previous Git hunk" })
-    vim.keymap.set("n", "<leader>gl", function() require("gitsigns").blame_line() end, { desc = "View Git blame" })
-    vim.keymap.set("n", "<leader>gp", function() require("gitsigns").preview_hunk() end, { desc = "Preview Git hunk" })
-    vim.keymap.set("n", "<leader>gr", function() require("gitsigns").reset_buffer() end, { desc = "Reset Git buffer" })
-    vim.keymap.set("n", "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage Git hunk" })
-    vim.keymap.set("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View Git diff" })
+      set("n", "]c", gs.next_hunk, { desc = "Next Git hunk" })
+      set("n", "[c", gs.prev_hunk, { desc = "Previous Git hunk" })
+      set("n", "<leader>gl", gs.blame_line, { desc = "View Git blame" })
+      set("n", "<leader>gp", gs.preview_hunk, { desc = "Preview Git hunk" })
+      set("n", "<leader>gr", gs.reset_buffer, { desc = "Reset Git buffer" })
+      set("n", "<leader>gS", gs.stage_buffer, { desc = "Stage Git buffer" })
+      set("n", "<leader>gu", gs.undo_stage_hunk, { desc = "Unstage Git hunk" })
+      set("n", "<leader>gd", gs.diffthis, { desc = "View Git diff" })
 
-    vim.keymap.set("n", "<leader>gh", function() require("gitsigns").reset_hunk() end, { desc = "Reset Git hunk" })
-    vim.keymap.set("n", "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage Git hunk" })
-    vim.keymap.set("x", "<leader>gh", function() require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset Git hunk" })
-    vim.keymap.set("x", "<leader>gs", function() require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage Git hunk" })
-  end
+      set("n", "<leader>gh", gs.reset_hunk, { desc = "Reset Git hunk" })
+      set("n", "<leader>gs", gs.stage_hunk, { desc = "Stage Git hunk" })
+      set("x", "<leader>gh", function() gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Reset Git hunk" })
+      set("x", "<leader>gs", function() gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") }) end, { desc = "Stage Git hunk" })
+
+      set("n", "<leader>gc", function() Snacks.picker.git_log() end, { desc = "Git Log" })
+      set("n", "<leader>gi", function() Snacks.picker.git_status() end, { desc = "Git Status" })
+      set("n", "<leader>gf", function() Snacks.picker.git_files() end, { desc = "Find Git Files" })
+    end),
+  })
 end)
