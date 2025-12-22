@@ -15,7 +15,14 @@
     man.man-db.enable = false;
   };
 
-  system.disableInstallerTools = true;
+  system = {
+    disableInstallerTools = true;
+    nixos-init.enable = true;
+    etc.overlay = {
+      enable = true;
+      mutable = true;
+    };
+  };
 
   services = {
     userborn.enable = true;

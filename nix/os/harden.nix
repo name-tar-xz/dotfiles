@@ -16,7 +16,6 @@ _: {
       "cifs"
       "cramfs"
       "efs"
-      "erofs"
       "exofs"
       "f2fs"
       "freevxfs"
