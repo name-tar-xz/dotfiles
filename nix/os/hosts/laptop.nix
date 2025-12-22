@@ -69,7 +69,7 @@
     inputs.nix-cachyos-kernel.overlays.default
 
     (_: prev: {
-      firefox = prev.firefox.override {
+      firefox-bin = prev.firefox-bin.override {
         cfg = {
           speechSynthesisSupport = false;
           pipewireSupport = true;

@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [ ./ublock.nix ];
 
@@ -13,6 +13,7 @@
   programs.firefox = {
     enable = true;
     languagePacks = [ "en-US" ];
+    package = pkgs.firefox-bin;
 
     policies = {
       AutofillAddressEnabled = false;
