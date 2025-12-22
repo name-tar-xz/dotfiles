@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 {
+  catppuccin.fzf.enable = true;
+
   programs = {
     pistol = {
       enable = true;
@@ -17,42 +19,41 @@
 
     fzf = rec {
       enable = true;
-      defaultCommand = "fd --type file -LH --color=always --max-depth=3";
+      defaultCommand = "fd --type file -LH --color=always";
 
       defaultOptions = [
         "--inline-info"
         "--ansi"
         "--cycle"
         "--multi"
-        "--height ~100%"
-        "--border"
+        "--filepath-word"
+
+        "--height ~75%"
+        "--scroll-off 9999"
+        "--style full"
+        "--no-scrollbar"
+
         "--preview 'pistol {}'"
-        "--bind='alt-/:toggle-preview'"
-        "--bind='ctrl-u:preview-page-up'"
-        "--bind='ctrl-d:preview-page-down'"
-        "--preview-window 'right,border-left,<60(down,border)'"
+        "--preview-window 'right,border-none,<60(down,border)'"
+
+        "--bind 'alt-/:toggle-preview'"
+        "--bind 'ctrl-b:preview-half-page-up'"
+        "--bind 'ctrl-f:preview-half-page-down'"
+        "--bind 'ctrl-u:half-page-up'"
+        "--bind 'ctrl-d:half-page-down'"
+        "--bind 'ctrl-y:accept'"
         "--bind 'ctrl-r:reload(${defaultCommand})'"
       ];
 
-      colors = {
-        "bg+" = "#313244";
-        "fg+" = "#cdd6f4";
-        "hl+" = "#f38ba8";
-        fg = "#cdd6f4";
-        header = "#f38ba8";
-        hl = "#f38ba8";
-        info = "#cba6f7";
-        marker = "#f5e0dc";
-        pointer = "#f5e0dc";
-        prompt = "#cba6f7";
-        spinner = "#f5e0dc";
-      };
+      colors.bg = pkgs.lib.mkForce "";
 
-      changeDirWidgetCommand = "fd --type d -LH --color=always --max-depth=3";
-      fileWidgetCommand = "fd --type f -LH --color=always --max-depth=3";
+      changeDirWidgetCommand = "fd --type dir -LH --color=always";
+      fileWidgetCommand = defaultCommand;
       historyWidgetOptions = [
         "--sort"
         "--exact"
+        "--height 10%"
+        "--preview ''"
       ];
 
       enableZshIntegration = true;
