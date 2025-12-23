@@ -67,9 +67,13 @@
         };
         accel_profile = "adaptive";
       };
-      gestures = {
-        gesture = "3, horizontal, workspace";
-      };
+
+      gestures.gesture = [
+        "3, horizontal, workspace"
+        "3, vertical, special, 1"
+        "3, pinchout, float"
+        "3, pinchin, fullscreen"
+      ];
 
       general = {
         gaps_in = 0;
@@ -130,7 +134,32 @@
 
       xwayland.force_zero_scaling = true;
 
-      animation = [ "monitorAdded, 0" ];
+      animations = {
+        bezier = [
+          "emphasizedDecel, 0.05, 0.7, 0.1, 1"
+          "emphasizedAccel, 0.3, 0, 0.8, 0.15"
+          "menu_decel, 0.1, 1, 0, 1"
+          "menu_accel, 0.52, 0.03, 0.72, 0.08"
+          "stall, 1, -0.1, 0.7, 0.85"
+        ];
+        animation = [
+          "monitorAdded, 0"
+
+          "windowsIn, 1, 3, emphasizedDecel, popin 80%"
+          "fadeIn, 1, 3, emphasizedDecel"
+          "windowsOut, 1, 2, emphasizedDecel, popin 90%"
+          "fadeOut, 1, 2, emphasizedDecel"
+          "windowsMove, 1, 3, emphasizedDecel, slide"
+          "border, 1, 10, emphasizedDecel"
+          "layersIn, 1, 2.7, emphasizedDecel, popin 93%"
+          "layersOut, 1, 2.4, menu_accel, popin 94%"
+          "fadeLayersIn, 1, 0.5, menu_decel"
+          "fadeLayersOut, 1, 2.7, stall"
+          "workspaces, 1, 7, menu_decel, slide"
+          "specialWorkspaceIn, 1, 2.8, emphasizedDecel, slidevert"
+          "specialWorkspaceOut, 1, 1.2, emphasizedAccel, slidevert"
+        ];
+      };
 
       dwindle = {
         pseudotile = true;
