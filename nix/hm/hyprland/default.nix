@@ -47,7 +47,7 @@
     settings = {
       exec-once = [
         "${pkgs.lib.getExe pkgs.swaybg} -i ${./.walls/the_neon_shallows_by_leikoi.png} -m fill &"
-        "[workspace special:1 silent] kitty -1"
+        "[workspace special:1 silent] uwsm app kitty -1"
       ];
 
       monitor = ",preferred,auto,1.25,vrr,2,cm,auto";
@@ -214,9 +214,9 @@
         "$mod,M,togglespecialworkspace,2"
 
         # Launching
-        "$mod, B, exec, firefox"
-        "$mod, Return, exec, kitty -1"
-        "$mod ALT, T, exec, kitty -1"
+        "$mod, B, exec, uwsm app firefox"
+        "$mod, Return, exec, uwsm app kitty -1"
+        "$mod ALT, T, exec, uwsm app kitty -1"
 
         # Screenshot
         ", Print, exec, grimblast --notify copy screen"
