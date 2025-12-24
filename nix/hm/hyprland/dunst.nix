@@ -48,7 +48,7 @@
         follow = "mouse";
         indicate_hidden = "yes";
 
-        offset = "10x10";
+        offset = "(10, 10)";
         origin = "top-center";
 
         separator_height = 2;

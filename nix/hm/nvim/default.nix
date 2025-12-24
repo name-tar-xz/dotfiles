@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   xdg.configFile = {
     "nvim/after".source = ./after;

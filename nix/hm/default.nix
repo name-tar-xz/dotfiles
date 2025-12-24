@@ -28,6 +28,18 @@
     userDirs.enable = true;
     cacheHome = "${config.home.homeDirectory}/.local/cache";
 
+    autostart = {
+      enable = true;
+      readOnly = true;
+      entries = [
+        "${
+          pkgs.runCommand "block iwgtk autostart" { } ''
+            mkdir -p $out/share/autostart
+            touch $out/share/autostart/iwgtk-indicator.desktop''
+        }/share/autostart/iwgtk-indicator.desktop"
+      ];
+    };
+
     configFile = {
       "lf/icons".source = pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/gokcehan/lf/refs/heads/master/etc/icons.example";
@@ -50,7 +62,7 @@
       iwgtk # Wifi
       overskride # Bluetooth
       # Audio
-      qpwgraph
+      helvum
       pwvucontrol
 
       libreoffice-qt6-fresh # Applications
@@ -117,6 +129,11 @@
       nohup = "command rm nohup.out;nohup";
     };
     sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
+  };
+
+  dconf.settings."org/gtk/settings/file-chooser" = {
+    sort-directories-first = true;
+    show-hidden = true;
   };
 
   programs = {

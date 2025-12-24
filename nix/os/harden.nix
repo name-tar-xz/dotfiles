@@ -40,7 +40,7 @@ _: {
       "vivid"
     ];
 
-    kernelParams = [ "debugfs=off" ];
+    # kernelParams = [ "debugfs=off" ]; Needed for scx_lavd
 
     kernel.sysctl = {
       "kernel.kptr_restrict" = 2;

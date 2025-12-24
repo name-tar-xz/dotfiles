@@ -70,6 +70,22 @@ vim.schedule(function()
     end,
   })
 
+  local linenr_grp = vim.api.nvim_create_augroup("linenr", {})
+  vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "CmdlineLeave", "WinEnter" }, {
+    group = linenr_grp,
+    desc = "Toggle relative line numbers on",
+    callback = function()
+      if vim.wo.number then vim.wo.relativenumber = true end
+    end,
+  })
+  vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEnter", "WinLeave" }, {
+    group = linenr_grp,
+    desc = "Toggle relative line numbers off",
+    callback = function()
+      if vim.wo.number then vim.wo.relativenumber = false end
+    end,
+  })
+
   vim.api.nvim_create_autocmd("CursorHold", {
     group = vim.api.nvim_create_augroup("diagnostic", { clear = true }),
     callback = function() vim.diagnostic.open_float({ scope = "cursor", focusable = false }) end,

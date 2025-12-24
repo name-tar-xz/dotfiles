@@ -19,12 +19,6 @@
         ao = "pipewire,";
         gpu-context = "wayland";
         deband = true;
-        audio-spdif = [
-          "ac3"
-          "eac3"
-          "dts-hd"
-          "truehd"
-        ];
         sub-font = "serif";
         osd-font = "monospace";
         cache = true;

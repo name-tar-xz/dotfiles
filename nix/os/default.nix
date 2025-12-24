@@ -83,7 +83,7 @@
     );
     nixPath = lib.mapAttrsToList (k: _: "${k}=flake:${k}") registry;
 
-    daemonCPUSchedPolicy = "batch";
+    daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
 
     settings = {
@@ -106,6 +106,7 @@
   environment = {
     binsh = pkgs.lib.getExe pkgs.dash;
     pathsToLink = [ "/share/zsh" ];
+    systemPackages = [ pkgs.uutils-coreutils-noprefix ];
   };
 
   programs = {

@@ -1,5 +1,16 @@
 { pkgs, ... }:
 {
+  system.replaceDependencies.replacements = [
+    {
+      oldDependency = pkgs.networkmanager;
+      newDependency = pkgs.runCommand "networkmanager-${pkgs.networkmanager.version}" { } "mkdir -p $out";
+    }
+    {
+      oldDependency = pkgs.modemmanager;
+      newDependency = pkgs.runCommand "modemmanager-${pkgs.modemmanager.version}" { } "mkdir -p $out";
+    }
+  ];
+
   programs = {
     steam = {
       enable = true;

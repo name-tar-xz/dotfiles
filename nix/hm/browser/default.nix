@@ -96,6 +96,7 @@
 
               "github.com"
               "gitlab.com"
+              "codeberg.org"
             ]
         );
         Locked = true;

@@ -7,6 +7,8 @@
     ./hypridle.nix
   ];
 
+  catppuccin.hyprland.enable = true;
+
   home.packages = with pkgs; [
     hyprpicker
     grimblast # Screenshot
@@ -50,7 +52,7 @@
         "[workspace special:1 silent] uwsm app kitty -1"
       ];
 
-      monitor = ",preferred,auto,1.25,vrr,2,cm,auto";
+      monitor = ",preferred,auto,1.25";
 
       input = {
         kb_layout = "us";
@@ -79,7 +81,7 @@
         gaps_in = 0;
         gaps_out = 0;
         border_size = 2;
-        "col.active_border" = "rgb(cba6f7)";
+        "col.active_border" = "$accent";
         "col.inactive_border" = "rgba(00000000)";
         layout = "dwindle";
         no_border_on_floating = false;
@@ -87,17 +89,18 @@
       };
 
       group = {
-        "col.border_active" = "rgb(cba6f7)";
+        "col.border_active" = "$accent";
         "col.border_inactive" = "rgba(00000000)";
         groupbar = {
           gradients = true;
           "col.inactive" = "rgba(00000000)";
-          "col.active" = "rgb(cba6f7)";
+          "col.active" = "$accent";
         };
       };
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
+        disable_autoreload = true;
         vfr = true;
         # vrr = 1;
         mouse_move_enables_dpms = true;

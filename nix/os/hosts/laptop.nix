@@ -30,7 +30,7 @@
       "nvme.noacpi=1"
       "plymouth.use-simpledrm"
     ];
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto; # lqx xanmod xanmod_latest xanmod_stable zen
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4; # lqx xanmod xanmod_latest xanmod_stable zen
     supportedFilesystems = [ "btrfs" ];
 
     loader.systemd-boot.enable = lib.mkForce false;
@@ -55,13 +55,6 @@
     extraSpecialArgs = { inherit inputs; };
     sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
   };
-
-  system.replaceDependencies.replacements = [
-    {
-      oldDependency = pkgs.networkmanager;
-      newDependency = pkgs.runCommand "networkmanager-${pkgs.networkmanager.version}" { } "mkdir -p $out";
-    }
-  ];
 
   nixpkgs.overlays = [
     inputs.neovim-nightly-overlay.overlays.default
