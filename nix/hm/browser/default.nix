@@ -89,8 +89,11 @@
             ])
             [
               "account.proton.me"
+              "auth.adguardaccount.com"
+
               "app.cinny.in"
               "app.element.io"
+
               "github.com"
               "gitlab.com"
             ]

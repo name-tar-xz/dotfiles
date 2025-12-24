@@ -14,9 +14,9 @@
       enable = true;
       configFile = "/etc/routedns.toml";
       settings = {
-        resolvers.nextdns = {
-          address = "${config.networking.hostName}-${config.sops.placeholder.nextdns}.dns.nextdns.io:853";
-          bootstrap-address = "45.90.28.166";
+        resolvers.adguard = {
+          address = "${config.sops.placeholder.adguard}.d.adguard-dns.com:853";
+          bootstrap-address = "94.140.14.49";
           protocol = "doq";
           enable-0rtt = true;
         };
@@ -39,7 +39,7 @@
 
           collapse = {
             type = "response-collapse";
-            resolvers = [ "nextdns" ];
+            resolvers = [ "adguard" ];
           };
         };
 
@@ -123,6 +123,6 @@
       path = "/etc/routedns.toml";
       mode = "0444";
     };
-    secrets.nextdns.mode = "0444";
+    secrets.adguard.mode = "0444";
   };
 }
