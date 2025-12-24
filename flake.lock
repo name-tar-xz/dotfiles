@@ -335,6 +335,26 @@
         "type": "github"
       }
     },
+    "phoenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765837230,
+        "narHash": "sha256-7i09QPECBvWsT/Me5mFHz94Q327PG9yyGGvLwNgbLRU=",
+        "owner": "celenityy",
+        "repo": "Phoenix",
+        "rev": "2f97f50bb44231e86238ef796ad5d84e3984b6d9",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "celenityy",
+        "repo": "Phoenix",
+        "type": "gitlab"
+      }
+    },
     "root": {
       "inputs": {
         "betterfox": "betterfox",
@@ -346,6 +366,7 @@
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nixpkgs": "nixpkgs",
         "nvim-treesitter-main": "nvim-treesitter-main",
+        "phoenix": "phoenix",
         "run0-sudo-shim": "run0-sudo-shim",
         "sops-nix": "sops-nix"
       }

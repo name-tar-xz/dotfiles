@@ -1,7 +1,13 @@
 _: {
   programs.firefox.policies."3rdparty".Extensions."uBlock0@raymondhill.net" = {
     toOverwrite = {
-      filters = [ "*$font,third-party" ];
+      filters = [
+        # "search.brave.com##+js(set-cookie, useLocation, 0)" # Disable "Anonymous local results"
+        # "search.brave.com##+js(set-cookie, summarizer, 0)" # Disable "Answer with AI"
+        "search.brave.com##+js(set-cookie, safesearch, off)" # Disable Safe Search
+        "search.brave.com##+js(set-cookie, olnt, 1)" # Open links in new tab
+        "search.brave.com##+js(set-cookie, country, all)" # Search in all regions
+      ];
       filterLists = [
         "user-filters"
         "ublock-filters"
@@ -11,27 +17,44 @@ _: {
         "ublock-unbreak"
         "easylist"
         "easyprivacy"
-        "adguard-spyware"
         "adguard-spyware-url"
         "block-lan"
-        "urlhaus-1"
-        "curben-phishing"
-        "plowe-0"
-        "adguard-cookies"
-        "ublock-cookies-adguard"
+        "fanboy-cookiemonster"
+        "ublock-cookies-easylist"
         "fanboy-social"
         "easylist-chat"
         "easylist-newsletters"
         "easylist-notifications"
         "easylist-annoyances"
         "ublock-annoyances"
+
         "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean-filters/blob/raw?file=bpc-paywall-filter.txt"
-        "https://github.com/DandelionSprout/adfilt/raw/refs/heads/master/BrowseWebsitesWithoutLoggingIn.txt"
+        "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
+
+        "https://gitlab.com/DandelionSprout/adfilt/-/raw/master/AnnoyancesList"
+        "https://github.com/easylist/easylist/raw/refs/heads/master/fanboy-addon/fanboy_ai_suggestions.txt"
+
         "https://github.com/yokoffing/filterlists/raw/main/annoyance_list.txt"
         "https://github.com/yokoffing/filterlists/raw/refs/heads/main/privacy_essentials.txt"
-        "https://raw.githubusercontent.com/liamengland1/miscfilters/master/antipaywall.txt"
         "https://raw.githubusercontent.com/yokoffing/filterlists/refs/heads/main/block_third_party_fonts.txt"
-        "https://github.com/DandelionSprout/adfilt/raw/refs/heads/master/LegitimateURLShortener.txt"
+
+        # Phoenix/BadBlock
+
+        "beacon" # https://gitlab.com/celenityy/Phoenix/-/raw/pages/uBlock/beacon.txt
+
+        "ublock-webgl" # https://gitlab.com/celenityy/BadBlock/-/raw/pages/hardened/block-webgl.txt
+        "https://gitlab.com/celenityy/BadBlock/-/raw/pages/hardened/unbreak-webgl.txt"
+
+        "webrtc" # https://gitlab.com/celenityy/BadBlock/-/raw/pages/hardened/block-webrtc.txt
+        "https://gitlab.com/celenityy/BadBlock/-/raw/pages/hardened/unbreak-webrtc.txt"
+
+        "https://gitlab.com/celenityy/BadBlock/-/raw/pages/hardened/block-webgpu.txt"
+        "https://gitlab.com/celenityy/BadBlock/-/raw/pages/hardened/unbreak-webgpu.txt"
+
+        "https://gitlab.com/celenityy/BadBlock/-/raw/pages/abp/badblock_plus.txt"
+        "https://gitlab.com/celenityy/BadBlock/-/raw/pages/abp/fonts.txt"
+        "https://gitlab.com/celenityy/BadBlock/-/raw/pages/abp/click-tracking.txt"
+        "https://gitlab.com/celenityy/BadBlock/-/raw/pages/hardened/block-page-visibility.txt"
       ];
     };
 
@@ -60,7 +83,7 @@ _: {
       ]
       [
         "prefetchingDisabled"
-        "false"
+        "true"
       ]
       [
         "popupPanelSections"

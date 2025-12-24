@@ -77,6 +77,10 @@
       };
     */
 
+    phoenix = {
+      url = "gitlab:celenityy/Phoenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     betterfox = {
       url = "github:yokoffing/Betterfox";
       flake = false;

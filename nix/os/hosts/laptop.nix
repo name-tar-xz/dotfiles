@@ -11,6 +11,7 @@
     catppuccin.nixosModules.catppuccin
     lanzaboote.nixosModules.lanzaboote
     sops-nix.nixosModules.sops
+    phoenix.nixosModules.default
 
     ../audio.nix
     ../intel.nix
@@ -104,6 +105,8 @@
         prettyName = "Hyprland";
       };
     };
+
+    firefox.phoenix.firefoxPackages = [ "firefox-bin" ];
 
     neovim = {
       enable = true;
