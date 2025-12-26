@@ -112,8 +112,6 @@
       rmdir = "rmdirtrash -v --ignore-fail-on-non-empty";
 
       v = "nvim";
-      em = "/usr/bin/emacs -nw";
-      hx = "helix";
       l = "ls";
       a = "ll";
       cp = "cp -i";
@@ -121,14 +119,10 @@
       diff = "delta";
       getenv = "printenv|rg -i";
       clear = "clear -T xterm";
-      cls = "clear -T xterm";
       cl = "clear -T xterm";
       c = "clear -T xterm";
-      db = "dotbare";
       cat = "bat";
-      nohup = "command rm nohup.out;nohup";
     };
-    sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
   };
 
   dconf.settings."org/gtk/settings/file-chooser" = {
