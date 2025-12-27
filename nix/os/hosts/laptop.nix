@@ -153,6 +153,11 @@
     enableEmergencyMode = false;
     suppressedSystemUnits = [ "systemd-backlight@.service" ];
     services.audit.enable = false;
+
+    user.services = {
+      xdg-desktop-portal-gtk.serviceConfig.Slice = "session.slice";
+      dconf.serviceConfig.Slice = "session.slice";
+    };
   };
 
   xdg.portal = {

@@ -18,8 +18,16 @@
   ];
 
   systemd.user.services = {
-    cliphist.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
-    cliphist-images.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
+    cliphist = {
+      Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
+      Service.Slice = "background.slice";
+    };
+    cliphist-images = {
+      Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
+      Service.Slice = "background.slice";
+    };
+
+    # xdg-desktop-portal-gtk.Service.Slice = "session.slice";
 
     lxqt-policykit-agent = {
       Install.WantedBy = [ "graphical-session.target" ];
@@ -33,6 +41,7 @@
         ExecStart = "${pkgs.lib.getExe pkgs.lxqt.lxqt-policykit}";
         Restart = "on-failure";
         RestartSec = 1;
+        Slice = "session.slice";
         TimeoutStopSec = 10;
       };
     };

@@ -1,6 +1,12 @@
 _: {
   services.playerctld.enable = true;
-  systemd.user.services.waybar.Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
+  systemd.user.services = {
+    waybar = {
+      Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
+      Service.Slice = "background.slice";
+    };
+    playerctld.Service.Slice = "background.slice";
+  };
 
   programs.waybar = {
     enable = true;

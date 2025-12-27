@@ -41,6 +41,8 @@
     '')
   ];
 
+  systemd.user.services.dunst.Service.Slice = "background.slice";
+
   services.dunst = {
     enable = true;
     settings = {

@@ -205,6 +205,7 @@
   systemd.user = {
     inherit (config.home) sessionVariables;
     startServices = true;
+    services.udiskie.Service.Slice = "background.slice";
   };
 
   sops = {

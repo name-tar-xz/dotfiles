@@ -5,6 +5,8 @@
   ...
 }:
 {
+  systemd.user.services.hypridle.Service.Slice = "background.slice";
+
   services.hypridle = {
     enable = true;
     settings = {
