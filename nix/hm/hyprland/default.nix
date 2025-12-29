@@ -27,6 +27,8 @@
       Service.Slice = "background.slice";
     };
 
+    hyprpaper.Service.Slice = "background.slice";
+
     # xdg-desktop-portal-gtk.Service.Slice = "session.slice";
 
     lxqt-policykit-agent = {
@@ -47,7 +49,21 @@
     };
   };
 
-  services.cliphist.enable = true;
+  services = {
+    cliphist.enable = true;
+
+    hyprpaper = {
+      enable = true;
+      settings = {
+        wallpaper = [
+          {
+            path = "${./.walls/the_neon_shallows_by_leikoi.png}";
+            fit_mode = "fill";
+          }
+        ];
+      };
+    };
+  };
 
   xdg.portal.enable = pkgs.lib.mkForce false;
 
@@ -56,10 +72,7 @@
     xwayland.enable = true;
     systemd.enable = false;
     settings = {
-      exec-once = [
-        "${pkgs.lib.getExe pkgs.swaybg} -i ${./.walls/the_neon_shallows_by_leikoi.png} -m fill &"
-        "[workspace special:1 silent] uwsm app kitty -1"
-      ];
+      exec-once = [ "[workspace special:1 silent] uwsm app kitty -1" ];
 
       monitor = ",preferred,auto,1.25";
 
