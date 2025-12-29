@@ -93,7 +93,6 @@
         "col.active_border" = "$accent";
         "col.inactive_border" = "rgba(00000000)";
         layout = "dwindle";
-        no_border_on_floating = false;
         allow_tearing = true;
       };
 
@@ -183,67 +182,59 @@
       render.direct_scanout = true;
 
       windowrule = [
-        "float, class:file_progress"
-        "float, class:confirm"
-        "float, class:dialog"
-        "float, class:download"
-        "float, class:notification"
-        "float, class:error"
-        "float, class:splash"
-        "float, class:confirmreset"
-        "float, title:Open File"
-        "float, title:branchdialog"
-        "float, class:viewnior"
-        "float, class:file-roller"
+        "match:class file_progress, float true"
+        "match:class confirm, float true"
+        "match:class dialog, float true"
+        "match:class download, float true"
+        "match:class notification, float true"
+        "match:class error, float true"
+        "match:class splash, float true"
+        "match:class confirmreset, float true"
+        "match:title Open File, float true"
+        "match:title branchdialog, float true"
+        "match:class viewnior, float true"
+        "match:class file-roller, float true"
 
-        "idleinhibit focus, class:mpv"
-        "fullscreen, class:mpv"
-        "noborder, class:mpv"
-        "opaque, class:mpv"
-        "nodim, class:mpv"
+        "match:class mpv, idle_inhibit focus"
+        "match:class mpv, fullscreen true"
+        "match:class mpv, border_size 0"
+        "match:class mpv, opaque true"
+        "match:class mpv, no_dim true"
 
-        "idleinhibit fullscreen, class:firefox"
+        "match:class firefox, idle_inhibit fullscreen true"
 
-        "float, title:^(Media viewer)$"
-        "float, title:^(Volume Control)$"
-        "float, title:^(Authentication Required)$"
-        "float, title:^(Bluetooth Devices)$"
-        "float, title:^(iwgtk)$"
-        "float, title:^(dconf Editor)$"
-        "float, class:zoom"
+        "match:title ^(Media viewer)$, float true"
+        "match:title ^(Volume Control)$, float true"
+        "match:title ^(Authentication Required)$, float true"
+        "match:title ^(Bluetooth Devices)$, float true"
+        "match:title ^(iwgtk)$, float true"
+        "match:title ^(dconf Editor)$, float true"
+        "match:class zoom, float true"
 
-        "float, title:^(Picture in picture)$"
-        "keepaspectratio, title:^(Picture in picture)$"
-        "pin, title:^(Picture in picture)$"
-        "noborder, title:^(Picture in picture)$"
-        "nodim, title:^(Picture in picture)$"
-        "opaque, title:^(Picture in picture)$"
+        "match:title ^(Picture in picture)$, float true"
+        "match:title ^(Picture in picture)$, keep_aspect_ratio true"
+        "match:title ^(Picture in picture)$, pin true"
+        "match:title ^(Picture in picture)$, border_size 0"
+        "match:title ^(Picture in picture)$, no_dim true"
+        "match:title ^(Picture in picture)$, opaque true"
 
-        "float, title:^(Firefox — Sharing Indicator)$"
+        "match:title ^(Firefox — Sharing Indicator)$, float true"
 
-        "stayfocused, class:^(rofi)$"
-        "xray 1, class:^(kitty$)"
+        "match:class ^(rofi)$, stay_focused true"
+        "match:class ^(kitty)$, xray true"
 
-        "bordersize 0, floating:0, onworkspace:w[tv1]"
-        "rounding 0, floating:0, onworkspace:w[tv1]"
-        "bordersize 0, floating:0, onworkspace:f[1]"
-        "rounding 0, floating:0, onworkspace:f[1]"
-      ];
-
-      workspace = [
-        "name:special:1,rounding:false,bordersize:0"
-        "w[tv1], gapsout:0, gapsin:0"
-        "f[1], gapsout:0, gapsin:0"
+        "match:workspace w[tv1], match:float false, rounding 0, border_size 0"
+        "match:workspace s[true], match:float false, match:class ^(kitty)$, rounding 0, border_size 0"
       ];
 
       layerrule = [
-        "blur, gtk-layer-shell"
-        "blur, notifications"
-        "ignorezero, notifications"
-        "blur, rofi"
-        "blur, waybar"
-        "ignorezero, waybar"
-        "ignorezero, rofi"
+        "match:namespace gtk-layer-shell, blur true"
+        "match:namespace notifications, blur true"
+        "match:namespace notifications, ignore_alpha 0"
+        "match:namespace rofi, blur true"
+        "match:namespace waybar, blur true"
+        "match:namespace waybar, ignore_alpha 0"
+        "match:namespace rofi, ignore_alpha 0"
       ];
 
       "$mod" = "SUPER";
@@ -372,7 +363,6 @@
         no_update_news = true;
         no_donation_nag = true;
       };
-      experimental.xx_color_management_v4 = true;
     };
   };
 }
