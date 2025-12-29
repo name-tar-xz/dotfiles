@@ -101,11 +101,7 @@
   programs = {
     uwsm = {
       enable = true;
-      waylandCompositors.hyprland = {
-        binPath = lib.getExe config.home-manager.users.tarxz.wayland.windowManager.hyprland.finalPackage;
-        comment = "Hyprland session managed by uwsm";
-        prettyName = "Hyprland";
-      };
+      waylandCompositors = { };
     };
 
     firefox.phoenix.firefoxPackages = [ "firefox-bin" ];
@@ -136,16 +132,21 @@
       extraConfig = "font-size=16";
       extraOptions = "--term xterm-256color";
     };
+
     greetd = {
       enable = true;
       useTextGreeter = true;
       settings = {
         default_session = {
-          command = "${lib.getExe pkgs.tuigreet} --time --user-menu";
+          command = "${lib.getExe pkgs.tuigreet} --time --user-menu --remember --remember-session";
           user = "greeter";
         };
       };
     };
+    displayManager.sessionPackages = [
+      config.home-manager.users.tarxz.wayland.windowManager.hyprland.finalPackage
+    ];
+
     fprintd.enable = false; # Disable until https://gitlab.freedesktop.org/libfprint/libfprint/-/issues/401 gets fixed
     fwupd.enable = true;
 
