@@ -99,11 +99,19 @@
     irqbalance.enable = true;
     thermald.enable = true;
 
-    scx = {
+    scx-loader = {
       enable = true;
-      scheduler = "scx_lavd";
-      extraArgs = [ "--autopower" ];
-      package = pkgs.scx.rustscheds;
+      schedsPackages = [ pkgs.scx.rustscheds ];
+      config = {
+        default_sched = "scx_lavd";
+        scheds = {
+          scx_lavd.auto_mode = [ "--autopower" ];
+          scx_cosmos.auto_mode = [
+            "--mm-affinity"
+            "--flat-idle-scan"
+          ];
+        };
+      };
     };
 
     ananicy = {
