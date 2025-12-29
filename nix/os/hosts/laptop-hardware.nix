@@ -22,51 +22,16 @@
 
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/a04d27cd-3f57-474c-bf20-2aea77c8126c";
-      fsType = "btrfs";
+      device = "/dev/disk/by-uuid/9443b412-d803-44b9-8bae-072167320b27";
+      fsType = "bcachefs";
       options = [
-        "subvol=@"
-        "compress=zstd"
-        "lazytime"
-        "noatime"
-      ];
-    };
-
-    "/home" = {
-      device = "/dev/disk/by-uuid/a04d27cd-3f57-474c-bf20-2aea77c8126c";
-      fsType = "btrfs";
-      options = [
-        "subvol=@home"
-        "compress=zstd"
-        "lazytime"
-        "noatime"
-      ];
-    };
-
-    "/nix" = {
-      device = "/dev/disk/by-uuid/a04d27cd-3f57-474c-bf20-2aea77c8126c";
-      fsType = "btrfs";
-      options = [
-        "subvol=@nix"
-        "compress=zstd"
-        "lazytime"
-        "noatime"
-      ];
-    };
-
-    "/var" = {
-      device = "/dev/disk/by-uuid/a04d27cd-3f57-474c-bf20-2aea77c8126c";
-      fsType = "btrfs";
-      options = [
-        "subvol=@var"
-        "compress=zstd"
         "lazytime"
         "noatime"
       ];
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/A196-CF80";
+      device = "/dev/disk/by-uuid/FAD4-5603";
       fsType = "vfat";
       options = [
         "fmask=0077"

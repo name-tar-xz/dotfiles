@@ -25,13 +25,22 @@
     initrd = {
       systemd.enable = true;
       includeDefaultModules = false;
+
+      clevis = {
+        enable = true;
+        devices."${config.fileSystems."/".device}".secretFile = ./secret.jwe;
+      };
+      availableKernelModules = [
+        "tpm_crb"
+        "tpm_tis"
+      ];
     };
     kernelParams = [
       "nvme.noacpi=1"
       "plymouth.use-simpledrm"
     ];
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4; # lqx xanmod xanmod_latest xanmod_stable zen
-    supportedFilesystems = [ "btrfs" ];
+    supportedFilesystems = [ "bcachefs" ];
 
     loader.systemd-boot.enable = lib.mkForce false;
     lanzaboote = {
