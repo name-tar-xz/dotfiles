@@ -55,8 +55,6 @@
         "--height 10%"
         "--preview ''"
       ];
-
-      enableZshIntegration = true;
     };
   };
 }

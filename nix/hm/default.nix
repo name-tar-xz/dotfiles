@@ -55,7 +55,6 @@
     username = "tarxz";
     homeDirectory = "/home/${username}";
     preferXdgDirectories = true;
-    shell.enableZshIntegration = true;
 
     packages = with pkgs; [
       sops

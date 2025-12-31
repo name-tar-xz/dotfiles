@@ -10,8 +10,6 @@
     ## File Management
     rmtrash
     trash-cli
-
-    zsh-completions
   ];
 
   imports = [
@@ -34,7 +32,6 @@
     vivid = {
       enable = true;
       activeTheme = "catppuccin-mocha";
-      enableZshIntegration = true;
     };
 
     eza = {
@@ -138,7 +135,6 @@
         "--cmd"
         "cd"
       ];
-      enableZshIntegration = true;
     };
 
     lazygit = {

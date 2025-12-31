@@ -7,6 +7,11 @@
 {
   catppuccin.zsh-syntax-highlighting.enable = true;
 
+  home = {
+    packages = [ pkgs.zsh-completions ];
+    shell.enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     dotDir = "${config.xdg.configHome}/zsh";
@@ -45,13 +50,32 @@
       "interactive_comments"
     ];
 
-    envExtra = /* sh */ ''
-      export MANROFFOPT="-c"
-      export MANPAGER="/bin/sh -c 'col -bx | ${pkgs.lib.getExe pkgs.bat} --language=man --color=always -p'"
-    '';
+    shellGlobalAliases = {
+      "--help" = "--help 2>&1 | bat --plain --language=help --color=always";
+
+      C = "| wl-copy";
+      L = "| less";
+      G = "| rg";
+
+      NE = "2>/dev/null";
+      NO = ">/dev/null";
+      NUL = ">/dev/null 2>&1";
+    };
+
+    dirHashes = {
+      nix = "${config.xdg.configHome}/nixos";
+      git = "${config.home.homeDirectory}/git";
+    };
+
+    sessionVariables = {
+      MANROFFOPT = "-c";
+      MANPAGER = "/bin/sh -c 'col -bx | ${pkgs.lib.getExe pkgs.bat} --language=man --color=always -p'";
+    };
 
     initContent = lib.mkMerge [
-      (lib.mkBefore "${pkgs.lib.getExe config.programs.fastfetch.package}")
+      (lib.mkBefore (pkgs.lib.getExe config.programs.fastfetch.package))
+
+      (lib.mkOrder 520 "fpath+=(/run/current-system/sw/share/zsh/site-functions)")
 
       (lib.mkAfter /* sh */ ''
         zstyle ':completion:*' auto-description '+%d'

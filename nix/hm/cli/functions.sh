@@ -42,16 +42,6 @@ lfcd() {
   cd "$(command lf -print-last-dir "$@")" || return
 }
 
-rangercd() {
-  tmp="$(mktemp)"
-  ranger --choosedir="$tmp" "$@"
-  if [ -f "$tmp" ]; then
-    dir="$(cat "$tmp")"
-    /bin/rm -f "$tmp"
-    [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && command cd "$dir" || return
-  fi
-}
-
 arduino_run() {
   arduino-cli compile -b "$1" -p "$2" "$3"
   arduino-cli upload -b "$1" -p "$2" "$3"
