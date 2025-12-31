@@ -1,6 +1,10 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [ rofi-systemd ];
+  home.packages = with pkgs; [
+    (rofi-systemd.overrideAttrs (old: {
+      installPhase = old.installPhase + "sed 's/sudo //g' -i $out/bin/rofi-systemd";
+    }))
+  ];
 
   programs.rofi = {
     enable = true;

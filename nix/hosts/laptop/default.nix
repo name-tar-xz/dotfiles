@@ -48,19 +48,6 @@
     inputs.nix-cachyos-kernel.overlays.default
 
     (_: prev: {
-      firefox-bin = prev.firefox-bin.override {
-        cfg = {
-          speechSynthesisSupport = false;
-          pipewireSupport = true;
-        };
-      };
-
-      ani-skip = prev.ani-skip.overrideAttrs { passthru.scriptName = "skip"; };
-
-      rofi-systemd = prev.rofi-systemd.overrideAttrs (old: {
-        installPhase = old.installPhase + "sed 's/sudo //g' -i $out/bin/rofi-systemd";
-      });
-
       speechd = prev.speechd.override {
         withLibao = false;
         withPulse = false;

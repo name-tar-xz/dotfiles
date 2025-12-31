@@ -161,6 +161,7 @@
   sops = {
     defaultSopsFile = ../secrets.yaml;
     age.keyFile = "/var/lib/age.txt";
+    useTmpfs = true;
 
     secrets = {
       wg = { };

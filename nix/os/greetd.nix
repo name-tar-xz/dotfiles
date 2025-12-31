@@ -13,6 +13,7 @@
     greetd = {
       enable = true;
       useTextGreeter = true;
+      greeterManagesPlymouth = true;
       settings = {
         default_session = {
           command = with pkgs; "${lib.getExe tuigreet} --time --user-menu --remember --remember-session";

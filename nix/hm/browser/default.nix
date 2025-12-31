@@ -13,7 +13,12 @@
   programs.firefox = {
     enable = true;
     languagePacks = [ "en-US" ];
-    package = pkgs.firefox-bin;
+    package = pkgs.firefox-bin.override {
+      cfg = {
+        speechSynthesisSupport = false;
+        pipewireSupport = true;
+      };
+    };
 
     policies = {
       AutofillAddressEnabled = false;

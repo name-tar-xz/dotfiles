@@ -11,7 +11,7 @@
       scripts = with pkgs.mpvScripts; [
         autodeint
         mpris
-        pkgs.ani-skip
+        (pkgs.ani-skip.overrideAttrs { passthru.scriptName = "skip"; })
       ];
       config = {
         hwdec = "vaapi,auto-safe";
