@@ -17,8 +17,7 @@
 
     inputs.run0-sudo-shim.nixosModules.default
 
-    ./hosts/${hostname}-hardware.nix
-    ./hosts/${hostname}.nix
+    ../hosts/${hostname}
   ];
 
   boot = {

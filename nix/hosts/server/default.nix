@@ -4,7 +4,10 @@
   ...
 }:
 {
-  imports = with inputs; [ sops-nix.nixosModules.sops ];
+  imports = with inputs; [
+    ./hardware.nix
+    sops-nix.nixosModules.sops
+  ];
 
   nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlay ];
 

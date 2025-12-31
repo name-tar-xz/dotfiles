@@ -2,7 +2,6 @@
   pkgs,
   lib,
   inputs,
-  config,
   ...
 }:
 {
@@ -13,48 +12,25 @@
     sops-nix.nixosModules.sops
     phoenix.nixosModules.default
 
-    ../audio.nix
-    ../intel.nix
-    ../nvidia.nix
-    ../games.nix
-    ../perf.nix
-    ../fonts.nix
+    ./boot.nix
+    ./hardware.nix
+
+    ../../os/audio.nix
+    ../../os/fonts.nix
+    ../../os/games.nix
+    ../../os/greetd.nix
+    ../../os/intel.nix
+    ../../os/nvidia.nix
+    ../../os/perf.nix
   ];
 
   boot = {
-    initrd = {
-      systemd.enable = true;
-      includeDefaultModules = false;
-
-      clevis = {
-        enable = true;
-        devices."${config.fileSystems."/".device}".secretFile = ./secret.jwe;
-      };
-      availableKernelModules = [
-        "tpm_crb"
-        "tpm_tis"
-      ];
-    };
     kernelParams = [
       "nvme.noacpi=1"
       "plymouth.use-simpledrm"
     ];
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4; # lqx xanmod xanmod_latest xanmod_stable zen
-    supportedFilesystems = [ "bcachefs" ];
-
-    loader.systemd-boot.enable = lib.mkForce false;
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/var/lib/sbctl";
-      autoGenerateKeys.enable = true;
-      autoEnrollKeys = {
-        enable = true;
-        autoReboot = true;
-      };
-    };
   };
-
-  console.earlySetup = true;
 
   home-manager = {
     useGlobalPkgs = true;
@@ -99,11 +75,6 @@
   ];
 
   programs = {
-    uwsm = {
-      enable = true;
-      waylandCompositors = { };
-    };
-
     firefox.phoenix.firefoxPackages = [ "firefox-bin" ];
 
     neovim = {
@@ -125,27 +96,6 @@
       configDir = "/home/tarxz/.config/syncthing";
       dataDir = "/home/tarxz";
     };
-
-    kmscon = {
-      enable = true;
-      hwRender = true;
-      extraConfig = "font-size=16";
-      extraOptions = "--term xterm-256color";
-    };
-
-    greetd = {
-      enable = true;
-      useTextGreeter = true;
-      settings = {
-        default_session = {
-          command = "${lib.getExe pkgs.tuigreet} --time --user-menu --remember --remember-session";
-          user = "greeter";
-        };
-      };
-    };
-    displayManager.sessionPackages = [
-      config.home-manager.users.tarxz.wayland.windowManager.hyprland.finalPackage
-    ];
 
     fprintd.enable = false; # Disable until https://gitlab.freedesktop.org/libfprint/libfprint/-/issues/401 gets fixed
     fwupd.enable = true;
@@ -205,7 +155,6 @@
   hardware = {
     firmware = [ pkgs.linux-firmware ];
     enableRedistributableFirmware = false;
-    wirelessRegulatoryDatabase = true;
     graphics.enable32Bit = true;
 
     bluetooth = {
