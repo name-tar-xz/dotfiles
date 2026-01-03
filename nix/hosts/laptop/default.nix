@@ -43,8 +43,6 @@
 
   nixpkgs.overlays = [
     inputs.neovim-nightly-overlay.overlays.default
-    inputs.nvim-treesitter-main.overlays.default
-
     inputs.nix-cachyos-kernel.overlays.default
 
     (_: prev: {
