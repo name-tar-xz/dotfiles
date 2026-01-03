@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
 {
   imports = [
     ./waybar
@@ -373,7 +377,20 @@
         "$mod, mouse:273, resizewindow"
       ];
 
+      permission = [
+        "${config.wayland.windowManager.hyprland.finalPortalPackage}/libexec/xdg-desktop-portal-hyprland, screencopy, allow"
+
+        # ".*, keyboard, ask"
+      ]
+      ++ (with pkgs; [
+        "${lib.getExe grimblast}, screencopy, allow"
+        "${lib.getExe grim}, screencopy, allow"
+        "${lib.getExe hyprpicker}, screencopy, allow"
+        "${lib.getExe hyprlock}, screencopy, allow"
+      ]);
+
       ecosystem = {
+        enforce_permissions = true;
         no_update_news = true;
         no_donation_nag = true;
       };
