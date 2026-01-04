@@ -17,7 +17,7 @@
     ./fzf.nix
     ./git.nix
     ./lf.nix
-    ./starship.nix
+    ./omp.nix
     ./zsh.nix
   ];
 
