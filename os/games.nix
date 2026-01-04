@@ -1,13 +1,13 @@
 { pkgs, ... }:
 {
-  system.replaceDependencies.replacements = [
+  system.replaceDependencies.replacements = with pkgs; [
     {
-      oldDependency = pkgs.networkmanager;
-      newDependency = pkgs.runCommand "networkmanager-${pkgs.networkmanager.version}" { } "mkdir -p $out";
+      oldDependency = networkmanager;
+      newDependency = runCommand "networkmanager-${networkmanager.version}" { } "mkdir -p $out";
     }
     {
-      oldDependency = pkgs.modemmanager;
-      newDependency = pkgs.runCommand "modemmanager-${pkgs.modemmanager.version}" { } "mkdir -p $out";
+      oldDependency = modemmanager;
+      newDependency = runCommand "modemmanager-${modemmanager.version}" { } "mkdir -p $out";
     }
   ];
 

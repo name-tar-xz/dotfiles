@@ -42,9 +42,6 @@
   };
 
   nixpkgs.overlays = [
-    inputs.neovim-nightly-overlay.overlays.default
-    inputs.nix-cachyos-kernel.overlays.default
-
     (_: prev: {
       speechd = prev.speechd.override {
         withLibao = false;
@@ -57,7 +54,11 @@
         libsOnly = true;
       };
     })
-  ];
+  ]
+  ++ (with inputs; [
+    neovim-nightly-overlay.overlays.default
+    nix-cachyos-kernel.overlays.default
+  ]);
 
   programs = {
     firefox.phoenix.firefoxPackages = [ "firefox-bin" ];

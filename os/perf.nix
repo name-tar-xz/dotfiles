@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   boot = {
     kernelParams = [
@@ -115,7 +115,7 @@
       settings = {
         apply_latnice = true;
         check_freq = 15;
-        cgroup_realtime_workaround = lib.mkForce false;
+        cgroup_realtime_workaround = pkgs.lib.mkForce false;
       };
     };
 
@@ -190,10 +190,10 @@
         description = "PCI Latency";
         wantedBy = [ "multi-user.target" ];
         serviceConfig.Type = "oneshot";
-        script = ''
-          ${lib.getExe' pkgs.pciutils "setpci"} -v -s '*:*' latency_timer=20
-          ${lib.getExe' pkgs.pciutils "setpci"} -v -s '0:0' latency_timer=0
-          ${lib.getExe' pkgs.pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
+        script = with pkgs; ''
+          ${lib.getExe' pciutils "setpci"} -v -s '*:*' latency_timer=20
+          ${lib.getExe' pciutils "setpci"} -v -s '0:0' latency_timer=0
+          ${lib.getExe' pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
         '';
       };
     };

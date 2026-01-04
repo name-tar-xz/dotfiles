@@ -62,9 +62,9 @@
       NUL = ">/dev/null 2>&1";
     };
 
-    dirHashes = {
-      nix = "${config.xdg.configHome}/nixos";
-      git = "${config.home.homeDirectory}/git";
+    dirHashes = with config; {
+      nix = "${xdg.configHome}/nixos";
+      git = "${home.homeDirectory}/git";
     };
 
     sessionVariables = {
@@ -73,7 +73,7 @@
     };
 
     initContent = lib.mkMerge [
-      (lib.mkBefore (pkgs.lib.getExe config.programs.fastfetch.package))
+      (lib.mkBefore (lib.getExe config.programs.fastfetch.package))
 
       (lib.mkOrder 520 "fpath+=(/run/current-system/sw/share/zsh/site-functions)")
 

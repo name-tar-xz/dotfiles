@@ -73,22 +73,23 @@
 
       NIXOS_OZONE_WL = 1;
       PROTON_USE_NTSYNC = 1;
-
-      KDEHOME = "${config.xdg.configHome}/kde";
-      CARGO_HOME = "${config.xdg.dataHome}/cargo";
-      CUDA_CACHE_PATH = "${config.xdg.cacheHome}/nv";
-      GOPATH = "${config.xdg.dataHome}/go";
-      RUSTUP_HOME = "${config.xdg.dataHome}/rustup";
-      NPM_CONFIG_USERCONFIG = "${config.xdg.configHome}/npm/npmrc";
-      WINEPREFIX = "${config.xdg.dataHome}/wine";
-      NODE_REPL_HISTORY = "${config.xdg.dataHome}/node_repl_history";
-      NVM_DIR = "${config.xdg.dataHome}/nvm";
-      ANDROID_USER_HOME = "${config.xdg.dataHome}/android";
-      PYTHONSTARTUP = "${config.xdg.configHome}/python/pythonrc";
-      PARALLEL_HOME = "${config.xdg.configHome}/parallel";
-      GRADLE_USER_HOME = "${config.xdg.dataHome}/gradle";
-      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${config.xdg.configHome}/java -Djavafx.cachedir=${config.xdg.cacheHome}/openjfx";
-    };
+    }
+    // (with config.xdg; {
+      KDEHOME = "${configHome}/kde";
+      CARGO_HOME = "${dataHome}/cargo";
+      CUDA_CACHE_PATH = "${cacheHome}/nv";
+      GOPATH = "${dataHome}/go";
+      RUSTUP_HOME = "${dataHome}/rustup";
+      NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
+      WINEPREFIX = "${dataHome}/wine";
+      NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
+      NVM_DIR = "${dataHome}/nvm";
+      ANDROID_USER_HOME = "${dataHome}/android";
+      PYTHONSTARTUP = "${configHome}/python/pythonrc";
+      PARALLEL_HOME = "${configHome}/parallel";
+      GRADLE_USER_HOME = "${dataHome}/gradle";
+      _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configHome}/java -Djavafx.cachedir=${cacheHome}/openjfx";
+    });
 
     shellAliases = {
       jctl = "journalctl -b";

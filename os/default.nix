@@ -77,9 +77,7 @@
     channel.enable = false;
     package = pkgs.lixPackageSets.latest.lix;
 
-    registry = lib.mapAttrs (_: v: { flake = v; }) (
-      lib.filterAttrs (_: v: lib.isType "flake" v) inputs
-    );
+    registry = lib.mapAttrs (_: v: { flake = v; }) (lib.filterAttrs (_: v: lib.isType "flake" v) inputs);
     nixPath = lib.mapAttrsToList (k: _: "${k}=flake:${k}") registry;
 
     daemonCPUSchedPolicy = "batch";
@@ -103,7 +101,7 @@
   };
 
   environment = {
-    binsh = pkgs.lib.getExe pkgs.dash;
+    binsh = lib.getExe pkgs.dash;
     pathsToLink = [ "/share/zsh" ];
     systemPackages = [ pkgs.uutils-coreutils-noprefix ];
   };

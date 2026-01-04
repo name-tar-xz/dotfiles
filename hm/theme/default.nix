@@ -8,12 +8,11 @@
   xdg.configFile = {
     "qt5ct/colors/Catppuccin-Black.conf".source = ./qtct/Catppuccin-Black.conf;
     "qt6ct/colors/Catppuccin-Black.conf".source = ./qtct/Catppuccin-Black.conf;
-
-    "gtk-4.0/assets".source =
-      "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-    "gtk-3.0/assets".source =
-      "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-3.0/assets";
-  };
+  }
+  // (with config.gtk.theme; {
+    "gtk-4.0/assets".source = "${package}/share/themes/${name}/gtk-4.0/assets";
+    "gtk-3.0/assets".source = "${package}/share/themes/${name}/gtk-3.0/assets";
+  });
 
   home.pointerCursor = {
     gtk.enable = true;
