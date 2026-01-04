@@ -1,6 +1,5 @@
 {
   config,
-  osConfig,
   pkgs,
   inputs,
   ...
@@ -14,6 +13,7 @@
     ./rofi
 
     ./browser
+    ./games.nix
     ./kitty.nix
     ./mpv.nix
 
@@ -65,8 +65,6 @@
       pwvucontrol
 
       libreoffice-qt6-fresh # Applications
-
-      ludusavi # Games
     ];
 
     sessionVariables = {
@@ -131,26 +129,6 @@
 
   programs = {
     home-manager.enable = true;
-
-    lutris = {
-      enable = true;
-      steamPackage = osConfig.programs.steam.package;
-      protonPackages = [ pkgs.proton-ge-bin ];
-    };
-    retroarch = {
-      enable = true;
-      cores = {
-        gambatte.enable = true;
-        mgba.enable = true;
-        melonds.enable = true;
-        picodrive.enable = true;
-        pcsx-rearmed.enable = true;
-        pcsx2.enable = true;
-        ppsspp.enable = true;
-      };
-    };
-
-    mangohud.enable = true;
 
     ssh = {
       enable = true;
