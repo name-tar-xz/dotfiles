@@ -3,7 +3,7 @@ _: {
     let
       quantum = 64;
       rate = 48000;
-      qr = "${builtins.toString quantum}/${builtins.toString rate}";
+      qr = "${toString quantum}/${toString rate}";
     in
     {
       enable = true;

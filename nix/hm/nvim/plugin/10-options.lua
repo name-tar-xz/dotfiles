@@ -127,7 +127,7 @@ vim.schedule(function()
           ["Lua Diagnostics."] = "lua",
           ["Lua Syntax Check."] = "lua",
         }
-        return (short_src[d.source] or d.source) .. ": " .. (d.code and d.code or d.message)
+        return (short_src[d.source] or d.source or "") .. ": " .. (d.code and d.code or d.message)
       end,
       suffix = " ",
     },

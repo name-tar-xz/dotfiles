@@ -7,7 +7,7 @@
 
       clevis = {
         enable = true;
-        devices."${config.fileSystems."/".device}".secretFile = ./secret.jwe;
+        devices.${config.fileSystems."/".device}.secretFile = ./secret.jwe;
       };
       availableKernelModules = [
         "tpm_crb"

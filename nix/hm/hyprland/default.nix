@@ -40,7 +40,7 @@
       };
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.lib.getExe pkgs.lxqt.lxqt-policykit}";
+        ExecStart = pkgs.lib.getExe pkgs.lxqt.lxqt-policykit;
         Restart = "on-failure";
         RestartSec = 1;
         Slice = "session.slice";

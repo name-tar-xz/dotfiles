@@ -90,7 +90,7 @@
       color7 = "#bac2de";
       color15 = "#a6adc8";
 
-      shell = "${pkgs.lib.getExe pkgs.zsh}";
+      shell = pkgs.lib.getExe pkgs.zsh;
 
       update_check_interval = 0;
       allow_hyperlinks = true;
