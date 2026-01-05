@@ -80,6 +80,9 @@
     udev.extraRules = /* udev */ ''
       SUBSYSTEM=="block", ACTION=="add|change", TEST=="queue/nr_requests", KERNEL=="nvme[0-9]*", ATTR{queue/nr_requests}="2048"
 
+      # Disk power management
+      ACTION=="add", SUBSYSTEM=="block", TEST=="power/control", ATTR{power/control}="auto"
+
       # CachyOS
       # PCI runtime power management
       ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
@@ -111,42 +114,63 @@
       };
     };
 
-    tlp = {
+    tuned = {
       enable = true;
-      settings = {
-        NMI_WATCHDOG = 0;
-        DISK_IOSCHED = "keep keep";
+      settings.dynamic_tuning = true;
 
-        PLATFORM_PROFILE_ON_AC = "balanced";
-        PLATFORM_PROFILE_ON_BAT = "low-power";
+      ppdSettings = {
+        profiles = {
+          balanced = "default";
+          performance = "perf";
+          power-saver = "bat";
+        };
+        main.default = "balanced";
+        battery.balanced = "default";
+      };
 
-        RUNTIME_PM_ON_AC = "auto";
-        RUNTIME_PM_ON_BAT = "auto";
+      profiles = {
+        default = {
+          cpu = {
+            governor = "schedutil|ondemand|powersave";
+            energy_perf_bias = "normal";
+            energy_performance_preference = "balance_power";
+            boost = 1;
+          };
+          sysfs."/sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost" = 1;
+          audio.timeout = 1;
+          disk.readahead = ">4096";
+          acpi.platform_profile = "balanced";
+          scsi_host.alpm = "med_power_with_dipm";
+        };
 
-        AHCI_RUNTIME_PM_ON_AC = "auto";
-        AHCI_RUNTIME_PM_ON_BAT = "auto";
+        perf = {
+          main.include = "default";
+          cpu = {
+            governor = "performance";
+            energy_perf_bias = "performance";
+            energy_performance_preference = "performance";
+          };
+          sysfs."/sys/module/pcie_aspm/parameters/policy" = "performance";
+          scsi_host.alpm = "max_performance";
+        };
 
-        CPU_BOOST_ON_AC = 1;
-        CPU_BOOST_ON_BAT = 0;
-
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-
-        CPU_HWP_DYN_BOOST_ON_AC = 1;
-        CPU_HWP_DYN_BOOST_ON_BAT = 0;
-
-        PCIE_ASPM_ON_AC = "default";
-        PCIE_ASPM_ON_BAT = "powersupersave";
-
-        SATA_LINKPWR_ON_AC = "max_performance";
-        SATA_LINKPWR_ON_BAT = "min_power";
-
-        USB_AUTOSUSPEND = 1;
+        bat = {
+          main.include = "default";
+          cpu = {
+            energy_perf_bias = "powersave|power";
+            energy_performance_preference = "power";
+            boost = 0;
+          };
+          sysfs = {
+            "/sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost" = 0;
+            "/sys/module/pcie_aspm/parameters/policy" = "powersupersave";
+          };
+          acpi.platform_profile = "low-power|quiet";
+        };
       };
     };
+
+    upower.noPollBatteries = true;
   };
 
   systemd = {
