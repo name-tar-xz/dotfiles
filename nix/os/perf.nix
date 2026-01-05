@@ -65,7 +65,11 @@
             };
           };
 
-          ksm.pages_to_scan = 1000;
+          ksm = {
+            run = 1;
+            pages_to_scan = 1000;
+            sleep_millisecs = 4000;
+          };
 
           lru_gen.enabled = 7;
         };
@@ -176,6 +180,7 @@
   systemd = {
     settings.Manager.DefaultLimitNOFILE = "2048:2097152";
     services = {
+      greetd.serviceConfig.MemoryKSM = true;
       "getty@".serviceConfig.MemoryKSM = true;
       "user@".serviceConfig.MemoryKSM = true;
 
@@ -220,17 +225,10 @@
     }
   ];
 
-  hardware = {
-    block = {
-      defaultScheduler = "adios";
-      defaultSchedulerRotational = "adios";
-      scheduler."nvme[0-9]*" = "adios";
-    };
-
-    ksm = {
-      enable = true;
-      sleep = 4000;
-    };
+  hardware.block = {
+    defaultScheduler = "adios";
+    defaultSchedulerRotational = "adios";
+    scheduler."nvme[0-9]*" = "adios";
   };
 
   zramSwap = {
