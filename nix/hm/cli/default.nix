@@ -82,7 +82,7 @@
       config = ''
         #env
         LESSUTFCHARDEF = E000-F8FF:p,F0000-FFFFD:p
-        LESSHISTFILE = ${config.xdg.cacheHome}/less/history
+        LESSHISTFILE = ${config.xdg.stateHome}/less/history
       '';
     };
 

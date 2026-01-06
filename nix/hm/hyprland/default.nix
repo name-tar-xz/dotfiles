@@ -57,6 +57,7 @@
       settings = {
         wallpaper = [
           {
+            monitor = "";
             path = "${./.walls/the_neon_shallows_by_leikoi.png}";
             fit_mode = "fill";
           }

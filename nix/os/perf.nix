@@ -10,6 +10,7 @@
       "nowatchdog"
       "rcutree.enable_rcu_lazy=1"
       "mem_sleep_default=deep"
+      "cpuidle.governor=teo"
     ];
 
     blacklistedKernelModules = [
@@ -97,7 +98,7 @@
     '';
 
     bpftune.enable = true;
-
+    irqbalance.enable = true;
     thermald.enable = true;
 
     scx = {

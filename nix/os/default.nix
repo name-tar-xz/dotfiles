@@ -82,7 +82,7 @@
     );
     nixPath = lib.mapAttrsToList (k: _: "${k}=flake:${k}") registry;
 
-    daemonCPUSchedPolicy = "idle";
+    daemonCPUSchedPolicy = "batch";
     daemonIOSchedClass = "idle";
 
     settings = {

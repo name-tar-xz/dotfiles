@@ -113,6 +113,14 @@
         }
         zle -N ctrlz
 
+
+        clear-screen-and-scrollback() {
+          printf '\e[3J\e[H\e[2J'
+          zle clear-screen
+        }
+        zle -N clear-screen-and-scrollback
+        bindkey '^L' clear-screen-and-scrollback
+
         bindkey '^Z' ctrlz
         bindkey '^O' lfcd
         bindkey "^[[H" beginning-of-line
