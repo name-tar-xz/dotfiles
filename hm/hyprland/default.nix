@@ -21,6 +21,11 @@
     rofi-power-menu
   ];
 
+  xdg.configFile."systemd/user/xdg-desktop-portal-gtk.service.d/overrides.conf".text = ''
+    [Service]
+    Slice=session.slice
+  ''; # workaround for https://github.com/nix-community/home-manager/issues/5401
+
   systemd.user.services = {
     cliphist = {
       Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
@@ -32,8 +37,6 @@
     };
 
     hyprpaper.Service.Slice = "background.slice";
-
-    # xdg-desktop-portal-gtk.Service.Slice = "session.slice";
 
     lxqt-policykit-agent = {
       Install.WantedBy = [ "graphical-session.target" ];
@@ -70,7 +73,10 @@
     };
   };
 
-  xdg.portal.enable = pkgs.lib.mkForce false;
+  xdg.portal = {
+    xdgOpenUsePortal = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;

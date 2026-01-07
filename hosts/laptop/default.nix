@@ -100,26 +100,7 @@
     suppressedSystemUnits = [ "systemd-backlight@.service" ];
     services.audit.enable = false;
 
-    user.services = {
-      xdg-desktop-portal-gtk.serviceConfig.Slice = "session.slice";
-      dconf.serviceConfig.Slice = "session.slice";
-    };
-  };
-
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    extraPortals = [
-      config.home-manager.users.tarxz.wayland.windowManager.hyprland.finalPortalPackage
-      pkgs.xdg-desktop-portal-gtk
-    ];
-    config = {
-      common.default = [ "gtk" ];
-      hyprland.default = [
-        "hyprland"
-        "gtk"
-      ];
-    };
+    user.services.dconf.serviceConfig.Slice = "session.slice";
   };
 
   security = {

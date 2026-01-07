@@ -102,7 +102,11 @@
 
   environment = {
     binsh = lib.getExe pkgs.dash;
-    pathsToLink = [ "/share/zsh" ];
+    pathsToLink = [
+      "/share/zsh"
+      "/share/applications"
+      "/share/xdg-desktop-portal"
+    ];
     systemPackages = [ pkgs.uutils-coreutils-noprefix ];
   };
 
