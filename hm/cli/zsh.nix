@@ -10,6 +10,9 @@
   home = {
     packages = [ pkgs.zsh-completions ];
     shell.enableZshIntegration = true;
+
+    file.".zshenv".enable = false;
+    sessionVariables.ZDOTDIR = config.programs.zsh.dotDir;
   };
 
   programs.zsh = {
@@ -57,6 +60,8 @@
       L = "| less";
       G = "| rg";
 
+      RB = "&& reboot";
+
       NE = "2>/dev/null";
       NO = ">/dev/null";
       NUL = ">/dev/null 2>&1";
@@ -65,11 +70,13 @@
     dirHashes = with config; {
       nix = "${xdg.configHome}/nixos";
       git = "${home.homeDirectory}/git";
+      moz = "${home.homeDirectory}/.mozilla/firefox/main";
     };
 
     sessionVariables = {
       MANROFFOPT = "-c";
       MANPAGER = "/bin/sh -c 'col -bx | ${pkgs.lib.getExe pkgs.bat} --language=man --color=always -p'";
+      SYSTEMD_TINT_BACKGROUND = 0; # for run0
     };
 
     initContent = lib.mkMerge [

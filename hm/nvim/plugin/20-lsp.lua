@@ -46,6 +46,8 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
         quiet = true,
         timeout_ms = 500,
       },
+
+      formatters = { nixfmt = { append_args = { "--width", "120" } } },
     })
     vim.keymap.set("n", "grf", function() require("conform").format() end, { desc = "Format" })
   end,

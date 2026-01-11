@@ -25,10 +25,7 @@
   ];
 
   boot = {
-    kernelParams = [
-      "nvme.noacpi=1"
-      "plymouth.use-simpledrm"
-    ];
+    kernelParams = [ "nvme.noacpi=1" ];
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4; # lqx xanmod xanmod_latest xanmod_stable zen
   };
 

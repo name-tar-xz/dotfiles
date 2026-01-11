@@ -25,7 +25,10 @@
 
   xdg = {
     enable = true;
-    userDirs.enable = true;
+    userDirs = {
+      enable = true;
+      extraConfig.XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
+    };
     cacheHome = "${config.home.homeDirectory}/.local/cache";
 
     autostart = {
@@ -46,7 +49,6 @@
         hash = "sha256-c0orDQO4hedh+xaNrovC0geh5iq2K+e+PZIL5abxnIk=";
       };
 
-      "npm/npmrc".source = ./config/npm/npmrc;
       "python/pythonrc".source = ./config/python/pythonrc.py;
     };
   };
@@ -80,7 +82,6 @@
       CUDA_CACHE_PATH = "${cacheHome}/nv";
       GOPATH = "${dataHome}/go";
       RUSTUP_HOME = "${dataHome}/rustup";
-      NPM_CONFIG_USERCONFIG = "${configHome}/npm/npmrc";
       WINEPREFIX = "${dataHome}/wine";
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
       NVM_DIR = "${dataHome}/nvm";
@@ -133,9 +134,12 @@
     ssh = {
       enable = true;
       package = pkgs.openssh_hpn;
+      enableDefaultConfig = false;
       matchBlocks."*" = {
         controlMaster = "auto";
         controlPersist = "yes";
+        compression = true;
+        controlPath = "~/.ssh/master-%r@%n:%p";
       };
     };
     gpg = {

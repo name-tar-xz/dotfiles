@@ -27,14 +27,8 @@
   ''; # workaround for https://github.com/nix-community/home-manager/issues/5401
 
   systemd.user.services = {
-    cliphist = {
-      Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
-      Service.Slice = "background.slice";
-    };
-    cliphist-images = {
-      Unit.ConditionEnvironment = "WAYLAND_DISPLAY";
-      Service.Slice = "background.slice";
-    };
+    cliphist.Service.Slice = "background.slice";
+    cliphist-images.Service.Slice = "background.slice";
 
     hyprpaper.Service.Slice = "background.slice";
 
@@ -43,7 +37,6 @@
       Unit = {
         After = [ "graphical-session.target" ];
         Description = "LXQT Polkit Agent";
-        ConditionEnvironment = "WAYLAND_DISPLAY";
       };
       Service = {
         Type = "simple";
@@ -80,8 +73,8 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland.enable = true;
     systemd.enable = false;
+
     settings = {
       exec-once = [ "[workspace special:1 silent] uwsm app kitty -1" ];
 
@@ -141,7 +134,6 @@
         animate_manual_resizes = true;
         swallow_regex = "^(kitty)$";
         focus_on_activate = true;
-        new_window_takes_over_fullscreen = 2;
       };
 
       decoration = {
@@ -203,8 +195,6 @@
 
       master.mfact = 0.5;
 
-      render.direct_scanout = true;
-
       windowrule = [
         "match:class file_progress, float true"
         "match:class confirm, float true"
@@ -219,28 +209,19 @@
         "match:class viewnior, float true"
         "match:class file-roller, float true"
 
-        "match:class mpv, idle_inhibit focus"
-        "match:class mpv, fullscreen true"
-        "match:class mpv, border_size 0"
-        "match:class mpv, opaque true"
-        "match:class mpv, no_dim true"
+        "match:class mpv, idle_inhibit focus, fullscreen true, border_size 0, opaque true, no_dim true"
 
         "match:class firefox, idle_inhibit fullscreen true"
 
         "match:title ^(Media viewer)$, float true"
         "match:title ^(Volume Control)$, float true"
-        "match:title ^(Authentication Required)$, float true"
+        "match:title ^(Authentication Required)$, float true, pin true, stay_focused true"
         "match:title ^(Bluetooth Devices)$, float true"
         "match:title ^(iwgtk)$, float true"
         "match:title ^(dconf Editor)$, float true"
         "match:class zoom, float true"
 
-        "match:title ^(Picture in picture)$, float true"
-        "match:title ^(Picture in picture)$, keep_aspect_ratio true"
-        "match:title ^(Picture in picture)$, pin true"
-        "match:title ^(Picture in picture)$, border_size 0"
-        "match:title ^(Picture in picture)$, no_dim true"
-        "match:title ^(Picture in picture)$, opaque true"
+        "match:title ^(Picture in picture)$, float true, keep_aspect_ratio true, pin true, border_size 0, no_dim true, opaque true"
 
         "match:title ^(Firefox — Sharing Indicator)$, float true"
 

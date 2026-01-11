@@ -3,6 +3,14 @@
   programs = {
     git = {
       enable = true;
+
+      ignores = [
+        ".Trash-*"
+        "node_modules"
+        "result*"
+        "nohup.out"
+      ];
+
       settings = {
         user = {
           name = "tarzst";

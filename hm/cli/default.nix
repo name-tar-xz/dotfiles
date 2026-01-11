@@ -70,13 +70,13 @@
       options = {
         LONG-PROMPT = true;
         RAW-CONTROL-CHARS = true;
-        chop-long-lines = true;
         ignore-case = true;
         mouse = true;
         no-vbell = true;
         quiet = true;
         quit-if-one-screen = true;
         quit-on-intr = true;
+        tabs = 4;
         tilde = true;
       };
       config = ''
@@ -89,15 +89,14 @@
     fd = {
       enable = true;
       extraOptions = [
-        "--follow"
         "--prune"
+        "--require-git"
       ];
       ignores = [
         "Games"
+        ".steam"
         "*Cache*"
         "*cache*"
-        "Templates"
-        "node_modules"
         "nix/store"
         ".git"
       ];
@@ -109,6 +108,7 @@
         "--smart-case"
         "--follow"
         "--pretty"
+        "--ignore-file=${config.xdg.configHome}/fd/ignore"
       ];
     };
 
@@ -131,10 +131,7 @@
 
     zoxide = {
       enable = true;
-      options = [
-        "--cmd"
-        "cd"
-      ];
+      options = [ "--cmd cd" ];
     };
 
     lazygit = {
@@ -177,6 +174,16 @@
         net_auto = false;
         net_download = 96;
         net_upload = 8;
+      };
+    };
+
+    npm = {
+      enable = true;
+      package = null;
+      settings = with config.xdg; {
+        prefix = "${dataHome}/npm";
+        cache = "${cacheHome}/npm";
+        tmp = "\${XDG_RUNTIME_DIR}/npm";
       };
     };
   };

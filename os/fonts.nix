@@ -18,7 +18,7 @@
       hinting = {
         enable = true;
         autohint = false;
-        style = "full";
+        style = "slight";
       };
       localConf = /* xml */ ''
         <?xml version="1.0"?>

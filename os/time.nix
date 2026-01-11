@@ -27,9 +27,10 @@
 
   networking.timeServers = [
     "time.cloudflare.com"
-    "ntppool1.time.nl"
+    "paris.time.system76.com" # virginia ohio oregon brazil
+    "ntppool1.time.nl" # ntppool2
     "nts.netnod.se"
-    "ptbtime1.ptb.de"
+    "ptbtime1.ptb.de" # ptbtime2 ptbtime3
     "time.dfm.dk"
     "time.cifelli.xyz"
   ];

@@ -52,12 +52,11 @@
       uid = 1000;
       hashedPassword = "$y$j9T$988v1QRaUKdb9ce3TGIL5/$8/UFRFQ8bq7SQcUGUnnwxCW0RLg/It7hBD26m9J7AY5";
       isNormalUser = true;
-      extraGroups = [
+      extraGroups = builtins.filter (group: builtins.hasAttr group config.users.groups) [
         "wheel"
         "video"
         "audio"
-      ]
-      ++ builtins.filter (group: builtins.hasAttr group config.users.groups) [
+
         "adbusers"
         "disk"
         "docker"

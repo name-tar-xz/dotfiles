@@ -141,7 +141,10 @@
             energy_performance_preference = "balance_power";
             boost = 1;
           };
-          sysfs."/sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost" = 1;
+          sysfs = {
+            "/sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost" = 1;
+            "/sys/module/pcie_aspm/parameters/policy" = "default";
+          };
           audio.timeout = 1;
           disk.readahead = ">4096";
           acpi.platform_profile = "balanced";

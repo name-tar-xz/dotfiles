@@ -180,19 +180,19 @@
           "network.trr.mode" = 5;
 
           "extensions.webextensions.base-content-security-policy.v3" = # for proton-pass
-            "cript-src 'self' 'wasm-unsafe-eval'; upgrade-insecure-requests;";
+            "script-src 'self' 'wasm-unsafe-eval'; upgrade-insecure-requests;";
 
           "privacy.clearOnShutdown.history" = false;
           "privacy.cpd.history" = false;
           "privacy.resistFingerprinting.letterboxing" = false;
           "layout.frame_rate" = 90;
 
-          # Other tweaks
           "browser.toolbars.bookmarks.visibility" = "newtab";
           "browser.backspace_action" = 0;
           "browser.uidensity" = 1;
           "browser.tabs.insertAfterCurrent" = true;
           "browser.tabs.hoverPreview.enabled" = true;
+          "browser.urlbar.suggest.history" = true;
 
           "nglayout.initialpaint.delay" = 1000; # for darkreader
 
