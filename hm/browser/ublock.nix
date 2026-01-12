@@ -7,6 +7,13 @@ _: {
         "search.brave.com##+js(set-cookie, safesearch, off)" # Disable Safe Search
         "search.brave.com##+js(set-cookie, olnt, 1)" # Open links in new tab
         "search.brave.com##+js(set-cookie, country, all)" # Search in all regions
+        "search.brave.com##+js(trusted-set-cookie, theme, dark, , , reload, 1)"
+
+        # Dark Mode Rules
+        "duckduckgo.com##+js(trusted-set-cookie, ae, d)"
+        "espncricinfo.com##+js(trusted-set-local-storage-item, ci-theme-preference, DARK)"
+        "wiki.archlinux.org##+js(trusted-set-cookie, archwikimwclientpreferences, skin-theme-clientpref-night, , , reload, 1)"
+        "wiki.cachyos.org##+js(trusted-set-local-storage-item, starlight-theme, dark)"
 
         # Redlib Rules
         "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, blur_nsfw, off)"

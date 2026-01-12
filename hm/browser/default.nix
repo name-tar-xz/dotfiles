@@ -184,6 +184,7 @@
           "privacy.clearOnShutdown.history" = false;
           "privacy.cpd.history" = false;
           "privacy.resistFingerprinting.letterboxing" = false;
+          "privacy.fingerprintingProtection.overrides" = "+AllTargets";
           "layout.frame_rate" = 90;
 
           "browser.toolbars.bookmarks.visibility" = "newtab";
