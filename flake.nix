@@ -100,7 +100,7 @@
             inherit inputs system;
             hostname = "laptop";
           };
-          modules = [ ./nix/os ];
+          modules = [ ./os ];
         };
 
         server = nixpkgs.lib.nixosSystem {
@@ -108,7 +108,7 @@
             inherit inputs system;
             hostname = "server";
           };
-          modules = [ ./nix/os ];
+          modules = [ ./os ];
         };
       };
     };
