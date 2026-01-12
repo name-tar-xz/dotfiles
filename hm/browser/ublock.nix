@@ -7,6 +7,23 @@ _: {
         "search.brave.com##+js(set-cookie, safesearch, off)" # Disable Safe Search
         "search.brave.com##+js(set-cookie, olnt, 1)" # Open links in new tab
         "search.brave.com##+js(set-cookie, country, all)" # Search in all regions
+
+        # Redlib Rules
+        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, blur_nsfw, off)"
+        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, blur_spoiler, on)"
+
+        "lr.ptr.moe,redlib.perennialte.ch##+js(trusted-set-cookie, comment_sort, top)"
+        "lr.ptr.moe,redlib.perennialte.ch##+js(trusted-set-cookie, post_sort, hot)"
+
+        "lr.ptr.moe,redlib.perennialte.ch##+js(trusted-set-cookie, theme, black, , , reload, 1)"
+        "lr.ptr.moe,redlib.perennialte.ch##+js(trusted-set-cookie, video_quality, medium)"
+        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, fixed_navbar, off)"
+        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, use_hls, on)"
+        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, disable_visit_reddit_confirmation, off)"
+
+        # Nitter Rules
+        "xcancel.com##+js(set-cookie, infiniteScroll, on)"
+        "xcancel.com##+js(trusted-set-cookie, theme, black)"
       ];
       filterLists = [
         "user-filters"
@@ -88,6 +105,10 @@ _: {
       [
         "popupPanelSections"
         "31"
+      ]
+      [
+        "userFiltersTrusted"
+        "true"
       ]
     ];
   };
