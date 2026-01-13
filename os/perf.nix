@@ -46,9 +46,7 @@
         "vm.page-cluster" = 0;
         "vm.page_lock_unfairness" = 1;
         "vm.swappiness" = 180;
-        "vm.vfs_cache_pressure" = 50;
         "vm.watermark_boost_factor" = 0;
-        "vm.watermark_scale_factor" = 125;
       };
 
       sysfs = {
@@ -194,6 +192,44 @@
       "getty@".serviceConfig.MemoryKSM = true;
       "user@".serviceConfig.MemoryKSM = true;
 
+      adaptivemmd = {
+        serviceConfig = {
+          Type = "forking";
+          Nice = 10;
+          IOSchedulingPriority = 6;
+          EnvironmentFile = "-/etc/default/adaptivemmd";
+          KillMode = "control-group";
+          Restart = "on-failure";
+          RestartSec = "10s";
+          ExecStart = "${
+            pkgs.stdenv.mkDerivation {
+              pname = "adaptivemm";
+              version = "unstable";
+              src = pkgs.fetchFromGitHub {
+                owner = "oracle";
+                repo = "adaptivemm";
+                rev = "f5ae3ba3b4c7bf011362fecbb950bb16b2eb863a";
+                hash = "sha256-jXeD2BXFOJX+RQWNhSCz9DsTnDAz02dYVrCAPVl3qIU=";
+              };
+              buildPhase = ''
+                cd adaptivemm/src
+                make all
+              '';
+              installPhase = ''
+                mkdir -p $out/bin
+                mv adaptivemmd $out/bin
+              '';
+            }
+          }/bin/adaptivemmd";
+        };
+
+        wantedBy = [ "multi-user.target" ];
+        after = [
+          "systemd-sysctl.service"
+          "local-fs.target"
+          "syslog.target"
+        ];
+      };
       pci-latency = {
         enable = true;
         description = "PCI Latency";
