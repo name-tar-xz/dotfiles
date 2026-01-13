@@ -92,7 +92,26 @@
       inherit (nixpkgs) system;
     in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt;
+      formatter.x86_64-linux =
+        with nixpkgs.legacyPackages.x86_64-linux;
+        treefmt.withConfig {
+          runtimeInputs = [
+            nixfmt
+            stylua
+          ];
+
+          settings.formatter = {
+            nixfmt = {
+              command = "nixfmt";
+              options = [ "--width=120" ];
+              includes = [ "*.nix" ];
+            };
+            lua = {
+              command = "stylua";
+              includes = [ "*.lua" ];
+            };
+          };
+        };
 
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
