@@ -86,24 +86,23 @@
       };
 
       Cookies = {
-        Allow = builtins.concatLists (
-          map
-            (sites: [
-              ("http://" + sites)
-              ("https://" + sites)
-            ])
-            [
-              "account.proton.me"
-              "auth.adguardaccount.com"
+        Allow =
+          [
+            "account.proton.me"
+            "auth.adguardaccount.com"
 
-              "app.cinny.in"
-              "app.element.io"
+            "app.cinny.in"
+            "app.element.io"
 
-              "github.com"
-              "gitlab.com"
-              "codeberg.org"
-            ]
-        );
+            "github.com"
+            "gitlab.com"
+            "codeberg.org"
+          ]
+          |> map (sites: [
+            ("http://" + sites)
+            ("https://" + sites)
+          ])
+          |> builtins.concatLists;
         Locked = true;
       };
 

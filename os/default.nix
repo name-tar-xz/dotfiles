@@ -76,8 +76,8 @@
     channel.enable = false;
     package = pkgs.lixPackageSets.latest.lix;
 
-    registry = lib.mapAttrs (_: v: { flake = v; }) (lib.filterAttrs (_: v: lib.isType "flake" v) inputs);
-    nixPath = lib.mapAttrsToList (k: _: "${k}=flake:${k}") registry;
+    registry = inputs |> lib.filterAttrs (_: v: lib.isType "flake" v) |> lib.mapAttrs (_: v: { flake = v; });
+    nixPath = registry |> lib.mapAttrsToList (k: _: "${k}=flake:${k}");
 
     daemonCPUSchedPolicy = "batch";
     daemonIOSchedClass = "idle";
@@ -90,6 +90,7 @@
       experimental-features = [
         "nix-command"
         "flakes"
+        "pipe-operator"
       ];
 
       allowed-users = [ "@wheel" ];
