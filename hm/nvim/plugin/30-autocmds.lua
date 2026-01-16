@@ -16,6 +16,7 @@ vim.schedule(function()
       vim.keymap.set("n", "gO", function() Snacks.picker.lsp_symbols() end, { desc = "LSP Symbols" })
 
       vim.lsp.inlay_hint.enable(true)
+      vim.lsp.on_type_formatting.enable()
 
       local client = vim.lsp.get_client_by_id(args.data.client_id)
       if client and client:supports_method("textDocument/codeLens") then

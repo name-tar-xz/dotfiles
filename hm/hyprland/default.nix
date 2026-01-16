@@ -350,7 +350,9 @@
         "$mod SHIFT, L, resizeactive, 20 0"
         "$mod SHIFT, K, resizeactive, 0 -20"
         "$mod SHIFT, J, resizeactive, 0 20"
+      ];
 
+      bindel = [
         # Bind brightness and audio control
         ", XF86MonBrightnessUp, exec, changeBrightness +5%"
         ", XF86MonBrightnessDown, exec, changeBrightness 5%-"

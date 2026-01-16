@@ -91,6 +91,7 @@
         "nix-command"
         "flakes"
         "pipe-operator"
+        "coerce-integers"
       ];
 
       allowed-users = [ "@wheel" ];

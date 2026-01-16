@@ -122,8 +122,9 @@
           example_code.foreground = "cyan";
           example_variable = {
             foreground = "magenta";
-            underline = true;
+            italic = true;
           };
+          description.italic = true;
         };
         updates.auto_update = true;
       };

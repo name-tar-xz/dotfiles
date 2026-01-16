@@ -33,6 +33,7 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     backupFileExtension = "bak";
+    startAsUserService = true;
     users.tarxz = import ../../hm;
     extraSpecialArgs = { inherit inputs; };
     sharedModules = [ inputs.sops-nix.homeManagerModules.sops ];
@@ -54,7 +55,7 @@
   ]
   ++ (with inputs; [
     neovim-nightly-overlay.overlays.default
-    nix-cachyos-kernel.overlays.default
+    nix-cachyos-kernel.overlays.pinned
   ]);
 
   programs = {

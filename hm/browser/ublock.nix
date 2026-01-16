@@ -2,8 +2,8 @@ _: {
   programs.firefox.policies."3rdparty".Extensions."uBlock0@raymondhill.net" = {
     toOverwrite = {
       filters = [
-        # "search.brave.com##+js(set-cookie, useLocation, 0)" # Disable "Anonymous local results"
-        # "search.brave.com##+js(set-cookie, summarizer, 0)" # Disable "Answer with AI"
+        "search.brave.com##+js(set-cookie, useLocation, 0)" # Disable "Anonymous local results"
+        "search.brave.com##+js(set-cookie, summarizer, 0)" # Disable "Answer with AI"
         "search.brave.com##+js(set-cookie, safesearch, off)" # Disable Safe Search
         "search.brave.com##+js(set-cookie, olnt, 1)" # Open links in new tab
         "search.brave.com##+js(set-cookie, country, all)" # Search in all regions
@@ -63,7 +63,6 @@ _: {
         "https://raw.githubusercontent.com/yokoffing/filterlists/refs/heads/main/block_third_party_fonts.txt"
 
         # Phoenix/BadBlock
-
         "beacon" # https://gitlab.com/celenityy/Phoenix/-/raw/pages/uBlock/beacon.txt
 
         "ublock-webgl" # https://gitlab.com/celenityy/BadBlock/-/raw/pages/hardened/block-webgl.txt

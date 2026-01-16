@@ -21,7 +21,7 @@
 
     enableCompletion = true;
     autosuggestion.enable = true;
-    completionInit = "autoload -Uz compinit && compinit -i -u -C -d $XDG_CACHE_HOME/zsh/zcompdump";
+    completionInit = /* sh */ "autoload -Uz compinit && compinit -i -u -C -d ${config.xdg.cacheHome}/zsh/zcompdump";
     defaultKeymap = "emacs";
     autocd = true;
 
@@ -70,7 +70,7 @@
     dirHashes = with config; {
       nix = "${xdg.configHome}/nixos";
       git = "${home.homeDirectory}/git";
-      moz = "${home.homeDirectory}/.mozilla/firefox/main";
+      moz = "${xdg.configHome}/mozilla/firefox/main";
     };
 
     sessionVariables = {
@@ -120,9 +120,8 @@
         }
         zle -N ctrlz
 
-
         clear-screen-and-scrollback() {
-          printf '\e[3J\e[H\e[2J'
+          printf "\e[H\e[3J"
           zle clear-screen
         }
         zle -N clear-screen-and-scrollback

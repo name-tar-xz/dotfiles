@@ -1,8 +1,14 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 {
   imports = [ ./ublock.nix ];
 
-  home.file.".mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;
+  xdg.configFile."mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;
+  home.file.".mozilla/native-messaging-hosts".enable = false;
 
   services.psd = {
     enable = true;
@@ -12,6 +18,7 @@
 
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     languagePacks = [ "en-US" ];
     package = pkgs.firefox-bin.override {
       cfg = {
@@ -75,7 +82,7 @@
           (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me" true)
           (extension "proton-pass" "78272b6fa58f4a1abaac99321d503a20@proton.me" false)
           (extension "darkreader" "addon@darkreader.org" true)
-          (extension "violentmonkey" "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}" true)
+          (extension "scriptcat" "{8e515334-52b5-4cc5-b4e8-675d50af677d}" true)
           (extension "chameleon-ext" "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}" false)
         ];
 
@@ -90,9 +97,13 @@
           [
             "account.proton.me"
             "auth.adguardaccount.com"
+            "auth.ente.io"
 
             "app.cinny.in"
             "app.element.io"
+
+            "anilist.co"
+            "anichart.net"
 
             "github.com"
             "gitlab.com"

@@ -88,9 +88,6 @@
 
   outputs =
     { nixpkgs, ... }@inputs:
-    let
-      inherit (nixpkgs) system;
-    in
     {
       formatter.x86_64-linux =
         with nixpkgs.legacyPackages.x86_64-linux;
@@ -116,7 +113,7 @@
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs system;
+            inherit inputs;
             hostname = "laptop";
           };
           modules = [ ./os ];
@@ -124,7 +121,7 @@
 
         server = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs system;
+            inherit inputs;
             hostname = "server";
           };
           modules = [ ./os ];

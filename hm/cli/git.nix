@@ -22,6 +22,7 @@
         tag.gpgSign = true;
         advice.statusHints = false;
         help.autocorrect = 1;
+        push.autoSetupRemote = true;
 
         alias = {
           lg = "log --graph";
