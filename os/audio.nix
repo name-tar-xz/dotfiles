@@ -7,9 +7,11 @@ _: {
     in
     {
       enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
       pulse.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
 
       extraConfig = {
         pipewire."99-lowlatency" = {
@@ -45,6 +47,7 @@ _: {
 
         pipewire-pulse."99-lowlatency"."pulse.properties" = {
           "server.address" = [ "unix:native" ];
+          "pulse.default.req" = qr;
           "pulse.min.req" = qr;
           "pulse.min.quantum" = qr;
           "pulse.min.frag" = qr;
@@ -64,9 +67,7 @@ _: {
             actions.update-props = {
               "api.alsa.period-num" = 3;
               "api.alsa.period-size" = quantum;
-              "audio.format" = "S32LE";
               "audio.rate" = rate;
-              "session.suspend-timeout.seconds" = 0;
             };
           }
         ];
