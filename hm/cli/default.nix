@@ -19,7 +19,7 @@
     ./git.nix
     ./lf.nix
     ./omp.nix
-    ./zsh.nix
+    ./zsh
   ];
 
   catppuccin = {

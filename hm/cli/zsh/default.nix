@@ -6,6 +6,7 @@
 }:
 {
   catppuccin.zsh-syntax-highlighting.enable = true;
+  imports = [ ./options.nix ];
 
   home = {
     packages = [ pkgs.zsh-completions ];
@@ -41,7 +42,10 @@
       ignoreAllDups = true;
     };
 
-    syntaxHighlighting.enable = true; # overwriting highlighters in initContent to work around catppuccin
+    syntaxHighlighting = {
+      enable = true;
+      highlighters = [ "brackets" ];
+    };
 
     historySubstringSearch.enable = true;
 
@@ -61,6 +65,35 @@
       "interactive_comments"
     ];
 
+    # man 1 zshcompsys
+    zstyle.":completion:*" = {
+      auto-description = "'+%d'";
+      completer = "_oldlist _expand _expand_alias _complete _ignored _correct _approximate _prefix";
+      file-sort = "name";
+      # group-name = "";
+      ignore-parents = "parent pwd";
+      list-colors = "\${(s.:.)LS_COLORS}";
+      matcher-list = "'m:{[:lower:][:upper:]-}={[:upper:][:lower:]_} r:|[._-]=** r:|=** l:|=* r:|=*'";
+      menu = "select";
+      original = true;
+      format = "' %d'";
+
+      rehash = true; # automatically find new executables in path
+
+      # Speed up completions
+      accept-exact = "'*(N)'";
+      use-cache = true;
+      cache-path = "${config.xdg.cacheHome}/zsh";
+    };
+
+    shellSuffixAliases = rec {
+      json = "jaq .";
+      lock = json;
+      toml = json + "--to toml";
+      yaml = json + " --to yaml";
+      yml = yaml;
+    };
+
     shellGlobalAliases = {
       "--help" = "--help 2>&1 | bat --plain --language=help --color=always";
 
@@ -74,6 +107,46 @@
       NE = "2>/dev/null";
       NO = ">/dev/null";
       NUL = ">/dev/null 2>&1";
+    };
+
+    functions = {
+      rg = /* sh */ ''command rg --json "$@" | delta --paging never'';
+      arduino_run = /* sh */ ''
+        arduino-cli compile -b "$1" -p "$2" "$3"
+        arduino-cli upload -b "$1" -p "$2" "$3"
+        arduino-cli monitor -b "$1" -p "$2 -c baudrate=$4"
+      '';
+      respawn = /* sh */ ''
+        pkill "$1"
+        $1 &
+        disown
+      '';
+    };
+
+    zleFunctions = {
+      lfcd = /* sh */ ''cd "$(command lf -print-last-dir "$@")" || return'';
+      ctrlz = /* sh */ ''
+        if [[ $#BUFFER -eq 0 ]]; then
+          BUFFER="fg"
+          zle accept-line
+        else
+          zle push-input
+          zle clear-screen
+        fi
+      '';
+      clear-screen-and-scrollback = /* sh */ ''
+        printf "\e[H\e[3J"
+        zle clear-screen
+      '';
+    };
+
+    bindkey = {
+      "^L" = "clear-screen-and-scrollback";
+      "^Z" = "ctrlz";
+      "^O" = "lfcd";
+      "^[[H" = "beginning-of-line";
+      "^[[F" = "end-of-line";
+      "^[[3~" = "delete-char";
     };
 
     dirHashes = with config; {
@@ -90,64 +163,9 @@
 
     initContent = lib.mkMerge [
       (lib.mkBefore (lib.getExe config.programs.fastfetch.package))
-
       (lib.mkOrder 520
         /* sh */ "fpath+=(/run/current-system/sw/share/zsh/site-functions /etc/profiles/per-user/${config.home.username}/share/zsh/site-functions)"
       )
-
-      (lib.mkAfter /* sh */ ''
-        zstyle ':completion:*' auto-description '+%d'
-        zstyle ':completion:*' completer _oldlist _expand _expand_alias _complete _ignored _correct _approximate _prefix
-        zstyle ':completion:*' file-sort name
-        # zstyle ':completion:*' group-name ""
-        zstyle ':completion:*' ignore-parents parent pwd
-        zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
-        zstyle ':completion:*' matcher-list "" 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' '+l:|=* r:|=*'
-        zstyle ':completion:*' menu select
-        zstyle ':completion:*' original true
-        zstyle ':completion:*' format ' %d'
-
-        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'       # Case insensitive tab completion
-        zstyle ':completion:*' rehash true                              # automatically find new executables in path
-
-        # Speed up completions
-        zstyle ':completion:*' accept-exact '*(N)'
-        zstyle ':completion:*' use-cache on
-        zstyle ':completion:*' cache-path ${config.xdg.cacheHome}/zsh
-      '')
-
-      (/* sh */ ''
-        source ${./functions.sh}
-        zle -N lfcd
-
-        ctrlz() {
-          if [[ $#BUFFER -eq 0 ]]; then
-            BUFFER="fg"
-            zle accept-line
-          else
-            zle push-input
-            zle clear-screen
-          fi
-        }
-        zle -N ctrlz
-
-        clear-screen-and-scrollback() {
-          printf "\e[H\e[3J"
-          zle clear-screen
-        }
-        zle -N clear-screen-and-scrollback
-        bindkey '^L' clear-screen-and-scrollback
-
-        bindkey '^Z' ctrlz
-        bindkey '^O' lfcd
-        bindkey "^[[H" beginning-of-line
-        bindkey "^[[F" end-of-line
-        bindkey "^[[3~" delete-char
-
-        autoload -U colors && colors # Load colors
-      '')
-
-      (lib.mkAfter "ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)")
     ];
   };
 }
