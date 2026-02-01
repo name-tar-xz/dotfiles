@@ -4,7 +4,6 @@
     comma
     hyperfine
     just
-    jaq # https://github.com/01mf02/jaq/issues/314
     onefetch
 
     ## File Management
@@ -110,6 +109,21 @@
         "--pretty"
         "--ignore-file=${config.xdg.configHome}/fd/ignore"
       ];
+    };
+
+    jq = {
+      enable = true;
+      package = pkgs.jaq;
+      colors = {
+        null = "0;33";
+        false = "0;33";
+        true = "0;33";
+        numbers = "0;33";
+        strings = "0;32";
+        arrays = "0;39";
+        objects = "0;39";
+        objectKeys = "1;34";
+      };
     };
 
     tealdeer = {
