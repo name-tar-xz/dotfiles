@@ -27,7 +27,7 @@
     enable = true;
     userDirs = {
       enable = true;
-      extraConfig.XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
+      extraConfig.SCREENSHOTS = "${config.xdg.userDirs.pictures}/Screenshots";
     };
     cacheHome = "${config.home.homeDirectory}/.local/cache";
 
@@ -93,7 +93,7 @@
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configHome}/java -Djavafx.cachedir=${cacheHome}/openjfx";
     });
 
-    shellAliases = {
+    shellAliases = rec {
       jctl = "journalctl -b";
       sysfailed = "systemctl list-units --failed";
       ssn = "shutdown now";
@@ -102,25 +102,29 @@
       sudo = "sudo ";
       wget = "wget -c --hsts-file='${config.xdg.dataHome}/wget-hsts'";
       adb = "HOME=${config.xdg.dataHome}/android adb";
+      getenv = "printenv|rg -i";
+
       ".." = "cd ..";
       "..." = "cd ../..";
       "...." = "cd ../../..";
       "....." = "cd ../../../..";
       "......" = "cd ../../../../..";
-      rm = "rmtrash -v";
-      rmdir = "rmdirtrash -v --ignore-fail-on-non-empty";
 
       v = "nvim";
       l = "ls";
       a = "ll";
-      cp = "cp -i";
-      mv = "mv -i";
-      diff = "delta";
-      getenv = "printenv|rg -i";
-      clear = "clear -T xterm";
-      cl = "clear -T xterm";
-      c = "clear -T xterm";
+      cp = "cp -ig";
+      mv = "mv -ig";
+      rm = "rmtrash -v";
+      rmdir = "rmdirtrash -v --ignore-fail-on-non-empty";
       cat = "bat";
+      diff = "delta";
+      jaq = "noglob jaq";
+      jq = jaq;
+
+      clear = "clear -T xterm";
+      cl = clear;
+      c = clear;
     };
   };
 

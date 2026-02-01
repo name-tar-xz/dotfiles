@@ -1,5 +1,5 @@
 vim.loader.enable()
-require("vim._extui").enable({ enable = true })
+require("vim._core.ui2").enable({ enable = true })
 
 vim.g.loaded_2html_plugin = 1
 vim.g.loaded_fzf = 1

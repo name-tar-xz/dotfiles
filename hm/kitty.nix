@@ -102,6 +102,19 @@
       "kitty_mod+d" = "scroll_page_down";
       "kitty_mod+enter" = "launch --cwd=current";
       "kitty_mod+space" = "kitten unicode_input";
+
+      "kitty_mod+f>f" = "kitten hints --type path --program -";
+      "kitty_mod+f>shift+f" = "kitten hints --type path";
+      "kitty_mod+f>c" = "kitten choose-files";
+      "kitty_mod+f>d" = "kitten choose-files --mode=dir";
+      "kitty_mod+f>l" = "kitten hints --type line --program -";
+      "kitty_mod+f>w" = "kitten hints --type word --program -";
+      "kitty_mod+f>h" = "kitten hints --type hash --program -";
+      "kitty_mod+f>n" = "kitten hints --type linenum";
+      "kitty_mod+f>y" = "kitten hints --type hyperlink";
+
+      "kitty_mod+k" = "move_window_backward";
+      "kitty_mod+j" = "move_window_forward";
     };
   };
 }

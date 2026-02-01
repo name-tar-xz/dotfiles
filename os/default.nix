@@ -92,7 +92,13 @@
         "flakes"
         "pipe-operator"
         "coerce-integers"
+
+        "cgroups"
+        "auto-allocate-uids"
       ];
+
+      use-cgroups = true;
+      auto-allocate-uids = true;
 
       allowed-users = [ "@wheel" ];
       trusted-users = [ "@wheel" ];

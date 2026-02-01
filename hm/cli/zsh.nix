@@ -67,6 +67,7 @@
       C = "| wl-copy";
       L = "| less";
       G = "| rg";
+      T = "| sudo tee";
 
       RB = "&& reboot";
 

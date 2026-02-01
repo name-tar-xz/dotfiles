@@ -13,12 +13,16 @@
         emoji = [ "Noto Emoji" ];
       };
       includeUserConf = false;
+      useEmbeddedBitmaps = true;
       antialias = true;
-      subpixel.rgba = "none";
+      subpixel = {
+        rgba = "none";
+        lcdfilter = "none";
+      };
       hinting = {
         enable = true;
         autohint = false;
-        style = "slight";
+        style = "none";
       };
       localConf = /* xml */ ''
         <?xml version="1.0"?>

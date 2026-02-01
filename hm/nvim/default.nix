@@ -46,10 +46,8 @@
 
       # ui.lua
       which-key-nvim
-      nui-nvim
       mini-files
       gitsigns-nvim
-      nvim-highlight-colors
 
       # ts.lua
       nvim-treesitter-textobjects

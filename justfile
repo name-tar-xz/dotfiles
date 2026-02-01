@@ -23,3 +23,8 @@ repl:
 update:
   nix flake update --flake $NH_FLAKE --commit-lock-file --accept-flake-config
   nh os boot --accept-flake-config
+
+export SOPS_AGE_KEY_FILE := "/var/lib/age.txt"
+
+sops:
+  sops secrets.yaml

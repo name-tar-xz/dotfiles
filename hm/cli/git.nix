@@ -23,6 +23,7 @@
         advice.statusHints = false;
         help.autocorrect = 1;
         push.autoSetupRemote = true;
+        fetch.prune = true;
 
         alias = {
           lg = "log --graph";

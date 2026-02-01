@@ -18,4 +18,8 @@
       config.home-manager.users.tarxz.wayland.windowManager.hyprland.finalPackage
     ];
   };
+
+  systemd.tmpfiles.rules = [
+    "w /var/cache/tuigreet/lastsession-path - greeter greeter - ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions/hyprland-uwsm.desktop"
+  ]; # HACK Prevents having to reselect UWSM whenever path to desktops in /nix/store changes
 }
