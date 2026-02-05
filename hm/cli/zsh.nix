@@ -11,8 +11,16 @@
     packages = [ pkgs.zsh-completions ];
     shell.enableZshIntegration = true;
 
-    file.".zshenv".enable = false;
     sessionVariables.ZDOTDIR = config.programs.zsh.dotDir;
+    file =
+      let
+        zcompileDotZsh = x: "${lib.getExe config.programs.zsh.package} -c 'zcompile -M ${config.programs.zsh.dotDir}/.zsh${x}'";
+      in
+      {
+        ".zshenv".enable = false;
+        ".config/zsh/.zshrc".onChange = zcompileDotZsh "rc";
+        ".config/zsh/.zshenv".onChange = zcompileDotZsh "env";
+      };
   };
 
   programs.zsh = {
@@ -21,7 +29,7 @@
 
     enableCompletion = true;
     autosuggestion.enable = true;
-    completionInit = /* sh */ "autoload -Uz compinit && compinit -i -u -C -d ${config.xdg.cacheHome}/zsh/zcompdump";
+    completionInit = /* sh */ "autoload -Uz compinit && compinit -u -d ${config.xdg.cacheHome}/zsh/zcompdump";
     defaultKeymap = "emacs";
     autocd = true;
 
@@ -82,7 +90,9 @@
     initContent = lib.mkMerge [
       (lib.mkBefore (lib.getExe config.programs.fastfetch.package))
 
-      (lib.mkOrder 520 "fpath+=(/run/current-system/sw/share/zsh/site-functions)")
+      (lib.mkOrder 520
+        /* sh */ "fpath+=(/run/current-system/sw/share/zsh/site-functions /etc/profiles/per-user/${config.home.username}/share/zsh/site-functions)"
+      )
 
       (lib.mkAfter /* sh */ ''
         zstyle ':completion:*' auto-description '+%d'

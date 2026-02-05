@@ -70,6 +70,7 @@
     ];
 
     sessionVariables = {
+      __HM_SESS_VARS_SOURCED = 1; # Prevent zsh from re-sourcing hm-session-vars.sh
       BROWSER = "firefox";
       PAGER = "less";
 
