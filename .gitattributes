@@ -1,3 +1,5 @@
+flake.lock -diff
+
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.jxl filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text

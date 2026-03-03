@@ -20,6 +20,9 @@ clean:
 repl:
   nh os repl
 
+lock:
+  nix flake lock --commit-lock-file --accept-flake-config
+
 update:
   nix flake update --flake $NH_FLAKE --commit-lock-file --accept-flake-config
   nh os boot --accept-flake-config
