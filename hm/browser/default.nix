@@ -100,6 +100,7 @@
             "auth.ente.io"
 
             "app.cinny.in"
+            "app.sable.moe"
             "app.element.io"
 
             "anilist.co"
@@ -130,6 +131,7 @@
 
       Permissions.Notifications.Allow = [
         "https://app.cinny.in"
+        "https://app.sable.moe"
         "https://app.element.io"
         "https://mail.proton.me"
       ];
@@ -227,8 +229,8 @@
 
         preConfig = builtins.readFile "${inputs.betterfox}/user.js";
 
-        userChrome = ./chrome/userChrome.css;
-        userContent = ./chrome/userContent.css;
+        userChrome = chrome/userChrome.css;
+        userContent = chrome/userContent.css;
       };
     };
   };

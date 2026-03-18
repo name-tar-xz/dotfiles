@@ -108,6 +108,8 @@
         "--follow"
         "--pretty"
         "--ignore-file=${config.xdg.configHome}/fd/ignore"
+        "--max-columns=240" # No of cols -20
+        "--max-columns-preview"
       ];
     };
 

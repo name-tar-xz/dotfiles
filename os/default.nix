@@ -35,7 +35,14 @@
         consoleMode = "max";
       };
     };
-    initrd.verbose = false;
+    initrd = {
+      verbose = false;
+      compressor = "zstd";
+      compressorArgs = [
+        "-19"
+        "-T0"
+      ];
+    };
 
     consoleLogLevel = 3;
     kernelParams = [
@@ -86,6 +93,10 @@
       use-xdg-base-directories = true;
       auto-optimise-store = true;
       warn-dirty = false;
+      cores = 0;
+      http-connections = 0;
+      http3 = true;
+      narinfo-cache-negative-ttl = 1;
 
       experimental-features = [
         "nix-command"
@@ -147,6 +158,7 @@
   };
 
   systemd = {
+    enableStrictShellChecks = true;
     oomd = {
       enable = true;
       enableRootSlice = true;

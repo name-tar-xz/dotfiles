@@ -1,5 +1,4 @@
 vim.loader.enable()
-require("vim._core.ui2").enable({ enable = true })
 
 vim.g.loaded_2html_plugin = 1
 vim.g.loaded_fzf = 1
@@ -10,8 +9,9 @@ vim.g.loaded_tarPlugin = 1
 vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_zipPlugin = 1
 
-vim.g.mapleader = vim.keycode("<Space>") -- Set <Space> as the <Leader> key
-vim.g.maplocalleader = vim.keycode("<Space>")
+local leader = vim.keycode("<Space>")
+vim.g.mapleader = leader -- Set <Space> as the <Leader> key
+vim.g.maplocalleader = leader
 
 vim.opt.backspace:append("nostop") -- don't stop backspace at insert
 vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heutistic"] = true }) -- enable linematch diff algorithm
@@ -90,6 +90,8 @@ vim.o.wrap = false -- Disable wrapping of lines longer than the width of window
 vim.o.writebackup = false -- Disable making a backup before overwriting a file
 
 vim.schedule(function()
+  require("vim._core.ui2").enable({ enable = true })
+
   vim.lsp.enable({
     "arduino_language_server",
     "basedpyright",
@@ -143,7 +145,22 @@ vim.schedule(function()
 
     jump = { on_jump = function() vim.diagnostic.open_float({ scope = "cursor" }) end },
 
-    status = { text = diag },
+    status = {
+      format = function(counts)
+        local hl_map = {
+          [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+          [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+          [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+          [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+        }
+        local items = {}
+        for level, _ in ipairs(vim.diagnostic.severity) do
+          local count = counts[level]
+          if count then table.insert(items, ("%%#%s#%s%s"):format(hl_map[level], diag[level], count)) end
+        end
+        return table.concat(items, " ")
+      end,
+    },
     signs = {
       text = diag,
       numhl = {

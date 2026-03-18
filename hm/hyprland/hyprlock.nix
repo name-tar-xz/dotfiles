@@ -9,7 +9,7 @@ _: {
       {
         background = [
           {
-            path = "${./.walls/windows-error.jxl}";
+            path = "${.walls/windows-error.jxl}";
             blur_passes = 0;
             blur_size = 0;
           }

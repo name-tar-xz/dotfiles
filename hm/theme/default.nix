@@ -5,14 +5,10 @@
     ".icons/${config.home.pointerCursor.name}".enable = false;
   };
 
-  xdg.configFile = {
-    "qt5ct/colors/Catppuccin-Black.conf".source = ./qtct/Catppuccin-Black.conf;
-    "qt6ct/colors/Catppuccin-Black.conf".source = ./qtct/Catppuccin-Black.conf;
-  }
-  // (with config.gtk.theme; {
+  xdg.configFile = with config.gtk.theme; {
     "gtk-4.0/assets".source = "${package}/share/themes/${name}/gtk-4.0/assets";
     "gtk-3.0/assets".source = "${package}/share/themes/${name}/gtk-3.0/assets";
-  });
+  };
 
   home.pointerCursor = {
     gtk.enable = true;
@@ -25,14 +21,14 @@
     };
     package = pkgs.runCommand "Nero" { } ''
       mkdir -p $out/share/icons
-      ln -s ${
+      ln -s "${
         pkgs.fetchFromGitLab {
           owner = "tarzst";
           repo = "Nero";
           rev = "7a51aa173c7069f113ca9dbe27a7600d41aa9a96";
           hash = "sha256-WhmZXPe/XQ1ZuVZHTRqB0+yvluUJRGAYWb5vhePFdn8=";
         }
-      } $out/share/icons/Nero
+      }" $out/share/icons/Nero
     '';
   };
 
@@ -50,6 +46,7 @@
     colorScheme = "dark";
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     gtk3.extraCss = builtins.readFile "${theme.package}/share/themes/${theme.name}/gtk-3.0/gtk.css";
+    gtk4.theme = theme;
 
     theme = {
       name = "catppuccin-mocha-mauve-compact+black";
@@ -60,7 +57,7 @@
         variant = "mocha";
       };
     };
-    font.name = "Noto Sans";
+    font.name = "Sans Serif";
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;

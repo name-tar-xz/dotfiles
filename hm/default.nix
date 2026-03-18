@@ -27,6 +27,7 @@
     enable = true;
     userDirs = {
       enable = true;
+      setSessionVariables = true;
       extraConfig.SCREENSHOTS = "${config.xdg.userDirs.pictures}/Screenshots";
     };
     cacheHome = "${config.home.homeDirectory}/.local/cache";
@@ -49,13 +50,16 @@
         hash = "sha256-c0orDQO4hedh+xaNrovC0geh5iq2K+e+PZIL5abxnIk=";
       };
 
-      "python/pythonrc".source = ./config/python/pythonrc.py;
+      "python/pythonrc".source = config/python/pythonrc.py;
     };
   };
 
   home = rec {
     username = "tarxz";
     homeDirectory = "/home/${username}";
+  }
+  // {
+    stateVersion = "23.11";
     preferXdgDirectories = true;
 
     packages = with pkgs; [
@@ -63,7 +67,7 @@
       iwgtk # Wifi
       overskride # Bluetooth
       # Audio
-      helvum
+      crosspipe
       pwvucontrol
 
       libreoffice-qt6-fresh # Applications
@@ -93,15 +97,13 @@
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configHome}/java -Djavafx.cachedir=${cacheHome}/openjfx";
     });
 
-    shellAliases = rec {
+    shellAliases = {
       jctl = "journalctl -b";
       sysfailed = "systemctl list-units --failed";
       ssn = "shutdown now";
       rb = "reboot";
 
       sudo = "sudo ";
-      wget = "wget -c --hsts-file='${config.xdg.dataHome}/wget-hsts'";
-      adb = "HOME=${config.xdg.dataHome}/android adb";
       getenv = "printenv|rg -i";
 
       ".." = "cd ..";
@@ -118,7 +120,13 @@
       rm = "rmtrash -v";
       rmdir = "rmdirtrash -v --ignore-fail-on-non-empty";
       cat = "bat";
-      diff = "delta";
+      diff = "git diff --no-index";
+    }
+    // (with config.xdg; {
+      wget = "wget -c --hsts-file='${dataHome}/wget-hsts'";
+      adb = "HOME=${dataHome}/android adb";
+    })
+    // rec {
       jaq = "noglob jaq";
       jq = jaq;
 
@@ -140,11 +148,14 @@
       enable = true;
       package = pkgs.openssh_hpn;
       enableDefaultConfig = false;
-      matchBlocks."*" = {
-        controlMaster = "auto";
-        controlPersist = "yes";
-        compression = true;
-        controlPath = "~/.ssh/master-%r@%n:%p";
+      matchBlocks = {
+        "*" = {
+          controlMaster = "auto";
+          controlPersist = "yes";
+          compression = true;
+          controlPath = "~/.ssh/master-%r@%n:%p";
+        };
+        "github.com".controlMaster = "no";
       };
     };
     gpg = {
@@ -200,6 +211,4 @@
 
     secrets.ssh.path = "${config.home.homeDirectory}/.ssh/id_ed25519";
   };
-
-  home.stateVersion = "23.11";
 }

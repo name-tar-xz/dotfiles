@@ -58,7 +58,7 @@
         wallpaper = [
           {
             monitor = "";
-            path = "${./.walls/the_neon_shallows_by_leikoi.jxl}";
+            path = "${.walls/the_neon_shallows_by_leikoi.jxl}";
             fit_mode = "fill";
           }
         ];

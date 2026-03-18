@@ -3,6 +3,7 @@
   boot = {
     kernelParams = [
       "zswap.enabled=0"
+      "noresume" # zram makes hibernation impossible anyway
 
       "tsc=reliable"
       "clocksource=tsc"

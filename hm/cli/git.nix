@@ -78,14 +78,10 @@
           line-numbers-plus-style = "bold #a6e3a1";
           line-numbers-right-style = "#6c7086";
           line-numbers-zero-style = "#6c7086";
-          # 40% red 60% base
-          minus-emph-style = "syntax #613743";
-          # 20% red 80% base
-          minus-style = "syntax #301b21";
-          # 40% green 60% base
-          plus-emph-style = "syntax #425a40";
-          # 20% green 80% base
-          plus-style = "syntax #212d20";
+          minus-emph-style = "syntax #613743"; # 40% red 60% base
+          minus-style = "syntax #301b21"; # 20% red 80% base
+          plus-emph-style = "syntax #425a40"; # 40% green 60% base
+          plus-style = "syntax #212d20"; # 20% green 80% base
         };
       };
     };
