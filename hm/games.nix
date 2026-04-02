@@ -1,5 +1,6 @@
 { pkgs, osConfig, ... }:
 {
+  # Look at https://github.com/Digger1955/dxvk-gplasync-lowlatency/wiki/dxvk.conf-Options-Guide
   programs = {
     lutris = rec {
       enable = true;
@@ -16,7 +17,7 @@
     };
 
     retroarch = {
-      enable = true;
+      enable = false;
       cores = {
         gambatte.enable = true;
         mgba.enable = true;

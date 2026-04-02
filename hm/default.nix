@@ -112,7 +112,6 @@
       PAGER = "less";
 
       NIXOS_OZONE_WL = 1;
-      PROTON_USE_NTSYNC = 1;
     }
     // (with config.xdg; {
       KDEHOME = "${configHome}/kde";
