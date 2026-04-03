@@ -73,7 +73,7 @@
     */
 
     phoenix = {
-      url = "gitlab:celenityy/Phoenix";
+      url = "git+https://gitlab.com/celenityy/Phoenix?ref=pages";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     betterfox = {

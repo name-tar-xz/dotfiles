@@ -267,17 +267,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1774995304,
-        "narHash": "sha256-MxEoAz59UQoy3NauGLXury3LnYHxGMuk3YAVRmtOFIA=",
-        "owner": "celenityy",
-        "repo": "Phoenix",
-        "rev": "198159ba786f59c410882f5d93330e0e0bd5993f",
-        "type": "gitlab"
+        "lastModified": 1774988251,
+        "narHash": "sha256-mE6hddBs1tUXtuYciIKPVgaf8R6Ggp4l73ycK9L4lMM=",
+        "ref": "pages",
+        "rev": "9a7e49256837ce1928265734be1ea110c76b8aa4",
+        "revCount": 2770,
+        "type": "git",
+        "url": "https://gitlab.com/celenityy/Phoenix"
       },
       "original": {
-        "owner": "celenityy",
-        "repo": "Phoenix",
-        "type": "gitlab"
+        "ref": "pages",
+        "type": "git",
+        "url": "https://gitlab.com/celenityy/Phoenix"
       }
     },
     "root": {
