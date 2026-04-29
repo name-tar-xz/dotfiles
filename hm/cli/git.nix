@@ -1,5 +1,6 @@
-{ config, ... }:
-{
+_: {
+  catppuccin.delta.enable = true;
+
   programs = {
     git = {
       enable = true;
@@ -61,28 +62,9 @@
       enableGitIntegration = true;
       options = {
         navigate = true;
-        features = "decorations";
         true-color = "always";
-        decorations = {
-          file-style = "omit";
-          hunk-header-style = "file line-number syntax";
-          hunk-header-line-number-style = "yellow";
-          syntax-theme = config.programs.bat.config.theme;
-          blame-palette = "#1e1e2e #181825 #11111b #313244 #45475a";
-          dark = true;
-          file-decoration-style = "#cdd6f4";
-          # hunk-header-file-style = "bold";
-          line-numbers = true;
-          line-numbers-left-style = "#6c7086";
-          line-numbers-minus-style = "bold #f38ba8";
-          line-numbers-plus-style = "bold #a6e3a1";
-          line-numbers-right-style = "#6c7086";
-          line-numbers-zero-style = "#6c7086";
-          minus-emph-style = "syntax #613743"; # 40% red 60% base
-          minus-style = "syntax #301b21"; # 20% red 80% base
-          plus-emph-style = "syntax #425a40"; # 40% green 60% base
-          plus-style = "syntax #212d20"; # 20% green 80% base
-        };
+        file-style = "omit";
+        line-numbers = true;
       };
     };
   };

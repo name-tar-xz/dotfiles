@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   home.file = {
     ".icons/default/index.theme".enable = false;
@@ -8,6 +13,34 @@
   xdg.configFile = with config.gtk.theme; {
     "gtk-4.0/assets".source = "${package}/share/themes/${name}/gtk-4.0/assets";
     "gtk-3.0/assets".source = "${package}/share/themes/${name}/gtk-3.0/assets";
+  };
+
+  catppuccin = {
+    flavor = "mocha";
+    sources = inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.overrideScope (
+      _final: prev: {
+        whiskers = pkgs.symlinkJoin {
+          name = "whiskers-wrapped";
+          paths = [ prev.whiskers ];
+          nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+          postBuild =
+            let
+              oled = builtins.toJSON {
+                mocha = {
+                  base = "000000";
+                  mantle = "010101";
+                  crust = "020202";
+                };
+              };
+            in
+            ''
+              wrapProgram $out/bin/whiskers \
+                --add-flag ${pkgs.lib.escapeShellArg "--color-overrides=${oled}"}
+            '';
+          meta.mainProgram = "whiskers";
+        };
+      }
+    );
   };
 
   home.pointerCursor = {

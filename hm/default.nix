@@ -21,8 +21,6 @@
     ./nvim
   ];
 
-  catppuccin.flavor = "mocha";
-
   xdg = {
     enable = true;
     userDirs = {
