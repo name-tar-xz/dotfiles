@@ -41,6 +41,9 @@
         };
       }
     );
+
+    qt5ct.enable = true;
+    kvantum.enable = true;
   };
 
   home.pointerCursor = {
@@ -68,11 +71,25 @@
   qt = {
     enable = true;
     platformTheme.name = "qtct";
-    style.package = with pkgs; [
-      darkly
-      darkly-qt5
-    ];
-  };
+    style.name = "kvantum";
+  }
+  //
+    pkgs.lib.genAttrs
+      [
+        "qt5ctSettings"
+        "qt6ctSettings"
+      ]
+      (_: {
+        Appearance = {
+          style = "kvantum-dark";
+          icon_theme = "Papirus-Dark";
+          standard_dialogs = "xdgdesktopportal";
+        };
+        Fonts = {
+          fixed = ''"Monospace,12"'';
+          general = ''"Sans Serif,12"'';
+        };
+      });
 
   gtk = rec {
     enable = true;

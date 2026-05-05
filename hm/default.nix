@@ -9,7 +9,7 @@
     inputs.catppuccin.homeModules.catppuccin
 
     ./hyprland
-    ./theme
+    ./theme.nix
     ./rofi
 
     ./browser
