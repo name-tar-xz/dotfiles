@@ -96,7 +96,9 @@
         treefmt.withConfig {
           runtimeInputs = [
             nixfmt
+            deadnix
             stylua
+            yamlfmt
           ];
 
           settings.formatter = {
@@ -105,9 +107,22 @@
               options = [ "--width=120" ];
               includes = [ "*.nix" ];
             };
+            deadnix = {
+              command = "deadnix";
+              options = [ "--edit" ];
+              includes = [ "*.nix" ];
+            };
+
             lua = {
               command = "stylua";
               includes = [ "*.lua" ];
+            };
+            yamlfmt = {
+              command = "yamlfmt";
+              includes = [
+                "*.yaml"
+                "*.yml"
+              ];
             };
           };
         };
