@@ -112,6 +112,8 @@
       ## Lua
       lua-language-server
       stylua
+      ## Just
+      just-lsp
       ## JavaScript
       biome
       vtsls

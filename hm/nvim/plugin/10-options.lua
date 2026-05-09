@@ -100,6 +100,7 @@ vim.schedule(function()
     "gopls",
     "html",
     "jsonls",
+    "just",
     "lua_ls",
     "nixd",
     "ruff",
