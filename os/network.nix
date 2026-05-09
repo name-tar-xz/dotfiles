@@ -8,6 +8,14 @@
   boot.extraModprobeConfig = "options cfg80211 ieee80211_regdom=IN";
   hardware.wirelessRegulatoryDatabase = true;
 
+  users = {
+    users.routedns = {
+      isSystemUser = true;
+      group = "routedns";
+    };
+    groups.routedns = { };
+  };
+
   services = {
     resolved.enable = false;
 
@@ -121,9 +129,9 @@
   sops = {
     templates.routedns = {
       file = (pkgs.formats.toml { }).generate "routedns.toml" config.services.routedns.settings;
+      owner = "routedns";
       path = "/etc/routedns.toml";
-      mode = "0444";
     };
-    secrets.adguard.mode = "0444";
+    secrets.adguard.owner = "routedns";
   };
 }
