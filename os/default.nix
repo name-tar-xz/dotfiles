@@ -89,6 +89,12 @@
     daemonCPUSchedPolicy = "batch";
     daemonIOSchedClass = "idle";
 
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
+
     settings = {
       use-xdg-base-directories = true;
       auto-optimise-store = true;
@@ -103,6 +109,7 @@
         "flakes"
         "pipe-operator"
         "coerce-integers"
+        "lix-custom-sub-commands"
 
         "cgroups"
         "auto-allocate-uids"
@@ -138,14 +145,6 @@
     };
 
     ssh.package = pkgs.openssh_hpn;
-
-    nh = {
-      enable = true;
-      clean = {
-        enable = true;
-        extraArgs = "--keep 3";
-      };
-    };
   };
 
   services = {

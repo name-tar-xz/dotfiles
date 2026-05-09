@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   pkgs,
   inputs,
   ...
@@ -20,6 +21,8 @@
     ./cli
     ./nvim
   ];
+
+  nix = { inherit (osConfig.nix) gc; };
 
   xdg = {
     enable = true;

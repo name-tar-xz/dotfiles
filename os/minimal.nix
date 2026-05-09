@@ -16,7 +16,7 @@
   };
 
   system = {
-    disableInstallerTools = true;
+    disableInstallerTools = false;
     nixos-init.enable = true;
     etc.overlay = {
       enable = true;

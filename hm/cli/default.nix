@@ -4,6 +4,8 @@
     comma
     hyperfine
     just
+    lix-diff
+    nix-output-monitor
     onefetch
 
     ## File Management
