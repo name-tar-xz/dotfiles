@@ -21,10 +21,8 @@
     rofi-power-menu
   ];
 
-  xdg.configFile."systemd/user/xdg-desktop-portal-gtk.service.d/overrides.conf".text = ''
-    [Service]
-    Slice=session.slice
-  ''; # workaround for https://github.com/nix-community/home-manager/issues/5401
+  xdg.configFile."systemd/user/xdg-desktop-portal-gtk.service.d/overrides.conf".source = # workaround for https://github.com/nix-community/home-manager/issues/5401
+    (pkgs.formats.ini { }).generate "" { Service.Slice = "session.slice"; };
 
   systemd.user.services = {
     cliphist.Service.Slice = "background.slice";

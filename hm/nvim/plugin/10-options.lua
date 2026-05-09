@@ -61,6 +61,7 @@ vim.o.pumheight = 10 -- Height of the pop up menu
 vim.o.relativenumber = true -- Show relative numberline
 vim.o.ruler = false
 vim.o.scrolloff = 1e3 -- Number of lines to keep above and below the cursor
+vim.o.scrolloffpad = 1
 vim.o.shada = "'100,<50,s10,:1000,/100,@100,h" -- Limit ShaDa file (for startup)
 vim.o.shell = "/usr/bin/env zsh"
 vim.o.shiftround = true

@@ -6,37 +6,26 @@
     libnotify
 
     (writeShellScriptBin "changeVolume" ''
-      #!/usr/bin/env bash
-      # Arbitrary but unique message tag
-      msgTag="myvolume"
+      msgTag="myvolume" # Arbitrary but unique message tag
 
-      # Change the volume using wpctl
-      wpctl set-volume @DEFAULT_SINK@ "$@" >/dev/null
+      wpctl set-volume @DEFAULT_SINK@ "$@"
 
-      # Query wpctl for the current volume and whether or not the speaker is muted
       volume="$(wpctl get-volume @DEFAULT_SINK@ | awk '{print int($2*100)}')"
       mute="$(wpctl get-volume @DEFAULT_SINK@ | awk '{print $3}')"
 
       if [[ $volume == 0 || "$mute" == "[MUTED]" ]]; then
-        # Show the sound muted notification
-        dunstify -a "changeVolume" -u low -i audio-volume-muted -h string:x-dunst-stack-tag:$msgTag "Volume muted"
+        dunstify -a "changeVolume" -u low -i audio-volume-muted -h string:x-dunst-stack-tag:$msgTag -h int:value:"$volume" "Volume muted (''${volume}%)"
       else
-        # Show the volume notification
         dunstify -a "changeVolume" -u low -i audio-volume-high -h string:x-dunst-stack-tag:$msgTag -h int:value:"$volume" "Volume: ''${volume}%"
       fi
     '')
     (writeShellScriptBin "changeBrightness" ''
-      #!/usr/bin/env bash
-      # Arbitrary but unique message tag
-      msgTag="mybrightness"
+      msgTag="mybrightness" # Arbitrary but unique message tag
 
-      # Change the brightness using brightnessctl
-      brightnessctl set "$@" >/dev/null
+      brightnessctl set "$@"
 
-      # Query brightnessctl for the current brightness
       brightness="$(brightnessctl i | grep .% | awk '{print $4}' | sed 's/[^0-9]*//g')"
 
-      # Show the brightness notification
       dunstify -a "changeBrightness" -u low -i brightnesssettings -h string:x-dunst-stack-tag:$msgTag -h int:value:"$brightness" "Brightness: ''${brightness}%"
     '')
   ];

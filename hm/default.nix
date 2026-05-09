@@ -38,10 +38,11 @@
       readOnly = true;
       entries = [
         "${
-          pkgs.runCommand "block iwgtk autostart" { } ''
-            mkdir -p $out/share/autostart
-            touch $out/share/autostart/iwgtk-indicator.desktop''
-        }/share/autostart/iwgtk-indicator.desktop"
+          pkgs.makeDesktopItem {
+            name = "iwgtk-indicator";
+            desktopName = "inhibit-iwgtk";
+          }
+        }/share/applications/iwgtk-indicator.desktop"
       ];
     };
 

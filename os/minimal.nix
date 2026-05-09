@@ -12,7 +12,6 @@
     nixos.enable = false;
     info.enable = false;
     doc.enable = false;
-    man.man-db.enable = false;
   };
 
   system = {
