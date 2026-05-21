@@ -105,7 +105,7 @@
       ssn = "shutdown now";
       rb = "reboot";
 
-      sudo = "sudo ";
+      sudo = "run0 --setenv=TERMINFO=$TERMINFO ";
       getenv = "printenv|rg -i";
 
       ".." = "cd ..";
@@ -150,7 +150,7 @@
       enable = true;
       package = pkgs.openssh_hpn;
       enableDefaultConfig = false;
-      matchBlocks = {
+      settings = {
         "*" = {
           controlMaster = "auto";
           controlPersist = "yes";

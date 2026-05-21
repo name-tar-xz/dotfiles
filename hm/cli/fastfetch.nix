@@ -1,6 +1,8 @@
-_: {
+{ pkgs, ... }:
+{
   programs.fastfetch = {
     enable = true;
+    package = pkgs.fastfetch.minimal;
     settings = {
       display = {
         size.binaryPrefix = "si";

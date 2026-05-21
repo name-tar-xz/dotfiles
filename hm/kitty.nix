@@ -14,9 +14,12 @@
       cursor_stop_blinking_after = 0;
       cursor_trail = 1;
 
+      drag_threshold = 0;
+
       scrollback_lines = -1;
       scrollback_pager = config.home.sessionVariables.PAGER;
       scrollbar_interactive = false;
+      pixel_scroll = false;
 
       mouse_hide_wait = 0;
       url_style = "straight";
@@ -93,6 +96,7 @@
       shell = pkgs.lib.getExe pkgs.zsh;
 
       update_check_interval = 0;
+      auto_reload_config = -1;
       allow_hyperlinks = true;
 
       kitty_mod = "ctrl+shift";

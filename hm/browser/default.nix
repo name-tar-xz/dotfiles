@@ -53,7 +53,10 @@
 
       DisableSecurityBypass.InvalidCertificate = true;
       GenerativeAI.Enabled = false;
-      Homepage.StartPage = "previous-session";
+      Homepage = {
+        StartPage = "previous-session";
+        Locked = true;
+      };
 
       DNSOverHTTPS = {
         Enabled = false;
@@ -109,6 +112,7 @@
             "github.com"
             "gitlab.com"
             "codeberg.org"
+            "git.gay"
           ]
           |> map (sites: [
             ("http://" + sites)
@@ -194,6 +198,7 @@
           "extensions.webextensions.base-content-security-policy.v3" = # for proton-pass
             "script-src 'self' 'wasm-unsafe-eval'; upgrade-insecure-requests;";
 
+          "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
           "privacy.clearOnShutdown.history" = false;
           "privacy.cpd.history" = false;
           "privacy.resistFingerprinting.letterboxing" = false;

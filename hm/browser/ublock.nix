@@ -18,21 +18,21 @@ _: {
         "wiki.hypr.land##+js(trusted-set-local-storage-item, color-theme, dark)"
 
         # Redlib Rules
-        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, blur_nsfw, off)"
-        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, blur_spoiler, on)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(set-cookie, blur_nsfw, off)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(set-cookie, blur_spoiler, on)"
 
-        "lr.ptr.moe,redlib.perennialte.ch##+js(trusted-set-cookie, comment_sort, top)"
-        "lr.ptr.moe,redlib.perennialte.ch##+js(trusted-set-cookie, post_sort, hot)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(trusted-set-cookie, comment_sort, top)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(trusted-set-cookie, post_sort, hot)"
 
-        "lr.ptr.moe,redlib.perennialte.ch##+js(trusted-set-cookie, theme, black, , , reload, 1)"
-        "lr.ptr.moe,redlib.perennialte.ch##+js(trusted-set-cookie, video_quality, medium)"
-        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, fixed_navbar, off)"
-        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, use_hls, on)"
-        "lr.ptr.moe,redlib.perennialte.ch##+js(set-cookie, disable_visit_reddit_confirmation, off)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(trusted-set-cookie, theme, black, , , reload, 1)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(trusted-set-cookie, video_quality, medium)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(set-cookie, fixed_navbar, off)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(set-cookie, use_hls, on)"
+        "lr.ptr.moe,redlib.perennialte.ch,redlib.catsarch.com##+js(set-cookie, disable_visit_reddit_confirmation, off)"
 
         # Nitter Rules
-        "xcancel.com##+js(set-cookie, infiniteScroll, on)"
-        "xcancel.com##+js(trusted-set-cookie, theme, black)"
+        "xcancel.com,nitter.net##+js(set-cookie, infiniteScroll, on)"
+        "xcancel.com,nitter.net##+js(trusted-set-cookie, theme, black)"
       ];
       filterLists = [
         "user-filters"

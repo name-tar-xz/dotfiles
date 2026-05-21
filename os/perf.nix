@@ -60,7 +60,7 @@
 
             khugepaged = {
               scan_sleep_millisecs = 30000;
-              max_ptes_none = 409;
+              max_ptes_none = 512 * 80 / 100;
             };
           };
 

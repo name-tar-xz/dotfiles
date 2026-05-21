@@ -39,7 +39,7 @@ repl host=`hostname`:
 
 [private]
 flake action *args:
-    nix flake {{ action }} --flake {{ flake }} --commit-lock-file --accept-flake-config {{ args }}
+    nix flake {{ action }} --commit-lock-file --accept-flake-config {{ args }}
 
 lock: (flake "lock")
 update *inputs: (flake "update" inputs)

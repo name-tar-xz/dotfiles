@@ -15,12 +15,13 @@
     sessionVariables.ZDOTDIR = config.programs.zsh.dotDir;
     file =
       let
-        zcompileDotZsh = x: "${lib.getExe config.programs.zsh.package} -c 'zcompile -M ${config.programs.zsh.dotDir}/.zsh${x}'";
+        zcompileDotZ = x: "${lib.getExe config.programs.zsh.package} -c 'zcompile -M ${config.programs.zsh.dotDir}/.z${x}'";
       in
       {
         ".zshenv".enable = false;
-        ".config/zsh/.zshrc".onChange = zcompileDotZsh "rc";
-        ".config/zsh/.zshenv".onChange = zcompileDotZsh "env";
+        ".config/zsh/.zshrc".onChange = zcompileDotZ "shrc";
+        ".config/zsh/.zshenv".onChange = zcompileDotZ "shenv";
+        ".config/zsh/.zprofile".onChange = zcompileDotZ "profile";
       };
   };
 

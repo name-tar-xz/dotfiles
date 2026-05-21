@@ -6,7 +6,6 @@
 {
   imports = with inputs; [
     home-manager.nixosModules.home-manager
-    catppuccin.nixosModules.catppuccin
     lanzaboote.nixosModules.lanzaboote
     sops-nix.nixosModules.sops
     phoenix.nixosModules.default

@@ -55,6 +55,7 @@
 
   users = {
     mutableUsers = false;
+    users.root.hashedPassword = "!";
     users.tarxz = {
       uid = 1000;
       hashedPassword = "$y$j9T$988v1QRaUKdb9ce3TGIL5/$8/UFRFQ8bq7SQcUGUnnwxCW0RLg/It7hBD26m9J7AY5";
