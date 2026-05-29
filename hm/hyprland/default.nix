@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }:
@@ -21,8 +22,16 @@
     rofi-power-menu
   ];
 
-  xdg.configFile."systemd/user/xdg-desktop-portal-gtk.service.d/overrides.conf".source = # workaround for https://github.com/nix-community/home-manager/issues/5401
-    (pkgs.formats.ini { }).generate "" { Service.Slice = "session.slice"; };
+  xdg.configFile = {
+    "systemd/user/xdg-desktop-portal-gtk.service.d/overrides.conf".source = # workaround for https://github.com/nix-community/home-manager/issues/5401
+      (pkgs.formats.ini { }).generate "" { Service.Slice = "session.slice"; };
+    "hypr/xdph.conf".text = lib.hm.generators.toHyprconf { attrs.screencopy.max_fps = 30; };
+
+    "nixos/hm/hyprland/.luarc.json".text = builtins.toJSON {
+      workspace.library = [ "${config.wayland.windowManager.hyprland.finalPackage}/share/hypr/stubs" ];
+      diagnostics.globals = [ "colors" ];
+    };
+  };
 
   systemd.user.services = {
     cliphist.Service.Slice = "background.slice";
@@ -72,315 +81,56 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
-
-    settings = {
-      exec-once = [ "[workspace special:1 silent] uwsm app kitty -1" ];
-
-      monitor = ",preferred,auto,1.25";
-
-      input = {
-        kb_layout = "us";
-        kb_options = "caps:swapescape,compose:ins";
-        repeat_delay = 300;
-        repeat_rate = 30;
-        follow_mouse = 1;
-        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
-        touchpad = {
-          natural_scroll = true;
-          disable_while_typing = false;
-          tap-to-click = true;
-          drag_lock = true;
-        };
-        accel_profile = "adaptive";
-      };
-
-      gestures.gesture = [
-        "3, horizontal, workspace"
-        "3, vertical, special, 1"
-        "3, pinchout, float"
-        "3, pinchin, fullscreen"
-      ];
-
-      general = {
-        gaps_in = 0;
-        gaps_out = 0;
-        border_size = 2;
-        "col.active_border" = "$accent";
-        "col.inactive_border" = "rgba(00000000)";
-        layout = "dwindle";
-        allow_tearing = true;
-      };
-
-      group = {
-        "col.border_active" = "$accent";
-        "col.border_inactive" = "rgba(00000000)";
-        groupbar = {
-          gradients = true;
-          "col.inactive" = "rgba(00000000)";
-          "col.active" = "$accent";
-        };
-      };
-      misc = {
-        disable_hyprland_logo = true;
-        disable_splash_rendering = true;
-        disable_autoreload = true;
-        vfr = true;
-        # vrr = 1;
-        mouse_move_enables_dpms = true;
-        key_press_enables_dpms = true;
-        enable_swallow = false;
-        animate_manual_resizes = true;
-        swallow_regex = "^(kitty)$";
-        focus_on_activate = true;
-      };
-
-      decoration = {
-        rounding_power = 4;
-        rounding = 10;
-
-        active_opacity = 1.0;
-        inactive_opacity = 0.95;
-
-        dim_inactive = true;
-        dim_strength = 0.3;
-        dim_special = 0.3;
-
-        blur = {
-          enabled = true;
-          size = 8;
-          passes = 3;
-          new_optimizations = true;
-          xray = false;
-          special = false;
-        };
-
-        shadow.enabled = false;
-      };
-
-      xwayland.force_zero_scaling = true;
-
-      animations = {
-        bezier = [
-          "emphasizedDecel, 0.05, 0.7, 0.1, 1"
-          "emphasizedAccel, 0.3, 0, 0.8, 0.15"
-          "menu_decel, 0.1, 1, 0, 1"
-          "menu_accel, 0.52, 0.03, 0.72, 0.08"
-          "stall, 1, -0.1, 0.7, 0.85"
+    configType = "lua";
+    extraConfig = builtins.readFile ./hyprland.lua;
+    settings.permission = [
+      {
+        _args = [
+          {
+            binary = "${config.wayland.windowManager.hyprland.finalPortalPackage}/libexec/xdg-desktop-portal-hyprland";
+            type = "screencopy";
+            mode = "allow";
+          }
         ];
-        animation = [
-          "monitorAdded, 0"
-
-          "windowsIn, 1, 3, emphasizedDecel, popin 80%"
-          "fadeIn, 1, 3, emphasizedDecel"
-          "windowsOut, 1, 2, emphasizedDecel, popin 90%"
-          "fadeOut, 1, 2, emphasizedDecel"
-          "windowsMove, 1, 3, emphasizedDecel, slide"
-          "border, 1, 10, emphasizedDecel"
-          "layersIn, 1, 2.7, emphasizedDecel, popin 93%"
-          "layersOut, 1, 2.4, menu_accel, popin 94%"
-          "fadeLayersIn, 1, 0.5, menu_decel"
-          "fadeLayersOut, 1, 2.7, stall"
-          "workspaces, 1, 7, menu_decel, slide"
-          "specialWorkspaceIn, 1, 2.8, emphasizedDecel, slidevert"
-          "specialWorkspaceOut, 1, 1.2, emphasizedAccel, slidevert"
+      }
+    ]
+    ++ (with pkgs; [
+      {
+        _args = [
+          {
+            binary = lib.getExe grimblast;
+            type = "screencopy";
+            mode = "allow";
+          }
         ];
-      };
-
-      dwindle = {
-        pseudotile = true;
-        preserve_split = false;
-      };
-
-      master.mfact = 0.5;
-
-      windowrule = [
-        "match:class file_progress, float true"
-        "match:class confirm, float true"
-        "match:class dialog, float true"
-        "match:class download, float true"
-        "match:class notification, float true"
-        "match:class error, float true"
-        "match:class splash, float true"
-        "match:class confirmreset, float true"
-        "match:title Open File, float true"
-        "match:title branchdialog, float true"
-        "match:class viewnior, float true"
-        "match:class file-roller, float true"
-
-        "match:class mpv, idle_inhibit focus, fullscreen true, border_size 0, opaque true, no_dim true"
-
-        "match:class firefox, idle_inhibit fullscreen true"
-
-        "match:title ^(Media viewer)$, float true"
-        "match:title ^(Volume Control)$, float true"
-        "match:title ^(Authentication Required)$, float true, pin true, stay_focused true"
-        "match:title ^(Bluetooth Devices)$, float true"
-        "match:title ^(iwgtk)$, float true"
-        "match:title ^(dconf Editor)$, float true"
-        "match:class zoom, float true"
-
-        "match:title ^(Picture in picture)$, float true, keep_aspect_ratio true, pin true, border_size 0, no_dim true, opaque true"
-
-        "match:title ^(Firefox — Sharing Indicator)$, float true"
-
-        "match:class ^(rofi)$, stay_focused true"
-        "match:class ^(kitty)$, xray true"
-
-        "match:workspace w[tv1], match:float false, rounding 0, border_size 0"
-        "match:workspace s[true], match:float false, match:class ^(kitty)$, rounding 0, border_size 0"
-      ];
-
-      layerrule = [
-        "match:namespace gtk-layer-shell, blur true"
-        "match:namespace notifications, blur true"
-        "match:namespace notifications, ignore_alpha 0"
-        "match:namespace rofi, blur true"
-        "match:namespace waybar, blur true"
-        "match:namespace waybar, ignore_alpha 0"
-        "match:namespace rofi, ignore_alpha 0"
-      ];
-
-      "$mod" = "SUPER";
-
-      bind = [
-        # Special Workspace
-        "$mod ALT, M, movetoworkspace, special:1"
-        "$mod,T,togglespecialworkspace,1"
-        "$mod,M,togglespecialworkspace,2"
-
-        # Launching
-        "$mod, B, exec, uwsm app firefox"
-        "$mod, Return, exec, uwsm app kitty -1"
-        "$mod ALT, T, exec, uwsm app kitty -1"
-
-        # Screenshot
-        ", Print, exec, grimblast --notify copy screen"
-        "ALT, Print, exec, grimblast --notify copy active"
-        "SHIFT, Print, exec, grimblast --notify --freeze copy area"
-        "$mod, Print, exec, grimblast --notify copysave screen"
-        "$mod ALT, Print, exec, grimblast --notify copysave active"
-        "$mod SHIFT, Print, exec, grimblast --notify --freeze copysave area"
-
-        # Tools
-        "$mod SHIFT, C, exec, hyprpicker -a -n"
-        "$mod, W, exec, pkill -USR1 waybar||waybar"
-        "$mod SHIFT, W, exec, pkill -USR2 waybar"
-        "$mod CTRL, L, exec, hyprlock"
-        "$mod, D, exec, dunstctl set-paused toggle"
-
-        # Launcher
-        "$mod, SPACE, exec, pkill rofi||rofi -show drun"
-        "$mod, R, exec, pkill rofi||rofi -show run -no-sidebar-mode"
-        "$mod, S, exec, pkill rofi||rofi-systemd"
-        "$mod ALT, B, exec, pkill rofi||rofi-bluetooth"
-        "$mod, E, exec, pkill rofi||rofi -show filebrowser -modes filebrowser -no-sidebar-mode"
-        "$mod, escape, exec, pkill rofi||rofi -show p -modes p:rofi-power-menu -no-sidebar-mode"
-        "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-
-        # Anime
-        "$mod, A, exec, ~/.local/bin/jerry --rofi -q 1080"
-        "$mod SHIFT, A, exec, ~/.local/bin/jerry --rofi --dub -q 1080"
-        "$mod ALT, A, exec, ani-cli --rofi --skip -q best"
-        "$mod ALT SHIFT, A, exec, ani-cli --rofi --skip --dub -q best"
-
-        # Windows
-        "$mod, C, killactive"
-        "$mod, Q, killactive"
-        "$mod SHIFT, F, fullscreen"
-        "$mod, F, togglefloating"
-        "$mod, P, pseudo"
-        "$mod, I, togglesplit"
-
-        # Window Management
-        "$mod, H, movefocus, l"
-        "$mod, L, movefocus, r"
-        "$mod, K, movefocus, u"
-        "$mod, J, movefocus, d"
-
-        "$mod ALT, H, movewindow, l"
-        "$mod ALT, L, movewindow, r"
-        "$mod ALT, K, movewindow, u"
-        "$mod ALT, J, movewindow, d"
-
-        # Group
-        "$mod, g, togglegroup"
-        "$mod, tab, changegroupactive"
-
-        "$mod CTRL, H, moveintogroup, l"
-        "$mod CTRL, L, moveintogroup, r"
-        "$mod CTRL, K, moveintogroup, u"
-        "$mod CTRL, J, moveintogroup, d"
-
-        # Workspaces
-        "$mod, grave, workspace, +1"
-        "$mod SHIFT, grave, workspace, -1"
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-        "$mod, 6, workspace, 6"
-        "$mod, 7, workspace, 7"
-        "$mod, 8, workspace, 8"
-        "$mod, 9, workspace, 9"
-        "$mod, 0, workspace, 10"
-        "$mod ALT, down, workspace, e+1"
-        "$mod ALT, up, workspace, e-1"
-
-        "$mod ALT, 1, movetoworkspace, 1"
-        "$mod ALT, 2, movetoworkspace, 2"
-        "$mod ALT, 3, movetoworkspace, 3"
-        "$mod ALT, 4, movetoworkspace, 4"
-        "$mod ALT, 5, movetoworkspace, 5"
-        "$mod ALT, 6, movetoworkspace, 6"
-        "$mod ALT, 7, movetoworkspace, 7"
-        "$mod ALT, 8, movetoworkspace, 8"
-        "$mod ALT, 9, movetoworkspace, 9"
-        "$mod ALT, 0, movetoworkspace, 10"
-
-        "$mod, mouse_down, workspace, e+1"
-        "$mod, mouse_up, workspace, e-1"
-      ];
-
-      binde = [
-        # Resize Windows
-        "$mod SHIFT, H, resizeactive, -20 0"
-        "$mod SHIFT, L, resizeactive, 20 0"
-        "$mod SHIFT, K, resizeactive, 0 -20"
-        "$mod SHIFT, J, resizeactive, 0 20"
-      ];
-
-      bindel = [
-        # Bind brightness and audio control
-        ", XF86MonBrightnessUp, exec, changeBrightness +5%"
-        ", XF86MonBrightnessDown, exec, changeBrightness 5%-"
-        ", XF86AudioRaiseVolume, exec, changeVolume 5%+"
-        ", XF86AudioLowerVolume, exec, changeVolume 5%-"
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle"
-      ];
-
-      bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
-      ];
-
-      permission = [
-        "${config.wayland.windowManager.hyprland.finalPortalPackage}/libexec/xdg-desktop-portal-hyprland, screencopy, allow"
-
-        # ".*, keyboard, ask"
-      ]
-      ++ (with pkgs; [
-        "${lib.getExe grimblast}, screencopy, allow"
-        "${lib.getExe grim}, screencopy, allow"
-        "${lib.getExe hyprpicker}, screencopy, allow"
-        "${lib.getExe hyprlock}, screencopy, allow"
-      ]);
-
-      ecosystem = {
-        enforce_permissions = true;
-        no_update_news = true;
-        no_donation_nag = true;
-      };
-    };
+      }
+      {
+        _args = [
+          {
+            binary = lib.getExe grim;
+            type = "screencopy";
+            mode = "allow";
+          }
+        ];
+      }
+      {
+        _args = [
+          {
+            binary = lib.getExe hyprpicker;
+            type = "screencopy";
+            mode = "allow";
+          }
+        ];
+      }
+      {
+        _args = [
+          {
+            binary = lib.getExe hyprlock;
+            type = "screencopy";
+            mode = "allow";
+          }
+        ];
+      }
+    ]);
   };
 }
