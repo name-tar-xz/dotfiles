@@ -1,0 +1,34 @@
+diff --git c/dists/overwrite i/dists/overwrite
+index b9002175b..dad6b374c 100644
+--- c/dists/overwrite
++++ i/dists/overwrite
+@@ -42,7 +42,7 @@ lsusb
+ openvpn
+ pollinate
+ remmina
+-systemd-detect-virt # Missing integration with @{p_systemd}
++# systemd-detect-virt # Missing integration with @{p_systemd}
+ transmission
+ usr.bin.papers
+ usr.bin.passt
+diff --git c/pkg/aa/apparmor.go i/pkg/aa/apparmor.go
+index 29b39f464..585eeddb4 100644
+--- c/pkg/aa/apparmor.go
++++ i/pkg/aa/apparmor.go
+@@ -86,14 +86,14 @@ func DefaultTunables() *AppArmorProfileFile {
+ 	return &AppArmorProfileFile{
+ 		Preamble: Rules{
+ 			&Variable{Name: "arch", Values: []string{"x86_64", "amd64", "i386"}, Define: true},
+-			&Variable{Name: "bin", Values: []string{"/{,usr/}bin"}, Define: true},
++			&Variable{Name: "bin", Values: []string{"/{nix/store/*/,/run/wrappers,}{,usr/}{,s}bin"}, Define: true},
+ 			&Variable{Name: "c", Values: []string{"[0-9a-zA-Z]"}, Define: true},
+ 			&Variable{Name: "dpkg_script_ext", Values: []string{"config", "templates", "preinst", "postinst", "prerm", "postrm"}, Define: true},
+ 			&Variable{Name: "etc_ro", Values: []string{"/{,usr/}etc/"}, Define: true},
+ 			&Variable{Name: "HOME", Values: []string{"/home/*"}, Define: true},
+ 			&Variable{Name: "int", Values: []string{"[0-9]{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}{[0-9],}"}, Define: true},
+ 			&Variable{Name: "int2", Values: []string{"[0-9][0-9]"}, Define: true},
+-			&Variable{Name: "lib", Values: []string{"/{,usr/}lib{,exec,32,64}"}, Define: true},
++			&Variable{Name: "lib", Values: []string{"/{nix/store/*/,}{,usr/}lib{,exec,32,64}"}, Define: true},
+ 			&Variable{Name: "MOUNTS", Values: []string{"/media/*/", "/run/media/*/*/", "/mnt/*/"}, Define: true},
+ 			&Variable{Name: "multiarch", Values: []string{"*-linux-gnu*"}, Define: true},
+ 			&Variable{Name: "rand", Values: []string{"@{c}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}{@{c},}"}, Define: true}, // Up to 10 characters

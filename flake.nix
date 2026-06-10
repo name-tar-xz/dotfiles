@@ -47,10 +47,18 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    aa-alias-manager = {
+      url = "github:LordGrimmauld/aa-alias-manager";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix-github-actions.follows = "";
+        pre-commit-hooks.follows = "";
+      };
     };
 
     neovim-nightly-overlay = {

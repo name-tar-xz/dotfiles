@@ -1,5 +1,28 @@
 {
   "nodes": {
+    "aa-alias-manager": {
+      "inputs": {
+        "nix-github-actions": [],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": [],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1739727446,
+        "narHash": "sha256-t+KH1NoR/HauQlYgKaNKkxCoSQ4PwPdp5r6nGc3K/tE=",
+        "owner": "LordGrimmauld",
+        "repo": "aa-alias-manager",
+        "rev": "cf56427c87bf93537f0c4f9896beef2da146860b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LordGrimmauld",
+        "repo": "aa-alias-manager",
+        "type": "github"
+      }
+    },
     "betterfox": {
       "flake": false,
       "locked": {
@@ -215,7 +238,7 @@
           "nixpkgs"
         ],
         "pre-commit": [],
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay_2"
       },
       "locked": {
         "lastModified": 1765382359,
@@ -365,6 +388,7 @@
     },
     "root": {
       "inputs": {
+        "aa-alias-manager": "aa-alias-manager",
         "betterfox": "betterfox",
         "catppuccin": "catppuccin",
         "csshacks": "csshacks",
@@ -379,6 +403,27 @@
       }
     },
     "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "aa-alias-manager",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736572187,
+        "narHash": "sha256-it8mU8UkbaeVup7GpCI6n2cWPJ/O4U980CxKAMKUGF0=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "06871d5c5f78b0ae846c5758702531b4cabfab9b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
       "inputs": {
         "nixpkgs": [
           "lanzaboote",

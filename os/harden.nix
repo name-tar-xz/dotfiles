@@ -1,4 +1,5 @@
 _: {
+  imports = [ ./apparmor ];
   boot = {
     kexec.enable = false;
     blacklistedKernelModules = [
