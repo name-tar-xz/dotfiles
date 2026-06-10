@@ -27,6 +27,8 @@
     kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-x86_64-v4; # lqx xanmod xanmod_latest xanmod_stable zen
   };
 
+  environment.memoryAllocator.provider = "graphene-hardened-light";
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;

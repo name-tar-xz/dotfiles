@@ -1,14 +1,118 @@
 {
   pkgs,
+  lib,
   config,
+  osConfig,
   inputs,
   ...
 }:
 {
   imports = [ ./ublock.nix ];
 
-  xdg.configFile."mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;
-  home.file.".mozilla/native-messaging-hosts".enable = false;
+  xdg.configFile = {
+    "mozilla/firefox/main/chrome/csshacks".source = inputs.csshacks;
+    "mozilla/firefox/main/customKeys.json".text = builtins.toJSON { key_inspector = { }; };
+  };
+
+  home = {
+    file.".mozilla/native-messaging-hosts".enable = false;
+
+    activation.removeMozilla = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run rm -rf ${
+        lib.attrsets.filterAttrs (n: v: lib.strings.hasPrefix config.programs.firefox.configPath n) config.home.file
+        |> lib.attrsets.mapAttrsToList (n: v: "${n} ${n}.bak")
+        |> toString
+      }
+    '';
+
+    packages =
+      ((inputs.nixpak.lib.nixpak { inherit (pkgs) lib pkgs; }) {
+        config = { sloth, ... }: rec {
+          app.package = config.programs.firefox.finalPackage;
+          etc.sslCertificates.enable = (builtins.elemAt app.package.meta.sourceProvenance 0).isSource; # Certs not needed for binary packages
+          flatpak.appId = "org.mozilla.firefox";
+          gpu.enable = true;
+          pasta.enable = true; # ?
+
+          dbus = {
+            enable = true;
+            policies = {
+              # Flatpak Defaults
+              "org.freedesktop.DBus" = "talk";
+              "org.freedesktop.portal.*" = "talk";
+
+              # From Firefox Flatpak Metadata (path after installing ff flatpak: XDG_DATA_HOME/flatpak/app/org.mozilla.firefox/current/active/metadata)
+              "org.mozilla.firefox.*" = "own";
+              "org.gtk.vfs.*" = "talk"; # ?
+              "org.mpris.MediaPlayer2.firefox.*" = "own";
+              "org.a11y.Bus" = "talk";
+              "org.freedesktop.FileManager1" = "talk";
+            };
+          };
+
+          bubblewrap = {
+            network = true;
+            shareIpc = true;
+            tmpfs = [ "/tmp" ];
+
+            bindEntireStore = false;
+            extraStorePaths =
+              (lib.singleton osConfig.hardware.graphics.package)
+              ++ osConfig.hardware.graphics.extraPackages
+              ++ osConfig.fonts.packages
+              ++ osConfig.fonts.fontconfig.confPackages;
+
+            clearEnv = true;
+            env = {
+              HOME = config.home.homeDirectory;
+              WAYLAND_DISPLAY = sloth.env "WAYLAND_DISPLAY";
+              XDG_RUNTIME_DIR = sloth.env "XDG_RUNTIME_DIR";
+            };
+
+            bind = with config.xdg; {
+              rw = [
+                [
+                  "${configHome}/mozilla/firefox"
+                  "${config.home.homeDirectory}/.config/mozilla/firefox"
+                ]
+                [
+                  "${cacheHome}/mozilla/firefox"
+                  "${config.home.homeDirectory}/.cache/mozilla/firefox"
+                ]
+                [
+                  "${userDirs.download}"
+                  "${config.home.homeDirectory}/Downloads"
+                ]
+                (sloth.concat [
+                  (sloth.env "XDG_RUNTIME_DIR")
+                  "/doc"
+                ]) # required to open files from the file chooser portal and downloads
+              ];
+
+              ro =
+                (lib.singleton "/etc/fonts")
+                ++ (
+                  lib.attrsets.filterAttrs (n: _: lib.strings.hasPrefix config.programs.firefox.configPath n) config.home.file
+                  |> lib.attrsets.mapAttrsToList (
+                    n: v: [
+                      "${v.source}"
+                      n
+                    ]
+                  )
+                );
+            };
+
+            sockets = {
+              wayland = true;
+              pipewire = true;
+              pulse = true;
+            };
+          };
+        };
+      }).config.env.override
+        { meta.priority = -1; }
+      |> lib.singleton;
+  };
 
   services.psd = {
     enable = true;
@@ -188,6 +292,8 @@
           "ui.panelAnimations" = 1;
           "ui.prefersReducedMotion" = 0;
           "ui.swipeAnimationEnabled" = 1;
+
+          "media.webrtc.camera.allow-pipewire" = true;
 
           "dom.webgpu.enabled" = true;
 
