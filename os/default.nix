@@ -15,8 +15,6 @@
     ./syncthing.nix
     ./time.nix
 
-    inputs.run0-sudo-shim.nixosModules.default
-
     ../hosts/${hostname}
   ];
 
@@ -175,8 +173,11 @@
 
   security = {
     sudo.enable = false;
-    run0-sudo-shim.enable = true;
-    polkit.persistentAuthentication = true;
+    run0 = {
+      enable = true;
+      enableSudoAlias = true;
+      persistentAuth.enable = true;
+    };
   };
 
   sops = {

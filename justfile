@@ -14,7 +14,7 @@ builder goal *args:
         --flake {{ flake }} \
         --accept-flake-config \
         --log-format internal-json \
-        --sudo --no-reexec \
+        --elevate=run0 --no-reexec \
         {{ args }} \
         |& nom --json
 

@@ -306,30 +306,7 @@
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nixpkgs": "nixpkgs_2",
         "phoenix": "phoenix",
-        "run0-sudo-shim": "run0-sudo-shim",
         "sops-nix": "sops-nix"
-      }
-    },
-    "run0-sudo-shim": {
-      "inputs": {
-        "nix-github-actions": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": []
-      },
-      "locked": {
-        "lastModified": 1779902501,
-        "narHash": "sha256-llpSeqQmNtFu+FHXNlt7FvZxIHX9a9Et4PDzZPpVajs=",
-        "owner": "lordgrimmauld",
-        "repo": "run0-sudo-shim",
-        "rev": "b1d20e5d05a0c303cbd9ce05ecbb2870d1ccff6f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lordgrimmauld",
-        "repo": "run0-sudo-shim",
-        "type": "github"
       }
     },
     "rust-overlay": {
