@@ -29,8 +29,23 @@
     userDirs = {
       enable = true;
       setSessionVariables = true;
-      extraConfig.SCREENSHOTS = "${config.xdg.userDirs.pictures}/Screenshots";
-    };
+    }
+    // (with config.home; {
+      documents = "${homeDirectory}/docs";
+      download = "${homeDirectory}/downloads";
+      desktop = "${homeDirectory}/desktop";
+      videos = "${homeDirectory}/media/vids";
+      music = "${homeDirectory}/media/music";
+      projects = "${homeDirectory}/projs";
+      pictures = "${homeDirectory}/media/pics";
+      publicShare = "${homeDirectory}/public/share";
+      templates = "${homeDirectory}/public/templates";
+
+      extraConfig = with config.xdg.userDirs; {
+        SCREENSHOTS = "${pictures}/screenshots";
+        WALLPAPERS = "${pictures}/wallpapers";
+      };
+    });
     cacheHome = "${config.home.homeDirectory}/.local/cache";
 
     autostart = {
