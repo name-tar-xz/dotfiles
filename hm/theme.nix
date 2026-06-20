@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   pkgs,
   inputs,
   ...
@@ -16,31 +17,10 @@
   };
 
   catppuccin = {
+    enable = true;
+    autoEnable = false;
     flavor = "mocha";
-    sources = inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.overrideScope (
-      _final: prev: {
-        whiskers = pkgs.symlinkJoin {
-          name = "whiskers-wrapped";
-          paths = [ prev.whiskers ];
-          nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-          postBuild =
-            let
-              oled = builtins.toJSON {
-                mocha = {
-                  base = "000000";
-                  mantle = "010101";
-                  crust = "020202";
-                };
-              };
-            in
-            ''
-              wrapProgram $out/bin/whiskers \
-                --add-flag ${pkgs.lib.escapeShellArg "--color-overrides=${oled}"}
-            '';
-          meta.mainProgram = "whiskers";
-        };
-      }
-    );
+    inherit (osConfig.catppuccin) sources;
 
     qt5ct.enable = true;
     kvantum.enable = true;

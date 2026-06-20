@@ -16,7 +16,57 @@
     ./time.nix
 
     ../hosts/${hostname}
+
+    inputs.catppuccin.nixosModules.catppuccin
   ];
+
+  console.colors =
+    let
+      palette = pkgs.lib.importJSON "${config.catppuccin.sources.palette}/palette.json";
+    in
+    (lib.singleton "000000")
+    ++ map (color: (pkgs.lib.substring 1 6 palette.mocha.colors.${color}.hex)) [
+      "red"
+      "green"
+      "yellow"
+      "blue"
+      "pink"
+      "teal"
+      "subtext1"
+
+      "surface2"
+      "red"
+      "green"
+      "yellow"
+      "blue"
+      "pink"
+      "teal"
+      "subtext0"
+    ];
+
+  catppuccin = {
+    enable = true;
+    autoEnable = false;
+    sources = inputs.catppuccin.packages.${pkgs.stdenv.hostPlatform.system}.overrideScope (
+      _: _: {
+        whiskers = pkgs.symlinkJoin {
+          name = "whiskers-wrapped";
+          paths = [ pkgs.catppuccin-whiskers ];
+          nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+          postBuild = "wrapProgram $out/bin/whiskers --add-flag\t${pkgs.lib.escapeShellArg "--color-overrides=${
+            builtins.toJSON {
+              mocha = {
+                base = "000000";
+                mantle = "010101";
+                crust = "020202";
+              };
+            }
+          }"}";
+          meta.mainProgram = "whiskers";
+        };
+      }
+    );
+  };
 
   boot = {
     tmp = {
