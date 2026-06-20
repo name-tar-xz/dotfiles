@@ -31,6 +31,9 @@ test *args: (build-diff "test" args)
 switch *args: (build-diff "switch" args)
 boot *args: (builder "boot" args)
 
+rb *args: (boot args)
+    systemctl reboot
+
 clean:
     nix-collect-garbage --delete-older-than 3d
 
@@ -50,6 +53,9 @@ verify *args:
     nix-store --verify {{ args }}
 
 repair: (verify "--check-contents --repair")
+
+iso:
+    nom build .#nixosConfigurations.iso.config.system.build.isoImage --accept-flake-config
 
 [env("SOPS_AGE_KEY_FILE", "/var/lib/age.txt")]
 [no-exit-message]

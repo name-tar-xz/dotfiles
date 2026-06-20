@@ -15,7 +15,8 @@
   };
 
   system = {
-    disableInstallerTools = false;
+    disableInstallerTools = true;
+    tools.nixos-rebuild.enable = true;
     nixos-init.enable = true;
     etc.overlay = {
       enable = true;

@@ -2,7 +2,7 @@
 {
   programs.fastfetch = {
     enable = true;
-    package = pkgs.fastfetch.minimal;
+    package = pkgs.fastfetch-unwrapped;
     settings = {
       display = {
         size.binaryPrefix = "si";

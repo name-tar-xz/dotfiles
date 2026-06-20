@@ -7,8 +7,8 @@
         serif = [ "Inter" ];
         sansSerif = [ "Inter" ];
         monospace = [
-          "Symbols Nerd Font"
           "Iosevka Term"
+          "Symbols Nerd Font"
         ];
         emoji = [ "Noto Emoji" ];
       };

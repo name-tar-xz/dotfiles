@@ -6,26 +6,24 @@
       "https://lanzaboote.cachix.org"
       "https://nix-community.cachix.org"
       "https://catppuccin.cachix.org"
-      "https://attic.xuyh0120.win/lantian"
-      "https://cache.garnix.io"
+      "https://cache.xinux.uz"
     ];
     extra-trusted-public-keys = [
       "lanzaboote.cachix.org-1:Nt9//zGmqkg1k5iu+B3bkj3OmHKjSw9pvf3faffLLNk="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0="
     ];
   };
 
   inputs = {
-    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"; # Smaller tarball than pulling from github
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst"; # Smaller tarball than pulling from github
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
-        flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+        flake-parts.inputs.nixpkgs-lib.follows = "nix-cachyos-kernel/nixpkgs";
       };
     };
     home-manager = {

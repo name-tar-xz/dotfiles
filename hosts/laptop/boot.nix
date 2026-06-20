@@ -20,6 +20,7 @@
     loader.systemd-boot.enable = lib.mkForce false;
     lanzaboote = {
       enable = true;
+      bootCounting.initialTries = 3;
       pkiBundle = "/var/lib/sbctl";
       autoGenerateKeys.enable = true;
       autoEnrollKeys = {

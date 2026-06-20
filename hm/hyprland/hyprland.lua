@@ -124,7 +124,7 @@ hl.animation { leaf = "specialWorkspaceOut", enabled = true, speed = 1.2, bezier
 
 local function bindS(keys, dsp, opts) hl.bind("SUPER +" .. keys, dsp, opts) end
 
-bindS("C", hl.dsp.window.kill())
+bindS("C", hl.dsp.window.close())
 bindS("Q", hl.dsp.window.kill())
 bindS("F", hl.dsp.window.float { action = "toggle" })
 bindS("SHIFT + F", hl.dsp.window.fullscreen { action = "toggle" })

@@ -8,6 +8,9 @@
     nix-output-monitor
     onefetch
 
+    go
+    python3
+
     ## File Management
     rmtrash
     trash-cli
@@ -159,7 +162,7 @@
         notARepository = "skip";
         update.method = "never";
         git = {
-          pagers = [ { pager = "delta --dark --paging=never"; } ];
+          diffRenderers = [ { command = "delta --dark --paging=never"; } ];
           autoFetch = false;
           autoRefresh = false;
           overrideGpg = true;

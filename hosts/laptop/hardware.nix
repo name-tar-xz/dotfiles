@@ -27,6 +27,8 @@
       options = [
         "lazytime"
         "noatime"
+        "nodev"
+        "nosuid"
       ];
     };
 

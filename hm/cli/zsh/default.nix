@@ -90,7 +90,7 @@
     shellSuffixAliases = rec {
       json = "jaq .";
       lock = json;
-      toml = json + "--to toml";
+      toml = json + " --to toml";
       yaml = json + " --to yaml";
       yml = yaml;
     };
@@ -126,6 +126,10 @@
 
     zleFunctions = {
       lfcd = /* sh */ ''cd "$(command lf -print-last-dir "$@")" || return'';
+      alts = /* sh */ ''
+        BUFFER="sudo $(fc -ln -1)"
+        zle accept-line
+      '';
       ctrlz = /* sh */ ''
         if [[ $#BUFFER -eq 0 ]]; then
           BUFFER="fg"
@@ -145,6 +149,7 @@
       "^L" = "clear-screen-and-scrollback";
       "^Z" = "ctrlz";
       "^O" = "lfcd";
+      "^[s" = "alts";
       "^[[H" = "beginning-of-line";
       "^[[F" = "end-of-line";
       "^[[3~" = "delete-char";

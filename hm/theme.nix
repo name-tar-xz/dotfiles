@@ -2,7 +2,6 @@
   config,
   osConfig,
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -27,6 +26,7 @@
   };
 
   home.pointerCursor = {
+    enable = true;
     gtk.enable = true;
     x11.enable = false;
     size = 24;

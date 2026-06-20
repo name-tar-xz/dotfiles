@@ -33,7 +33,7 @@
         "--style full"
         "--no-scrollbar"
 
-        "--preview 'pistol {}'"
+        "--preview 'test -f {} && pistol {}'"
         "--preview-window 'right,border-none,<60(down,border)'"
 
         "--bind 'alt-/:toggle-preview'"
@@ -47,9 +47,9 @@
 
       colors.bg = pkgs.lib.mkForce "";
 
-      changeDirWidgetCommand = "fd --type dir -LH --color=always";
-      fileWidgetCommand = defaultCommand;
-      historyWidgetOptions = [
+      changeDirWidget.command = "fd --type dir -LH --color=always";
+      fileWidget.command = defaultCommand;
+      historyWidget.options = [
         "--sort"
         "--exact"
         "--height 10%"

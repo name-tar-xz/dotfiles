@@ -7,25 +7,24 @@ _: {
         fc = "rgb(217,225,239)";
       in
       {
-        background = [
-          {
-            path = "${.walls/windows-error.jxl}";
-            blur_passes = 0;
-            blur_size = 0;
-          }
-        ];
+        background = {
+          path = "${.walls/windows-error.jxl}";
+          color = "rgb(30, 30, 46)";
+          blur_passes = 0;
+          blur_size = 0;
+        };
 
-        input-field = [
-          {
-            outer_color = "rgba(0,0,0,0)";
-            inner_color = "rgba(17,17,27,0.5)";
-            font_color = fc;
-            valign = "bottom";
-            placeholder_text = "";
-            position = "0, 32";
-            size = "200, 50";
-          }
-        ];
+        general.immediate_render = true;
+
+        input-field = {
+          outer_color = "rgba(0,0,0,0)";
+          inner_color = "rgba(17,17,27,0.5)";
+          font_color = fc;
+          valign = "bottom";
+          placeholder_text = "";
+          position = "0, 32";
+          size = "200, 50";
+        };
 
         label = [
           {

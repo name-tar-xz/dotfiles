@@ -175,10 +175,7 @@
             energy_performance_preference = "power";
             boost = 0;
           };
-          sysfs = {
-            "/sys/devices/system/cpu/intel_pstate/hwp_dynamic_boost" = 0;
-            "/sys/module/pcie_aspm/parameters/policy" = "powersupersave";
-          };
+          sysfs."/sys/module/pcie_aspm/parameters/policy" = "powersupersave";
           acpi.platform_profile = "low-power|quiet";
         };
       };
