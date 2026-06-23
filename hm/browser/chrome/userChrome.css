@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/complexity/noImportantStyles: Overriding FF Default Styles */
 @import "csshacks/chrome/privatemode_indicator_as_menu_button.css";
 @import "csshacks/chrome/urlbar_connection_type_text_colors.css";
 @import "csshacks/chrome/custom_menupopup_check_icons.css";
@@ -9,14 +10,37 @@
 
 @import "csshacks/chrome/compact_extensions_panel.css";
 
-/** Add your custom styles below **********************************************/
 * {
   font-family: -moz-fixed;
+  --chrome-window-gap: 0px !important;
+  --chrome-block-radius: 0px !important;
+  --panel-background-color: black;
 }
 
-/* Move the sidebar header to the bottom of the sidebar */
-#sidebar-box {
-  flex-direction: column-reverse;
+:root[sidebar-expand-on-hover] {
+  & #tabbrowser-tabbox {
+    @media -moz-pref("browser.nova.enabled") {
+      &[sidebar-positionend]:not([sidebar-panel-open]) {
+        margin-inline-end: calc(var(--sidebar-launcher-collapsed-width) - 6px) !important;
+      }
+    }
+  }
+}
+
+.browserContainer {
+  border: 0px !important;
+}
+
+#sidebar-container,
+.urlbar-background,
+#nav-bar {
+  background: black !important;
+}
+
+.tab-background {
+  &:is([selected]:not([multiselected])) {
+    background: #272727 !important;
+  }
 }
 
 /* Center urlbar and right align links */
@@ -28,31 +52,8 @@
   text-align: right;
 }
 
-/* Disable the Navigation Buttons */
-#back-button,
-#forward-button {
-  display: none !important;
-}
-
 #identity-icon-box {
   background: transparent !important;
-}
-
-/* Hide the »Go«-arrow in the URL Bar */
-#urlbar-go-button {
-  display: none !important;
-}
-
-/* Make Header Unified and black */
-#nav-bar {
-  padding-block-start: 0px !important;
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-}
-
-#sidebar-main {
-  background: black !important;
 }
 
 #urlbar,
@@ -71,20 +72,19 @@
 }
 
 /* Enable option to edit bookmark URLs under Add Bookmark (blue star) menu */
-
 #editBMPanel_locationRow {
   visibility: visible !important;
 }
 
 /* Disable Email Image/Audio/Video and Set as Desktop Background context menu items */
-
 #context-sendimage,
 #context-sendvideo,
 #context-sendaudio,
-#context-setDesktopBackground {
+#context-setDesktopBackground,
+/* Hide the »Go«-arrow in the URL Bar */
+.urlbar-go-button,
+/* Disable the Navigation Buttons */
+#back-button,
+#forward-button {
   display: none !important;
-}
-
-#TabsToolbar {
-  visibility: collapse;
 }
