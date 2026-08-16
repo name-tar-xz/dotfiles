@@ -108,6 +108,7 @@
       NODE_REPL_HISTORY = "${dataHome}/node_repl_history";
       NVM_DIR = "${dataHome}/nvm";
       ANDROID_USER_HOME = "${dataHome}/android";
+      PYTHON_HISTORY = "${stateHome}/python_history";
       PYTHONSTARTUP = "${configHome}/python/pythonrc";
       PARALLEL_HOME = "${configHome}/parallel";
       GRADLE_USER_HOME = "${dataHome}/gradle";
