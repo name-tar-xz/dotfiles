@@ -33,7 +33,7 @@ _: {
           "network"
           "bluetooth"
           "group/audio"
-          "battery"
+          "upower"
           "clock"
           "idle_inhibitor"
           "tray"
@@ -48,28 +48,9 @@ _: {
           on-scroll-down = "brightnessctl -c backlight set +5%";
           on-scroll-up = "brightnessctl -c backlight set 5%-";
         };
-        battery = {
-          format = "{icon}{capacity: >3}%";
-          format-charging = "󰂄{capacity: >3}%";
-          format-icons = [
-            "󰂎"
-            "󰁺"
-            "󰁼"
-            "󰁽"
-            "󰁾"
-            "󰁿"
-            "󰂀"
-            "󰂁"
-            "󰂂"
-            "󰁹"
-          ];
-          format-plugged = "󰚥{capacity: >3}%";
-          interval = 1;
-          states = {
-            critical = 15;
-            good = 95;
-            warning = 30;
-          };
+        upower = {
+          icon-size = 18;
+          native-path = "BAT0";
         };
         bluetooth = {
           format = "";

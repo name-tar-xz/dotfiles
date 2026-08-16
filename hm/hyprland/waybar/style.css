@@ -86,7 +86,7 @@ tooltip label {
 }
 
 #clock,
-#battery,
+#upower,
 #cpu,
 #memory,
 #idle_inhibitor,
@@ -119,30 +119,14 @@ tooltip label {
   color: @blue;
 }
 
-#battery {
+#upower {
   color: @green;
 }
 
-#battery.charging {
+#upower.charging {
   color: @green;
 }
 
-@keyframes blink {
-  to {
-    color: #4c566a;
-    background-color: @text;
-  }
-}
-
-#battery.critical:not(.charging) {
-  background: @red;
-  color: @text;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
 
 #cpu {
   color: @lavender;
