@@ -1,9 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
-  boot.extraModprobeConfig = ''
-    options nvidia NVreg_UsePageAttributeTable=1 NVreg_InitializeSystemMemoryAllocations=0 NVreg_DynamicPowerManagement=0x02
-    options nvidia_drm modeset=1
-  '';
+  boot.extraModprobeConfig = "options nvidia NVreg_EnableGpuFirmware=0 NVreg_EnableS0ixPowerManagement=1";
 
   services = {
     xserver.videoDrivers = [ "nvidia" ];
@@ -28,9 +25,9 @@
         enable = true;
         finegrained = true;
       };
-      open = true;
+      open = false;
+      branch = "production";
       nvidiaSettings = false;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
       prime = {
         offload = {
           enable = true;
