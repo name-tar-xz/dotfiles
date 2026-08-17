@@ -1,4 +1,5 @@
-local term = "uwsm app kitty -1"
+local uwsm = "uwsm-app -s app.slice -- "
+local term = uwsm .. "kitty -1"
 
 hl.on("hyprland.start", function() hl.exec_cmd(term, { workspace = "special:0 silent" }) end)
 
@@ -137,7 +138,7 @@ bindS("ALT + M", hl.dsp.window.move { workspace = "special:0" })
 bindS("T", hl.dsp.workspace.toggle_special("0"))
 
 local function bindSe(keys, cmd, opts) bindS(keys, hl.dsp.exec_cmd(cmd), opts) end
-local function bindSeu(keys, app, opts) bindSe(keys, "uwsm app " .. app, opts) end
+local function bindSeu(keys, app, opts) bindSe(keys, uwsm .. app, opts) end
 
 bindSeu("B", "firefox")
 bindSe("Return", term)
