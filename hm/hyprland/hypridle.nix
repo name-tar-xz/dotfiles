@@ -9,12 +9,17 @@
 
   services.hypridle = {
     enable = true;
-    settings = {
-      general.before_sleep_cmd = "${lib.getExe' pkgs.procps "pidof"} ${lib.getExe pkgs.hyprlock} || ${lib.getExe pkgs.hyprlock}";
+    settings = rec {
+      general = {
+        before_sleep_cmd = "${lib.getExe' pkgs.procps "pidof"} ${lib.getExe pkgs.hyprlock} || ${lib.getExe pkgs.hyprlock}";
+        lock_cmd = "${lib.getExe' pkgs.procps "pidof"} ${lib.getExe pkgs.hyprlock} || ${lib.getExe pkgs.hyprlock}";
+        unlock_cmd = "${lib.getExe' pkgs.procps "pidof"} ${lib.getExe pkgs.hyprlock} | ${lib.getExe' pkgs.findutils "xargs"} kill -USR1";
+        inhibit_sleep = 1;
+      };
       listener = [
         {
-          timeout = 65;
-          on-timeout = "${lib.getExe' pkgs.procps "pidof"} ${lib.getExe pkgs.hyprlock} || ${lib.getExe pkgs.hyprlock}";
+          timeout = 90;
+          on-timeout = general.lock_cmd;
         }
         {
           timeout = 60;
@@ -23,8 +28,8 @@
         }
         {
           timeout = 300;
-          on-timeout = "${lib.getExe' config.wayland.windowManager.hyprland.finalPackage "hyprctl"} dispatch dpms off";
-          on-resume = "${lib.getExe' config.wayland.windowManager.hyprland.finalPackage "hyprctl"} dispatch dpms on";
+          on-timeout = "${lib.getExe' config.wayland.windowManager.hyprland.finalPackage "hyprctl"} dispatch 'hl.dsp.dpms{action=\"off\"}'";
+          on-resume = "${lib.getExe' config.wayland.windowManager.hyprland.finalPackage "hyprctl"} dispatch 'hl.dsp.dpms{action=\"on\"}'";
         }
       ];
     };
