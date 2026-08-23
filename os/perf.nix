@@ -205,7 +205,52 @@
           ${lib.getExe' pciutils "setpci"} -v -d "*:*:04xx" latency_timer=80
         '';
       };
-    };
+    }
+    // {
+      scx_loader.serviceConfig = {
+        CPUSchedulingPolicy = "rr";
+        # CPUSchedulingPriority = 99;
+        Nice = -20;
+      };
+      nix-daemon.serviceConfig = {
+        CPUSchedulingPolicyy = "batch";
+        Nice = 16;
+      };
+      greetd.serviceConfig = {
+        Nice = 16;
+        CPUSchedulingPolicy = "other";
+        IOSchedulingClass = "idle";
+      };
+    }
+    // pkgs.lib.genAttrs [ "tuned" "tuned-ppd" "bpftune" "systemd-networkd" "iwd" ] (_: {
+      serviceConfig = {
+        Nice = 16;
+        CPUSchedulingPolicy = "idle";
+        IOSchedulingClass = "idle";
+      };
+    })
+    //
+      pkgs.lib.genAttrs
+        [
+          "routedns"
+
+          "nvidia-powerd"
+          "nvidia-persistenced"
+
+          "systemd-udevd"
+          "systemd-logind"
+          "systemd-journald"
+
+          "nscd"
+          "polkit"
+          "acpid"
+        ]
+        (_: {
+          serviceConfig = {
+            Nice = 10;
+            IOSchedulingPriority = 6;
+          };
+        });
   };
 
   security.pam.loginLimits = [

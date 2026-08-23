@@ -2,6 +2,7 @@
   config,
   osConfig,
   pkgs,
+  lib,
   inputs,
   ...
 }:
@@ -66,7 +67,23 @@
         <Multi_key> <i> <d> : "¯\\_(ツ)_/¯"
         <Multi_key> <s> <r> : "¯\\\\\\_(ツ)_/¯"
       '';
-    };
+    }
+    // (
+      config.systemd.user.services
+      |> lib.filterAttrs (n: v: (lib.hasAttrByPath [ "Service" "Slice" ] v) && (v.Service.Slice == "background.slice"))
+      |> lib.mapAttrs' (
+        n: v:
+        lib.nameValuePair "systemd/user/${n}.service.d/overrides.conf" {
+          source = (pkgs.formats.ini { }).generate "overrides.conf" {
+            Service = {
+              CPUSchedulingPolicy = "idle";
+              Nice = 10;
+              IOSchedulingPriority = 6;
+            };
+          };
+        }
+      )
+    );
   };
 
   home = rec {

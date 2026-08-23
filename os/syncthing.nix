@@ -1,4 +1,5 @@
 _: {
+  systemd.services.syncthing.serviceConfig.CPUSchedulingPolicy = "idle";
   services.syncthing = {
     enable = false;
     openDefaultPorts = true;
