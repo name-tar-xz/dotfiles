@@ -14,27 +14,19 @@
   font-family: -moz-fixed;
   --chrome-window-gap: 0px !important;
   --chrome-block-radius: 0px !important;
-  --panel-background-color: black;
+  --background-color-box: black !important;
+  --panel-background-color: black !important;
+  --toolbar-field-border-color: none !important;
+  --chrome-content-separator-color: none;
 }
 
-:root[sidebar-expand-on-hover] {
-  & #tabbrowser-tabbox {
-    @media -moz-pref("browser.nova.enabled") {
-      &[sidebar-positionend]:not([sidebar-panel-open]) {
-        margin-inline-end: calc(var(--sidebar-launcher-collapsed-width) - 6px) !important;
-      }
-    }
-  }
+#browser {
+  padding-block-start: 0px !important;
 }
 
-.browserContainer {
-  border: 0px !important;
-}
-
-#sidebar-container,
-.urlbar-background,
-#nav-bar {
+.browser-toolbar {
   background: black !important;
+  border: 0px !important;
 }
 
 .tab-background {
@@ -48,32 +40,12 @@
   text-align: center;
 }
 
-#urlbar-results {
-  text-align: right;
-}
-
-#identity-icon-box {
-  background: transparent !important;
-}
-
-#urlbar,
 #urlbar * {
   outline: none !important;
-  box-shadow: none !important;
 }
 
-#urlbar-background {
-  border: transparent !important;
-}
-
-/* bookmark icon margin fix */
-.urlbar-page-action .urlbar-icon {
-  margin-top: 0px !important;
-}
-
-/* Enable option to edit bookmark URLs under Add Bookmark (blue star) menu */
-#editBMPanel_locationRow {
-  visibility: visible !important;
+#urlbar-results {
+  text-align: right;
 }
 
 /* Disable Email Image/Audio/Video and Set as Desktop Background context menu items */
