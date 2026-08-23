@@ -190,7 +190,6 @@ _: {
           ];
           format-wifi = "{icon} {bandwidthDownBytes}";
           interval = 1;
-          on-click = "pkill iwgtk; iwgtk";
           tooltip-format = "{essid} ({frequency} MHz) {signalStrength}%\n⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}";
         };
         privacy = {

@@ -51,14 +51,6 @@
     autostart = {
       enable = true;
       readOnly = true;
-      entries = [
-        "${
-          pkgs.makeDesktopItem {
-            name = "iwgtk-indicator";
-            desktopName = "inhibit-iwgtk";
-          }
-        }/share/applications/iwgtk-indicator.desktop"
-      ];
     };
 
     configFile = {
@@ -87,7 +79,7 @@
 
     packages = with pkgs; [
       sops
-      iwgtk # Wifi
+      impala # Wifi
       overskride # Bluetooth
       # Audio
       crosspipe
