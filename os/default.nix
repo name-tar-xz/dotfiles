@@ -238,9 +238,6 @@
     age.keyFile = "/var/lib/age.txt";
     useTmpfs = true;
 
-    secrets = {
-      wg = { };
-      tailscale = { };
-    };
+    secrets.tailscale = { };
   };
 }

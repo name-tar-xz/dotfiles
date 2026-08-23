@@ -76,7 +76,7 @@
     hostName = hostname;
 
     useNetworkd = true;
-    resolvconf.enable = false;
+    resolvconf.enable = true;
 
     wireless.iwd = {
       enable = true;
@@ -110,20 +110,37 @@
       # extraCommands = "iptables -A INPUT -p icmp -j ACCEPT";
     };
 
-    wg-quick.interfaces = {
-      wg0 = {
-        autostart = false;
-        address = [ "10.2.0.2/32" ];
-        privateKeyFile = config.sops.secrets.wg.path;
-        peers = [
-          {
-            allowedIPs = [ "0.0.0.0/0" ];
-            publicKey = "jDrSMRMm6XJgYGcSd01QqJbYiW13dyaOKp8GWDs0rTQ=";
-            endpoint = "185.177.125.173:51820";
-          }
-        ];
-      };
-    };
+    wg-quick.interfaces =
+      pkgs.lib.mapAttrs'
+        (n: v: {
+          name = "wg${n}";
+          value = {
+            autostart = false;
+            address = [
+              "10.2.0.2/32"
+              "2a07:b944::2:2/128"
+            ];
+            dns = [
+              "10.2.0.1"
+              "2a07:b944::2:1"
+            ];
+            privateKeyFile = config.sops.secrets."wg${n}".path;
+            peers = pkgs.lib.singleton {
+              allowedIPs = [
+                "0.0.0.0/0"
+                "::/0"
+              ];
+              publicKey = v;
+              endpoint = "[2a00:7c80:0:3a7::10]:51820";
+              persistentKeepalive = 25;
+            };
+          };
+        })
+        {
+          "0" = "dhtz5+jUyF+37NmZc2WIEOTf7/UTJlaT1ojEGkPMPiI=";
+          "1" = "MD0ct1eK6uHm/E0XJmTnjRG4idxzrffswFxGvwM6uWY=";
+          "2" = "jZ4R9rB/aiurfhPqm9XFyS9Euzdpwec//0rEz/bUPU0=";
+        };
   };
 
   sops = {
@@ -132,6 +149,9 @@
       owner = "routedns";
       path = "/etc/routedns.toml";
     };
-    secrets.adguard.owner = "routedns";
+    secrets = {
+      adguard.owner = "routedns";
+    }
+    // pkgs.lib.genAttrs [ "wg0" "wg1" "wg2" ] (_: { });
   };
 }
