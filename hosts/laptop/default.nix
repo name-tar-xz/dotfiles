@@ -95,7 +95,6 @@
 
   systemd = {
     enableEmergencyMode = false;
-    suppressedSystemUnits = [ "systemd-backlight@.service" ];
     services.audit.enable = true;
 
     user.services.dconf.serviceConfig.Slice = "session.slice";

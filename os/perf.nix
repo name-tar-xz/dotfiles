@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   boot = {
+    extraModprobeConfig = "options iwlwifi power_save=1";
     kernelParams = [
       "zswap.enabled=0"
       "noresume" # zram makes hibernation impossible anyway
@@ -12,7 +13,6 @@
       "rcutree.enable_rcu_lazy=1"
       "rcu_nocbs=all"
       "mem_sleep_default=deep"
-      "cpuidle.governor=teo"
     ];
 
     blacklistedKernelModules = [
@@ -72,7 +72,10 @@
 
           lru_gen.enabled = 7;
         };
+
         class.rtc.rtc0.max_user_freq = 3072;
+
+        class.power_supply.BAT0.charge_control_end_threshold = 80;
       };
     };
 
@@ -96,7 +99,7 @@
     '';
 
     bpftune.enable = true;
-    irqbalance.enable = true;
+    irqbalance.enable = false;
     thermald.enable = true;
 
     scx-loader = {

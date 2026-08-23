@@ -198,13 +198,10 @@ bindX("AudioRaiseVolume", "changeVolume 5%+")
 bindX("AudioLowerVolume", "changeVolume 5%-")
 bindX("AudioMute", "wpctl set-mute @DEFAULT_SINK@ toggle")
 
-for _, v in pairs { "iwgtk", "dconf Editor", "Firefox - Sharing Indicator" } do
+for _, v in ipairs { "iwgtk", "dconf Editor", "Firefox - Sharing Indicator" } do
   hl.window_rule { match = { title = "^(" .. v .. ")$" }, float = true }
 end
-for _, v in pairs { "Open File", "branchdialog" } do
-  hl.window_rule { match = { title = v }, float = true }
-end
-for _, v in pairs { "file_progress", "confirm", "dialog", "download", "notification", "error", "splash", "confirmreset", "viewnoir", "file-roller", "zoom" } do
+for _, v in ipairs { "zoom", "xdg-desktop-portal-gtk" } do
   hl.window_rule { match = { class = v }, float = true }
 end
 

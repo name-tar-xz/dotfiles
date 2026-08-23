@@ -41,8 +41,8 @@ vim.schedule(function()
       :totable(),
     callback = function()
       vim.treesitter.start()
-      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.bo.indentexpr = require("nvim-treesitter").indentexpr
+      vim.wo.foldexpr = vim.treesitter.foldexpr
       vim.wo.foldmethod = "expr"
 
       require("treesitter-context").setup({ max_lines = 3 })

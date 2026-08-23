@@ -94,6 +94,7 @@
 
     consoleLogLevel = 3;
     kernelParams = [
+      "overlay.index=off"
       "quiet"
       "vt.global_cursor_default=0"
       "rd.systemd.show_status=auto"
@@ -214,11 +215,13 @@
       enableUserSlices = true;
       settings.OOM.DefaultMemoryPressureDurationSec = "20s";
     };
-
+  }
+  // rec {
     settings.Manager = {
       DefaultTimeoutStopSec = "10s";
       DefaultTimeoutStartSec = "15s";
     };
+    user.settings.Manager = settings.Manager;
   };
 
   security = {

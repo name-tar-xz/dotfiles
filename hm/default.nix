@@ -87,7 +87,7 @@
       crosspipe
       pwvucontrol
 
-      # libreoffice-qt6-fresh # Applications
+      libreoffice-stable # Applications
     ];
 
     sessionVariables = {

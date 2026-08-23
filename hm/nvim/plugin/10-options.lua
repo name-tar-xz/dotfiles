@@ -14,7 +14,7 @@ vim.g.mapleader = leader -- Set <Space> as the <Leader> key
 vim.g.maplocalleader = leader
 
 vim.opt.backspace:append("nostop") -- don't stop backspace at insert
-vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heutistic"] = true }) -- enable linematch diff algorithm
+vim.opt.diffopt:append({ linematch = 60, algorithm = "histogram", ["indent-heuristic"] = true }) -- enable linematch diff algorithm
 vim.opt.fillchars:append({ diff = "╱", eob = " ", fold = " ", foldopen = "", foldclose = "" })
 vim.opt.formatoptions:append({ c = false, ["/"] = true, n = true, p = true })
 vim.opt.shortmess:append({ s = true, I = true, a = true, W = true, A = true, S = true }) -- disable search count wrap and startup messages
@@ -43,7 +43,7 @@ vim.o.foldcolumn = "0"
 vim.o.foldlevel = 1e2
 vim.o.foldmethod = "indent"
 vim.o.foldtext = ""
-vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.o.formatexpr = function() return require("conform").formatexpr() end
 vim.o.history = 1e3 -- Number of commands to remember in a history table
 vim.o.hlsearch = true
 vim.o.ignorecase = true -- Case insensitive searching
