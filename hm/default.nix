@@ -68,6 +68,12 @@
       };
 
       "python/pythonrc".source = config/python/pythonrc.py;
+
+      "X11/XCompose".text = ''
+        include "%L"
+        <Multi_key> <i> <d> : "¯\\_(ツ)_/¯"
+        <Multi_key> <s> <r> : "¯\\\\\\_(ツ)_/¯"
+      '';
     };
   };
 
@@ -113,6 +119,7 @@
       PARALLEL_HOME = "${configHome}/parallel";
       GRADLE_USER_HOME = "${dataHome}/gradle";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configHome}/java -Djavafx.cachedir=${cacheHome}/openjfx";
+      XCOMPOSEFILE = "${configHome}/X11/XCompose";
     });
 
     shellAliases = {
