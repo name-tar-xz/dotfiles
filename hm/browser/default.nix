@@ -156,7 +156,10 @@
       TranslateEnabled = true;
 
       DisableSecurityBypass.InvalidCertificate = true;
-      GenerativeAI.Enabled = false;
+      GenerativeAI = {
+        Enabled = false;
+        Locked = true;
+      };
       Homepage = {
         StartPage = "previous-session";
         Locked = true;
@@ -226,15 +229,13 @@
         Locked = true;
       };
 
-      Handlers.schemes.mailto = {
+      Handler.schemes.mailto = {
         action = "useHelperApp";
         ask = false;
-        handlers = [
-          {
-            name = "ProtonMail";
-            uriTemplate = "https://mail.proton.me/inbox/#mailto=%s";
-          }
-        ];
+        handlers = lib.singleton {
+          name = "ProtonMail";
+          uriTemplate = "https://mail.proton.me/inbox/#mailto=%s";
+        };
       };
 
       Permissions.Notifications.Allow = [
@@ -254,10 +255,7 @@
         Locked = true;
       };
 
-      UserMessaging = {
-        FirefoxLabs = false;
-        Locked = true;
-      };
+      UserMessaging.Locked = true; # Set by Phoenix
     };
 
     profiles = {
@@ -268,17 +266,13 @@
           engines = {
             Brave = {
               name = "Brave";
-              urls = [
-                {
-                  template = "https://search.brave.com/search";
-                  params = [
-                    {
-                      name = "q";
-                      value = "{searchTerms}";
-                    }
-                  ];
-                }
-              ];
+              urls = lib.singleton {
+                template = "https://search.brave.com/search";
+                params = lib.singleton {
+                  name = "q";
+                  value = "{searchTerms}";
+                };
+              };
             };
             bing.metaData.hidden = true;
             google.metaData.hidden = true;
