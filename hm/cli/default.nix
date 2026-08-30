@@ -11,6 +11,8 @@
     go
     python3
 
+    (octaveFull.withPackages (p: with p; [ symbolic ]))
+
     ## File Management
     rmtrash
     trash-cli

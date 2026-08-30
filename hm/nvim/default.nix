@@ -76,6 +76,7 @@
           luap
           markdown
           markdown_inline
+          matlab
           nix
           python
           regex
