@@ -21,6 +21,7 @@
 
     ./cli
     ./nvim
+    ./helix
   ];
 
   nix = { inherit (osConfig.nix) gc; };
