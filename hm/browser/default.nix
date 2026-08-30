@@ -326,6 +326,54 @@
           "layers.gpu-process.enabled" = true;
           "media.gpu-process-decoder" = true;
 
+          "browser.uiCustomization.state" = builtins.toJSON {
+            currentVersion = 23;
+            dirtyAreaCache = [
+              "unified-extensions-area"
+              "nav-bar"
+              "TabsToolbar"
+              "vertical-tabs"
+              "toolbar-menubar"
+              "PersonalToolbar"
+            ];
+            newElementCount = 1;
+            placements = {
+              PersonalToolbar = [ "personal-bookmarks" ];
+              TabsToolbar = [ ];
+              nav-bar = [
+                "reset-pbm-toolbar-button"
+                "urlbar-container"
+                "downloads-button"
+                "unified-extensions-button"
+                "vertical-spacer"
+                "forward-button"
+                "back-button"
+              ];
+              toolbar-menubar = [ "menubar-items" ];
+              unified-extensions-area = [
+                "ublock0_raymondhill_net-browser-action"
+                "78272b6fa58f4a1abaac99321d503a20_proton_me-browser-action"
+                "7esoorv3_alefvanoon_anonaddy_me-browser-action"
+                "addon_darkreader_org-browser-action"
+                "_8e515334-52b5-4cc5-b4e8-675d50af677d_-browser-action"
+                "_3579f63b-d8ee-424f-bbb6-6d0ce3285e6a_-browser-action"
+              ];
+              vertical-tabs = [ "tabbrowser-tabs" ];
+              widget-overflow-fixed-list = [ ];
+            };
+            seen = [
+              "reset-pbm-toolbar-button"
+              "78272b6fa58f4a1abaac99321d503a20_proton_me-browser-action"
+              "7esoorv3_alefvanoon_anonaddy_me-browser-action"
+              "addon_darkreader_org-browser-action"
+              "ublock0_raymondhill_net-browser-action"
+              "_8e515334-52b5-4cc5-b4e8-675d50af677d_-browser-action"
+              "developer-button"
+              "screenshot-button"
+              "_3579f63b-d8ee-424f-bbb6-6d0ce3285e6a_-browser-action"
+            ];
+          };
+
           # LIBREWOLF SETTINGS https://codeberg.org/librewolf/settings/src/branch/master/librewolf.cfg
           "extensions.ui.mlmodel.hidden" = true;
           "devtools.selfxss.count" = 0; # required for devtools console to work
