@@ -20,6 +20,7 @@
     ../../os/intel.nix
     ../../os/nvidia.nix
     ../../os/perf.nix
+    ../../os/virtualisation.nix
   ];
 
   boot = {

@@ -19,6 +19,7 @@
   ];
 
   imports = [
+    ./distrobox.nix
     ./fastfetch.nix
     ./fzf.nix
     ./git.nix
