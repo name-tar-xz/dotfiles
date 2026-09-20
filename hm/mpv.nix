@@ -12,7 +12,7 @@
         scripts = with pkgs.mpvScripts; [
           autodeint
           mpris
-          (pkgs.ani-skip.overrideAttrs { passthru.scriptName = "skip"; })
+          (pkgs.ani-skip.overrideAttrs { passthru.scriptName = "skip.lua"; })
         ];
       };
       config = {

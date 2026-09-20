@@ -134,7 +134,6 @@
     package = pkgs.lixPackageSets.latest.lix;
 
     registry = inputs |> lib.filterAttrs (_: v: lib.isType "flake" v) |> lib.mapAttrs (_: v: { flake = v; });
-    nixPath = registry |> lib.mapAttrsToList (k: _: "${k}=flake:${k}");
 
     daemonCPUSchedPolicy = "batch";
     daemonIOSchedClass = "idle";
@@ -171,7 +170,7 @@
       allowed-users = [ "@wheel" ];
       trusted-users = [ "@wheel" ];
 
-      nix-path = nixPath;
+      nix-path = registry |> lib.mapAttrsToList (k: _: "${k}=flake:${k}");
     };
   };
 
@@ -203,7 +202,11 @@
       authKeyFile = config.sops.secrets.tailscale.path;
     };
 
-    journald.extraConfig = "SystemMaxUse=100M";
+    journald.settings.Journal = {
+      SystemMaxUse = "100M";
+      RuntimeMaxUse = "50M";
+      SystemMaxFileSize = "50M";
+    };
   };
 
   systemd = {

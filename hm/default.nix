@@ -63,7 +63,7 @@
 
       "python/pythonrc".source = config/python/pythonrc.py;
 
-      "X11/XCompose".text = ''
+      "X11/XCompose".text = /* xcompose */ ''
         include "%L"
         <Multi_key> <i> <d> : "¯\\_(ツ)_/¯"
         <Multi_key> <s> <r> : "¯\\\\\\_(ツ)_/¯"

@@ -105,7 +105,7 @@
       astyle
       ## Nix
       nixd
-      nixfmt
+      nixfmt-rs
       statix
       ## Shell
       shfmt

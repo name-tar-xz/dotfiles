@@ -96,7 +96,7 @@
         with nixpkgs.legacyPackages.x86_64-linux;
         treefmt.withConfig {
           runtimeInputs = [
-            nixfmt
+            nixfmt-rs
             deadnix
             stylua
             yamlfmt

@@ -83,10 +83,7 @@
                   "${userDirs.download}"
                   "${config.home.homeDirectory}/Downloads"
                 ]
-                (sloth.concat [
-                  (sloth.env "XDG_RUNTIME_DIR")
-                  "/doc"
-                ]) # required to open files from the file chooser portal and downloads
+                (sloth.concat' sloth.runtimeDir "/doc") # required to open files from the file chooser portal and downloads
               ];
 
               ro =
@@ -179,15 +176,14 @@
         let
           # shortId: https://addons.mozilla.org/en-US/firefox/addon/${shortId}/ uuid: about:support
           extension = shortId: uuid: private: {
-            name = uuid;
-            value = {
+            "${uuid}" = {
               install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${shortId}/latest.xpi";
               installation_mode = "normal_installed";
               private_browsing = private;
             };
           };
         in
-        builtins.listToAttrs [
+        lib.mkMerge [
           (extension "ublock-origin" "uBlock0@raymondhill.net" true)
           (extension "libredirect" "7esoorv3@alefvanoon.anonaddy.me" true)
           (extension "proton-pass" "78272b6fa58f4a1abaac99321d503a20@proton.me" false)

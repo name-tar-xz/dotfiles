@@ -25,7 +25,6 @@
   xdg.configFile = {
     "systemd/user/xdg-desktop-portal-gtk.service.d/overrides.conf".source = # workaround for https://github.com/nix-community/home-manager/issues/5401
       (pkgs.formats.ini { }).generate "" { Service.Slice = "session.slice"; };
-    "hypr/xdph.conf".text = lib.hm.generators.toHyprconf { attrs.screencopy.max_fps = 30; };
 
     "nixos/hm/hyprland/.luarc.json".text = builtins.toJSON {
       workspace.library = [ "${config.wayland.windowManager.hyprland.finalPackage}/share/hypr/stubs" ];
@@ -81,6 +80,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
+    xdph.settings.screencopy.max_fps = 30;
     configType = "lua";
     extraConfig = builtins.readFile ./hyprland.lua;
     settings.permission = [

@@ -10,10 +10,11 @@
     enable = true;
     plugins = with pkgs; [ rofi-power-menu ];
 
-    cycle = true;
-    font = "monospace 12";
     theme = ./theme.rasi;
-    extraConfig = {
+
+    settings = {
+      cycle = true;
+      font = "monospace 12";
       modes = "drun,window";
       fixed-num-lines = false;
       show-icons = true;

@@ -145,8 +145,8 @@ bindSe("Return", term)
 bindSe("ALT + T", term)
 
 for _, v in pairs { "", "SUPER +" } do
-  for n, i in pairs { "screen", "active", "area" } do
-    hl.bind((n == 2 and "ALT+" or "") .. (n == 3 and "SHIFT+" or "") .. v .. "Print", hl.dsp.exec_cmd("grimblast --notify copy" .. (v == "" and "" or "save") .. " " .. i))
+  for _, i in pairs { { "", "screen" }, { "ALT+", "active" }, { "SHIFT+", "area" } } do
+    hl.bind(i[1] .. v .. "Print", hl.dsp.exec_cmd("grimblast --notify copy" .. (v == "" and "" or "save") .. " " .. i[2]))
   end
 end
 
@@ -166,15 +166,10 @@ bindSe("escape", rof2 .. "p -modes p:rofi-power-menu")
 bindSe("S", rof1 .. "-systemd")
 bindSe("V", "pkill rofi || cliphist list | rofi -dmenu | cliphist decode | wl-copy")
 
-local function vimToDir(a)
-  if a:lower() == "h" then return "l" end
-  if a:lower() == "j" then return "d" end
-  if a:lower() == "k" then return "u" end
-  if a:lower() == "l" then return "r" end
-end
+local vimToDir = { H = "l", J = "d", K = "u", L = "r" }
 
 for k, i in pairs { "H", "J", "K", "L" } do
-  local d = vimToDir(i)
+  local d = vimToDir[i]
   bindS(i, hl.dsp.focus { direction = d })
   bindS("ALT +" .. i, hl.dsp.window.move { direction = d })
   bindS("CTRL +" .. i, hl.dsp.window.move { into_group = d })
