@@ -15,20 +15,12 @@ builder goal *args:
         --accept-flake-config \
         --log-format internal-json \
         --elevate=run0 --no-reexec \
-        {{ args }} \
+        --diff {{ args }} \
         |& nom --json
 
-[no-exit-message]
-[private]
-[script]
-build-diff goal *args:
-    before=$(readlink /run/current-system)
-    just builder {{ goal }} {{ args }}
-    lix diff "$before"
-
 [default]
-test *args: (build-diff "test" args)
-switch *args: (build-diff "switch" args)
+test *args: (builder "test" args)
+switch *args: (builder "switch" args)
 boot *args: (builder "boot" args)
 
 rb *args: (boot args)
