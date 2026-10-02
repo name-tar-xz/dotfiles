@@ -148,8 +148,6 @@ for _, v in pairs { "", "SUPER +" } do
 end
 
 bindSe("SHIFT+C", "hyprpicker -a -n")
-bindSe("W", "pkill -USR1 waybar || waybar")
-bindSe("SHIFT+W", "pkill -USR2 waybar")
 bindSe("ALT+CTRL+L", "hyprlock")
 bindSe("D", "dunstctl set-paused toggle")
 

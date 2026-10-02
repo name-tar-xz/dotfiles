@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ./waybar
+    ./noctalia.nix
     ./hyprlock.nix
     ./dunst.nix
     ./hypridle.nix
