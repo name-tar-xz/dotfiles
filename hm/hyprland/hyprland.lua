@@ -11,7 +11,7 @@ hl.config {
     gaps_out = 0,
     border_size = 2,
     col = { active_border = colors.accent, inactive_border = "rgba(00000000)" },
-    layout = "dwindle",
+    layout = "scrolling",
     allow_tearing = true,
   },
 
@@ -88,19 +88,16 @@ hl.config {
 
   dwindle = {},
   master = { mfact = 0.5 },
+  scrolling = {
+    explicit_column_widths = (1 / 3) .. "," .. 0.5 .. "," .. (2 / 3) .. "," .. 1,
+    follow_min_visible = 0.1,
+  },
 }
 
-hl.gesture {
-  fingers = 3,
-  direction = "horizontal",
-  action = "workspace",
-}
-hl.gesture {
-  fingers = 3,
-  direction = "vertical",
-  action = "special",
-  workspace_name = "0",
-}
+hl.gesture { fingers = 3, direction = "pinch", action = "cursor_zoom", zoom_level = 1, mode = "live" }
+hl.gesture { fingers = 3, direction = "horizontal", action = "scroll_move", scale = 10 }
+hl.gesture { fingers = 3, direction = "vertical", action = "workspace" }
+hl.gesture { fingers = 4, direction = "vertical", action = "special", workspace_name = "0" }
 
 hl.curve("emphasizedDecel", { type = "bezier", points = { { 0.05, 0.7 }, { 0.1, 1 } } })
 hl.curve("emphasizedAccel", { type = "bezier", points = { { 0.3, 0 }, { 0.8, 0.15 } } })
@@ -119,7 +116,7 @@ hl.animation { leaf = "layersIn", enabled = true, speed = 2.7, bezier = "emphasi
 hl.animation { leaf = "layersOut", enabled = true, speed = 2.4, bezier = "menu_accel", style = "popin 94%" }
 hl.animation { leaf = "fadeLayersIn", enabled = true, speed = 0.5, bezier = "menu_decel" }
 hl.animation { leaf = "fadeLayersOut", enabled = true, speed = 2.7, bezier = "stall" }
-hl.animation { leaf = "workspaces", enabled = true, speed = 7, bezier = "menu_decel", style = "slide" }
+hl.animation { leaf = "workspaces", enabled = true, speed = 7, bezier = "menu_decel", style = "slidevert" }
 hl.animation { leaf = "specialWorkspaceIn", enabled = true, speed = 2.8, bezier = "emphasizedDecel", style = "slidevert" }
 hl.animation { leaf = "specialWorkspaceOut", enabled = true, speed = 1.2, bezier = "emphasizedAccel", style = "slidevert" }
 
@@ -171,10 +168,15 @@ local vimToDir = { H = "l", J = "d", K = "u", L = "r" }
 for k, i in pairs { "H", "J", "K", "L" } do
   local d = vimToDir[i]
   bindS(i, hl.dsp.focus { direction = d })
-  bindS("ALT +" .. i, hl.dsp.window.move { direction = d })
   bindS("CTRL +" .. i, hl.dsp.window.move { into_group = d })
   local t = ((k % 2) * -2) + 1
-  bindS("SHIFT +" .. i, hl.dsp.window.resize { relative = true, x = ((i == "H" or i == "L") and t * 20) or 0, y = ((i == "J" or i == "K") and t * 20) or 0 }, { repeating = true })
+  if i == "H" or i == "L" then
+    bindS("ALT +" .. i, hl.dsp.layout("swapcol " .. d))
+    bindS("SHIFT +" .. i, hl.dsp.layout("colresize " .. (t == 1 and "+" or "-") .. "conf"))
+  elseif i == "J" or i == "K" then
+    bindS("ALT +" .. i, hl.dsp.layout("consume_or_expel " .. (i == "J" and "next" or "prev")))
+    bindS("SHIFT +" .. i, hl.dsp.window.resize { relative = true, x = 0, y = t * 20 }, { repeating = true })
+  end
 end
 
 for i = 1, 10 do
