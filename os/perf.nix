@@ -187,10 +187,13 @@
 
   systemd = {
     settings.Manager.DefaultLimitNOFILE = "2048:2097152";
+    packages = [ pkgs.dmemcg-booster ];
     services = {
       greetd.serviceConfig.MemoryKSM = true;
       "getty@".serviceConfig.MemoryKSM = true;
       "user@".serviceConfig.MemoryKSM = true;
+
+      dmemcg-booster-system.wantedBy = [ "multi-user.target" ];
 
       adaptivemmd = {
         serviceConfig = {
