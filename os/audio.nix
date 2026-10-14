@@ -61,16 +61,34 @@ _: {
 
       wireplumber = {
         enable = true;
-        extraConfig."99-alsa-lowlatency"."monitor.alsa.rules" = [
-          {
-            matches = [ { "node.name" = "~alsa_output.*"; } ];
-            actions.update-props = {
-              "api.alsa.period-num" = 3;
-              "api.alsa.period-size" = quantum;
-              "audio.rate" = rate;
+        extraConfig = {
+          "51-bluetooth" = {
+            "monitor.bluez.properties" = {
+              "bluez5.default.rate" = rate; # 48000 or 44100
+              "bluez5.default.channels" = 2;
             };
-          }
-        ];
+            "monitor.bluez.rules" = [
+              {
+                matches = [ { "device.name" = "~bluez_card.*"; } ];
+                actions.update-props = {
+                  "bluez5.a2dp.ldac.quality" = "auto";
+                  "bluez5.a2dp.aac.bitratemode" = 5;
+                };
+              }
+            ];
+          };
+
+          "99-alsa-lowlatency"."monitor.alsa.rules" = [
+            {
+              matches = [ { "node.name" = "~alsa_output.*"; } ];
+              actions.update-props = {
+                "api.alsa.period-num" = 3;
+                "api.alsa.period-size" = quantum;
+                "audio.rate" = rate;
+              };
+            }
+          ];
+        };
       };
     };
 }
