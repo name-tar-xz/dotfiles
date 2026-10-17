@@ -1,10 +1,11 @@
-_: {
+{ config, pkgs, ... }:
+{
   catppuccin.delta.enable = true;
 
   programs = {
     git = {
       enable = true;
-
+      lfs.enable = true;
       ignores = [
         ".Trash-*"
         "node_modules"
@@ -12,50 +13,84 @@ _: {
         "nohup.out"
       ];
 
+      signing = {
+        format = "ssh";
+        key = "${config.home.homeDirectory}/.ssh/id_ed25519";
+        signByDefault = true;
+      };
+
       settings = {
         user = {
           name = "tarzst";
-          email = "git.3myp3@slmail.me";
-          signingKey = "DA1AE234F1953A10F6078E9B9E604C53FBEFE1D9";
+          email = "git" + "." + "3myp3" + "@" + "slmail" + "." + "me";
         };
 
-        commit.gpgSign = true;
-        tag.gpgSign = true;
         advice.statusHints = false;
         help.autocorrect = 1;
-        push.autoSetupRemote = true;
-        fetch.prune = true;
+        init.defaultBranch = "master";
+        receive.fsckObjects = true;
+        status.showStash = true;
+        transfer.fsckObjects = true;
+        commit.verbose = true;
 
         alias = {
           lg = "log --graph";
           hist = "log -p";
         };
 
+        core = {
+          whitespace = "fix,trailing-space";
+          pager = "delta";
+        };
+        push = {
+          autoSetupRemote = true;
+          default = "current";
+        };
+        fetch = {
+          prune = true;
+          fsckObjects = true;
+        };
         log = {
           decorate = true;
           initialDecorationSet = "all";
           date = "human";
         };
-
-        init.defaultBranch = "master";
-        merge.conflictstyle = "diff3";
-        status.showStash = true;
-
+        branch = {
+          autoSetupMerge = true;
+          sort = "committerdate";
+        };
+        merge = {
+          conflictstyle = "zdiff3";
+          autoStash = true;
+          stat = true;
+        };
         rebase = {
           autoStash = true;
+          updateRefs = true;
           abbreviateCommands = true;
         };
-
         diff = {
+          algorithm = "histogram";
           tool = "vimdiff";
-          colorMoved = "default";
+          colorMoved = "plain";
           renames = true;
+          mnemonicPrefix = true;
         };
-
         difftool.prompt = false;
+        rerere = {
+          enabled = true;
+          autoUpdate = true;
+        };
+        url =
+          let
+            alias = domain: alias: { "ssh://git@${domain}/".InsteadOf = "${alias}:"; };
+          in
+          pkgs.lib.mkMerge [
+            (alias "github.com" "github")
+            (alias "gitlab.com" "gitlab")
+            (alias "codeberg.org" "codeberg")
+          ];
       };
-
-      lfs.enable = true;
     };
     delta = {
       enable = true;
