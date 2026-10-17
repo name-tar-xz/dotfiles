@@ -134,6 +134,9 @@ bindS("SHIFT+tab", hl.dsp.group.prev())
 bindS("ALT + M", hl.dsp.window.move { workspace = "special:0" })
 bindS("T", hl.dsp.workspace.toggle_special("0"))
 
+bindS("A", hl.dsp.exec_cmd("jerry"))
+bindS("ALT + A", hl.dsp.exec_cmd("ani-cli --rofi --skip -c"))
+
 local function bindSe(keys, cmd, opts) bindS(keys, hl.dsp.exec_cmd(cmd), opts) end
 local function bindSeu(keys, app, opts) bindSe(keys, uwsm .. app, opts) end
 

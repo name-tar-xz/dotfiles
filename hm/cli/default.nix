@@ -207,7 +207,6 @@
       settings = with config.xdg; {
         prefix = "${dataHome}/npm";
         cache = "${cacheHome}/npm";
-        tmp = "\${XDG_RUNTIME_DIR}/npm";
       };
     };
   };

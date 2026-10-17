@@ -94,6 +94,7 @@
   // {
     stateVersion = "23.11";
     preferXdgDirectories = true;
+    backupCommand = "${lib.getExe' pkgs.trash-cli "trash-put"}";
 
     packages = with pkgs; [
       sops

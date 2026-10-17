@@ -53,10 +53,6 @@
                   "${cacheHome}/mozilla/firefox"
                   "${config.home.homeDirectory}/.cache/mozilla/firefox"
                 ]
-                [
-                  "${userDirs.download}"
-                  "${config.home.homeDirectory}/Downloads"
-                ]
               ];
 
               ro =

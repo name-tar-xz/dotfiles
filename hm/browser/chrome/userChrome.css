@@ -12,21 +12,23 @@
 
 * {
   font-family: -moz-fixed;
-  --chrome-window-gap: 0px !important;
-  --chrome-block-radius: 0px !important;
   --background-color-box: black !important;
   --panel-background-color: black !important;
   --toolbar-field-border-color: none !important;
-  --chrome-content-separator-color: none;
 }
 
 #browser {
   padding-block-start: 0px !important;
 }
 
-.browser-toolbar {
+.browser-toolbar,
+#sidebar-container {
   background: black !important;
-  border: 0px !important;
+}
+
+.browserContainer {
+  border-width: 0px !important;
+  border-radius: 0px !important;
 }
 
 .tab-background {
@@ -42,6 +44,7 @@
 
 #urlbar * {
   outline: none !important;
+  border: none !important;
 }
 
 #urlbar-results {
